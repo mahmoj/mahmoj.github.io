@@ -1211,10 +1211,14 @@ TOOLS.push({
 
 
     /* ══════ FILE INFO ══════ */
+
+
+
+    /* ══════ FILE INFO + EXIF ══════ */
 TOOLS.push({
   id:'fileinfo', cat:'image', icon:'fa-solid fa-circle-info',
-  title:'اطلاعات فایل تصویری', tag:'تصویر',
-  desc:'تمام جزئیات عکس را ببینید — ابعاد، حجم، رنگ‌ها، ساختار PNG.',
+  title:'اطلاعات کامل تصویر', tag:'تصویر',
+  desc:'تمام جزئیات عکس — ابعاد، رنگ‌ها، دوربین، GPS، تاریخ و ساختار فایل.',
   html:`<style>
       .fi-drop{padding:1.6rem 1rem;border-radius:14px;border:2px dashed rgba(217,194,0,.4);background:var(--panel);text-align:center;cursor:pointer;transition:.3s;display:block;width:100%}
       .fi-drop:hover{border-color:var(--gold);background:var(--soft)}
@@ -1238,15 +1242,16 @@ TOOLS.push({
       .fi-row b{color:var(--muted);font-weight:700;overflow-wrap:anywhere}
       .fi-row span{color:var(--text);font-family:ui-monospace,monospace;font-size:.76rem;direction:ltr;text-align:left;overflow-wrap:anywhere;word-break:break-word}
       .fi-color-dot{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-left:.4rem;border:1px solid rgba(255,255,255,.25)}
-      .fi-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}
-      .fi-actions .btn{flex:1 1 auto;min-width:120px}
       .fi-empty{text-align:center;padding:1.2rem;color:var(--muted);font-size:.78rem;background:var(--panel);border-radius:12px;border:1px dashed var(--stroke)}
+      .fi-map{margin-top:.6rem;padding:.9rem;border-radius:10px;background:linear-gradient(140deg,rgba(217,194,0,.1),rgba(217,194,0,.02));border:1px solid rgba(217,194,0,.3);text-align:center;font-family:ui-monospace,monospace;font-size:.8rem;color:var(--gold);direction:ltr}
+      .fi-map a{color:var(--gold);text-decoration:underline;display:block;margin-top:.35rem;font-size:.72rem;font-family:Vazirmatn,sans-serif;direction:rtl}
+      .fi-badge{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .7rem;border-radius:99px;font-size:.65rem;font-weight:700;background:var(--soft);color:var(--gold);border:1px solid rgba(217,194,0,.3);margin-inline-start:.4rem}
     </style>
     <label class="fi-drop" for="fiFile">
       <span>
         <i class="fa-solid fa-file-image"></i>
         <b>انتخاب فایل تصویری</b>
-        <small>JPEG، PNG، WebP، GIF، SVG — همه چیز در مرورگر پردازش می‌شود</small>
+        <small>JPEG، PNG، WebP، GIF — همه چیز در مرورگر پردازش می‌شود</small>
       </span>
       <input type="file" id="fiFile" accept="image/*">
     </label>
@@ -1261,7 +1266,20 @@ TOOLS.push({
     const loader = document.getElementById('fiLoader');
     const preview = document.getElementById('fiPreview');
     const content = document.getElementById('fiContent');
-    let currentFile = null;
+
+    let piexifLoaded = null;
+    function loadPiexif(){
+      if (window.piexif) return Promise.resolve(window.piexif);
+      if (piexifLoaded) return piexifLoaded;
+      piexifLoaded = new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/piexifjs@1.0.6/piexif.js';
+        s.onload = () => resolve(window.piexif);
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+      return piexifLoaded;
+    }
 
     function esc2(s){
       return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -1275,7 +1293,15 @@ TOOLS.push({
     function rgbToHex2(r,g,b){
       return '#' + [r,g,b].map(v => Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('').toUpperCase();
     }
+    function degToDMS(deg){
+      if (!Array.isArray(deg) || deg.length < 2) return null;
+      const d = deg[0][0] / deg[0][1];
+      const m = deg[1][0] / deg[1][1];
+      const s = deg[2] ? deg[2][0] / deg[2][1] : 0;
+      return d + '° ' + m + "' " + s.toFixed(1) + '"';
+    }
 
+    /* ══════ بخش ۱: اطلاعات عمومی و ابعاد ══════ */
     async function analyzeGeneral(file, imgEl){
       const w = imgEl.naturalWidth;
       const h = imgEl.naturalHeight;
@@ -1292,8 +1318,7 @@ TOOLS.push({
       if (!format){
         const n = file.name.toLowerCase();
         const m = n.match(/\.([a-z0-9]+)$/);
-        if (m) format = m[1].toUpperCase();
-        else format = 'نامشخص';
+        format = m ? m[1].toUpperCase() : 'نامشخص';
       }
 
       let html = '<div class="fi-section"><h4><i class="fa-solid fa-circle-info"></i> اطلاعات عمومی</h4>';
@@ -1301,7 +1326,6 @@ TOOLS.push({
       html += '<div class="fi-row"><b>حجم فایل</b><span>' + fmtBytes(file.size) + ' (' + file.size.toLocaleString('en-US') + ' بایت)</span></div>';
       html += '<div class="fi-row"><b>نوع MIME</b><span>' + esc2(file.type || 'نامشخص') + '</span></div>';
       html += '<div class="fi-row"><b>فرمت</b><span>' + format + '</span></div>';
-
       if (file.lastModified){
         const d = new Date(file.lastModified);
         const [jy, jm, jd] = gregToJalali(d.getFullYear(), d.getMonth()+1, d.getDate());
@@ -1317,8 +1341,7 @@ TOOLS.push({
       html += '<div class="fi-row"><b>تعداد کل پیکسل</b><span>' + (w * h).toLocaleString('en-US') + '</span></div>';
       html += '<div class="fi-row"><b>نسبت ابعاد</b><span>' + (w/g) + ':' + (h/g) + '</span></div>';
       if (w && h){
-        const mp = (w * h / 1000000).toFixed(2);
-        html += '<div class="fi-row"><b>مگاپیکسل</b><span>' + mp + ' MP</span></div>';
+        html += '<div class="fi-row"><b>مگاپیکسل</b><span>' + (w * h / 1000000).toFixed(2) + ' MP</span></div>';
       }
       html += '</div>';
 
@@ -1332,9 +1355,7 @@ TOOLS.push({
         cx.drawImage(imgEl, 0, 0, sw, sh);
         const data = cx.getImageData(0, 0, sw, sh).data;
         const colorSet = new Set();
-        let rS = 0, gS = 0, bS = 0, cnt = 0;
-        let hasAlpha = false;
-        let minL = 255, maxL = 0;
+        let rS = 0, gS = 0, bS = 0, cnt = 0, hasAlpha = false, minL = 255, maxL = 0;
 
         for (let i = 0; i < data.length; i += 4){
           if (data[i+3] < 250) hasAlpha = true;
@@ -1364,6 +1385,160 @@ TOOLS.push({
       return html;
     }
 
+    /* ══════ بخش ۲: متادیتای EXIF (دوربین، تاریخ، GPS) ══════ */
+    async function analyzeExif(dataURL, file){
+      const isJpeg = /^data:image\/jpeg/.test(dataURL);
+      if (!isJpeg){
+        return '';
+      }
+
+      let exifObj = null;
+      try {
+        exifObj = window.piexif ? window.piexif.load(dataURL) : null;
+      } catch(e){
+        return '';
+      }
+      if (!exifObj) return '';
+
+      const zeroth = exifObj['0th'] || {};
+      const exifIfd = exifObj['Exif'] || {};
+      const gps = exifObj['GPS'] || {};
+      const iptc = exifObj['1st'] || {};
+
+      let html = '';
+
+      /* دوربین و اطلاعات اصلی */
+      const cameraItems = [];
+      const cameraMap = {
+        271:'سازنده دوربین', 272:'مدل دوربین', 305:'نرم‌افزار', 306:'تاریخ و زمان',
+        270:'توضیح تصویر', 315:'عکاس', 33432:'کپی‌رایت', 274:'جهت‌گیری'
+      };
+      const orientationMap = {
+        1:'عادی', 2:'آینه افقی', 3:'چرخش ۱۸۰ درجه', 4:'آینه عمودی',
+        5:'چرخش ۹۰ درجه + آینه', 6:'چرخش ۹۰ درجه CW', 7:'چرخش ۲۷۰ درجه + آینه', 8:'چرخش ۲۷۰ درجه CW'
+      };
+      for (const k in cameraMap){
+        if (zeroth[k] !== undefined && zeroth[k] !== ''){
+          let v = zeroth[k];
+          if (k == 274 && orientationMap[v]) v = orientationMap[v];
+          if (v instanceof Uint8Array || (v && v.byteLength)) v = '[داده دودویی]';
+          cameraItems.push('<div class="fi-row"><b>' + cameraMap[k] + '</b><span>' + esc2(String(v)) + '</span></div>');
+        }
+      }
+
+      /* تنظیمات عکس */
+      const exifMap = {
+        33434:'زمان نوردهی', 33437:'دیافراگم', 34855:'ISO',
+        37386:'فاصله کانونی', 36867:'تاریخ ثبت اصلی', 36868:'تاریخ دیجیتالی',
+        41986:'حالت نوردهی', 41987:'تعادل رنگ سفید', 37377:'سرعت شاتر',
+        37378:'روزنه', 37380:'جبران نوردهی', 42036:'مدل لنز', 42035:'سازنده لنز',
+        36864:'نسخه EXIF', 37500:'نظر کاربر', 41985:'حالت نوردهی خودکار'
+      };
+      const exposureMap = {0:'خودکار', 1:'دستی', 2:'براکتینگ خودکار'};
+      const wbMap = {0:'خودکار', 1:'دستی'};
+      const exifItems = [];
+      for (const k in exifMap){
+        if (exifIfd[k] !== undefined && exifIfd[k] !== ''){
+          let v = exifIfd[k];
+          if (v instanceof Uint8Array) v = '[داده دودویی]';
+          if (k == 33434 && Array.isArray(v) && v.length === 2){
+            const sec = v[0] / v[1];
+            v = sec < 1 ? '1/' + Math.round(1/sec) + ' ثانیه' : sec.toFixed(2) + ' ثانیه';
+          } else if (k == 33437 && Array.isArray(v) && v.length === 2){
+            v = 'f/' + (v[0] / v[1]).toFixed(2);
+          } else if (k == 37386 && Array.isArray(v) && v.length === 2){
+            v = (v[0] / v[1]).toFixed(2) + ' میلی‌متر';
+          } else if (k == 41986 && exposureMap[v]) v = exposureMap[v];
+          else if (k == 41987 && wbMap[v]) v = wbMap[v];
+          else if (k == 37500 && v instanceof Uint8Array){
+            try { v = new TextDecoder('utf-8').decode(v).replace(/\0/g, '').trim(); } catch(e){ v = '[نظر کاربر]'; }
+          }
+          exifItems.push('<div class="fi-row"><b>' + exifMap[k] + '</b><span>' + esc2(String(v)) + '</span></div>');
+        }
+      }
+
+      if (cameraItems.length || exifItems.length){
+        html += '<div class="fi-section"><h4><i class="fa-solid fa-camera"></i> دوربین و تنظیمات عکس</h4>';
+        html += cameraItems.join('');
+        html += exifItems.join('');
+        html += '</div>';
+      }
+
+      /* GPS */
+      const gpsItems = [];
+      let lat = null, lon = null, latRef = '', lonRef = '';
+      if (gps[1]) latRef = gps[1];
+      if (gps[3]) lonRef = gps[3];
+      if (gps[2]) lat = degToDMS(gps[2]);
+      if (gps[4]) lon = degToDMS(gps[4]);
+
+      if (lat) gpsItems.push('<div class="fi-row"><b>عرض جغرافیایی</b><span>' + esc2(latRef + ' ' + lat) + '</span></div>');
+      if (lon) gpsItems.push('<div class="fi-row"><b>طول جغرافیایی</b><span>' + esc2(lonRef + ' ' + lon) + '</span></div>');
+      if (gps[5] !== undefined){
+        const alt = gps[5];
+        const a = Array.isArray(alt) && alt.length === 2 ? (alt[0] / alt[1]).toFixed(1) : alt;
+        gpsItems.push('<div class="fi-row"><b>ارتفاع</b><span>' + a + ' متر</span></div>');
+      }
+      if (gps[29]) gpsItems.push('<div class="fi-row"><b>تاریخ GPS</b><span>' + esc2(gps[29]) + '</span></div>');
+      if (gps[7] && Array.isArray(gps[7])){
+        const h = gps[7][0][0] / gps[7][0][1];
+        const m = gps[7][1][0] / gps[7][1][1];
+        const s = gps[7][2][0] / gps[7][2][1];
+        const time = String(Math.floor(h)).padStart(2,'0') + ':' + String(Math.floor(m)).padStart(2,'0') + ':' + String(Math.floor(s)).padStart(2,'0');
+        gpsItems.push('<div class="fi-row"><b>زمان GPS</b><span>' + time + ' UTC</span></div>');
+      }
+      if (gps[6] && gps[5]) gpsItems.push('<div class="fi-row"><b>وضعیت ارتفاع</b><span>' + esc2(gps[6] === 0 ? 'بالای سطح دریا' : 'زیر سطح دریا') + '</span></div>');
+
+      if (gpsItems.length){
+        html += '<div class="fi-section"><h4><i class="fa-solid fa-location-dot"></i> موقعیت مکانی (GPS)</h4>';
+        html += gpsItems.join('');
+
+        /* نقشه و لینک به گوگل مپ */
+        if (lat && lon){
+          let latNum = parseFloat(lat.replace(/[^\d.]/g, ''));
+          let lonNum = parseFloat(lon.replace(/[^\d.]/g, ''));
+          /* تبدیل به اعشار */
+          const dms2dec = (deg, ref) => {
+            if (!deg) return 0;
+            const parts = deg.split(/[^\d.]+/).filter(Boolean).map(parseFloat);
+            const dec = parts[0] + (parts[1] || 0) / 60 + (parts[2] || 0) / 3600;
+            return ref && (ref === 'S' || ref === 'W') ? -dec : dec;
+          };
+          const latDec = dms2dec(lat, latRef);
+          const lonDec = dms2dec(lon, lonRef);
+
+          html += '<div class="fi-map">';
+          html += latDec.toFixed(6) + ', ' + lonDec.toFixed(6);
+          html += '<a href="https://www.google.com/maps?q=' + latDec + ',' + lonDec + '" target="_blank" rel="noopener">مشاهده روی نقشه گوگل ↗</a>';
+          html += '</div>';
+        }
+        html += '</div>';
+      } else {
+        html += '<div class="fi-section"><h4><i class="fa-solid fa-location-dot"></i> موقعیت مکانی</h4>';
+        html += '<div class="fi-empty">این تصویر هیچ اطلاعات GPS ندارد.</div>';
+        html += '</div>';
+      }
+
+      /* IPTC */
+      const iptcItems = [];
+      const iptcMap = {
+        90:'شهر', 92:'زیرعنوان', 95:'استان', 100:'کشور',
+        101:'کد کشور', 105:'عنوان', 110:'اعتبار', 115:'منبع',
+        116:'کپی‌رایت', 120:'عنوان', 122:'نویسنده', 40:'دستورالعمل'
+      };
+      for (const k in iptcMap){
+        if (iptc[k] !== undefined && iptc[k] !== ''){
+          iptcItems.push('<div class="fi-row"><b>' + iptcMap[k] + '</b><span>' + esc2(String(iptc[k])) + '</span></div>');
+        }
+      }
+      if (iptcItems.length){
+        html += '<div class="fi-section"><h4><i class="fa-solid fa-tags"></i> متادیتای IPTC</h4>' + iptcItems.join('') + '</div>';
+      }
+
+      return html;
+    }
+
+    /* ══════ بخش ۳: ساختار PNG ══════ */
     async function analyzePngChunks(file){
       if (!/\.png$/i.test(file.name) && file.type !== 'image/png') return '';
       try {
@@ -1412,12 +1587,11 @@ TOOLS.push({
         html += '<div class="fi-row"><b>عمق رنگ</b><span>' + bitDepth + ' بیت</span></div>';
         html += '<div class="fi-row"><b>حالت رنگ</b><span>' + (colorTypes[colorType] || ('نوع ' + colorType)) + '</span></div>';
         html += '<div class="fi-row"><b>درهم‌بافی</b><span>' + (interlace === 1 ? 'Adam7' : 'بدون') + '</span></div>';
-        if (dpi) html += '<div class="fi-row"><b>رزولوشن فیزیکی</b><span>' + dpi + ' DPI</span></div>';
+        if (dpi) html += '<div class="fi-row"><b>رزولوشن</b><span>' + dpi + ' DPI</span></div>';
         if (texts.length){
           html += '<div class="fi-row"><b>متادیتای متنی</b><span>' + esc2(texts.join(' | ').substring(0, 200)) + '</span></div>';
         }
         html += '<div class="fi-row"><b>تعداد Chunks</b><span>' + chunkTypes.length + '</span></div>';
-        html += '<div class="fi-row"><b>Chunkهای موجود</b><span>' + esc2(chunkTypes.join(', ')) + '</span></div>';
         html += '</div>';
         return html;
       } catch(e){
@@ -1425,10 +1599,10 @@ TOOLS.push({
       }
     }
 
-    fileEl.addEventListener('change', () => {
+    /* ══════ راه‌اندازی ══════ */
+    fileEl.addEventListener('change', async () => {
       const f = fileEl.files[0];
       if (!f) return;
-      currentFile = f;
       content.classList.remove('on');
       loader.classList.add('on');
       preview.style.display = 'none';
@@ -1437,19 +1611,37 @@ TOOLS.push({
       preview.src = url;
       preview.style.display = 'block';
 
+      /* بارگذاری piexif فقط اگر JPEG باشد */
+      if (/^image\/jpeg/.test(f.type)){
+        try { await loadPiexif(); } catch(e){}
+      }
+
       const imgEl = new Image();
       imgEl.onload = async () => {
-        try {
-          const general = await analyzeGeneral(f, imgEl);
-          const png = await analyzePngChunks(f);
-          content.innerHTML = general + png;
-          content.classList.add('on');
-        } catch(e){
-          console.error(e);
-          content.innerHTML = '<div class="fi-empty">خطا در تحلیل فایل.</div>';
-          content.classList.add('on');
-        }
-        loader.classList.remove('on');
+        const reader = new FileReader();
+        reader.onload = async () => {
+          try {
+            const general = await analyzeGeneral(f, imgEl);
+            const exif = await analyzeExif(reader.result, f);
+            const png = await analyzePngChunks(f);
+
+            /* اگر عکس دوربین دارد، یک نشانگر بالای صفحه */
+            let header = '';
+            if (exif){
+              const isCamera = /^image\/jpeg/.test(f.type);
+              header = '<div class="rinfo" style="margin-bottom:1rem"><div><i class="fa-solid fa-camera"></i> متادیتای دوربین شناسایی شد</div></div>';
+            }
+
+            content.innerHTML = header + exif + general + png;
+            content.classList.add('on');
+          } catch(e){
+            console.error(e);
+            content.innerHTML = '<div class="fi-empty">خطا در تحلیل فایل.</div>';
+            content.classList.add('on');
+          }
+          loader.classList.remove('on');
+        };
+        reader.readAsDataURL(f);
       };
       imgEl.onerror = () => {
         loader.classList.remove('on');
@@ -1460,6 +1652,7 @@ TOOLS.push({
     });
   }
 });
+
 
 
   /* ══════ ASCII ART ══════ */
