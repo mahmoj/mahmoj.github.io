@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>آزمون رنگ | مهدی مجاهد</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="img/20261011_025918.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#D9C200;--navy:#001830;--bg:#000d18;
+  --panel:rgba(255,255,255,.045);--panel2:rgba(0,24,48,.55);
+  --stroke:rgba(255,255,255,.09);--text:#f1f5f7;--muted:#8b9ba6;
+  --soft:rgba(217,194,0,.13);--ease:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth;overflow-x:clip;max-width:100%}
+body{
+  font-family:"Vazirmatn",sans-serif;background:var(--bg);color:var(--text);
+  min-height:100vh;line-height:1.85;overflow-x:clip;max-width:100%;
+  -webkit-font-smoothing:antialiased;
+  -webkit-user-select:none;-moz-user-select:none;user-select:none;
+}
+body.lock{overflow:hidden}
+input,textarea,[contenteditable]{-webkit-user-select:text;user-select:text}
+img,canvas,svg{max-width:100%;display:block}
+button{font:inherit;cursor:pointer;background:none;border:0;color:inherit}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:#001830}
+
+.bg{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.au{position:absolute;border-radius:50%;filter:blur(110px);opacity:.5}
+.au.a{width:min(58vw,520px);height:min(58vw,520px);background:#D9C200;top:-14vw;right:-14vw;animation:f1 22s ease-in-out infinite}
+.au.b{width:min(52vw,480px);height:min(52vw,480px);background:#003a63;bottom:-16vw;left:-16vw;animation:f2 27s ease-in-out infinite}
+@keyframes f1{50%{transform:translateY(8vh) scale(1.12)}}
+@keyframes f2{50%{transform:translateY(-7vh) scale(1.15)}}
+#stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5}
+
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem clamp(1rem,4vw,3rem);
+  background:rgba(0,13,24,.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--stroke);
+}
+.logo{display:flex;align-items:center;gap:.55rem;font-weight:800;font-size:.95rem}
+.logo-mark{
+  width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+  background:linear-gradient(140deg,var(--gold),#8a7a00);
+  box-shadow:0 0 22px rgba(217,194,0,.4);overflow:hidden;flex:none;
+}
+.logo-mark img{width:68%;height:68%;object-fit:contain;filter:invert(1) brightness(.1)}
+.back{
+  padding:.5rem 1rem;border-radius:99px;background:var(--panel);
+  border:1px solid var(--stroke);font-size:.78rem;font-weight:700;
+  display:inline-flex;gap:.4rem;align-items:center;transition:.4s var(--ease);
+}
+.back i{color:var(--gold)}
+.back:hover{background:var(--soft);border-color:var(--gold);color:var(--gold)}
+
+main{padding-top:80px;overflow-x:clip}
+section{padding:clamp(1.5rem,5vh,3rem) clamp(1rem,3.5vw,3rem);overflow-x:clip}
+.wrap{max-width:920px;margin:0 auto;width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.68rem;font-weight:700;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.7rem}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--gold)}
+h1{font-size:clamp(1.5rem,5vw,2.6rem);font-weight:900;letter-spacing:-.03em;line-height:1.2;margin-bottom:.8rem}
+h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,var(--gold));background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 5s linear infinite}
+@keyframes sh{to{background-position:220% center}}
+.lead{color:var(--muted);font-size:clamp(.85rem,1.2vw,.95rem);max-width:62ch}
+
+.quiz-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:.9rem;margin-top:1.4rem}
+.quiz-card{
+  position:relative;padding:1.5rem 1.2rem 1.2rem;border-radius:18px;
+  background:var(--panel);border:1px solid var(--stroke);backdrop-filter:blur(16px);
+  cursor:pointer;overflow:hidden;text-align:center;
+  transition:transform .4s var(--ease),border-color .4s var(--ease),box-shadow .4s var(--ease);
+}
+.quiz-card:hover{transform:translateY(-6px);border-color:rgba(217,194,0,.55);box-shadow:0 0 44px rgba(217,194,0,.2);background:rgba(255,255,255,.06)}
+.quiz-card-icon{
+  width:56px;height:56px;border-radius:18px;display:grid;place-items:center;
+  background:linear-gradient(140deg,var(--gold),#8a7a00);color:#001830;
+  font-size:1.4rem;margin:0 auto 1rem;
+  box-shadow:0 8px 24px rgba(217,194,0,.35);
+  transition:.4s cubic-bezier(.34,1.56,.64,1);
+}
+.quiz-card:hover .quiz-card-icon{transform:scale(1.1) rotate(-5deg)}
+.quiz-card h3{font-size:.98rem;font-weight:900;letter-spacing:-.02em;margin-bottom:.4rem}
+.quiz-card p{font-size:.74rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem;min-height:3em}
+.quiz-card-meta{display:flex;justify-content:center;gap:1rem;padding-top:.7rem;border-top:1px dashed rgba(217,194,0,.22);font-size:.68rem;color:var(--muted)}
+.quiz-card-meta i{color:var(--gold);font-size:.65rem;margin-left:.25rem}
+
+.diff-screen{display:none}
+.diff-screen.on{display:block;animation:fadeIn .4s ease}
+.diff-title{text-align:center;margin-bottom:1.5rem}
+.diff-title h2{font-size:clamp(1.1rem,3.5vw,1.6rem);font-weight:900;letter-spacing:-.025em;margin-bottom:.4rem}
+.diff-title p{color:var(--muted);font-size:.82rem}
+.diff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:.8rem;margin-bottom:1.5rem}
+.diff-card{
+  padding:1.6rem 1.1rem;border-radius:16px;
+  background:var(--panel);border:2px solid var(--stroke);
+  cursor:pointer;text-align:center;
+  transition:transform .35s var(--ease),border-color .35s var(--ease),background .35s var(--ease),box-shadow .35s var(--ease);
+}
+.diff-card:hover{transform:translateY(-5px);border-color:var(--gold);background:var(--soft);box-shadow:0 0 30px rgba(217,194,0,.25)}
+.diff-card i{font-size:1.6rem;color:var(--gold);margin-bottom:.6rem;display:block}
+.diff-card h4{font-size:1rem;font-weight:900;letter-spacing:-.02em;margin-bottom:.4rem}
+.diff-card p{font-size:.72rem;color:var(--muted);line-height:1.7}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.quiz-screen{display:none}
+.quiz-screen.on{display:block;animation:fadeIn .4s ease}
+.quiz-header{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  margin-bottom:1.1rem;padding:.9rem 1.1rem;border-radius:14px;
+  background:var(--panel);border:1px solid var(--stroke);backdrop-filter:blur(14px);
+}
+.quiz-header-title{display:flex;align-items:center;gap:.6rem;min-width:0}
+.quiz-header-title i{color:var(--gold);font-size:1rem;flex:none}
+.quiz-header-title b{font-size:.88rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.quiz-count{
+  font-family:ui-monospace,monospace;font-size:.75rem;font-weight:800;
+  color:var(--gold);padding:.28rem .75rem;border-radius:99px;
+  background:var(--soft);border:1px solid rgba(217,194,0,.3);flex:none;
+}
+.quiz-progress{height:5px;border-radius:99px;background:var(--stroke);overflow:hidden;margin-bottom:1.3rem}
+.quiz-progress i{
+  display:block;height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,var(--gold),#fff2a0,var(--gold));
+  background-size:200% auto;box-shadow:0 0 18px rgba(217,194,0,.6);
+  transition:width .4s var(--ease);animation:shine 3s linear infinite;
+}
+@keyframes shine{to{background-position:220% center}}
+
+.quiz-question{
+  padding:1.5rem 1.2rem;border-radius:18px;
+  background:var(--panel);border:1px solid var(--stroke);
+  backdrop-filter:blur(16px);margin-bottom:1rem;text-align:center;
+}
+.quiz-question h2{font-size:.92rem;font-weight:800;color:var(--muted);margin-bottom:1rem;letter-spacing:-.015em}
+
+.target-color{
+  width:100%;max-width:200px;height:140px;border-radius:16px;margin:0 auto;
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 10px 30px rgba(0,0,0,.35),inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.mix-pair{
+  display:flex;align-items:center;justify-content:center;gap:.7rem;
+  flex-wrap:wrap;
+}
+.mix-pair > div{
+  width:100px;height:100px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 8px 20px rgba(0,0,0,.3);
+}
+.mix-plus{font-size:1.6rem;color:var(--gold);font-weight:900;flex:none}
+
+.memory-timer{
+  font-size:1.05rem;font-weight:900;color:var(--gold);
+  margin-bottom:.7rem;font-family:ui-monospace,monospace;
+}
+.memory-color{
+  width:100%;max-width:200px;height:140px;border-radius:16px;margin:0 auto;
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+.memory-wait{
+  width:100%;max-width:200px;height:140px;border-radius:16px;margin:0 auto;
+  background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 10px,rgba(255,255,255,.08) 10px 20px);
+  border:1px solid rgba(255,255,255,.15);
+  display:grid;place-items:center;
+  font-size:1.6rem;color:var(--muted);font-weight:900;
+}
+.memory-wait b{font-size:.75rem;color:var(--muted);font-weight:700;letter-spacing:.1em}
+
+.match-picker{
+  display:flex;flex-direction:column;align-items:center;gap:.7rem;margin-top:1rem;
+}
+.match-picker input[type="color"]{
+  width:90px;height:90px;padding:0;border:2px solid var(--stroke);
+  border-radius:16px;cursor:pointer;background:transparent;
+  transition:.3s;
+}
+.match-picker input[type="color"]:hover{border-color:var(--gold);transform:scale(1.05)}
+.match-picker label{font-size:.76rem;color:var(--muted);font-weight:700}
+.match-preview{
+  width:100%;max-width:180px;height:70px;border-radius:12px;
+  border:1px solid var(--stroke);transition:.3s;
+}
+.match-result{
+  margin-top:1rem;padding:1rem;border-radius:12px;
+  background:var(--soft);border:1px dashed rgba(217,194,0,.35);
+  display:none;
+}
+.match-result.on{display:block;animation:fadeIn .4s ease}
+.match-result b{
+  display:block;font-size:1.4rem;font-weight:900;color:var(--gold);
+  margin-bottom:.2rem;font-family:ui-monospace,monospace;
+}
+.match-result span{font-size:.78rem;color:var(--muted)}
+
+.quiz-options{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:1rem}
+.quiz-options.hidden{display:none}
+@media (max-width:520px){.quiz-options{grid-template-columns:1fr}}
+.opt{
+  position:relative;padding:.9rem;border-radius:13px;
+  background:var(--panel);border:2px solid var(--stroke);cursor:pointer;
+  transition:transform .3s var(--ease),border-color .3s var(--ease),background .3s var(--ease),box-shadow .3s var(--ease);
+  display:flex;align-items:center;gap:.7rem;text-align:right;min-width:0;
+}
+.opt:hover:not(.disabled){transform:translateY(-3px);border-color:rgba(217,194,0,.5);background:rgba(255,255,255,.06)}
+.opt.correct{border-color:#4CAF50;background:rgba(76,175,80,.14);box-shadow:0 0 20px rgba(76,175,80,.3)}
+.opt.wrong{border-color:#E57373;background:rgba(229,115,115,.14);box-shadow:0 0 20px rgba(229,115,115,.3)}
+.opt.disabled{cursor:default}
+.opt-swatch{
+  width:42px;height:42px;border-radius:11px;flex:none;
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);
+}
+.opt-text{flex:1;min-width:0}
+.opt-text b{display:block;font-size:.85rem;font-weight:800;font-family:ui-monospace,monospace;color:var(--text);direction:ltr;text-align:left}
+.opt-text small{display:block;font-size:.62rem;color:var(--muted);margin-top:.12rem}
+
+.quiz-actions{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}
+.quiz-actions .btn{min-width:140px}
+
+.result-screen{display:none;text-align:center;padding:.5rem 0}
+.result-screen.on{display:block;animation:fadeIn .5s ease}
+.result-card{
+  padding:2rem 1.5rem;border-radius:22px;
+  background:var(--panel);border:1px solid var(--stroke);
+  backdrop-filter:blur(18px);max-width:540px;margin:0 auto;
+  position:relative;overflow:hidden;
+}
+.result-card::before{
+  content:"";position:absolute;top:0;right:0;left:0;height:4px;
+  background:linear-gradient(90deg,var(--gold),#fff2a0,var(--gold));
+  background-size:200% auto;animation:shine 3s linear infinite;
+}
+.result-circle{position:relative;width:150px;height:150px;margin:0 auto 1.3rem}
+.result-circle svg{width:100%;height:100%;transform:rotate(-90deg)}
+.result-circle .bg-ring{fill:none;stroke:var(--stroke);stroke-width:10}
+.result-circle .fg-ring{fill:none;stroke:url(#gradRing);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1.4s var(--ease)}
+.result-score{position:absolute;inset:0;display:grid;place-items:center}
+.result-score b{font-size:2.3rem;font-weight:900;color:var(--gold);text-shadow:0 0 30px rgba(217,194,0,.5);line-height:1;font-variant-numeric:tabular-nums;display:block}
+.result-score span{display:block;font-size:.62rem;color:var(--muted);letter-spacing:.15em;margin-top:.2rem}
+.result-level{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.45rem 1.1rem;border-radius:99px;
+  font-size:.85rem;font-weight:800;margin-bottom:.9rem;border:1px solid;
+}
+.result-diff{display:block;font-size:.7rem;color:var(--muted);margin-bottom:1rem}
+.result-diff b{color:var(--gold)}
+.level-master{background:rgba(217,194,0,.15);color:var(--gold);border-color:rgba(217,194,0,.4)}
+.level-pro{background:rgba(76,175,80,.15);color:#7ddba0;border-color:rgba(76,175,80,.4)}
+.level-good{background:rgba(90,150,255,.15);color:#8fbfff;border-color:rgba(90,150,255,.4)}
+.level-avg{background:rgba(255,165,0,.15);color:#ffc266;border-color:rgba(255,165,0,.4)}
+.level-beginner{background:rgba(229,115,115,.15);color:#ff9a9a;border-color:rgba(229,115,115,.4)}
+.result-message{font-size:.88rem;color:var(--muted);line-height:1.9;margin-bottom:1.4rem;max-width:44ch;margin-inline:auto}
+.result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1.4rem}
+.result-stats > div{padding:.75rem .5rem;border-radius:12px;background:var(--panel);border:1px solid var(--stroke)}
+.result-stats b{display:block;font-size:1rem;font-weight:900;color:var(--gold);margin-bottom:.15rem;font-variant-numeric:tabular-nums}
+.result-stats span{font-size:.6rem;color:var(--muted)}
+
+@property --ang{syntax:"<angle>";initial-value:0deg;inherits:false}
+.btn{position:relative;display:inline-flex;padding:2px;border-radius:99px;overflow:hidden;isolation:isolate;cursor:pointer;flex:none;max-width:100%}
+.btn::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--ang),transparent 0 190deg,var(--gold) 265deg,#fff8c4 300deg,var(--gold) 330deg,transparent 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;animation:bs 3.6s linear infinite;z-index:0;pointer-events:none}
+@keyframes bs{to{--ang:360deg}}
+.btn > span{position:relative;z-index:1;flex:1;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.75rem 1.5rem;border-radius:99px;background:var(--panel2);border:1px solid transparent;font-weight:700;font-size:.8rem;white-space:nowrap;min-width:0;transition:.3s}
+.btn:hover > span{background:var(--soft);color:var(--gold)}
+.btn.ghost > span{background:transparent}
+.btn.primary > span{background:linear-gradient(140deg,var(--gold),#8a7a00);color:#001830}
+.btn.primary:hover > span{background:linear-gradient(140deg,#e6ce0a,#a39000);color:#001830}
+.btn[disabled]{opacity:.5;cursor:not-allowed;pointer-events:none}
+.btnrow{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
+
+.toast{
+  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(40px);
+  padding:.6rem 1.1rem;border-radius:99px;background:rgba(0,24,48,.9);
+  border:1px solid var(--gold);color:var(--gold);font-size:.76rem;font-weight:700;
+  backdrop-filter:blur(16px);z-index:2000;opacity:0;pointer-events:none;
+  transition:.4s;max-width:90vw;text-align:center;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.mbtn{
+  position:fixed;bottom:1.2rem;right:1.2rem;width:50px;height:50px;border-radius:15px;
+  display:grid;place-items:center;background:rgba(0,24,48,.65);
+  border:1px solid var(--stroke);backdrop-filter:blur(18px);
+  color:var(--gold);cursor:pointer;transition:.3s;z-index:90;
+}
+.mbtn:hover{background:var(--soft);border-color:var(--gold);transform:translateY(-3px)}
+.mbtn i{font-size:1rem}
+.mbtn.playing i{animation:mp 2s ease-in-out infinite}
+@keyframes mp{50%{transform:scale(1.18)}}
+
+footer{
+  padding:2rem clamp(1rem,3.5vw,3rem) 1.3rem;
+  border-top:1px solid var(--stroke);background:rgba(0,13,24,.65);
+  backdrop-filter:blur(20px);font-size:.7rem;color:var(--muted);
+}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;max-width:920px;margin:0 auto}
+footer a{color:var(--gold);font-weight:700}
+
+@media (max-width:640px){
+  header{padding:.65rem .9rem}
+  .logo{font-size:.88rem}
+  .logo-mark{width:34px;height:34px}
+  .back{padding:.45rem .85rem;font-size:.72rem}
+  main{padding-top:70px}
+  section{padding:1.4rem 1rem}
+  h1{font-size:clamp(1.35rem,6.5vw,2rem)}
+  .quiz-card{padding:1.2rem 1rem 1rem;border-radius:16px}
+  .quiz-card-icon{width:48px;height:48px;border-radius:15px;font-size:1.2rem}
+  .quiz-card h3{font-size:.9rem}
+  .quiz-card p{font-size:.7rem;min-height:auto}
+  .diff-card{padding:1.3rem .9rem}
+  .quiz-header{padding:.75rem .9rem;border-radius:12px}
+  .quiz-header-title b{font-size:.78rem}
+  .quiz-count{font-size:.68rem;padding:.22rem .6rem}
+  .quiz-question{padding:1.2rem .9rem;border-radius:16px}
+  .target-color{height:120px;max-width:170px}
+  .mix-pair > div{width:80px;height:80px}
+  .memory-color,.memory-wait{height:120px;max-width:170px}
+  .opt{padding:.75rem;border-radius:11px}
+  .opt-swatch{width:36px;height:36px;border-radius:10px}
+  .opt-text b{font-size:.78rem}
+  .result-card{padding:1.5rem 1rem;border-radius:18px}
+  .result-circle{width:120px;height:120px}
+  .result-score b{font-size:1.8rem}
+  .result-stats{grid-template-columns:1fr 1fr 1fr;gap:.4rem}
+  .btn > span{padding:.65rem 1.1rem;font-size:.74rem}
+  .quiz-actions{flex-direction:column}
+  .quiz-actions .btn{width:100%}
+  footer .wrap{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div class="bg">
+  <div class="au a"></div>
+  <div class="au b"></div>
+</div>
+<canvas id="stars"></canvas>
+
+<audio id="bgMusic" loop preload="auto" playsinline>
+  <source src="audio/f4b6ed86-c45b-4c96-aa29-50a0ae687ab1.mp3" type="audio/mpeg">
+</audio>
+
+<header>
+  <a href="index.html" class="logo">
+    <span class="logo-mark">
+      <img src="img/20261011_025918.ico" alt="مهدی مجاهد">
+    </span>
+    <span>مهدی مجاهد</span>
+  </a>
+  <a href="index.html" class="back"><i class="fa-solid fa-arrow-right"></i> بازگشت</a>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">آزمون حرفه‌ای رنگ</span>
+      <h1>آزمون <em>رنگ‌شناسی</em></h1>
+      <p class="lead">چهار آزمون تخصصی برای سنجش دقت چشم، تطبیق رنگ، درک ترکیب رنگ و حافظه بصری. سطح خود را انتخاب کنید.</p>
+    </div>
+  </section>
+
+  <section id="quizSelector">
+    <div class="wrap">
+      <div class="quiz-cards">
+        <div class="quiz-card" data-quiz="vision">
+          <div class="quiz-card-icon"><i class="fa-solid fa-eye"></i></div>
+          <h3>رنگ‌شناسی</h3>
+          <p>یک رنگ می‌بینید و باید کد HEX صحیح آن را از بین گزینه‌ها تشخیص دهید.</p>
+          <div class="quiz-card-meta">
+            <span><i class="fa-solid fa-list-ol"></i>۱۰ سوال</span>
+            <span><i class="fa-solid fa-clock"></i>~۲ دقیقه</span>
+          </div>
+        </div>
+
+        <div class="quiz-card" data-quiz="matching">
+          <div class="quiz-card-icon"><i class="fa-solid fa-sliders"></i></div>
+          <h3>تطبیق رنگ</h3>
+          <p>یک رنگ نشان داده می‌شود. با پالت رنگ، نزدیک‌ترین رنگ را بسازید.</p>
+          <div class="quiz-card-meta">
+            <span><i class="fa-solid fa-list-ol"></i>۵ دور</span>
+            <span><i class="fa-solid fa-clock"></i>~۳ دقیقه</span>
+          </div>
+        </div>
+
+        <div class="quiz-card" data-quiz="mixing">
+          <div class="quiz-card-icon"><i class="fa-solid fa-flask"></i></div>
+          <h3>ترکیب رنگ</h3>
+          <p>دو رنگ می‌بینید و باید نتیجه‌ی ترکیب آن‌ها را انتخاب کنید.</p>
+          <div class="quiz-card-meta">
+            <span><i class="fa-solid fa-list-ol"></i>۱۰ سوال</span>
+            <span><i class="fa-solid fa-clock"></i>~۲ دقیقه</span>
+          </div>
+        </div>
+
+        <div class="quiz-card" data-quiz="memory">
+          <div class="quiz-card-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3>حفظ رنگ</h3>
+          <p>یک رنگ چند لحظه دیده می‌شود، بعد پنهان می‌شود. آن را به خاطر بسپارید.</p>
+          <div class="quiz-card-meta">
+            <span><i class="fa-solid fa-list-ol"></i>۸ سوال</span>
+            <span><i class="fa-solid fa-clock"></i>~۳ دقیقه</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="diffScreen" class="diff-screen">
+    <div class="wrap">
+      <div class="diff-title">
+        <h2 id="diffQuizTitle">سطح آزمون را انتخاب کنید</h2>
+        <p>سختی سوالات و سرعت آزمون بر اساس سطح انتخابی شما تنظیم می‌شود.</p>
+      </div>
+      <div class="diff-grid">
+        <div class="diff-card" data-level="beginner">
+          <i class="fa-solid fa-seedling"></i>
+          <h4>مبتدی</h4>
+          <p>اختلاف رنگ‌ها واضح و زمان نمایش بیشتر است.</p>
+        </div>
+        <div class="diff-card" data-level="intermediate">
+          <i class="fa-solid fa-chart-line"></i>
+          <h4>متوسط</h4>
+          <p>اختلاف رنگ‌ها متعادل و سرعت نرمال.</p>
+        </div>
+        <div class="diff-card" data-level="advanced">
+          <i class="fa-solid fa-crown"></i>
+          <h4>حرفه‌ای</h4>
+          <p>اختلاف رنگ‌ها بسیار کم و چالش‌برانگیز.</p>
+        </div>
+      </div>
+      <div class="btnrow">
+        <button class="btn ghost" id="diffBack"><span>بازگشت به انتخاب آزمون</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section id="quizRunner" class="quiz-screen">
+    <div class="wrap">
+      <div class="quiz-header">
+        <div class="quiz-header-title">
+          <i id="qIcon" class="fa-solid fa-eye"></i>
+          <b id="qTitle">آزمون</b>
+        </div>
+        <span class="quiz-count" id="qCount">۱ از ۱۰</span>
+      </div>
+
+      <div class="quiz-progress"><i id="qProgress"></i></div>
+
+      <div class="quiz-question" id="qBox"></div>
+
+      <div class="quiz-options" id="qOptions"></div>
+
+      <div class="quiz-actions">
+        <button class="btn ghost" id="qExit"><span>خروج</span></button>
+        <button class="btn primary" id="qNext" disabled><span>سوال بعدی <i class="fa-solid fa-arrow-left"></i></span></button>
+      </div>
+    </div>
+  </section>
+
+  <section id="resultScreen" class="result-screen">
+    <div class="wrap">
+      <div class="result-card">
+        <div class="result-circle">
+          <svg viewBox="0 0 120 120">
+            <defs>
+              <linearGradient id="gradRing" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#D9C200"/>
+                <stop offset="100%" stop-color="#fff2a0"/>
+              </linearGradient>
+            </defs>
+            <circle class="bg-ring" cx="60" cy="60" r="52"/>
+            <circle class="fg-ring" id="rRing" cx="60" cy="60" r="52"
+                    stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+          </svg>
+          <div class="result-score">
+            <div>
+              <b id="rScore">۰</b>
+              <span>امتیاز از ۱۰۰</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-level" id="rLevel">—</div>
+        <span class="result-diff" id="rDiff"></span>
+
+        <p class="result-message" id="rMessage"></p>
+
+        <div class="result-stats">
+          <div><b id="rCorrect">۰</b><span>درست</span></div>
+          <div><b id="rWrong">۰</b><span>غلط</span></div>
+          <div><b id="rTime">۰</b><span>ثانیه</span></div>
+        </div>
+
+        <div class="btnrow">
+          <button class="btn primary" id="rRetry"><span>آزمون مجدد <i class="fa-solid fa-rotate"></i></span></button>
+          <button class="btn ghost" id="rHome"><span>انتخاب آزمون دیگر</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> مهدی مجاهد</span>
+    <a href="index.html">بازگشت به صفحه‌ی اصلی</a>
+  </div>
+</footer>
+
+<button class="mbtn" id="musicBtn" aria-label="پخش موسیقی">
+  <i class="fa-solid fa-volume-xmark" id="musicIcon"></i>
+</button>
+
+<!-- ▓▓▓ پیام ۲ ▓▓▓ -->
+<script>
+/* ══════ HELPERS ══════ */
+const $ = (s, ctx=document) => ctx.querySelector(s);
+const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
+const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const randInt = (a,b) => Math.floor(Math.random() * (b - a + 1)) + a;
+const pick = arr => arr[(Math.random() * arr.length) | 0];
+
+function shuffle(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--){
+    const j = (Math.random() * (i + 1)) | 0;
+    const t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+function hslToHex(h, s, l){
+  h /= 360; s /= 100; l /= 100;
+  let r, g, b;
+  if (s === 0){ r = g = b = l; }
+  else {
+    const hue2rgb = (p, q, t) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1/6) return p + (q - p) * 6 * t;
+      if (t < 1/2) return q;
+      if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+      return p;
+    };
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1/3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1/3);
+  }
+  const hex = x => Math.round(x * 255).toString(16).padStart(2, '0');
+  return ('#' + hex(r) + hex(g) + hex(b)).toUpperCase();
+}
+
+function hexToRgb(h){
+  h = h.replace('#','');
+  return [parseInt(h.substr(0,2),16), parseInt(h.substr(2,2),16), parseInt(h.substr(4,2),16)];
+}
+
+function colorDistance(hex1, hex2){
+  const a = hexToRgb(hex1);
+  const b = hexToRgb(hex2);
+  const dr = a[0] - b[0], dg = a[1] - b[1], db = a[2] - b[2];
+  return Math.sqrt(dr*dr + dg*dg + db*db);
+}
+
+function colorSimilarity(hex1, hex2){
+  const dist = colorDistance(hex1, hex2);
+  const sim = (1 - dist / 441.67) * 100;
+  return Math.max(0, Math.min(100, sim));
+}
+
+let toastT = null;
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+/* ══════ سطوح — تفاوت واقعی و محسوس ══════ */
+const LEVELS = {
+  beginner: {
+    name: 'مبتدی',
+    hueStep: [50, 110],
+    satStep: [-30, 30],
+    lightStep: [-25, 25],
+    memoryTime: 4.0,
+    matchTolerance: 30
+  },
+  intermediate: {
+    name: 'متوسط',
+    hueStep: [18, 40],
+    satStep: [-12, 12],
+    lightStep: [-10, 10],
+    memoryTime: 2.5,
+    matchTolerance: 15
+  },
+  advanced: {
+    name: 'حرفه‌ای',
+    hueStep: [3, 10],
+    satStep: [-4, 4],
+    lightStep: [-3, 3],
+    memoryTime: 1.5,
+    matchTolerance: 6
+  }
+};
+
+/* ══════ جدول ترکیب رنگ ══════ */
+const MIX_TABLE = [
+  { a:{h:0,s:100,l:50},   b:{h:240,s:100,l:50}, name:'قرمز + آبی',   result:'#800080' },
+  { a:{h:60,s:100,l:50},  b:{h:240,s:100,l:50}, name:'زرد + آبی',    result:'#008000' },
+  { a:{h:0,s:100,l:50},   b:{h:60,s:100,l:50},  name:'قرمز + زرد',    result:'#FF8000' },
+  { a:{h:0,s:100,l:50},   b:{h:0,s:0,l:100},    name:'قرمز + سفید',   result:'#FF8080' },
+  { a:{h:240,s:100,l:50}, b:{h:0,s:0,l:100},    name:'آبی + سفید',    result:'#8080FF' },
+  { a:{h:0,s:100,l:50},   b:{h:0,s:0,l:0},      name:'قرمز + سیاه',   result:'#800000' },
+  { a:{h:60,s:100,l:50},  b:{h:0,s:0,l:0},      name:'زرد + سیاه',    result:'#808000' },
+  { a:{h:180,s:100,l:50}, b:{h:0,s:100,l:50},   name:'فیروزه + قرمز',  result:'#808080' },
+  { a:{h:120,s:100,l:50}, b:{h:0,s:100,l:50},   name:'سبز + قرمز',    result:'#806000' },
+  { a:{h:60,s:100,l:50},  b:{h:300,s:100,l:50}, name:'زرد + بنفش',    result:'#800000' }
+];
+
+const FALLBACKS = ['#FF0000','#00FF00','#0000FF','#FFFF00','#FF00FF','#00FFFF','#000000','#FFFFFF','#808080','#C0C0C0'];
+
+/* ══════ تولید سوالات ══════ */
+
+function genVision(level){
+  const cfg = LEVELS[level];
+  const h = randInt(0, 359);
+  const s = randInt(45, 90);
+  const l = randInt(35, 65);
+  const correct = hslToHex(h, s, l);
+
+  const options = [correct];
+  const used = new Set([correct]);
+  let attempts = 0;
+
+  while (options.length < 4 && attempts < 100){
+    attempts++;
+    const dh = randInt(cfg.hueStep[0], cfg.hueStep[1]) * (Math.random() < .5 ? 1 : -1);
+    const ds = randInt(cfg.satStep[0], cfg.satStep[1]);
+    const dl = randInt(cfg.lightStep[0], cfg.lightStep[1]);
+    const w = hslToHex(
+      (h + dh + 360) % 360,
+      Math.max(15, Math.min(95, s + ds)),
+      Math.max(15, Math.min(85, l + dl))
+    );
+    if (!used.has(w)){
+      used.add(w);
+      options.push(w);
+    }
+  }
+
+  let fi = 0;
+  while (options.length < 4 && fi < FALLBACKS.length){
+    if (!used.has(FALLBACKS[fi])){
+      used.add(FALLBACKS[fi]);
+      options.push(FALLBACKS[fi]);
+    }
+    fi++;
+  }
+
+  const shuffled = shuffle(options);
+  return {
+    type: 'vision',
+    target: correct,
+    question: 'کدام گزینه کد رنگ مربع بالا است؟',
+    options: shuffled,
+    correctIndex: shuffled.indexOf(correct)
+  };
+}
+
+function genMatching(level){
+  const h = randInt(0, 359);
+  const s = randInt(50, 90);
+  const l = randInt(35, 65);
+  return {
+    type: 'matching',
+    target: hslToHex(h, s, l),
+    question: 'با استفاده از پالت، نزدیک‌ترین رنگ به مربع بالا را بسازید'
+  };
+}
+
+function genMixing(level){
+  const mix = pick(MIX_TABLE);
+  const colorA = hslToHex(mix.a.h, mix.a.s, mix.a.l);
+  const colorB = hslToHex(mix.b.h, mix.b.s, mix.b.l);
+  const correct = mix.result;
+
+  const wrongs = [];
+  const used = new Set([correct]);
+  const shuffledResults = shuffle(MIX_TABLE.map(m => m.result));
+
+  for (let i = 0; i < shuffledResults.length && wrongs.length < 3; i++){
+    const r = shuffledResults[i];
+    if (!used.has(r)){
+      used.add(r);
+      wrongs.push(r);
+    }
+  }
+
+  let fi = 0;
+  while (wrongs.length < 3 && fi < FALLBACKS.length){
+    if (!used.has(FALLBACKS[fi])){
+      used.add(FALLBACKS[fi]);
+      wrongs.push(FALLBACKS[fi]);
+    }
+    fi++;
+  }
+
+  const options = shuffle([correct, ...wrongs.slice(0, 3)]);
+  return {
+    type: 'mixing',
+    target: { a: colorA, b: colorB },
+    question: 'ترکیب این دو رنگ چه رنگی می‌شود؟',
+    options,
+    correctIndex: options.indexOf(correct)
+  };
+}
+
+function genMemory(level){
+  const cfg = LEVELS[level];
+  const h = randInt(0, 359);
+  const s = randInt(50, 90);
+  const l = randInt(35, 65);
+  const target = hslToHex(h, s, l);
+
+  const options = [target];
+  const used = new Set([target]);
+  let attempts = 0;
+
+  while (options.length < 4 && attempts < 120){
+    attempts++;
+    const dh = randInt(cfg.hueStep[0], cfg.hueStep[1] + 15) * (Math.random() < .5 ? 1 : -1);
+    const ds = randInt(cfg.satStep[0] - 8, cfg.satStep[1] + 8);
+    const dl = randInt(cfg.lightStep[0] - 8, cfg.lightStep[1] + 8);
+    const w = hslToHex(
+      (h + dh + 360) % 360,
+      Math.max(20, Math.min(95, s + ds)),
+      Math.max(20, Math.min(85, l + dl))
+    );
+    if (!used.has(w)){
+      used.add(w);
+      options.push(w);
+    }
+  }
+
+  let fi = 0;
+  while (options.length < 4 && fi < FALLBACKS.length){
+    if (!used.has(FALLBACKS[fi])){
+      used.add(FALLBACKS[fi]);
+      options.push(FALLBACKS[fi]);
+    }
+    fi++;
+  }
+
+  const shuffled = shuffle(options);
+  return {
+    type: 'memory',
+    target: target,
+    question: 'کدام رنگ را چند لحظه پیش دیدید؟',
+    options: shuffled,
+    correctIndex: shuffled.indexOf(target),
+    memoryTime: cfg.memoryTime
+  };
+}
+
+/* ══════ تنظیمات آزمون‌ها ══════ */
+const QUIZZES = {
+  vision:   { title:'رنگ‌شناسی', icon:'fa-solid fa-eye',     total:10, generator:genVision },
+  matching: { title:'تطبیق رنگ', icon:'fa-solid fa-sliders', total:5,  generator:genMatching },
+  mixing:   { title:'ترکیب رنگ', icon:'fa-solid fa-flask',   total:10, generator:genMixing },
+  memory:   { title:'حفظ رنگ',   icon:'fa-solid fa-brain',   total:8,  generator:genMemory }
+};
+
+/* ══════ وضعیت ══════ */
+let state = {
+  quizKey: null, level: null, questions: [], current: 0,
+  selected: null, answered: false, correctCount: 0, wrongCount: 0,
+  totalSimilarity: 0, startTime: 0, memoryInterval: null, memoryReady: false
+};
+
+/* ══════ انتخاب آزمون ══════ */
+$$('.quiz-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const key = card.dataset.quiz;
+    if (!key || !QUIZZES[key]) return;
+    state.quizKey = key;
+    $('#diffQuizTitle').textContent = 'سطح ' + QUIZZES[key].title + ' را انتخاب کنید';
+    $('#quizSelector').style.display = 'none';
+    $('#quizRunner').classList.remove('on');
+    $('#resultScreen').classList.remove('on');
+    $('#diffScreen').classList.add('on');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+/* ══════ انتخاب سطح ══════ */
+$$('.diff-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const level = card.dataset.level;
+    if (!level || !state.quizKey) return;
+    startQuiz(state.quizKey, level);
+  });
+});
+
+$('#diffBack').addEventListener('click', () => {
+  state.quizKey = null;
+  $('#diffScreen').classList.remove('on');
+  $('#quizSelector').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ══════ شروع آزمون ══════ */
+function startQuiz(key, level){
+  const quiz = QUIZZES[key];
+  if (!quiz) return;
+
+  const questions = [];
+  const sigs = new Set();
+  let attempts = 0;
+
+  while (questions.length < quiz.total && attempts < 200){
+    attempts++;
+    const q = quiz.generator(level);
+    const sig = q.type + '|' + JSON.stringify(q.target) + '|' +
+                (q.options || []).map(o => typeof o === 'string' ? o : JSON.stringify(o)).join(',');
+    if (!sigs.has(sig)){
+      sigs.add(sig);
+      questions.push(q);
+    }
+  }
+
+  state = {
+    quizKey: key, level: level, questions: questions, current: 0,
+    selected: null, answered: false, correctCount: 0, wrongCount: 0,
+    totalSimilarity: 0, startTime: Date.now(),
+    memoryInterval: null, memoryReady: false
+  };
+
+  $('#diffScreen').classList.remove('on');
+  $('#quizSelector').style.display = 'none';
+  $('#resultScreen').classList.remove('on');
+  $('#quizRunner').classList.add('on');
+  $('#qTitle').textContent = quiz.title + ' — ' + LEVELS[level].name;
+  $('#qIcon').className = quiz.icon;
+
+  renderQuestion();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ══════ رندر سوال ══════ */
+function renderQuestion(){
+  const q = state.questions[state.current];
+  const total = state.questions.length;
+
+  state.selected = null;
+  state.answered = false;
+  state.memoryReady = false;
+
+  if (state.memoryInterval){
+    clearInterval(state.memoryInterval);
+    state.memoryInterval = null;
+  }
+
+  $('#qCount').textContent = toFa(state.current + 1) + ' از ' + toFa(total);
+  $('#qProgress').style.width = ((state.current) / total * 100) + '%';
+
+  const box = $('#qBox');
+  const optBox = $('#qOptions');
+  optBox.innerHTML = '';
+  optBox.classList.remove('hidden');
+  optBox.style.gridTemplateColumns = '';
+
+  if (q.type === 'vision'){
+    box.innerHTML =
+      '<h2>' + esc(q.question) + '</h2>' +
+      '<div class="target-color" style="background:' + q.target + '"></div>';
+    renderColorOptions(q, optBox);
+    $('#qNext').disabled = true;
+  }
+  else if (q.type === 'mixing'){
+    box.innerHTML =
+      '<h2>' + esc(q.question) + '</h2>' +
+      '<div class="mix-pair">' +
+        '<div style="background:' + q.target.a + '"></div>' +
+        '<span class="mix-plus">+</span>' +
+        '<div style="background:' + q.target.b + '"></div>' +
+      '</div>';
+    renderColorOptions(q, optBox);
+    $('#qNext').disabled = true;
+  }
+  else if (q.type === 'memory'){
+    /* گزینه‌ها کاملاً مخفی می‌مانند تا تایمر تمام شود */
+    optBox.classList.add('hidden');
+    box.innerHTML =
+      '<h2>' + esc(q.question) + '</h2>' +
+      '<div class="memory-timer" id="memTimer">' + toFa(q.memoryTime.toFixed(1)) + ' ثانیه</div>' +
+      '<div class="memory-color" id="memColor" style="background:' + q.target + '"></div>';
+    $('#qNext').disabled = true;
+    startMemoryCountdown(q);
+  }
+  else if (q.type === 'matching'){
+    box.innerHTML =
+      '<h2>' + esc(q.question) + '</h2>' +
+      '<div class="target-color" style="background:' + q.target + '"></div>' +
+      '<div class="match-picker">' +
+        '<label for="matchPicker">رنگ خود را انتخاب کنید:</label>' +
+        '<input type="color" id="matchPicker" value="#808080">' +
+        '<div class="match-preview" id="matchPreview" style="background:#808080"></div>' +
+        '<button class="btn primary" id="matchSubmit" type="button"><span>ثبت پاسخ <i class="fa-solid fa-check"></i></span></button>' +
+      '</div>' +
+      '<div class="match-result" id="matchResult"></div>';
+
+    optBox.classList.add('hidden');
+
+    const picker = $('#matchPicker');
+    const preview = $('#matchPreview');
+    picker.addEventListener('input', () => {
+      preview.style.background = picker.value.toUpperCase();
+    });
+
+    $('#matchSubmit').addEventListener('click', () => {
+      if (state.answered) return;
+      const chosen = picker.value.toUpperCase();
+      const sim = colorSimilarity(chosen, q.target);
+      const passThreshold = 100 - LEVELS[state.level].matchTolerance;
+      const isCorrect = sim >= passThreshold;
+
+      state.selected = chosen;
+      state.answered = true;
+      state.totalSimilarity += sim;
+      if (isCorrect) state.correctCount++;
+      else state.wrongCount++;
+
+      const result = $('#matchResult');
+      result.classList.add('on');
+      result.innerHTML =
+        '<b>' + toFa(sim.toFixed(1)) + '٪ شباهت</b>' +
+        '<span>هدف: ' + q.target + ' — شما: ' + chosen + '</span>' +
+        '<br><span style="color:' + (isCorrect ? '#7ddba0' : '#ff9a9a') + ';margin-top:.3rem;display:inline-block">' +
+          (isCorrect ? '✓ قبول (حداقل ' + toFa(passThreshold.toFixed(0)) + '٪)' : '✗ رد — حداقل ' + toFa(passThreshold.toFixed(0)) + '٪ لازم بود') +
+        '</span>';
+
+      $('#matchSubmit').disabled = true;
+      picker.disabled = true;
+      $('#qNext').disabled = false;
+    });
+  }
+
+  const nextSpan = $('#qNext').querySelector('span');
+  nextSpan.innerHTML = state.current === total - 1
+    ? 'پایان آزمون <i class="fa-solid fa-flag-checkered"></i>'
+    : 'سوال بعدی <i class="fa-solid fa-arrow-left"></i>';
+}
+
+/* ══════ رندر گزینه‌های رنگ ══════ */
+function renderColorOptions(q, container){
+  container.innerHTML = '';
+  q.options.forEach((hex, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.type = 'button';
+    btn.innerHTML =
+      '<div class="opt-swatch" style="background:' + hex + '"></div>' +
+      '<div class="opt-text">' +
+        '<b>' + hex + '</b>' +
+        '<small>گزینه ' + toFa(i + 1) + '</small>' +
+      '</div>';
+    btn.addEventListener('click', () => selectOption(i));
+    container.appendChild(btn);
+  });
+}
+
+/* ══════ شمارش معکوس حفظ رنگ ══════ */
+function startMemoryCountdown(q){
+  const timerEl = $('#memTimer');
+  const colorEl = $('#memColor');
+  const optBox = $('#qOptions');
+  let timeLeft = q.memoryTime;
+
+  state.memoryInterval = setInterval(() => {
+    timeLeft -= 0.1;
+
+    if (timeLeft <= 0){
+      clearInterval(state.memoryInterval);
+      state.memoryInterval = null;
+
+      /* پنهان کردن رنگ */
+      colorEl.outerHTML =
+        '<div class="memory-wait"><span>رنگ پنهان شد</span><b>حالا از بین گزینه‌ها انتخاب کنید</b></div>';
+
+      /* حالا گزینه‌ها را رندر کن */
+      renderColorOptions(q, optBox);
+      optBox.classList.remove('hidden');
+
+      state.memoryReady = true;
+      $('#qNext').disabled = true;
+      if (timerEl) timerEl.textContent = 'انتخاب کنید';
+      return;
+    }
+
+    if (timerEl) timerEl.textContent = toFa(timeLeft.toFixed(1)) + ' ثانیه';
+  }, 100);
+}
+
+/* ══════ انتخاب گزینه ══════ */
+function selectOption(index){
+  if (state.answered) return;
+  const q = state.questions[state.current];
+  if (q.type === 'memory' && !state.memoryReady) return;
+
+  state.selected = index;
+  state.answered = true;
+
+  const opts = $$('#qOptions .opt');
+  opts.forEach((el, i) => {
+    el.classList.add('disabled');
+    if (i === q.correctIndex) el.classList.add('correct');
+    else if (i === index) el.classList.add('wrong');
+  });
+
+  if (index === q.correctIndex) state.correctCount++;
+  else state.wrongCount++;
+
+  $('#qNext').disabled = false;
+}
+
+/* ══════ سوال بعدی / پایان ══════ */
+$('#qNext').addEventListener('click', () => {
+  if (!state.answered) return;
+
+  const total = state.questions.length;
+  if (state.current < total - 1){
+    state.current++;
+    renderQuestion();
+    window.scrollTo({ top: 100, behavior: 'smooth' });
+  } else {
+    endQuiz();
+  }
+});
+
+/* ══════ خروج ══════ */
+$('#qExit').addEventListener('click', () => {
+  if (state.memoryInterval){
+    clearInterval(state.memoryInterval);
+    state.memoryInterval = null;
+  }
+  backToSelector();
+});
+
+function backToSelector(){
+  if (state.memoryInterval){
+    clearInterval(state.memoryInterval);
+    state.memoryInterval = null;
+  }
+  $('#quizRunner').classList.remove('on');
+  $('#resultScreen').classList.remove('on');
+  $('#diffScreen').classList.remove('on');
+  $('#quizSelector').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ══════ پایان آزمون ══════ */
+function endQuiz(){
+  const total = state.questions.length;
+  const correct = state.correctCount;
+  const wrong = state.wrongCount;
+
+  let score;
+  if (state.quizKey === 'matching'){
+    score = Math.round(state.totalSimilarity / total);
+  } else {
+    score = Math.round((correct / total) * 100);
+  }
+
+  const elapsed = Math.round((Date.now() - state.startTime) / 1000);
+
+  let level, levelClass, message;
+  if (score >= 90){
+    level = 'استاد 🏆'; levelClass = 'level-master';
+    message = 'فوق‌العاده! چشم و سلیقه‌ی شما در سطح حرفه‌ای بالایی است.';
+  } else if (score >= 75){
+    level = 'حرفه‌ای 🎨'; levelClass = 'level-pro';
+    message = 'توانایی بسیار خوبی دارید. با تمرین بیشتر به سطح استاد می‌رسید.';
+  } else if (score >= 55){
+    level = 'خوب 👌'; levelClass = 'level-good';
+    message = 'سلیقه‌ی خوبی دارید. با تمرین بیشتر پیشرفت چشمگیری خواهید داشت.';
+  } else if (score >= 35){
+    level = 'متوسط 📚'; levelClass = 'level-avg';
+    message = 'پایه‌ی خوبی دارید، اما هنوز جا برای پیشرفت زیاد است.';
+  } else {
+    level = 'تازه‌کار 🌱'; levelClass = 'level-beginner';
+    message = 'این تازه شروع راه است! با نگاه کردن به طرح‌های حرفه‌ای پیشرفت می‌کنید.';
+  }
+
+  $('#quizRunner').classList.remove('on');
+  $('#resultScreen').classList.add('on');
+
+  $('#rLevel').textContent = level;
+  $('#rLevel').className = 'result-level ' + levelClass;
+  $('#rDiff').innerHTML = 'سطح: <b>' + LEVELS[state.level].name + '</b>';
+  $('#rMessage').innerHTML = message;
+  $('#rCorrect').textContent = toFa(correct);
+  $('#rWrong').textContent = toFa(wrong);
+  $('#rTime').textContent = toFa(elapsed);
+
+  animateScore(score);
+
+  const circ = 2 * Math.PI * 52;
+  const offset = circ * (1 - score / 100);
+  setTimeout(() => { $('#rRing').style.strokeDashoffset = offset; }, 100);
+
+  window.scrollTo({ top: 100, behavior: 'smooth' });
+}
+
+function animateScore(target){
+  const el = $('#rScore');
+  const start = performance.now();
+  const dur = 1200;
+  function frame(now){
+    const p = Math.min((now - start) / dur, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = toFa(Math.round(eased * target));
+    if (p < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ══════ دکمه‌های نتیجه ══════ */
+$('#rRetry').addEventListener('click', () => {
+  if (state.quizKey && state.level) startQuiz(state.quizKey, state.level);
+});
+
+$('#rHome').addEventListener('click', backToSelector);
+
+/* ══════ ستاره‌ها ══════ */
+(function starfield(){
+  const canvas = $('#stars');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr, list = [], rafId = null;
+  let isVisible = true;
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.width = innerWidth * dpr;
+    h = canvas.height = innerHeight * dpr;
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    const n = Math.min(50, Math.floor(innerWidth / 25));
+    list = new Array(n);
+    for (let i = 0; i < n; i++){
+      list[i] = {
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: (Math.random() * 1.2 + 0.3) * dpr,
+        vx: (Math.random() - 0.5) * 0.15 * dpr,
+        vy: (Math.random() - 0.5) * 0.15 * dpr,
+        a: Math.random() * 0.5 + 0.2
+      };
+    }
+  }
+
+  function draw(){
+    if (!isVisible){ rafId = null; return; }
+    ctx.clearRect(0, 0, w, h);
+    for (let i = 0; i < list.length; i++){
+      const s = list[i];
+      s.x += s.vx; s.y += s.vy;
+      if (s.x < 0) s.x = w; else if (s.x > w) s.x = 0;
+      if (s.y < 0) s.y = h; else if (s.y > h) s.y = 0;
+      ctx.globalAlpha = s.a;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = '#D9C200';
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    rafId = requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  document.addEventListener('visibilitychange', () => {
+    isVisible = !document.hidden;
+    if (isVisible && rafId === null) draw();
+  });
+  draw();
+})();
+
+/* ══════ موزیک ══════ */
+(function music(){
+  const audio = $('#bgMusic');
+  const btn = $('#musicBtn');
+  const icon = $('#musicIcon');
+  if (!audio || !btn || !icon) return;
+
+  const VOL = 0.15, FADE = 2000, KEY = 'portfolio_music_on';
+  let started = false, wantOn = true, raf = null;
+
+  try {
+    const s = localStorage.getItem(KEY);
+    if (s === 'off') wantOn = false;
+  } catch(e){}
+
+  function updateUI(){
+    const playing = !audio.paused && !audio.ended && started;
+    btn.classList.toggle('playing', playing);
+    icon.className = playing ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+  }
+  updateUI();
+
+  function fadeTo(target, dur, done){
+    if (raf) cancelAnimationFrame(raf);
+    const start = audio.volume;
+    const t0 = performance.now();
+    function step(now){
+      const p = Math.min((now - t0) / dur, 1);
+      const e = p < 0.5 ? 2*p*p : 1 - Math.pow(-2*p + 2, 2) / 2;
+      audio.volume = Math.max(0, Math.min(1, start + (target - start) * e));
+      if (p < 1) raf = requestAnimationFrame(step);
+      else { raf = null; if (typeof done === 'function') done(); }
+    }
+    raf = requestAnimationFrame(step);
+  }
+
+  function start(){
+    if (started) return;
+    const p = audio.play();
+    if (p && typeof p.then === 'function'){
+      p.then(() => {
+        started = true;
+        audio.volume = 0;
+        fadeTo(VOL, FADE);
+        updateUI();
+        removeListeners();
+      }).catch(() => updateUI());
+    } else {
+      audio.volume = VOL;
+      started = true;
+      updateUI();
+      removeListeners();
+    }
+  }
+
+  function stop(fade){
+    if (!fade){ audio.pause(); audio.volume = 0; updateUI(); return; }
+    fadeTo(0, 700, () => { audio.pause(); updateUI(); });
+  }
+
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    if (!started){
+      wantOn = true;
+      try { localStorage.setItem(KEY, 'on'); } catch(err){}
+      start(); return;
+    }
+    if (audio.paused){
+      wantOn = true;
+      try { localStorage.setItem(KEY, 'on'); } catch(err){}
+      audio.play().then(() => { fadeTo(VOL, 900); updateUI(); }).catch(() => {});
+    } else {
+      wantOn = false;
+      try { localStorage.setItem(KEY, 'off'); } catch(err){}
+      stop(true);
+    }
+  });
+
+  const events = ['click', 'scroll', 'touchstart', 'keydown', 'pointerdown'];
+  function onFirst(){
+    if (started || !wantOn) return;
+    start();
+  }
+  function addListeners(){
+    events.forEach(evt => window.addEventListener(evt, onFirst, { passive: true }));
+  }
+  function removeListeners(){
+    events.forEach(evt => window.removeEventListener(evt, onFirst));
+  }
+  if (wantOn) addListeners();
+
+  let wasPlaying = false;
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden){
+      wasPlaying = !audio.paused && started;
+      if (wasPlaying){ audio.pause(); updateUI(); }
+    } else if (wasPlaying && wantOn && started){
+      audio.play().then(() => { fadeTo(VOL, 700); updateUI(); }).catch(() => {});
+    }
+  });
+
+  audio.addEventListener('error', () => {
+    btn.style.opacity = '.4';
+    btn.style.cursor = 'not-allowed';
+  });
+})();
+
+/* ══════ محافظت + سال ══════ */
+document.addEventListener('contextmenu', e => {
+  if (e.target.closest('input, textarea, [contenteditable]')) return;
+  e.preventDefault();
+});
+document.addEventListener('dragstart', e => e.preventDefault());
+
+(function year(){
+  const el = document.getElementById('year');
+  if (el) el.textContent = toFa(new Date().getFullYear());
+})();
+</script>
+
+</body>
+</html>
+   

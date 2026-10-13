@@ -1,0 +1,2201 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>جعبه ابزار | مهدی مجاهد</title>
+<meta name="description" content="۳۶ ابزار رایگان و کاربردی — رنگ، متن، تصویر، عمومی و توسعه‌دهنده">
+<link rel="icon" href="img/20261011_025918.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#D9C200;--navy:#001830;--bg:#000d18;
+  --panel:rgba(255,255,255,.045);--panel2:rgba(0,24,48,.55);
+  --stroke:rgba(255,255,255,.09);--text:#f1f5f7;--muted:#8b9ba6;
+  --soft:rgba(217,194,0,.13);--ease:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth;overflow-x:clip;max-width:100%;-webkit-text-size-adjust:100%}
+@supports not (overflow: clip){html{overflow-x:hidden}}
+body{
+  font-family:"Vazirmatn",sans-serif;background:var(--bg);color:var(--text);
+  min-height:100vh;line-height:1.85;overflow-x:clip;max-width:100%;
+  -webkit-font-smoothing:antialiased;
+  -webkit-user-select:none;-moz-user-select:none;user-select:none;
+}
+@supports not (overflow: clip){body{overflow-x:hidden}}
+body.lock{overflow:hidden}
+input,textarea,select,[contenteditable]{-webkit-user-select:text;user-select:text}
+img,canvas,svg,video,audio{max-width:100%;display:block}
+img{-webkit-user-drag:none;user-drag:none}
+button{font:inherit;cursor:pointer;background:none;border:0;color:inherit}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:#001830}
+::-webkit-scrollbar{width:9px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--gold),var(--navy));border-radius:99px}
+
+.bg{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.au{position:absolute;border-radius:50%;filter:blur(110px);opacity:.5}
+.au.a{width:min(58vw,520px);height:min(58vw,520px);background:#D9C200;top:-14vw;right:-14vw;animation:f1 22s ease-in-out infinite}
+.au.b{width:min(52vw,480px);height:min(52vw,480px);background:#003a63;bottom:-16vw;left:-16vw;animation:f2 27s ease-in-out infinite}
+@keyframes f1{50%{transform:translateY(8vh) scale(1.12)}}
+@keyframes f2{50%{transform:translateY(-7vh) scale(1.15)}}
+#stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5}
+
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem clamp(1rem,4vw,3rem);
+  background:rgba(0,13,24,.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--stroke);
+}
+.logo{display:flex;align-items:center;gap:.55rem;font-weight:800;font-size:.95rem;min-width:0}
+.logo-mark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(140deg,var(--gold),#8a7a00);box-shadow:0 0 22px rgba(217,194,0,.4);overflow:hidden;flex:none}
+.logo-mark img{width:68%;height:68%;object-fit:contain;filter:invert(1) brightness(.1)}
+.back{padding:.5rem 1rem;border-radius:99px;background:var(--panel);border:1px solid var(--stroke);font-size:.78rem;font-weight:700;display:inline-flex;gap:.4rem;align-items:center;transition:.4s var(--ease)}
+.back i{color:var(--gold)}
+.back:hover{background:var(--soft);border-color:var(--gold);color:var(--gold)}
+
+main{padding-top:80px;overflow-x:clip}
+section{padding:clamp(1.5rem,5vh,3rem) clamp(1rem,3.5vw,3rem);overflow-x:clip}
+.wrap{max-width:1200px;margin:0 auto;width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.68rem;font-weight:700;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.7rem}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--gold)}
+h1{font-size:clamp(1.5rem,5vw,2.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.2;margin-bottom:.8rem}
+h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,var(--gold));background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 5s linear infinite}
+@keyframes sh{to{background-position:220% center}}
+.lead{color:var(--muted);font-size:clamp(.85rem,1.2vw,.95rem);max-width:62ch}
+
+.search{position:relative;max-width:440px;margin:0 auto 1rem}
+.search i{position:absolute;top:50%;right:1rem;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:.85rem}
+#searchInput{width:100%;padding:.8rem 2.5rem .8rem 1rem;border-radius:99px;background:var(--panel);border:1px solid var(--stroke);color:var(--text);font-size:.85rem;transition:.3s}
+#searchInput:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px var(--soft)}
+.filters{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+.filter{padding:.5rem 1.1rem;border-radius:99px;background:var(--panel);border:1px solid var(--stroke);font-size:.76rem;font-weight:700;display:inline-flex;gap:.4rem;align-items:center;transition:.3s;color:var(--text)}
+.filter i{color:var(--gold);font-size:.72rem}
+.filter:hover{background:var(--soft);border-color:var(--gold);color:var(--gold)}
+.filter.active{background:var(--soft);border-color:var(--gold);color:var(--gold);box-shadow:0 0 22px rgba(217,194,0,.25)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,245px),1fr));gap:.9rem;margin-top:1rem}
+.card{position:relative;padding:1.3rem 1.15rem 1.1rem;border-radius:18px;background:var(--panel);border:1px solid var(--stroke);backdrop-filter:blur(16px);cursor:pointer;overflow:hidden;text-align:right;transition:transform .4s var(--ease),border-color .4s var(--ease),box-shadow .4s var(--ease);opacity:0;transform:translateY(20px);animation:cardIn .5s ease forwards}
+@keyframes cardIn{to{opacity:1;transform:translateY(0)}}
+.card:hover{transform:translateY(-6px);border-color:rgba(217,194,0,.55);box-shadow:0 0 50px rgba(217,194,0,.22);background:rgba(255,255,255,.06)}
+.cicon{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(140deg,var(--gold),#8a7a00);color:#001830;font-size:1.1rem;margin-bottom:.85rem;transition:.4s}
+.card:hover .cicon{transform:scale(1.08) rotate(-5deg)}
+.card h3{font-size:.9rem;font-weight:800;margin-bottom:.3rem}
+.card p{font-size:.72rem;color:var(--muted);line-height:1.7;margin-bottom:.75rem;min-height:2.5em}
+.tag{display:inline-flex;padding:.22rem .6rem;border-radius:99px;font-size:.58rem;font-weight:700;background:var(--soft);color:var(--gold);border:1px solid rgba(217,194,0,.25)}
+.arrow{position:absolute;top:.95rem;left:.95rem;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--panel);border:1px solid var(--stroke);color:var(--muted);font-size:.6rem;transition:.4s}
+.card:hover .arrow{background:var(--gold);color:#001830;border-color:var(--gold);transform:rotate(-45deg)}
+.empty{grid-column:1/-1;text-align:center;padding:2.5rem 1rem;color:var(--muted);font-size:.88rem}
+.empty i{font-size:1.8rem;color:var(--gold);display:block;margin-bottom:.7rem;opacity:.5}
+
+.modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:1rem;opacity:0;visibility:hidden;transition:.4s var(--ease)}
+.modal.open{opacity:1;visibility:visible}
+.mback{position:absolute;inset:0;background:rgba(0,6,12,.75);backdrop-filter:blur(22px);cursor:pointer}
+.mbox{position:relative;width:100%;max-width:min(720px,100%);max-height:92vh;border-radius:26px;background:rgba(0,24,48,.55);border:1px solid rgba(217,194,0,.2);backdrop-filter:blur(38px) saturate(180%);box-shadow:0 40px 90px rgba(0,0,0,.75);overflow:hidden;display:flex;flex-direction:column;transform:scale(.94) translateY(20px);transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+.modal.open .mbox{transform:scale(1) translateY(0)}
+.mclose{position:absolute;top:1rem;left:1rem;z-index:5;width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:rgba(0,24,48,.7);border:1px solid var(--stroke);color:var(--text);font-size:1rem;cursor:pointer;transition:.4s}
+.mclose:hover{background:rgba(217,194,0,.2);border-color:var(--gold);color:var(--gold);transform:rotate(90deg)}
+.mbody{padding:2rem clamp(1.1rem,4vw,1.8rem) 1.8rem;overflow-y:auto;flex:1;overflow-x:clip}
+.mtitle{display:flex;gap:.8rem;align-items:center;margin-bottom:1.3rem;padding-left:3rem}
+.mticon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(140deg,var(--gold),#8a7a00);color:#001830;font-size:1.05rem;flex:none}
+.mtitle h2{font-size:1.05rem;font-weight:900;letter-spacing:-.02em}
+.mtitle p{font-size:.7rem;color:var(--muted);margin-top:.15rem}
+
+.f{margin-bottom:1rem;text-align:right}
+.f label{display:block;font-size:.72rem;font-weight:700;color:var(--muted);margin-bottom:.4rem}
+.f input,.f textarea,.f select{width:100%;padding:.75rem .9rem;border-radius:12px;background:var(--panel);border:1px solid var(--stroke);color:var(--text);font-size:.84rem;transition:.3s;resize:vertical}
+.f input:focus,.f textarea:focus,.f select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px var(--soft);background:var(--panel2)}
+.f textarea{min-height:100px;line-height:1.85}
+.frow{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.65rem}
+.f input[type="color"]{padding:.3rem;height:46px;cursor:pointer}
+.f input[type="range"]{padding:.4rem 0;background:transparent;-webkit-appearance:none;appearance:none;cursor:pointer}
+.f input[type="range"]::-webkit-slider-runnable-track{height:5px;border-radius:99px;background:linear-gradient(90deg,var(--gold),rgba(217,194,0,.3))}
+.f input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);border:2px solid #001830;box-shadow:0 0 12px rgba(217,194,0,.7);margin-top:-6.5px;cursor:pointer}
+.chk{display:flex;align-items:center;gap:.5rem;font-size:.75rem;color:var(--muted);padding:.4rem 0;cursor:pointer}
+.chk input{width:16px;height:16px;accent-color:var(--gold);cursor:pointer}
+
+@property --ang{syntax:"<angle>";initial-value:0deg;inherits:false}
+.btn{position:relative;display:inline-flex;padding:2px;border-radius:99px;overflow:hidden;isolation:isolate;cursor:pointer;flex:none;max-width:100%}
+.btn::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--ang),transparent 0 190deg,var(--gold) 265deg,#fff8c4 300deg,var(--gold) 330deg,transparent 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;animation:bs 3.6s linear infinite;z-index:0;pointer-events:none}
+@keyframes bs{to{--ang:360deg}}
+.btn > span{position:relative;z-index:1;flex:1;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.75rem 1.5rem;border-radius:99px;background:var(--panel2);border:1px solid transparent;font-weight:700;font-size:.8rem;white-space:nowrap;min-width:0;transition:.3s}
+.btn:hover > span{background:var(--soft);color:var(--gold)}
+.btn.ghost > span{background:transparent}
+.btn.primary > span{background:linear-gradient(140deg,var(--gold),#8a7a00);color:#001830}
+.btn.primary:hover > span{background:linear-gradient(140deg,#e6ce0a,#a39000);color:#001830}
+.btn.sm > span{padding:.5rem .95rem;font-size:.72rem}
+.btn[disabled]{opacity:.5;cursor:not-allowed;pointer-events:none}
+.btnrow{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.4rem}
+.btnrow .btn{flex:1 1 auto;min-width:110px}
+
+.out{padding:.9rem 1rem;border-radius:12px;background:var(--panel);border:1px dashed rgba(217,194,0,.3);font-family:ui-monospace,monospace;font-size:.78rem;color:var(--gold);word-break:break-all;line-height:1.8;min-height:50px;-webkit-user-select:text;user-select:text}
+.hint{font-size:.68rem;color:var(--muted);margin-top:.5rem}
+.rinfo{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.8rem;padding:.6rem .9rem;border-radius:11px;background:var(--soft);border:1px solid rgba(217,194,0,.25);font-size:.74rem;color:var(--gold)}
+.rinfo b{font-weight:800}
+
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;margin-top:1rem}
+.sw{position:relative;aspect-ratio:1/1.4;border-radius:12px;cursor:pointer;overflow:hidden;border:1px solid var(--stroke);transition:.3s}
+.sw:hover{transform:translateY(-5px) scale(1.03)}
+.sw .cd{position:absolute;bottom:0;left:0;right:0;padding:.4rem .2rem;text-align:center;font-family:ui-monospace,monospace;font-size:.58rem;font-weight:800;background:rgba(0,0,0,.55);color:#fff;backdrop-filter:blur(6px)}
+.prev{width:100%;height:130px;border-radius:14px;border:1px solid var(--stroke);margin-top:1rem}
+.contrast{padding:1.6rem 1.2rem;border-radius:14px;text-align:center;margin-top:1rem;border:1px solid var(--stroke)}
+.contrast .lg{font-size:1.4rem;font-weight:900;margin-bottom:.5rem}
+.contrast .md{font-size:.9rem;font-weight:600;margin-bottom:.35rem}
+.contrast .sm{font-size:.72rem;opacity:.85}
+.badge{display:inline-flex;padding:.3rem .85rem;border-radius:99px;font-size:.7rem;font-weight:800;margin:.25rem .2rem}
+.pass{background:rgba(80,200,120,.15);color:#7ddba0;border:1px solid rgba(80,200,120,.35)}
+.fail{background:rgba(230,80,80,.15);color:#ff9a9a;border:1px solid rgba(230,80,80,.35)}
+.sbar{height:5px;border-radius:99px;background:var(--stroke);overflow:hidden;margin-top:.5rem}
+.sbar i{display:block;height:100%;width:0;border-radius:99px;transition:.5s}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.55rem;margin-top:.9rem}
+.stats div{padding:.75rem .85rem;border-radius:12px;background:var(--panel);border:1px solid var(--stroke);text-align:center}
+.stats b{display:block;font-size:.95rem;font-weight:900;color:var(--gold);margin-bottom:.15rem}
+.stats span{font-size:.62rem;color:var(--muted)}
+
+.file{display:block;width:100%;max-width:100%;padding:1.5rem 1rem;border-radius:14px;border:2px dashed rgba(217,194,0,.4);background:var(--panel);text-align:center;cursor:pointer;transition:.3s;overflow:hidden}
+.file:hover{border-color:var(--gold);background:var(--soft)}
+.file i{font-size:1.6rem;color:var(--gold);display:block;margin-bottom:.4rem}
+.file b{font-size:.82rem;font-weight:800;display:block;margin-bottom:.2rem}
+.file small{font-size:.66rem;color:var(--muted);display:block}
+.file input{display:none}
+
+.imgp{max-width:100%;max-height:260px;border-radius:12px;margin:1rem auto 0;border:1px solid var(--stroke);object-fit:contain}
+.picked{display:flex;gap:.8rem;align-items:center;margin-top:1rem;padding:.75rem .95rem;border-radius:12px;background:var(--panel);border:1px solid var(--stroke)}
+.picked .csw{width:48px;height:48px;border-radius:11px;border:1px solid var(--stroke);flex:none}
+.picked .info{flex:1;min-width:0}
+.picked .info b{display:block;font-family:ui-monospace,monospace;font-size:.88rem;color:var(--gold)}
+.picked .info small{font-size:.68rem;color:var(--muted)}
+.qrout{display:grid;place-items:center;padding:1.2rem;background:#fff;border-radius:12px;margin-top:1rem;min-height:200px}
+.qrout svg,.qrout img{max-width:100%;height:auto}
+.ircol{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.55rem;margin-top:1rem}
+.irc{border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid var(--stroke);transition:.3s}
+.irc:hover{transform:translateY(-5px);border-color:var(--gold)}
+.irc .s{aspect-ratio:1.4/1}
+.irc .l{padding:.45rem .5rem;background:var(--panel2);font-size:.68rem;font-weight:700;text-align:center}
+.irc .l small{display:block;font-family:ui-monospace,monospace;font-size:.58rem;color:var(--muted);margin-top:.1rem}
+.fancy{padding:.7rem .95rem;border-radius:11px;background:var(--panel);border:1px solid var(--stroke);display:flex;justify-content:space-between;align-items:center;gap:.7rem;cursor:pointer;transition:.3s;margin-bottom:.45rem}
+.fancy:hover{border-color:var(--gold);background:var(--soft)}
+.fancy b{font-weight:400;flex:1;word-break:break-all;text-align:right;font-size:.95rem}
+.fancy small{color:var(--muted);font-size:.62rem;flex:none}
+.stimer{font-size:clamp(2.4rem,12vw,4rem);font-weight:900;text-align:center;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:var(--gold);text-shadow:0 0 40px rgba(217,194,0,.45);margin:1rem 0}
+.laps{max-height:180px;overflow-y:auto;margin-top:1rem;border-radius:12px;background:var(--panel);border:1px solid var(--stroke);padding:.3rem}
+.lap{display:flex;justify-content:space-between;padding:.45rem .75rem;border-radius:8px;font-family:ui-monospace,monospace;font-size:.76rem;gap:.5rem}
+.lap:nth-child(odd){background:rgba(255,255,255,.03)}
+.dice{font-size:4.5rem;text-align:center;color:var(--gold);text-shadow:0 0 40px rgba(217,194,0,.6);margin:1rem 0;line-height:1}
+.wheelwrap{position:relative;max-width:320px;margin:1rem auto;aspect-ratio:1}
+.wheelp{position:absolute;top:-8px;right:50%;transform:translateX(50%);border-left:13px solid transparent;border-right:13px solid transparent;border-top:22px solid var(--gold);filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));z-index:3}
+#wheelC{width:100%;height:100%;border-radius:50%;box-shadow:0 0 40px rgba(217,194,0,.3),inset 0 0 0 4px rgba(217,194,0,.4)}
+.wres{text-align:center;margin-top:1rem;font-size:1rem;font-weight:900;color:var(--gold);min-height:1.6em}
+.bmi-bar{position:relative;height:10px;border-radius:99px;margin:1rem 0;background:linear-gradient(90deg,#5FA8D3 0%,#5FA8D3 18%,#7DDBA0 18%,#7DDBA0 42%,#D9C200 42%,#D9C200 58%,#FF9A9A 58%,#FF9A9A 78%,#B14A2E 78%)}
+.bmi-marker{position:absolute;top:-6px;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid #001830;transform:translateX(-50%);transition:left .6s var(--ease);box-shadow:0 4px 12px rgba(0,0,0,.5)}
+
+.size-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;padding:.4rem;background:var(--panel);border:1px solid var(--stroke);border-radius:14px}
+.size-tab{flex:1 1 auto;padding:.6rem .9rem;border-radius:10px;background:transparent;border:1px solid transparent;color:var(--muted);font-size:.75rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;cursor:pointer;transition:.35s var(--ease)}
+.size-tab i{color:var(--gold);font-size:.75rem}
+.size-tab:hover{color:var(--text);background:rgba(255,255,255,.04)}
+.size-tab.active{background:var(--soft);border-color:var(--gold);color:var(--gold);box-shadow:0 0 18px rgba(217,194,0,.2)}
+.size-section{margin-bottom:1.4rem}
+.size-section:last-child{margin-bottom:0}
+.size-section-head{display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem;padding-bottom:.5rem;border-bottom:1px dashed rgba(217,194,0,.25)}
+.size-section-head i{color:var(--gold);font-size:1rem;width:1.5rem;text-align:center}
+.size-section-head h3{font-size:.92rem;font-weight:800;letter-spacing:-.02em;color:var(--text)}
+.size-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr));gap:.5rem}
+.size-card{padding:.7rem .85rem;border-radius:11px;background:var(--panel);border:1px solid var(--stroke);display:flex;flex-direction:column;gap:.2rem;transition:.35s var(--ease);cursor:default}
+.size-card:hover{border-color:var(--gold);background:var(--soft);transform:translateY(-3px)}
+.size-card b{font-size:.76rem;font-weight:800;color:var(--text)}
+.size-card .size-dim{font-family:ui-monospace,monospace;font-size:.72rem;color:var(--gold);direction:ltr;text-align:right;font-weight:700}
+.size-card small{font-size:.6rem;color:var(--muted);direction:ltr;text-align:right}
+
+.rc-out{display:flex;flex-direction:column;gap:.5rem;margin-top:.8rem}
+.rc-block{padding:.9rem 1rem;border-radius:13px;background:var(--panel);border:1px solid var(--stroke);text-align:center}
+.rc-block-primary{background:linear-gradient(140deg,rgba(217,194,0,.12),rgba(217,194,0,.03));border-color:rgba(217,194,0,.35);box-shadow:0 0 26px rgba(217,194,0,.12)}
+.rc-label{font-size:.66rem;font-weight:700;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.3rem}
+.rc-value{font-size:1.05rem;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums;direction:ltr}
+.rc-value small{font-size:.68rem;color:var(--muted);font-weight:600;margin-left:.3rem}
+.rc-value-big{font-size:1.4rem;color:var(--gold);text-shadow:0 0 30px rgba(217,194,0,.35)}
+.rc-arrow{text-align:center;color:var(--gold);font-size:.9rem;opacity:.7;animation:cardFloat 3s ease-in-out infinite}
+@keyframes cardFloat{50%{transform:translateY(-5px)}}
+.rc-text{position:relative;padding:1rem 1.2rem;border-radius:13px;background:rgba(217,194,0,.06);border:1px dashed rgba(217,194,0,.35);display:flex;gap:.6rem;align-items:flex-start}
+.rc-text i{color:var(--gold);font-size:1rem;flex:none;margin-top:.15rem;opacity:.7}
+.rc-text p{font-size:.88rem;color:var(--text);line-height:1.9;font-weight:600;margin:0}
+
+.date-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:.6rem;margin-top:1rem}
+.date-card{padding:.9rem;border-radius:13px;background:var(--panel);border:1px solid var(--stroke);text-align:center;transition:.35s var(--ease)}
+.date-card:hover{border-color:var(--gold);background:var(--soft);transform:translateY(-3px)}
+.date-card .dc-label{font-size:.65rem;color:var(--muted);font-weight:700;letter-spacing:.1em;margin-bottom:.35rem}
+.date-card .dc-val{font-size:1.05rem;font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums}
+.date-card .dc-month{font-size:.72rem;color:var(--text);margin-top:.25rem;font-weight:700}
+.date-extra{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:.6rem;margin-top:1rem}
+.date-extra .date-card{background:linear-gradient(140deg,rgba(217,194,0,.1),rgba(217,194,0,.02));border-color:rgba(217,194,0,.35)}
+
+/* ══════ BANK CARD ══════ */
+.bk-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:1rem;margin-bottom:1rem}
+@media (max-width:700px){.bk-wrap{grid-template-columns:1fr}}
+.bk-preview-col{display:grid;place-items:center;padding:.5rem 0}
+
+.bk-card{
+  position:relative;width:100%;max-width:420px;
+  aspect-ratio:1.586 / 1;border-radius:18px;
+  overflow:hidden;color:#fff;
+  font-family:"Vazirmatn",sans-serif;
+  box-shadow:0 20px 50px rgba(0,0,0,.55);
+  isolation:isolate;
+}
+.bk-card-bg{
+  position:absolute;inset:0;z-index:0;
+  background:#0a1526;
+  transition:background .4s var(--ease);
+}
+.bk-card-glow{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(255,255,255,.14),transparent 42%),
+    radial-gradient(circle at 80% 80%,rgba(255,255,255,.06),transparent 50%);
+}
+.bk-card-inner{
+  position:absolute;inset:0;z-index:2;
+  padding:1.3rem 1.5rem;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+
+.bk-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
+.bk-logo-holder{
+  width:70px;height:44px;
+  display:flex;align-items:center;justify-content:flex-start;
+  flex:none;
+  overflow:hidden;
+}
+.bk-logo-holder img{
+  width:100%;height:100%;
+  object-fit:contain;object-position:left center;
+}
+.bk-chip{
+  width:46px;height:36px;border-radius:7px;
+  background:linear-gradient(135deg,#bfa020 0%,#f5e5a5 30%,#a88810 55%,#e8d47a 80%,#b8981a 100%);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.3),0 2px 6px rgba(0,0,0,.4);
+  position:relative;flex:none;
+  display:grid;place-items:center;
+}
+.bk-chip::after{
+  content:"";position:absolute;inset:5px;
+  border-radius:4px;
+  background:
+    linear-gradient(to bottom,transparent 47%,rgba(0,0,0,.28) 47%,rgba(0,0,0,.28) 53%,transparent 53%),
+    linear-gradient(to right,transparent 47%,rgba(0,0,0,.28) 47%,rgba(0,0,0,.28) 53%,transparent 53%);
+}
+
+.bk-middle{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;
+  gap:.35rem;flex:1;
+  padding:.4rem 0;
+}
+
+.bk-iban{
+  font-family:"Space Grotesk",ui-monospace,monospace;
+  font-size:.82rem;font-weight:500;
+  opacity:.78;direction:ltr;white-space:nowrap;
+  text-shadow:0 1px 4px rgba(0,0,0,.5);
+  letter-spacing:0;
+}
+.bk-number{
+  font-family:"Space Grotesk",ui-monospace,monospace;
+  font-size:1.75rem;font-weight:700;
+  direction:ltr;white-space:nowrap;
+  text-shadow:0 3px 12px rgba(0,0,0,.6);
+  display:flex;gap:18px;justify-content:center;align-items:center;
+  letter-spacing:0;
+  line-height:1.1;
+}
+.bk-number span{display:inline-block;letter-spacing:0}
+
+.bk-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:.6rem}
+.bk-holder{
+  font-family:"Vazirmatn",sans-serif;
+  font-size:1rem;font-weight:800;
+  text-shadow:0 2px 6px rgba(0,0,0,.5);
+  text-align:left;flex:1;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.bk-holder small{
+  display:block;font-family:"Space Grotesk",sans-serif;
+  font-size:.55rem;font-weight:500;opacity:.7;
+  margin-bottom:2px;letter-spacing:.05em;
+}
+.bk-bank-name{
+  font-family:"Vazirmatn",sans-serif;
+  font-size:.82rem;font-weight:800;
+  opacity:.92;text-align:right;flex:none;max-width:50%;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  text-shadow:0 2px 6px rgba(0,0,0,.5);
+}
+
+.bk-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}
+.bk-actions .btn{flex:1 1 auto;min-width:130px}
+.bk-hint{font-size:.68rem;color:var(--muted);margin-top:.5rem;line-height:1.7}
+
+/* ══════ QUIZ CTA ══════ */
+.quiz-cta{
+  margin-top:2rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding:1.3rem clamp(1.2rem,3vw,1.8rem);
+  border-radius:20px;
+  background:linear-gradient(135deg,rgba(217,194,0,.14),rgba(0,24,48,.4));
+  border:1px solid rgba(217,194,0,.35);
+  backdrop-filter:blur(18px);
+  flex-wrap:wrap;
+  box-shadow:0 20px 50px rgba(0,0,0,.35);
+}
+.quiz-cta-text{flex:1;min-width:220px;text-align:right}
+.quiz-cta-text h3{
+  font-size:clamp(.95rem,2vw,1.2rem);
+  font-weight:900;letter-spacing:-.025em;margin-bottom:.25rem;
+}
+.quiz-cta-text h3 i{color:var(--gold);margin-left:.4rem}
+.quiz-cta-text p{font-size:.78rem;color:var(--muted);line-height:1.75}
+
+/* ══════ BACK TO TOP ══════ */
+.to-top{
+  position:fixed;
+  bottom:max(1.2rem, env(safe-area-inset-bottom));
+  left:max(1.2rem, env(safe-area-inset-left));
+  z-index:94;
+  width:52px;height:52px;border-radius:16px;
+  display:grid;place-items:center;
+  background:var(--panel2);border:1px solid var(--stroke);
+  backdrop-filter:blur(18px) saturate(180%);
+  -webkit-backdrop-filter:blur(18px) saturate(180%);
+  color:var(--gold);cursor:pointer;font-size:1.05rem;
+  transition:.4s var(--ease-2);
+  box-shadow:0 8px 26px rgba(0,0,0,.5);
+  opacity:0;transform:translateY(20px) scale(.9);pointer-events:none;
+}
+.to-top.show{opacity:1;transform:none;pointer-events:auto}
+.to-top:hover{background:var(--soft);border-color:var(--gold);transform:translateY(-3px);box-shadow:0 0 24px rgba(217,194,0,.4)}
+.to-top:active{transform:scale(.95)}
+
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(40px);padding:.65rem 1.2rem;border-radius:99px;background:rgba(0,24,48,.9);border:1px solid var(--gold);color:var(--gold);font-size:.78rem;font-weight:700;backdrop-filter:blur(16px);z-index:2000;opacity:0;pointer-events:none;transition:.5s;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.mbtn{position:fixed;bottom:1.2rem;right:1.2rem;width:50px;height:50px;border-radius:15px;display:grid;place-items:center;background:rgba(0,24,48,.65);border:1px solid var(--stroke);backdrop-filter:blur(18px);color:var(--gold);cursor:pointer;transition:.3s;z-index:95}
+.mbtn:hover{background:var(--soft);border-color:var(--gold);transform:translateY(-3px)}
+.mbtn i{font-size:1rem}
+.mbtn.playing i{animation:mp 2s ease-in-out infinite}
+@keyframes mp{50%{transform:scale(1.18)}}
+
+footer{padding:2rem clamp(1rem,3.5vw,3rem) 1.3rem;border-top:1px solid var(--stroke);background:rgba(0,13,24,.65);backdrop-filter:blur(20px);font-size:.7rem;color:var(--muted);padding-bottom:calc(1.3rem + 60px)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
+footer a{color:var(--gold);font-weight:700}
+
+@media (max-width:640px){
+  header{padding:.65rem .9rem}
+  .logo{font-size:.88rem}
+  .logo-mark{width:34px;height:34px}
+  .back{padding:.45rem .85rem;font-size:.72rem}
+  main{padding-top:70px}
+  section{padding:1.4rem 1rem}
+  h1{font-size:clamp(1.35rem,6.5vw,2rem)}
+  .filter{padding:.42rem .85rem;font-size:.7rem}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:.6rem}
+  .card{padding:1rem .85rem .85rem;border-radius:16px}
+  .cicon{width:38px;height:38px;font-size:.95rem;margin-bottom:.65rem}
+  .card h3{font-size:.8rem}
+  .card p{font-size:.66rem;min-height:3em;margin-bottom:.6rem}
+  .tag{font-size:.53rem;padding:.2rem .5rem}
+  .modal{padding:.5rem}
+  .mbox{border-radius:22px}
+  .mbody{padding:1.5rem 1rem 1.3rem}
+  .mtitle{padding-left:2.5rem}
+  .mclose{width:34px;height:34px;font-size:.9rem;top:.7rem;left:.7rem}
+  .f input,.f textarea,.f select{padding:.7rem .85rem;font-size:.8rem}
+  .btn > span{padding:.65rem 1.1rem;font-size:.72rem}
+  .btn.sm > span{padding:.45rem .8rem;font-size:.68rem}
+  .btnrow{flex-direction:column}
+  .btnrow .btn{width:100%}
+  .stats{grid-template-columns:1fr 1fr}
+  .dice{font-size:3.2rem}
+  .stimer{font-size:clamp(2rem,13vw,3.2rem)}
+  .size-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:.4rem}
+  footer .wrap{flex-direction:column;align-items:flex-start}
+  .to-top{width:46px;height:46px;border-radius:14px;font-size:.95rem}
+  .bk-card{padding:1.1rem 1.2rem;border-radius:15px}
+  .bk-logo-holder{width:56px;height:36px}
+  .bk-chip{width:38px;height:30px}
+  .bk-number{font-size:1.25rem;gap:12px}
+  .bk-iban{font-size:.68rem}
+  .bk-holder{font-size:.85rem}
+  .bk-bank-name{font-size:.72rem}
+  .quiz-cta{padding:1.1rem 1rem}
+}
+@media (max-width:400px){
+  .grid{grid-template-columns:1fr 1fr}
+  .card p{min-height:auto}
+  .bk-number{font-size:1.05rem;gap:10px}
+  .bk-holder{font-size:.78rem}
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg">
+  <div class="au a"></div>
+  <div class="au b"></div>
+</div>
+<canvas id="stars"></canvas>
+
+<audio id="bgMusic" loop preload="auto" playsinline>
+  <source src="audio/f4b6ed86-c45b-4c96-aa29-50a0ae687ab1.mp3" type="audio/mpeg">
+</audio>
+
+<header>
+  <a href="index.html" class="logo">
+    <span class="logo-mark">
+      <img src="img/20261011_025918.ico" alt="مهدی مجاهد">
+    </span>
+    <span>مهدی مجاهد</span>
+  </a>
+  <a href="index.html" class="back"><i class="fa-solid fa-arrow-right"></i> بازگشت</a>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">جعبه ابزار</span>
+      <h1>ابزارهای <em>کاربردی</em></h1>
+      <p class="lead">۳۶ ابزار رایگان و سبک. همه چیز کاملاً در مرورگر شما اجرا می‌شود و هیچ داده‌ای به سرور فرستاده نمی‌شود.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="جستجو در ابزارها...">
+      </div>
+      <div class="filters" id="filters">
+        <button class="filter active" data-filter="all"><i class="fa-solid fa-grip"></i> همه</button>
+        <button class="filter" data-filter="color"><i class="fa-solid fa-palette"></i> رنگ</button>
+        <button class="filter" data-filter="text"><i class="fa-solid fa-font"></i> متن</button>
+        <button class="filter" data-filter="image"><i class="fa-solid fa-image"></i> تصویر</button>
+        <button class="filter" data-filter="general"><i class="fa-solid fa-bolt"></i> عمومی</button>
+        <button class="filter" data-filter="dev"><i class="fa-solid fa-code"></i> توسعه‌دهنده</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="grid" id="toolsGrid"></div>
+
+      <!-- CTA آزمون‌ها -->
+      <div class="quiz-cta">
+        <div class="quiz-cta-text">
+          <h3><i class="fa-solid fa-flask-vial"></i> آماده‌ای خودت رو محک بزنی؟</h3>
+          <p>پنج آزمون حرفه‌ای رنگ‌شناسی، تطبیق، ترکیب و حفظ رنگ — با سه سطح مبتدی، متوسط و حرفه‌ای.</p>
+        </div>
+        <a href="quiz.html" class="btn primary">
+          <span>ورود به آزمون‌ها <i class="fa-solid fa-arrow-left"></i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal" id="modal">
+  <div class="mback" id="mback"></div>
+  <div class="mbox">
+    <button class="mclose" id="mclose">✕</button>
+    <div class="mbody" id="mbody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<button class="to-top" id="toTop" aria-label="بازگشت به بالا">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<button class="mbtn" id="musicBtn" aria-label="پخش موسیقی">
+  <i class="fa-solid fa-volume-xmark" id="musicIcon"></i>
+</button>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> مهدی مجاهد</span>
+    <a href="index.html">بازگشت به صفحه‌ی اصلی</a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<!-- ▓▓▓ پیام ۲ از این‌جا ادامه می‌یابد ▓▓▓ -->
+
+  <script>
+const $ = (s, ctx=document) => ctx.querySelector(s);
+const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
+const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+const toEn = s => String(s).replace(/[۰-۹]/g, d => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const randInt = (a,b) => Math.floor(Math.random() * (b - a + 1)) + a;
+const pick = arr => arr[(Math.random() * arr.length) | 0];
+function shuffle(arr){ const a = arr.slice(); for (let i = a.length - 1; i > 0; i--){ const j = (Math.random() * (i + 1)) | 0; [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+let toastT = null;
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2200);
+}
+function copy(text, msg){
+  if (!text) return;
+  msg = msg || 'کپی شد ✦';
+  navigator.clipboard.writeText(text).then(() => toast(msg)).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); toast(msg); } catch(e){}
+    ta.remove();
+  });
+}
+function hexToRgb(h){ h = h.replace('#',''); return [parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16)]; }
+function rgbToHex(r,g,b){ return '#' + [r,g,b].map(v => Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join(''); }
+function hexToHsl(hex){
+  const [r0,g0,b0] = hexToRgb(hex);
+  const r = r0/255, g = g0/255, b = b0/255;
+  const mx = Math.max(r,g,b), mn = Math.min(r,g,b);
+  let h=0, s=0, l=(mx+mn)/2;
+  if (mx !== mn){ const d = mx-mn; s = l > .5 ? d/(2-mx-mn) : d/(mx+mn);
+    switch(mx){ case r: h = (g-b)/d + (g<b?6:0); break; case g: h = (b-r)/d + 2; break; case b: h = (r-g)/d + 4; break; }
+    h /= 6; }
+  return {h:h*360, s:s*100, l:l*100};
+}
+function hslToHex(h,s,l){
+  s/=100; l/=100;
+  const k = n => (n + h/30) % 12;
+  const a = s * Math.min(l, 1-l);
+  const f = n => l - a * Math.max(-1, Math.min(k(n)-3, Math.min(9-k(n), 1)));
+  const t = x => Math.round(255*x).toString(16).padStart(2,'0');
+  return '#' + t(f(0)) + t(f(8)) + t(f(4));
+}
+function download(blob, name){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 300);
+}
+function fmtBytes(b){
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  if (b < 1073741824) return (b/1048576).toFixed(2) + ' MB';
+  return (b/1073741824).toFixed(2) + ' GB';
+}
+function gregToJalali(gy, gm, gd){
+  const gdm = [0,31,59,90,120,151,181,212,243,273,304,334];
+  let jy = (gy <= 1600) ? 0 : 979;
+  gy -= (gy <= 1600) ? 621 : 1600;
+  const gy2 = (gm > 2) ? (gy + 1) : gy;
+  let days = (365*gy) + Math.floor((gy2+3)/4) - Math.floor((gy2+99)/100) + Math.floor((gy2+399)/400) - 80 + gd + gdm[gm-1];
+  jy += 33 * Math.floor(days/12053); days %= 12053;
+  jy += 4 * Math.floor(days/1461); days %= 1461;
+  jy += Math.floor((days-1)/365);
+  if (days > 365) days = (days-1) % 365;
+  const jm = (days < 186) ? 1 + Math.floor(days/31) : 7 + Math.floor((days-186)/30);
+  const jd = 1 + ((days < 186) ? (days%31) : ((days-186)%30));
+  return [jy, jm, jd];
+}
+function jalaliToGreg(jy, jm, jd){
+  let gy = (jy <= 979) ? 621 : 1600;
+  jy -= (jy <= 979) ? 0 : 979;
+  let days = (365*jy) + (Math.floor(jy/33)*8) + Math.floor(((jy%33)+3)/4) + 78 + jd + ((jm < 7) ? (jm-1)*31 : ((jm-7)*30)+186);
+  gy += 400 * Math.floor(days/146097); days %= 146097;
+  if (days > 36524){ gy += 100 * Math.floor(--days/36524); days %= 36524; if (days >= 365) days++; }
+  gy += 4 * Math.floor(days/1461); days %= 1461;
+  if (days > 365){ gy += Math.floor((days-1)/365); days = (days-1) % 365; }
+  let gd = days + 1;
+  const sa = [0,31,((gy%4===0 && gy%100!==0) || gy%400===0)?29:28,31,30,31,30,31,31,30,31,30,31];
+  let gm = 0;
+  for (gm = 1; gm <= 12; gm++){ if (gd <= sa[gm]) break; gd -= sa[gm]; }
+  return [gy, gm, gd];
+}
+function gregToHijri(gy, gm, gd){
+  const jd0 = Math.floor((1461 * (gy + 4800 + Math.floor((gm - 14) / 12))) / 4)
+    + Math.floor((367 * (gm - 2 - 12 * Math.floor((gm - 14) / 12))) / 12)
+    - Math.floor((3 * Math.floor((gy + 4900 + Math.floor((gm - 14) / 12)) / 100)) / 4) + gd - 32075;
+  let l = jd0 - 1948440 + 10632;
+  const n = Math.floor((l - 1) / 10631);
+  l = l - 10631 * n + 354;
+  const j = Math.floor((10985 - l) / 5316) * Math.floor((50 * l) / 17719) + Math.floor(l / 5670) * Math.floor((43 * l) / 15238);
+  l = l - Math.floor((30 - j) / 15) * Math.floor((17719 * j) / 50) - Math.floor(j / 16) * Math.floor((15238 * j) / 43) + 29;
+  const hm = Math.floor((24 * l) / 709);
+  const hd = l - Math.floor((709 * hm) / 24);
+  const hy = 30 * n + j - 30;
+  return [hy, hm, hd];
+}
+const J_MONTHS = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+const G_MONTHS = ['ژانویه','فوریه','مارس','آوریل','مه','ژوئن','ژوئیه','اوت','سپتامبر','اکتبر','نوامبر','دسامبر'];
+const H_MONTHS = ['محرم','صفر','ربيع‌الاول','ربيع‌الثانی','جمادی‌الاول','جمادی‌الثانی','رجب','شعبان','رمضان','شوال','ذی‌القعده','ذی‌الحجه'];
+
+const TOOLS = [];
+
+/* ══════ COLOR ══════ */
+TOOLS.push({
+  id:'palette', cat:'color', icon:'fa-solid fa-palette',
+  title:'سازندهٔ پالت رنگ', tag:'رنگ',
+  desc:'پالت هماهنگ ۵ رنگی از یک رنگ پایه بسازید.',
+  html:`<div class="f"><label>رنگ پایه</label><input type="color" id="pb" value="#D9C200"></div>
+    <div class="f"><label>نوع هارمونی</label><select id="pt"><option value="complementary">مکمل</option><option value="analogous">آنالوگ</option><option value="triadic">سه‌گانه</option><option value="tetradic">چهارگانه</option><option value="monochromatic">تک‌رنگ</option></select></div>
+    <div class="btnrow"><button class="btn" id="pg"><span>ساخت پالت <i class="fa-solid fa-wand-magic-sparkles"></i></span></button><button class="btn ghost" id="pca"><span>کپی همه</span></button></div>
+    <div class="palette" id="po"></div><p class="hint">روی هر رنگ کلیک کنید تا کد HEX کپی شود.</p>`,
+  init(){
+    const b = $('#pb'), t = $('#pt'), o = $('#po');
+    function gen(){
+      const {h,s,l} = hexToHsl(b.value);
+      let arr = [];
+      if (t.value === 'complementary') arr = [h,h+180,h+180,h,h+180];
+      else if (t.value === 'analogous') arr = [h-40,h-20,h,h+20,h+40];
+      else if (t.value === 'triadic') arr = [h,h+120,h+240,h+120,h+240];
+      else if (t.value === 'tetradic') arr = [h,h+90,h+180,h+270,h+45];
+      else arr = [h,h,h,h,h];
+      o.innerHTML = '';
+      arr.forEach((hh,i) => {
+        const ll = t.value === 'monochromatic' ? Math.max(15, Math.min(85, 20+i*17)) : Math.max(25, Math.min(75, l+(i-2)*8));
+        const hex = hslToHex((hh+360)%360, s, ll);
+        const d = document.createElement('div'); d.className = 'sw'; d.style.background = hex;
+        d.innerHTML = '<span class="cd">' + hex.toUpperCase() + '</span>';
+        d.addEventListener('click', () => copy(hex.toUpperCase(), 'کپی: ' + hex.toUpperCase()));
+        o.appendChild(d);
+      });
+    }
+    b.addEventListener('input', gen); t.addEventListener('change', gen);
+    $('#pg').addEventListener('click', gen);
+    $('#pca').addEventListener('click', () => { const c = $$('.sw .cd', o).map(e => e.textContent).join(', '); if (c) copy(c, 'پالت کپی شد ✦'); });
+    gen();
+  }
+});
+
+TOOLS.push({
+  id:'contrast', cat:'color', icon:'fa-solid fa-circle-half-stroke',
+  title:'بررسی کنتراست WCAG', tag:'رنگ',
+  desc:'کنتراست متن و پس‌زمینه را بسنجید.',
+  html:`<div class="frow"><div class="f"><label>رنگ متن</label><input type="color" id="cfg" value="#f1f5f7"></div><div class="f"><label>رنگ پس‌زمینه</label><input type="color" id="cbg" value="#000d18"></div></div>
+    <div class="contrast" id="cpv"><div class="lg">متن بزرگ</div><div class="md">متن معمولی</div><div class="sm">متن ریزتر</div></div>
+    <div id="cs" style="text-align:center"></div>`,
+  init(){
+    const f = $('#cfg'), b = $('#cbg'), p = $('#cpv'), s = $('#cs');
+    function lum(hex){ const [r,g,bl] = hexToRgb(hex).map(v => v/255).map(v => v <= .03928 ? v/12.92 : Math.pow((v+.055)/1.055, 2.4)); return .2126*r + .7152*g + .0722*bl; }
+    function upd(){
+      const l1 = lum(f.value), l2 = lum(b.value), mx = Math.max(l1,l2), mn = Math.min(l1,l2);
+      const r = (mx+.05)/(mn+.05);
+      p.style.background = b.value; p.style.color = f.value;
+      const aL = r >= 3, aA = r >= 4.5, aAA = r >= 7;
+      s.innerHTML = '<div style="font-size:1.7rem;font-weight:900;color:var(--gold);margin-top:.9rem">' + r.toFixed(2) + ':1</div><div style="margin-top:.5rem"><span class="badge ' + (aL?'pass':'fail') + '">AA Large ' + (aL?'✓':'✗') + '</span><span class="badge ' + (aA?'pass':'fail') + '">AA ' + (aA?'✓':'✗') + '</span><span class="badge ' + (aAA?'pass':'fail') + '">AAA ' + (aAA?'✓':'✗') + '</span></div>';
+    }
+    f.addEventListener('input', upd); b.addEventListener('input', upd); upd();
+  }
+});
+
+TOOLS.push({
+  id:'gradient', cat:'color', icon:'fa-solid fa-fill-drip',
+  title:'سازندهٔ گرادیان', tag:'رنگ',
+  desc:'گرادیان CSS بسازید و کد آن را کپی کنید.',
+  html:`<div class="frow"><div class="f"><label>رنگ اول</label><input type="color" id="g1" value="#D9C200"></div><div class="f"><label>رنگ دوم</label><input type="color" id="g2" value="#001830"></div></div>
+    <div class="f"><label>زاویه: <span id="gav">۱۳۵</span>°</label><input type="range" id="ga" min="0" max="360" value="135"></div>
+    <div class="f"><label>نوع</label><select id="gt"><option value="linear">خطی</option><option value="radial">شعاعی</option></select></div>
+    <div class="prev" id="gp"></div><div class="out" id="go" style="margin-top:1rem"></div>
+    <div class="btnrow"><button class="btn" id="gc"><span>کپی CSS <i class="fa-solid fa-copy"></i></span></button></div>`,
+  init(){
+    const c1 = $('#g1'), c2 = $('#g2'), a = $('#ga'), av = $('#gav'), t = $('#gt'), p = $('#gp'), o = $('#go');
+    function upd(){ av.textContent = toFa(a.value); const css = t.value === 'linear' ? 'linear-gradient(' + a.value + 'deg, ' + c1.value + ', ' + c2.value + ')' : 'radial-gradient(circle, ' + c1.value + ', ' + c2.value + ')'; p.style.background = css; o.textContent = 'background: ' + css + ';'; }
+    [c1,c2,a,t].forEach(el => el.addEventListener('input', upd));
+    $('#gc').addEventListener('click', () => copy(o.textContent, 'CSS کپی شد ✦'));
+    upd();
+  }
+});
+
+TOOLS.push({
+  id:'bshadow', cat:'color', icon:'fa-solid fa-square',
+  title:'سازندهٔ Box Shadow', tag:'رنگ',
+  desc:'سایه دلخواه با پیش‌نمایش زنده و کد CSS.',
+  html:`<div class="frow"><div class="f"><label>افقی: <span id="bxv">۰</span>px</label><input type="range" id="bx" min="-50" max="50" value="0"></div><div class="f"><label>عمودی: <span id="byv">۲۰</span>px</label><input type="range" id="by" min="-50" max="50" value="20"></div></div>
+    <div class="frow"><div class="f"><label>بلور: <span id="bbv">۴۰</span>px</label><input type="range" id="bb" min="0" max="120" value="40"></div><div class="f"><label>گسترش: <span id="bsv">۰</span>px</label><input type="range" id="bsp" min="-30" max="30" value="0"></div></div>
+    <div class="frow"><div class="f"><label>رنگ</label><input type="color" id="bc" value="#D9C200"></div><div class="f"><label>شفافیت: <span id="bov">۵۰</span>٪</label><input type="range" id="bo" min="0" max="100" value="50"></div></div>
+    <label class="chk"><input type="checkbox" id="bin"> سایه داخلی (inset)</label>
+    <div class="prev" id="bpv" style="height:160px;display:grid;place-items:center;background:var(--panel2);color:var(--muted);font-size:.78rem">پیش‌نمایش سایه</div>
+    <div class="out" id="bo2" style="margin-top:1rem"></div>
+    <div class="btnrow"><button class="btn" id="bcp"><span>کپی CSS</span></button></div>`,
+  init(){
+    const X = $('#bx'), Y = $('#by'), B = $('#bb'), S = $('#bsp'), C = $('#bc'), O = $('#bo'), I = $('#bin'), P = $('#bpv'), O2 = $('#bo2');
+    function rgba(hex, op){ const [r,g,b] = hexToRgb(hex); return 'rgba(' + r + ',' + g + ',' + b + ',' + (op/100).toFixed(2) + ')'; }
+    function upd(){ $('#bxv').textContent = toFa(X.value); $('#byv').textContent = toFa(Y.value); $('#bbv').textContent = toFa(B.value); $('#bsv').textContent = toFa(S.value); $('#bov').textContent = toFa(O.value); const css = (I.checked?'inset ':'') + X.value + 'px ' + Y.value + 'px ' + B.value + 'px ' + S.value + 'px ' + rgba(C.value, O.value); P.style.boxShadow = css; O2.textContent = 'box-shadow: ' + css + ';'; }
+    [X,Y,B,S,C,O].forEach(el => el.addEventListener('input', upd)); I.addEventListener('change', upd);
+    $('#bcp').addEventListener('click', () => copy(O2.textContent, 'CSS کپی شد ✦')); upd();
+  }
+});
+
+TOOLS.push({
+  id:'iran', cat:'color', icon:'fa-solid fa-mosque',
+  title:'رنگ‌های اصیل ایرانی', tag:'رنگ',
+  desc:'رنگ‌های سنتی ایران با کد HEX.',
+  html:`<p class="hint">روی هر رنگ کلیک کنید تا کد HEX کپی شود.</p><div class="ircol" id="iro"></div>`,
+  init(){
+    const c = [['لاجوردی','#1F3A93'],['فیروزه‌ای','#40E0D0'],['زعفرانی','#F4C430'],['اناری','#9B111E'],['زیتونی','#6B7C3A'],['نیلی','#3B3B98'],['گلبهی','#E7A6B5'],['خاکی','#B4A996'],['آجری','#B14A2E'],['سبز ایرانی','#2E8B57'],['ارغوانی','#7B2D8E'],['کرمی','#F3E5AB'],['قهوه‌ای','#5B3A29'],['طوسی فولادی','#7F8C9A'],['زرشکی','#8B0045'],['یشمی','#00A86B'],['کهربایی','#FFA500'],['بادمجانی','#5B2C6F'],['مسین','#B87333'],['ماشی','#A29A5C'],['صدفی','#E8DFC8'],['شیری','#FAF6E9']];
+    const o = $('#iro');
+    o.innerHTML = c.map(([n,h]) => '<div class="irc" data-hex="' + h + '"><div class="s" style="background:' + h + '"></div><div class="l">' + n + '<small>' + h + '</small></div></div>').join('');
+    o.querySelectorAll('.irc').forEach(el => el.addEventListener('click', () => copy(el.dataset.hex, 'کپی: ' + el.dataset.hex)));
+  }
+});
+
+/* ══════ TEXT ══════ */
+TOOLS.push({
+  id:'word', cat:'text', icon:'fa-solid fa-calculator',
+  title:'شمارندهٔ کلمات', tag:'متن',
+  desc:'تعداد کلمات، حروف و زمان خواندن.',
+  html:`<div class="f"><label>متن</label><textarea id="wi" placeholder="متن..."></textarea></div><div class="stats" id="wr"></div>`,
+  init(){
+    const i = $('#wi'), o = $('#wr');
+    function c(){
+      const t = i.value;
+      const w = t.trim() ? t.trim().split(/\s+/).length : 0;
+      const ch = t.length, chns = t.replace(/\s/g,'').length;
+      const sn = t.split(/[.!?؟।]+/).filter(s => s.trim()).length;
+      const pa = t.split(/\n+/).filter(p => p.trim()).length;
+      const rm = Math.max(1, Math.round(w/200));
+      o.innerHTML = '<div><b>' + toFa(w) + '</b><span>کلمه</span></div><div><b>' + toFa(ch) + '</b><span>حرف</span></div><div><b>' + toFa(chns) + '</b><span>حرف بدون فاصله</span></div><div><b>' + toFa(sn) + '</b><span>جمله</span></div><div><b>' + toFa(pa) + '</b><span>پاراگراف</span></div><div><b>' + toFa(rm) + ' دقیقه</b><span>زمان خواندن</span></div>';
+    }
+    i.addEventListener('input', c); c();
+  }
+});
+
+TOOLS.push({
+  id:'lorem', cat:'text', icon:'fa-solid fa-paragraph',
+  title:'متن ساختگی فارسی', tag:'متن',
+  desc:'متن نمونهٔ فارسی برای تست چیدمان.',
+  html:`<div class="frow"><div class="f"><label>تعداد پاراگراف</label><input type="number" id="ln" min="1" max="20" value="3"></div><div class="f"><label>طول</label><select id="ll"><option value="short">کوتاه</option><option value="medium" selected>متوسط</option><option value="long">بلند</option></select></div></div>
+    <div class="btnrow"><button class="btn" id="lg"><span>بساز <i class="fa-solid fa-wand-magic-sparkles"></i></span></button><button class="btn ghost" id="lc"><span>کپی</span></button></div>
+    <div class="f" style="margin-top:1rem"><label>خروجی</label><textarea id="lo" readonly style="min-height:150px"></textarea></div>`,
+  init(){
+    const S = ['طراحی خوب، پلی است میان ایده و مخاطب.','هر پروژه فرصتی تازه برای یادگیری است.','جزئیات کوچک، تفاوت‌های بزرگ می‌سازند.','رنگ‌ها زبان بی‌صدای احساسات‌اند.','تایپوگرافی درست، نیمی از موفقیت یک طرح است.','هنر، روایتِ آرامِ لحظه‌هاست.','سادگی، پیچیده‌ترین شکل هنر است.','هر خط و رنگ، بخشی از یک داستان است.','ایده‌ها بی‌شکل متولد می‌شوند و با طراحی جان می‌گیرند.','خلاقیت، دیدنِ چیزی است که دیگران نمی‌بینند.','کد و هنر، دو زبان متفاوت برای یک معنا هستند.','تعادل میان رنگ و فرم، راز یک طرح حرفه‌ای است.'];
+    const pk = () => S[Math.floor(Math.random()*S.length)];
+    function g(){
+      const n = Math.max(1, Math.min(20, +$('#ln').value || 3)), L = $('#ll').value;
+      const per = L === 'short' ? 3 : L === 'long' ? 8 : 5;
+      let t = '';
+      for (let i = 0; i < n; i++){ const a = []; for (let j = 0; j < per; j++) a.push(pk()); t += a.join(' ') + '\n\n'; }
+      $('#lo').value = t.trim();
+    }
+    $('#lg').addEventListener('click', g);
+    $('#lc').addEventListener('click', () => { if ($('#lo').value) copy($('#lo').value, 'کپی شد ✦'); });
+    g();
+  }
+});
+
+TOOLS.push({
+  id:'b64', cat:'text', icon:'fa-solid fa-right-left',
+  title:'تبدیل Base64', tag:'متن',
+  desc:'متن را به Base64 یا برعکس تبدیل کنید.',
+  html:`<div class="f"><label>ورودی</label><textarea id="bi" placeholder="متن..."></textarea></div>
+    <div class="btnrow"><button class="btn" id="be"><span>رمزگذاری <i class="fa-solid fa-lock"></i></span></button><button class="btn" id="bd"><span>رمزگشایی <i class="fa-solid fa-lock-open"></i></span></button><button class="btn ghost" id="bc"><span>کپی</span></button></div>
+    <div class="f" style="margin-top:1rem"><label>خروجی</label><textarea id="bo" readonly></textarea></div>`,
+  init(){
+    const i = $('#bi'), o = $('#bo');
+    $('#be').addEventListener('click', () => { try { o.value = btoa(unescape(encodeURIComponent(i.value))); } catch(e){ o.value = 'خطا'; } });
+    $('#bd').addEventListener('click', () => { try { o.value = decodeURIComponent(escape(atob(i.value.trim()))); } catch(e){ o.value = 'Base64 معتبر نیست'; } });
+    $('#bc').addEventListener('click', () => { if (o.value) copy(o.value, 'کپی شد ✦'); });
+  }
+});
+
+TOOLS.push({
+  id:'fancy', cat:'text', icon:'fa-solid fa-wand-sparkles',
+  title:'تبدیل حروف به سبک خاص', tag:'متن',
+  desc:'متن لاتین را به فونت‌های تزئینی یونیکد تبدیل کنید.',
+  html:`<div class="f"><label>متن (لاتین)</label><input type="text" id="fi" value="Mahdi Mojahed"></div><div id="fo"></div><p class="hint">روی هر سبک کلیک کنید تا کپی شود.</p>`,
+  init(){
+    const inp = $('#fi'), out = $('#fo');
+    const AZ = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', az = 'abcdefghijklmnopqrstuvwxyz', D = '0123456789';
+    const sets = [{n:'Bold',A:0x1D400,a:0x1D41A,d:0x1D7CE},{n:'Italic',A:0x1D434,a:0x1D44E,d:null},{n:'Bold Italic',A:0x1D468,a:0x1D482,d:null},{n:'Script',A:0x1D49C,a:0x1D4B6,d:null},{n:'Fraktur',A:0x1D504,a:0x1D51E,d:null},{n:'Double-Struck',A:0x1D538,a:0x1D552,d:0x1D7D8},{n:'Sans Bold',A:0x1D5D4,a:0x1D5EE,d:0x1D7EC},{n:'Monospace',A:0x1D670,a:0x1D68A,d:0x1D7F6}];
+    const sEx = {'B':0x212C,'E':0x2130,'F':0x2131,'H':0x210B,'I':0x2110,'L':0x2112,'M':0x2133,'R':0x211B,'e':0x212F,'g':0x210A,'o':0x2134};
+    const fEx = {'C':0x212D,'H':0x210C,'I':0x2111,'R':0x211C,'Z':0x2128};
+    function apply(str, set){
+      return str.split('').map(c => {
+        if (set.n === 'Script' && sEx[c] !== undefined) return String.fromCodePoint(sEx[c]);
+        if (set.n === 'Fraktur' && fEx[c] !== undefined) return String.fromCodePoint(fEx[c]);
+        let i = AZ.indexOf(c); if (i >= 0) return String.fromCodePoint(set.A + i);
+        i = az.indexOf(c); if (i >= 0) return String.fromCodePoint(set.a + i);
+        if (set.d !== null){ i = D.indexOf(c); if (i >= 0) return String.fromCodePoint(set.d + i); }
+        return c;
+      }).join('');
+    }
+    const extra = [
+      {n:'Fullwidth',f:s => s.replace(/[A-Za-z0-9]/g, c => String.fromCharCode(c.charCodeAt(0) + 0xFEE0))},
+      {n:'Circled',f:s => s.replace(/[A-Za-z]/g, c => { const co = c.charCodeAt(0); if (co>=65&&co<=90) return String.fromCodePoint(0x24B6+co-65); if (co>=97&&co<=122) return String.fromCodePoint(0x24D0+co-97); return c; })},
+      {n:'Squared',f:s => s.replace(/[A-Z]/g, c => String.fromCodePoint(0x1F130 + c.charCodeAt(0) - 65))},
+      {n:'Small Caps',f:s => { const m = {'a':'ᴀ','b':'ʙ','c':'ᴄ','d':'ᴅ','e':'ᴇ','f':'ꜰ','g':'ɢ','h':'ʜ','i':'ɪ','j':'ᴊ','k':'ᴋ','l':'ʟ','m':'ᴍ','n':'ɴ','o':'ᴏ','p':'ᴘ','q':'ǫ','r':'ʀ','s':'ꜱ','t':'ᴛ','u':'ᴜ','v':'ᴠ','w':'ᴡ','x':'x','y':'ʏ','z':'ᴢ'}; return s.split('').map(c => m[c.toLowerCase()] || c).join(''); }}
+    ];
+    function render(){
+      const v = inp.value, items = [];
+      sets.forEach(s => items.push([s.n, apply(v, s)]));
+      extra.forEach(e => items.push([e.n, e.f(v)]));
+      out.innerHTML = items.map(([n,t]) => '<div class="fancy" data-t="' + esc(t) + '"><b>' + esc(t) + '</b><small>' + n + '</small></div>').join('');
+      out.querySelectorAll('.fancy').forEach(el => el.addEventListener('click', () => copy(el.dataset.t, 'کپی شد ✦')));
+    }
+    inp.addEventListener('input', render); render();
+  }
+});
+
+TOOLS.push({
+  id:'morse', cat:'text', icon:'fa-solid fa-wave-square',
+  title:'کد مورس', tag:'متن',
+  desc:'متن را به کد مورس یا برعکس تبدیل کنید و بشنوید.',
+  html:`<div class="f"><label>ورودی</label><textarea id="mi"></textarea></div>
+    <div class="btnrow"><button class="btn" id="mto"><span>متن ← مورس</span></button><button class="btn" id="mfr"><span>مورس ← متن</span></button></div>
+    <div class="btnrow"><button class="btn ghost" id="mc"><span>کپی</span></button><button class="btn ghost" id="mp"><span>پخش <i class="fa-solid fa-volume-high"></i></span></button><button class="btn ghost" id="mstop"><span>توقف</span></button></div>
+    <div class="f" style="margin-top:1rem"><label>خروجی</label><textarea id="mo" readonly></textarea></div>`,
+  init(){
+    const M = {'A':'.-','B':'-...','C':'-.-.','D':'-..','E':'.','F':'..-.','G':'--.','H':'....','I':'..','J':'.---','K':'-.-','L':'.-..','M':'--','N':'-.','O':'---','P':'.--.','Q':'--.-','R':'.-.','S':'...','T':'-','U':'..-','V':'...-','W':'.--','X':'-..-','Y':'-.--','Z':'--..','0':'-----','1':'.----','2':'..---','3':'...--','4':'....-','5':'.....','6':'-....','7':'--...','8':'---..','9':'----.'};
+    const R = {}; for (const k in M) R[M[k]] = k;
+    const i = $('#mi'), o = $('#mo');
+    $('#mto').addEventListener('click', () => { o.value = i.value.toUpperCase().split(/\s+/).map(w => w.split('').map(c => M[c] || '').filter(Boolean).join(' ')).filter(Boolean).join(' / '); });
+    $('#mfr').addEventListener('click', () => { o.value = i.value.trim().split(/\s*\/\s*/).map(w => w.split(/\s+/).map(c => R[c] || '').join('')).join(' '); });
+    $('#mc').addEventListener('click', () => { if (o.value) copy(o.value, 'کپی شد ✦'); });
+    let cOsc = null, cGain = null, eT = null;
+    $('#mstop').addEventListener('click', () => { if (eT) clearTimeout(eT); if (cOsc){ try { cGain.gain.cancelScheduledValues(0); cOsc.stop(); } catch(e){} cOsc = null; cGain = null; } toast('پخش متوقف شد'); });
+    $('#mp').addEventListener('click', () => {
+      const txt = o.value || i.value; if (!txt){ toast('ابتدا متن یا مورس وارد کنید'); return; }
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        if (ctx.state === 'suspended') ctx.resume();
+        const code = /[.\-]/.test(txt) ? txt : txt.toUpperCase().split('').map(c => M[c] || ' ').join('');
+        const osc = ctx.createOscillator(), gain = ctx.createGain();
+        osc.frequency.value = 700; osc.type = 'sine';
+        osc.connect(gain); gain.connect(ctx.destination);
+        gain.gain.value = 0; osc.start();
+        cOsc = osc; cGain = gain;
+        let t = ctx.currentTime + 0.05;
+        for (const c of code){
+          if (c === '.' || c === '-'){ const dur = c === '.' ? 0.1 : 0.3; gain.gain.setValueAtTime(0.15, t); gain.gain.setValueAtTime(0.15, t + dur); gain.gain.linearRampToValueAtTime(0, t + dur + 0.02); t += dur + 0.08; }
+          else if (c === '/') t += 0.6; else if (c === ' ') t += 0.3;
+        }
+        eT = setTimeout(() => { try { osc.stop(); osc.disconnect(); gain.disconnect(); } catch(e){} cOsc = null; cGain = null; }, (t - ctx.currentTime + 0.2) * 1000);
+      } catch(e){ toast('خطا در پخش'); }
+    });
+  }
+});
+
+TOOLS.push({
+  id:'abjad', cat:'text', icon:'fa-solid fa-hashtag',
+  title:'ابجد کبیر و صغیر', tag:'متن',
+  desc:'ارزش عددی حروف فارسی و عربی.',
+  html:`<div class="f"><label>متن</label><input type="text" id="abi" value="بسم الله الرحمن الرحیم"></div><div class="stats" id="abr"></div>`,
+  init(){
+    const K = {'ا':1,'أ':1,'إ':1,'آ':1,'ء':1,'ب':2,'پ':2,'ج':3,'چ':3,'د':4,'ه':5,'ة':5,'و':6,'ز':7,'ژ':7,'ح':8,'ط':9,'ی':10,'ي':10,'ى':10,'ک':20,'ك':20,'گ':20,'ل':30,'م':40,'ن':50,'س':60,'ع':70,'ف':80,'ص':90,'ق':100,'ر':200,'ش':300,'ت':400,'ث':500,'خ':600,'ذ':700,'ض':800,'ظ':900,'غ':1000};
+    const i = $('#abi'), o = $('#abr');
+    function c(){
+      const t = i.value.replace(/\s/g,''); let total = 0, count = 0;
+      for (const ch of t){ if (K[ch] !== undefined){ total += K[ch]; count++; } }
+      let s = total; while (s >= 10) s = String(s).split('').reduce((a,b) => a + (+b), 0);
+      o.innerHTML = '<div><b>' + toFa(count) + '</b><span>تعداد حروف</span></div><div><b>' + toFa(total) + '</b><span>ابجد کبیر</span></div><div><b>' + toFa(s) + '</b><span>ابجد صغیر</span></div>';
+    }
+    i.addEventListener('input', c); c();
+  }
+});
+
+/* ▓▓▓ پیام ۳ ▓▓▓ */
+
+    /* ══════ IMAGE ══════ */
+TOOLS.push({
+  id:'compress', cat:'image', icon:'fa-solid fa-compress',
+  title:'فشرده‌ساز تصویر', tag:'تصویر',
+  desc:'تصویر را در مرورگر فشرده کنید — بدون آپلود.',
+  html:`<label class="file" for="cf"><span><i class="fa-solid fa-cloud-arrow-up"></i><b>انتخاب تصویر</b><small>PNG، JPG یا WebP</small></span><input type="file" id="cf" accept="image/*"></label>
+    <div class="f" style="margin-top:1rem"><label>کیفیت: <span id="cqv">۷۰</span>٪</label><input type="range" id="cq" min="10" max="100" value="70"></div>
+    <div class="btnrow"><button class="btn" id="cr"><span>فشرده کن</span></button><button class="btn ghost" id="cd"><span>دانلود</span></button></div>
+    <div class="rinfo" id="ci" style="display:none"></div>
+    <img class="imgp" id="cp" style="display:none" alt="">`,
+  init(){
+    const F = $('#cf'), Q = $('#cq'), QV = $('#cqv'), P = $('#cp'), I = $('#ci');
+    let orig = null, blob = null;
+    Q.addEventListener('input', () => QV.textContent = toFa(Q.value));
+    F.addEventListener('change', () => {
+      orig = F.files[0]; if (!orig) return;
+      P.src = URL.createObjectURL(orig); P.style.display = 'block';
+      I.style.display = 'flex';
+      I.innerHTML = '<div>حجم اصلی: <b>' + fmtBytes(orig.size) + '</b></div>';
+      blob = null;
+    });
+    $('#cr').addEventListener('click', () => {
+      if (!orig){ toast('ابتدا تصویری انتخاب کنید'); return; }
+      const im = new Image();
+      im.onload = () => {
+        const c = document.createElement('canvas');
+        c.width = im.naturalWidth; c.height = im.naturalHeight;
+        c.getContext('2d').drawImage(im, 0, 0);
+        c.toBlob(b => {
+          blob = b; P.src = URL.createObjectURL(b);
+          const sv = ((1 - b.size/orig.size) * 100).toFixed(1);
+          I.innerHTML = '<div>حجم اصلی: <b>' + fmtBytes(orig.size) + '</b></div><div>فشرده: <b>' + fmtBytes(b.size) + '</b></div><div>کاهش: <b>' + toFa(sv) + '٪</b></div>';
+          toast('فشرده شد ✦');
+        }, 'image/jpeg', Q.value/100);
+      };
+      im.src = URL.createObjectURL(orig);
+    });
+    $('#cd').addEventListener('click', () => { if (!blob){ toast('ابتدا فشرده کنید'); return; } download(blob, 'compressed.jpg'); });
+  }
+});
+
+TOOLS.push({
+  id:'resize', cat:'image', icon:'fa-solid fa-expand',
+  title:'تغییر اندازه و فرمت تصویر', tag:'تصویر',
+  desc:'ابعاد و فرمت تصویر را تغییر دهید.',
+  html:`<label class="file" for="rf"><span><i class="fa-solid fa-image"></i><b>انتخاب تصویر</b></span><input type="file" id="rf" accept="image/*"></label>
+    <div class="frow" style="margin-top:1rem"><div class="f"><label>عرض (px)</label><input type="number" id="rw" min="1"></div><div class="f"><label>ارتفاع (px)</label><input type="number" id="rh" min="1"></div></div>
+    <label class="chk"><input type="checkbox" id="rlock" checked> قفل نسبت تصویر</label>
+    <div class="f"><label>فرمت خروجی</label><select id="rfo"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select></div>
+    <div class="btnrow"><button class="btn" id="rr"><span>تغییر بده</span></button><button class="btn ghost" id="rd"><span>دانلود</span></button></div>
+    <img class="imgp" id="rp" style="display:none" alt="">`,
+  init(){
+    const F = $('#rf'), P = $('#rp'), L = $('#rlock');
+    let orig = null, blob = null, nW = 0, nH = 0, ratio = 1;
+    F.addEventListener('change', () => {
+      orig = F.files[0]; if (!orig) return;
+      const im = new Image();
+      im.onload = () => { nW = im.naturalWidth; nH = im.naturalHeight; ratio = nW/nH; $('#rw').value = nW; $('#rh').value = nH; P.src = URL.createObjectURL(orig); P.style.display = 'block'; };
+      im.src = URL.createObjectURL(orig);
+    });
+    $('#rw').addEventListener('input', () => { if (L.checked && nW) $('#rh').value = Math.round((+$('#rw').value) / ratio); });
+    $('#rh').addEventListener('input', () => { if (L.checked && nH) $('#rw').value = Math.round((+$('#rh').value) * ratio); });
+    $('#rr').addEventListener('click', () => {
+      if (!orig){ toast('ابتدا تصویری انتخاب کنید'); return; }
+      const w = Math.max(1, +$('#rw').value || nW), h = Math.max(1, +$('#rh').value || nH), fmt = $('#rfo').value;
+      const im = new Image();
+      im.onload = () => { const c = document.createElement('canvas'); c.width = w; c.height = h; c.getContext('2d').drawImage(im, 0, 0, w, h); c.toBlob(b => { blob = b; P.src = URL.createObjectURL(b); toast('آماده شد ✦'); }, fmt, .92); };
+      im.src = URL.createObjectURL(orig);
+    });
+    $('#rd').addEventListener('click', () => { if (!blob){ toast('ابتدا تغییر بدهید'); return; } download(blob, 'resized.' + $('#rfo').value.split('/')[1]); });
+  }
+});
+
+TOOLS.push({
+  id:'pick', cat:'image', icon:'fa-solid fa-eye-dropper',
+  title:'انتخاب رنگ و پالت از تصویر', tag:'تصویر',
+  desc:'رنگ دقیق یا پالت غالب تصویر را استخراج کنید.',
+  html:`<label class="file" for="pkf"><span><i class="fa-solid fa-image"></i><b>انتخاب تصویر</b><small>روی نقطه کلیک کنید یا پالت بگیرید</small></span><input type="file" id="pkf" accept="image/*"></label>
+    <canvas id="pkc" style="display:none;max-width:100%;border-radius:12px;margin-top:1rem;border:1px solid var(--stroke);cursor:crosshair"></canvas>
+    <div class="picked" id="pko" style="display:none"><div class="csw" id="pksw"></div><div class="info"><b id="pkhex">-</b><small id="pkrgb">-</small></div><button class="btn sm" id="pkc2"><span>کپی</span></button></div>
+    <div id="pkp_wrap" style="display:none;margin-top:1.2rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-bottom:.6rem"><h4 style="font-size:.85rem;font-weight:800;color:var(--gold)"><i class="fa-solid fa-swatchbook"></i> پالت غالب</h4><button class="btn sm ghost" id="pkp_copy"><span>کپی همه</span></button></div>
+      <div class="palette" id="pkp_out"></div>
+    </div>
+    <div class="btnrow" style="margin-top:1rem;display:none" id="pkp_btn_wrap"><button class="btn" id="pkp_run"><span>استخراج پالت غالب <i class="fa-solid fa-wand-magic-sparkles"></i></span></button></div>
+    <div id="pkp_count_wrap" style="display:none;margin-top:.6rem"><label class="chk"><span style="font-size:.75rem">تعداد رنگ‌ها: <span id="pkp_count_val" style="color:var(--gold);font-weight:800">۶</span></span><input type="range" id="pkp_count" min="3" max="10" value="6" style="width:100%"></label></div>`,
+  init(){
+    const F = $('#pkf'), C = $('#pkc'), O = $('#pko'), SW = $('#pksw'), HX = $('#pkhex'), RG = $('#pkrgb');
+    const PW = $('#pkp_wrap'), PO = $('#pkp_out'), PBtn = $('#pkp_btn_wrap'), PC = $('#pkp_count'), PCV = $('#pkp_count_val'), PCW = $('#pkp_count_wrap');
+    const ctx = C.getContext('2d'); let last = '', imgData = null;
+    F.addEventListener('change', () => {
+      const f = F.files[0]; if (!f) return;
+      const im = new Image();
+      im.onload = () => {
+        const sc = Math.min(1, 700 / im.naturalWidth);
+        C.width = Math.floor(im.naturalWidth * sc); C.height = Math.floor(im.naturalHeight * sc);
+        ctx.drawImage(im, 0, 0, C.width, C.height);
+        imgData = ctx.getImageData(0, 0, C.width, C.height);
+        C.style.display = 'block'; O.style.display = 'none'; PW.style.display = 'none'; PBtn.style.display = 'flex'; PCW.style.display = 'block';
+        last = '';
+      };
+      im.src = URL.createObjectURL(f);
+    });
+    C.addEventListener('click', e => {
+      const r = C.getBoundingClientRect();
+      const x = Math.floor((e.clientX - r.left) * C.width / r.width), y = Math.floor((e.clientY - r.top) * C.height / r.height);
+      const p = ctx.getImageData(x, y, 1, 1).data;
+      const hx = rgbToHex(p[0], p[1], p[2]);
+      last = hx; SW.style.background = hx; HX.textContent = hx.toUpperCase(); RG.textContent = 'rgb(' + p[0] + ',' + p[1] + ',' + p[2] + ')'; O.style.display = 'flex';
+    });
+    $('#pkc2').addEventListener('click', () => { if (last) copy(last.toUpperCase(), 'کپی شد ✦'); });
+    PC.addEventListener('input', () => PCV.textContent = toFa(PC.value));
+    $('#pkp_run').addEventListener('click', () => {
+      if (!imgData){ toast('ابتدا تصویری انتخاب کنید'); return; }
+      const n = +PC.value, data = imgData.data, w = imgData.width, h = imgData.height;
+      const step = Math.max(1, Math.floor(Math.sqrt((w * h) / 10000)));
+      const buckets = {};
+      for (let y = 0; y < h; y += step){
+        for (let x = 0; x < w; x += step){
+          const i = (y * w + x) * 4;
+          if (data[i+3] < 128) continue;
+          const key = (Math.round(data[i]/32)*32) + ',' + (Math.round(data[i+1]/32)*32) + ',' + (Math.round(data[i+2]/32)*32);
+          if (!buckets[key]) buckets[key] = {r:0,g:0,b:0,c:0};
+          buckets[key].r += data[i]; buckets[key].g += data[i+1]; buckets[key].b += data[i+2]; buckets[key].c++;
+        }
+      }
+      const arr = Object.keys(buckets).map(k => { const b = buckets[k]; return {r:Math.round(b.r/b.c),g:Math.round(b.g/b.c),b:Math.round(b.b/b.c),c:b.c}; }).sort((a,b) => b.c - a.c);
+      const picked = [];
+      for (const c of arr){ if (picked.length >= n) break; let ok = true; for (const p of picked){ const d = Math.sqrt((c.r-p.r)**2 + (c.g-p.g)**2 + (c.b-p.b)**2); if (d < 60){ ok = false; break; } } if (ok) picked.push(c); }
+      PO.innerHTML = '';
+      picked.forEach(c => { const hex = rgbToHex(c.r, c.g, c.b).toUpperCase(); const d = document.createElement('div'); d.className = 'sw'; d.style.background = hex; d.innerHTML = '<span class="cd">' + hex + '</span>'; d.addEventListener('click', () => copy(hex, 'کپی: ' + hex)); PO.appendChild(d); });
+      PW.style.display = 'block'; toast('پالت ساخته شد ✦');
+    });
+    $('#pkp_copy').addEventListener('click', () => { const codes = $$('.sw .cd', PO).map(e => e.textContent).join(', '); if (codes) copy(codes, 'پالت کپی شد ✦'); });
+  }
+});
+
+TOOLS.push({
+  id:'editor', cat:'image', icon:'fa-solid fa-sliders',
+  title:'ویرایشگر پیشرفته تصویر', tag:'تصویر',
+  desc:'روشنایی، کنتراست، اشباع، وضوح و فیلتر.',
+  html:`<label class="file" for="ef"><span><i class="fa-solid fa-image"></i><b>انتخاب تصویر</b></span><input type="file" id="ef" accept="image/*"></label>
+    <div style="margin-top:1rem">
+      <div class="f"><label>روشنایی: <span id="ebv">۱۰۰</span>٪</label><input type="range" id="eb" min="0" max="200" value="100"></div>
+      <div class="f"><label>کنتراست: <span id="ecv">۱۰۰</span>٪</label><input type="range" id="ec" min="0" max="200" value="100"></div>
+      <div class="f"><label>اشباع: <span id="esv">۱۰۰</span>٪</label><input type="range" id="es" min="0" max="200" value="100"></div>
+      <div class="f"><label>چرخش رنگ: <span id="ehv">۰</span>°</label><input type="range" id="eh" min="0" max="360" value="0"></div>
+      <div class="f"><label>بلور: <span id="eblv">۰</span>px</label><input type="range" id="ebl" min="0" max="20" value="0"></div>
+      <div class="f"><label>وضوح: <span id="eshv">۰</span>٪</label><input type="range" id="esh" min="0" max="100" value="0"></div>
+    </div>
+    <div class="btnrow"><button class="btn ghost" id="egr"><span>سیاه‌وسفید</span></button><button class="btn ghost" id="esep"><span>سِپیا</span></button><button class="btn ghost" id="ehd"><span>کیفیت بالا</span></button><button class="btn ghost" id="erst"><span>بازنشانی</span></button></div>
+    <canvas id="ecv2" style="display:none;max-width:100%;border-radius:12px;margin-top:1rem;border:1px solid var(--stroke)"></canvas>
+    <div class="btnrow" style="margin-top:1rem"><button class="btn" id="edl" style="display:none"><span>دانلود</span></button></div>`,
+  init(){
+    const F = $('#ef'), C = $('#ecv2'), ctx = C.getContext('2d');
+    let im = null, v = {b:100,c:100,s:100,h:0,bl:0,sh:0};
+    F.addEventListener('change', () => {
+      const f = F.files[0]; if (!f) return;
+      const i = new Image();
+      i.onload = () => { im = i; const sc = Math.min(1, 800 / i.naturalWidth); C.width = Math.floor(i.naturalWidth * sc); C.height = Math.floor(i.naturalHeight * sc); C.style.display = 'block'; $('#edl').style.display = 'inline-flex'; draw(); };
+      i.src = URL.createObjectURL(f);
+    });
+    function draw(){
+      if (!im) return;
+      ctx.filter = 'brightness(' + v.b + '%) contrast(' + v.c + '%) saturate(' + v.s + '%) hue-rotate(' + v.h + 'deg) blur(' + v.bl + 'px)';
+      ctx.clearRect(0, 0, C.width, C.height); ctx.drawImage(im, 0, 0, C.width, C.height); ctx.filter = 'none';
+      if (v.sh > 0){ try { const d = ctx.getImageData(0,0,C.width,C.height); const dd = d.data; const o = new Uint8ClampedArray(dd); const w = C.width, h = C.height; const amt = v.sh/100*1.2; for (let y=1;y<h-1;y++) for (let x=1;x<w-1;x++){ const idx=(y*w+x)*4; for(let ch=0;ch<3;ch++){ const ctr=o[idx+ch]*5; const nb=o[idx-w*4+ch]+o[idx+w*4+ch]+o[idx-4+ch]+o[idx+4+ch]; dd[idx+ch]=Math.max(0,Math.min(255,o[idx+ch]+(ctr-nb)*amt/4)); } } ctx.putImageData(d,0,0); } catch(e){} }
+    }
+    function bind(id,k,vid){ $('#'+id).addEventListener('input', e => { v[k] = +e.target.value; $('#'+vid).textContent = toFa(e.target.value); draw(); }); }
+    bind('eb','b','ebv'); bind('ec','c','ecv'); bind('es','s','esv'); bind('eh','h','ehv'); bind('ebl','bl','eblv'); bind('esh','sh','eshv');
+    function sync(){ $('#eb').value=v.b;$('#ebv').textContent=toFa(v.b);$('#ec').value=v.c;$('#ecv').textContent=toFa(v.c);$('#es').value=v.s;$('#esv').textContent=toFa(v.s);$('#eh').value=v.h;$('#ehv').textContent=toFa(v.h);$('#ebl').value=v.bl;$('#eblv').textContent=toFa(v.bl);$('#esh').value=v.sh;$('#eshv').textContent=toFa(v.sh);draw(); }
+    $('#egr').addEventListener('click', () => { v={b:100,c:100,s:0,h:0,bl:0,sh:0}; sync(); });
+    $('#esep').addEventListener('click', () => { v={b:105,c:95,s:70,h:35,bl:0,sh:0}; sync(); });
+    $('#ehd').addEventListener('click', () => { v={b:108,c:115,s:115,h:0,bl:0,sh:60}; sync(); });
+    $('#erst').addEventListener('click', () => { v={b:100,c:100,s:100,h:0,bl:0,sh:0}; sync(); });
+    $('#edl').addEventListener('click', () => { if (!C.width) return; C.toBlob(b => download(b, 'edited.png'), 'image/png'); });
+  }
+});
+
+TOOLS.push({
+  id:'watermark', cat:'image', icon:'fa-solid fa-stamp',
+  title:'واترمارک', tag:'تصویر',
+  desc:'متن با شفافیت و موقعیت دلخواه روی تصویر.',
+  html:`<label class="file" for="wmf"><span><i class="fa-solid fa-image"></i><b>انتخاب تصویر اصلی</b></span><input type="file" id="wmf" accept="image/*"></label>
+    <div class="f" style="margin-top:1rem"><label>متن واترمارک</label><input type="text" id="wmt" value="© Mahdi Mojahed"></div>
+    <div class="frow"><div class="f"><label>اندازه: <span id="wmsv">۳۲</span>px</label><input type="range" id="wms" min="10" max="120" value="32"></div><div class="f"><label>شفافیت: <span id="wmov">۶۰</span>٪</label><input type="range" id="wmo" min="5" max="100" value="60"></div></div>
+    <div class="frow"><div class="f"><label>رنگ</label><input type="color" id="wmc" value="#ffffff"></div><div class="f"><label>موقعیت</label><select id="wmp"><option value="br" selected>پایین-راست</option><option value="bl">پایین-چپ</option><option value="tr">بالا-راست</option><option value="tl">بالا-چپ</option><option value="center">وسط</option><option value="tile">تکرار</option></select></div></div>
+    <div class="frow"><div class="f"><label>چرخش: <span id="wmrv">۰</span>°</label><input type="range" id="wmr" min="-90" max="90" value="0"></div><div class="f"><label>سایه</label><select id="wmsh"><option value="yes" selected>با سایه</option><option value="no">بدون سایه</option></select></div></div>
+    <div class="btnrow"><button class="btn" id="wmrun"><span>اعمال</span></button><button class="btn ghost" id="wmdl"><span>دانلود PNG</span></button></div>
+    <canvas id="wmcv" style="display:none;max-width:100%;border-radius:12px;margin-top:1rem;border:1px solid var(--stroke)"></canvas>`,
+  init(){
+    const F = $('#wmf'), C = $('#wmcv'), ctx = C.getContext('2d');
+    let im = null;
+    ['wms','wmo','wmr'].forEach(id => { const vid = id==='wms'?'wmsv':id==='wmo'?'wmov':'wmrv'; $('#'+id).addEventListener('input', () => { $('#'+vid).textContent = toFa($('#'+id).value); if (im) render(); }); });
+    ['wmt','wmc','wmp','wmsh'].forEach(id => $('#'+id).addEventListener('input', () => { if (im) render(); }));
+    F.addEventListener('change', () => {
+      const f = F.files[0]; if (!f) return;
+      const i = new Image();
+      i.onload = () => { im = i; const sc = Math.min(1, 800/i.naturalWidth); C.width = Math.floor(i.naturalWidth*sc); C.height = Math.floor(i.naturalHeight*sc); C.style.display = 'block'; render(); };
+      i.src = URL.createObjectURL(f);
+    });
+    function render(){
+      if (!im) return;
+      ctx.clearRect(0, 0, C.width, C.height); ctx.drawImage(im, 0, 0, C.width, C.height);
+      const text = $('#wmt').value || '', size = +$('#wms').value, color = $('#wmc').value;
+      const op = +$('#wmo').value, pos = $('#wmp').value, rot = +$('#wmr').value, sh = $('#wmsh').value;
+      const pad = Math.max(20, size);
+      if (pos === 'tile'){
+        ctx.save(); ctx.globalAlpha = op/100; ctx.font = 'bold ' + size + 'px Vazirmatn'; ctx.fillStyle = color; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        if (sh === 'yes'){ ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 8; }
+        ctx.rotate(rot * Math.PI / 180);
+        for (let y = -C.height; y < C.height*2; y += size*4) for (let x = -C.width; x < C.width*2; x += size*12) ctx.fillText(text, x, y);
+        ctx.restore(); return;
+      }
+      let x, y;
+      if (pos==='br'){x=C.width-pad;y=C.height-pad;} else if (pos==='bl'){x=pad;y=C.height-pad;} else if (pos==='tr'){x=C.width-pad;y=pad;} else if (pos==='tl'){x=pad;y=pad;} else {x=C.width/2;y=C.height/2;}
+      ctx.save(); ctx.translate(x,y); ctx.rotate(rot*Math.PI/180); ctx.font = 'bold ' + size + 'px Vazirmatn'; ctx.fillStyle = color; ctx.globalAlpha = op/100; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      if (sh === 'yes'){ ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 8; ctx.shadowOffsetX = 2; ctx.shadowOffsetY = 2; }
+      ctx.fillText(text, 0, 0); ctx.restore();
+    }
+    $('#wmrun').addEventListener('click', render);
+    $('#wmdl').addEventListener('click', () => { if (!C.width) return; C.toBlob(b => download(b, 'watermarked.png')); });
+  }
+});
+
+TOOLS.push({
+  id:'bgremove', cat:'image', icon:'fa-solid fa-scissors',
+  title:'حذف پس‌زمینه', tag:'تصویر',
+  desc:'رنگ پس‌زمینه را انتخاب و حذف کنید.',
+  html:`<label class="file" for="brf"><span><i class="fa-solid fa-image"></i><b>انتخاب تصویر</b><small>پس‌زمینهٔ یکدست بهتر جواب می‌دهد</small></span><input type="file" id="brf" accept="image/*"></label>
+    <label class="chk" style="margin-top:1rem"><input type="checkbox" id="brpick" checked> انتخاب رنگ با کلیک روی تصویر</label>
+    <div class="frow"><div class="f"><label>رنگ پس‌زمینه</label><input type="color" id="brc" value="#ffffff"></div><div class="f"><label>تلورانس: <span id="brtv">۳۰</span></label><input type="range" id="brt" min="0" max="150" value="30"></div></div>
+    <div class="btnrow"><button class="btn" id="brrun"><span>حذف کن</span></button><button class="btn ghost" id="brreset"><span>بازنشانی</span></button><button class="btn ghost" id="brdl"><span>دانلود PNG</span></button></div>
+    <canvas id="brcv" style="display:none;max-width:100%;border-radius:12px;margin-top:1rem;border:1px solid var(--stroke);cursor:crosshair;background-image:linear-gradient(45deg,#ccc 25%,transparent 25%),linear-gradient(-45deg,#ccc 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ccc 75%),linear-gradient(-45deg,transparent 75%,#ccc 75%);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0px"></canvas>`,
+  init(){
+    const F = $('#brf'), C = $('#brcv'), CP = $('#brpick'), RC = $('#brc'), RT = $('#brt');
+    const ctx = C.getContext('2d');
+    let origData = null, origCanvas = null;
+    RT.addEventListener('input', () => $('#brtv').textContent = toFa(RT.value));
+    F.addEventListener('change', () => {
+      const f = F.files[0]; if (!f) return;
+      const i = new Image();
+      i.onload = () => { const sc = Math.min(1, 800/i.naturalWidth); C.width = Math.floor(i.naturalWidth*sc); C.height = Math.floor(i.naturalHeight*sc); ctx.clearRect(0,0,C.width,C.height); ctx.drawImage(i,0,0,C.width,C.height); origData = ctx.getImageData(0,0,C.width,C.height); origCanvas = document.createElement('canvas'); origCanvas.width = C.width; origCanvas.height = C.height; origCanvas.getContext('2d').putImageData(origData,0,0); C.style.display = 'block'; };
+      i.src = URL.createObjectURL(f);
+    });
+    C.addEventListener('click', e => {
+      if (!CP.checked || !origData) return;
+      const r = C.getBoundingClientRect();
+      const x = Math.floor((e.clientX - r.left) * C.width / r.width), y = Math.floor((e.clientY - r.top) * C.height / r.height);
+      const idx = (y * C.width + x) * 4;
+      const h = rgbToHex(origData.data[idx], origData.data[idx+1], origData.data[idx+2]);
+      RC.value = h; toast('رنگ انتخاب شد: ' + h.toUpperCase());
+    });
+    $('#brrun').addEventListener('click', () => {
+      if (!origData){ toast('ابتدا تصویری انتخاب کنید'); return; }
+      const data = new Uint8ClampedArray(origData.data);
+      const [tr,tg,tb] = hexToRgb(RC.value);
+      const tol = +RT.value, tolSq = tol * tol * 3;
+      for (let i = 0; i < data.length; i += 4){ const dr = data[i]-tr, dg = data[i+1]-tg, db = data[i+2]-tb; if (dr*dr + dg*dg + db*db < tolSq) data[i+3] = 0; }
+      ctx.clearRect(0,0,C.width,C.height); ctx.putImageData(new ImageData(data, C.width, C.height), 0, 0);
+      toast('پس‌زمینه حذف شد ✦');
+    });
+    $('#brreset').addEventListener('click', () => { if (!origCanvas) return; ctx.clearRect(0,0,C.width,C.height); ctx.drawImage(origCanvas,0,0); });
+    $('#brdl').addEventListener('click', () => { if (!C.width) return; C.toBlob(b => download(b, 'no-bg.png')); });
+  }
+});
+
+/* ══════ GENERAL ══════ */
+TOOLS.push({
+  id:'qr', cat:'general', icon:'fa-solid fa-qrcode',
+  title:'سازندهٔ QR کد', tag:'عمومی',
+  desc:'برای هر متن یا لینکی، QR کد بسازید و دانلود کنید.',
+  html:`<div class="f"><label>متن یا لینک</label><textarea id="qt" style="min-height:70px">https://mah-moj.github.io</textarea></div>
+    <div class="frow"><div class="f"><label>اندازه</label><input type="number" id="qs" value="300" min="100" max="1000" step="50"></div><div class="f"><label>سطح خطا</label><select id="qe"><option value="L">L</option><option value="M" selected>M</option><option value="Q">Q</option><option value="H">H</option></select></div></div>
+    <div class="btnrow"><button class="btn" id="qg"><span>بساز <i class="fa-solid fa-qrcode"></i></span></button><button class="btn ghost" id="qd"><span>دانلود PNG</span></button></div>
+    <div class="qrout" id="qo"></div>`,
+  init(){
+    const T = $('#qt'), S = $('#qs'), E = $('#qe'), O = $('#qo');
+    function gen(){
+      const t = T.value.trim();
+      if (!t){ O.innerHTML = '<span style="color:#666;font-size:.8rem">متن خالی</span>'; return; }
+      if (typeof qrcode !== 'function'){ O.innerHTML = '<span style="color:#666">کتابخانه بارگذاری نشد</span>'; return; }
+      try { const q = qrcode(0, E.value); q.addData(t); q.make(); O.innerHTML = q.createSvgTag({ cellSize: 6, margin: 8, scalable: true }); const svg = O.querySelector('svg'); if (svg){ svg.setAttribute('width', S.value); svg.setAttribute('height', S.value); } } catch(e){ O.innerHTML = '<span style="color:#666">متن طولانی است</span>'; }
+    }
+    $('#qg').addEventListener('click', gen);
+    T.addEventListener('input', gen); S.addEventListener('input', gen); E.addEventListener('change', gen);
+    $('#qd').addEventListener('click', () => {
+      const svg = O.querySelector('svg');
+      if (!svg){ toast('ابتدا QR بسازید'); return; }
+      const s = new XMLSerializer().serializeToString(svg);
+      const url = URL.createObjectURL(new Blob([s], {type:'image/svg+xml'}));
+      const img = new Image();
+      img.onload = () => {
+        const sz = +S.value || 300;
+        const c = document.createElement('canvas'); c.width = sz; c.height = sz;
+        const cx = c.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0,0,sz,sz);
+        cx.drawImage(img, 0, 0, sz, sz);
+        c.toBlob(b => download(b, 'qrcode.png'));
+      };
+      img.src = url;
+    });
+    gen();
+  }
+});
+
+TOOLS.push({
+  id:'pass', cat:'general', icon:'fa-solid fa-key',
+  title:'تولید رمز عبور امن', tag:'عمومی',
+  desc:'رمز قوی و تصادفی با تنظیمات دلخواه.',
+  html:`<div class="f"><label>طول: <span id="plv">۱۶</span></label><input type="range" id="pl" min="4" max="64" value="16"></div>
+    <label class="chk"><input type="checkbox" id="pu" checked> حروف بزرگ</label>
+    <label class="chk"><input type="checkbox" id="pl2" checked> حروف کوچک</label>
+    <label class="chk"><input type="checkbox" id="pd" checked> اعداد</label>
+    <label class="chk"><input type="checkbox" id="ps" checked> نمادها</label>
+    <div class="out" id="po" style="font-size:1.05rem;font-weight:700;letter-spacing:.05em;margin-top:.5rem;word-break:break-all"></div>
+    <div class="sbar"><i id="psb"></i></div>
+    <div class="btnrow" style="margin-top:1rem"><button class="btn" id="pg2"><span>تولید <i class="fa-solid fa-rotate"></i></span></button><button class="btn ghost" id="pc"><span>کپی</span></button></div>`,
+  init(){
+    const L = $('#pl'), LV = $('#plv'), O = $('#po'), SB = $('#psb');
+    const U = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', Lo = 'abcdefghijklmnopqrstuvwxyz', D = '0123456789', S = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+    L.addEventListener('input', () => { LV.textContent = toFa(L.value); gen(); });
+    function gen(){
+      let pool = '';
+      if ($('#pu').checked) pool += U;
+      if ($('#pl2').checked) pool += Lo;
+      if ($('#pd').checked) pool += D;
+      if ($('#ps').checked) pool += S;
+      if (!pool){ O.textContent = 'حداقل یک گزینه'; return; }
+      const n = +L.value, a = new Uint32Array(n);
+      crypto.getRandomValues(a);
+      let p = ''; for (let i = 0; i < n; i++) p += pool[a[i] % pool.length];
+      O.textContent = p;
+      let st = 0;
+      if (p.length >= 8) st += 25; if (p.length >= 12) st += 25;
+      if ($('#pu').checked && $('#pl2').checked) st += 20;
+      if ($('#pd').checked) st += 15; if ($('#ps').checked) st += 15;
+      SB.style.width = st + '%';
+      SB.style.background = st >= 80 ? '#4CAF50' : st >= 55 ? '#D9C200' : '#E57373';
+    }
+    $('#pg2').addEventListener('click', gen);
+    $('#pc').addEventListener('click', () => { if (O.textContent) copy(O.textContent, 'کپی شد ✦'); });
+    ['pu','pl2','pd','ps'].forEach(id => $('#'+id).addEventListener('change', gen));
+    gen();
+  }
+});
+
+TOOLS.push({
+  id:'percent', cat:'general', icon:'fa-solid fa-percent',
+  title:'ماشین‌حساب درصد', tag:'عمومی',
+  desc:'محاسبهٔ درصد، تخفیف و تغییرات.',
+  html:`<div class="f"><label>حالت</label><select id="pm"><option value="of">X درصد از Y چقدر است؟</option><option value="is">X چند درصد Y است؟</option><option value="change">درصد تغییر از X به Y</option><option value="discount">قیمت پس از تخفیف</option><option value="increase">افزایش درصدی</option></select></div>
+    <div class="frow"><div class="f"><label id="pal">مقدار X</label><input type="number" id="pa" value="20"></div><div class="f"><label id="pbl">مقدار Y</label><input type="number" id="pb" value="150"></div></div>
+    <div class="out" id="po2" style="font-size:1.2rem;text-align:center;padding:1.2rem;font-weight:900"></div>`,
+  init(){
+    const M = $('#pm'), A = $('#pa'), B = $('#pb'), AL = $('#pal'), BL = $('#pbl'), O = $('#po2');
+    const L = {of:['درصد','از مقدار'],is:['مقدار','از مقدار'],change:['از مقدار','به مقدار'],discount:['قیمت اصلی','درصد تخفیف'],increase:['مقدار اولیه','درصد افزایش']};
+    function upd(){
+      const m = M.value; AL.textContent = L[m][0]; BL.textContent = L[m][1];
+      const x = +A.value || 0, y = +B.value || 0;
+      let r = '';
+      if (m === 'of') r = (x/100*y).toFixed(2);
+      else if (m === 'is') r = y ? (x/y*100).toFixed(2) + '٪' : '0٪';
+      else if (m === 'change'){ if (!x) r = '—'; else { const ch = ((y-x)/x*100).toFixed(2); r = (ch >= 0 ? '+' : '') + ch + '٪'; } }
+      else if (m === 'discount') r = (x - x*y/100).toFixed(2);
+      else r = (x + x*y/100).toFixed(2);
+      O.textContent = r;
+    }
+    [M,A,B].forEach(el => el.addEventListener('input', upd)); upd();
+  }
+});
+
+TOOLS.push({
+  id:'stopwatch', cat:'general', icon:'fa-solid fa-stopwatch',
+  title:'کرنومتر دقیق', tag:'عمومی',
+  desc:'با دقت صدم ثانیه، همراه با ثبت دور.',
+  html:`<div class="stimer" id="stime">۰۰:۰۰.۰۰</div>
+    <div class="btnrow"><button class="btn" id="sstart"><span>شروع <i class="fa-solid fa-play"></i></span></button><button class="btn ghost" id="slap"><span>دور جدید</span></button><button class="btn ghost" id="sreset"><span>بازنشانی</span></button></div>
+    <div class="laps" id="slaps"></div>`,
+  init(){
+    const T = $('#stime'), LAPS = $('#slaps');
+    let running = false, startTime = 0, elapsed = 0, raf = null, lastLap = 0, lapCount = 0;
+    function fmt(ms){ const m = Math.floor(ms/60000), s = Math.floor((ms%60000)/1000), cs = Math.floor((ms%1000)/10); return toFa(String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + '.' + String(cs).padStart(2,'0')); }
+    function tick(){ const n = performance.now(); T.textContent = fmt(elapsed + (n - startTime)); if (running) raf = requestAnimationFrame(tick); }
+    function start(){ if (running) return; running = true; startTime = performance.now(); raf = requestAnimationFrame(tick); $('#sstart').querySelector('span').innerHTML = 'توقف <i class="fa-solid fa-pause"></i>'; }
+    function stop(){ if (!running) return; running = false; elapsed += performance.now() - startTime; cancelAnimationFrame(raf); T.textContent = fmt(elapsed); $('#sstart').querySelector('span').innerHTML = 'ادامه <i class="fa-solid fa-play"></i>'; }
+    $('#sstart').addEventListener('click', () => running ? stop() : start());
+    $('#slap').addEventListener('click', () => {
+      if (!running && elapsed === 0) return;
+      const cur = running ? elapsed + (performance.now() - startTime) : elapsed;
+      const diff = cur - lastLap; lastLap = cur; lapCount++;
+      const d = document.createElement('div'); d.className = 'lap';
+      d.innerHTML = '<span>دور ' + toFa(lapCount) + '</span><span>' + fmt(diff) + '</span><span>' + fmt(cur) + '</span>';
+      LAPS.prepend(d);
+    });
+    $('#sreset').addEventListener('click', () => { running = false; cancelAnimationFrame(raf); elapsed = 0; lastLap = 0; lapCount = 0; T.textContent = '۰۰:۰۰.۰۰'; LAPS.innerHTML = ''; $('#sstart').querySelector('span').innerHTML = 'شروع <i class="fa-solid fa-play"></i>'; });
+  }
+});
+
+TOOLS.push({
+  id:'dice', cat:'general', icon:'fa-solid fa-dice',
+  title:'تاس و سکه شانس', tag:'عمومی',
+  desc:'تصمیم‌گیری سریع — تاس یا شیر و خط.',
+  html:`<div class="dice" id="dshow">🎲</div>
+    <div class="frow"><div class="f"><label>تعداد تاس</label><select id="dcount"><option value="1" selected>۱ تاس</option><option value="2">۲ تاس</option><option value="3">۳ تاس</option><option value="4">۴ تاس</option></select></div></div>
+    <div class="btnrow"><button class="btn" id="droll"><span>انداختن تاس</span></button><button class="btn ghost" id="dflip"><span>شیر یا خط</span></button></div>
+    <div class="out" id="dout" style="margin-top:1rem;text-align:center;font-size:1rem"></div>`,
+  init(){
+    const D = {1:'⚀',2:'⚁',3:'⚂',4:'⚃',5:'⚄',6:'⚅'};
+    const SHOW = $('#dshow'), OUT = $('#dout');
+    $('#droll').addEventListener('click', () => { const n = +$('#dcount').value; let sum = 0; const txt = []; for (let i = 0; i < n; i++){ const v = Math.floor(Math.random()*6)+1; sum += v; txt.push(v); } SHOW.textContent = n === 1 ? D[txt[0]] : '🎲'.repeat(Math.min(n, 3)); OUT.textContent = 'نتیجه: ' + txt.map(toFa).join(' + ') + (n > 1 ? ' = ' + toFa(sum) : ''); });
+    $('#dflip').addEventListener('click', () => { const r = Math.random() < 0.5 ? 'شیر' : 'خط'; SHOW.textContent = r === 'شیر' ? '🦁' : '🪙'; OUT.textContent = 'نتیجه: ' + r; });
+  }
+});
+
+TOOLS.push({
+  id:'random', cat:'general', icon:'fa-solid fa-shuffle',
+  title:'تولید اعداد تصادفی', tag:'عمومی',
+  desc:'بین دو عدد، اعداد تصادفی بسازید.',
+  html:`<div class="frow"><div class="f"><label>از</label><input type="number" id="rmin" value="1"></div><div class="f"><label>تا</label><input type="number" id="rmax" value="100"></div></div>
+    <div class="f"><label>تعداد: <span id="rcv">۵</span></label><input type="range" id="rc" min="1" max="50" value="5"></div>
+    <label class="chk"><input type="checkbox" id="rno"> بدون تکرار</label>
+    <div class="btnrow"><button class="btn" id="rgen"><span>تولید <i class="fa-solid fa-shuffle"></i></span></button><button class="btn ghost" id="rcp"><span>کپی</span></button></div>
+    <div class="out" id="ro" style="margin-top:1rem;text-align:center;font-size:1rem;line-height:2.2"></div>`,
+  init(){
+    const MIN = $('#rmin'), MAX = $('#rmax'), C = $('#rc'), CV = $('#rcv'), NR = $('#rno'), O = $('#ro');
+    C.addEventListener('input', () => CV.textContent = toFa(C.value));
+    $('#rgen').addEventListener('click', () => {
+      const mn = Math.floor(+MIN.value), mx = Math.floor(+MAX.value), n = +C.value, noDup = NR.checked;
+      if (isNaN(mn) || isNaN(mx) || mx < mn){ O.textContent = 'بازه نامعتبر'; return; }
+      const range = mx - mn + 1;
+      if (noDup && range < n){ O.textContent = 'بازه کافی نیست'; return; }
+      const out = [];
+      if (noDup){ const pool = []; for (let i = mn; i <= mx; i++) pool.push(i); for (let i = 0; i < n; i++){ const idx = Math.floor(Math.random() * pool.length); out.push(pool.splice(idx, 1)[0]); } }
+      else { for (let i = 0; i < n; i++) out.push(Math.floor(Math.random() * range) + mn); }
+      O.textContent = out.map(toFa).join(' — ');
+    });
+    $('#rcp').addEventListener('click', () => { if (O.textContent) copy(O.textContent, 'کپی شد ✦'); });
+  }
+});
+
+/* ▓▓▓ پیام ۴ ▓▓▓ */
+
+
+
+
+    
+      
+          
+
+    
+        TOOLS.push({
+  id:'bankcard', cat:'general', icon:'fa-solid fa-credit-card',
+  title:'سازنده کارت بانکی', tag:'عمومی',
+  desc:'کارت بانکی جذاب بسازید و به‌صورت PNG دانلود کنید.',
+  html:`<style>
+      .bk-wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:1.2rem;margin-bottom:1rem}
+      @media (max-width:720px){.bk-wrap{grid-template-columns:1fr}}
+      .bk-preview-col{display:grid;place-items:center;padding:.5rem 0}
+      #bcCanvas{
+        width:100%;max-width:440px;height:auto;
+        display:block;
+        filter:drop-shadow(0 20px 40px rgba(0,0,0,.55));
+      }
+      .bk-presets{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin-top:.4rem}
+      .bk-preset{
+        aspect-ratio:1.586 / 1;border-radius:8px;cursor:pointer;
+        border:2px solid transparent;
+        transition:.35s cubic-bezier(.16,1,.3,1);
+      }
+      .bk-preset:hover{transform:translateY(-2px);border-color:rgba(217,194,0,.55)}
+      .bk-preset.active{border-color:var(--gold);box-shadow:0 0 14px rgba(217,194,0,.55)}
+      .bk-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}
+      .bk-actions .btn{flex:1 1 auto;min-width:130px}
+    </style>
+
+    <div class="bk-wrap">
+      <div>
+        <div class="f"><label>انتخاب بانک</label><select id="bcBank"></select></div>
+        <div class="f"><label>نام و نام خانوادگی</label>
+          <input type="text" id="bcName" placeholder="مثلاً: مهدی مجاهد" maxlength="24">
+        </div>
+        <div class="f"><label>شماره کارت (۱۶ رقم)</label>
+          <input type="text" id="bcNumber" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric"
+            style="font-family:'Space Grotesk',ui-monospace,monospace;direction:ltr;text-align:center">
+        </div>
+        <label class="chk"><input type="checkbox" id="bcIbanToggle"> نمایش شماره شبا</label>
+        <div class="f" id="bcIbanWrap" style="display:none;margin-top:.4rem">
+          <label>شماره شبا (۲۴ رقم بعد از IR)</label>
+          <input type="text" id="bcIban" placeholder="00 0000 0000 0000 0000 0000 00" maxlength="34" inputmode="numeric"
+            style="font-family:'Space Grotesk',ui-monospace,monospace;direction:ltr;text-align:center">
+        </div>
+        <label class="chk" style="margin-top:.6rem">
+          <input type="checkbox" id="bcLogoWhite" checked> لوگوی سفید
+        </label>
+        <div class="f" style="margin-top:1rem"><label>تم گرادیانت</label></div>
+        <div class="bk-presets" id="bcPresets"></div>
+      </div>
+      <div class="bk-preview-col">
+        <canvas id="bcCanvas" width="1000" height="630"></canvas>
+      </div>
+    </div>
+
+    <div class="bk-actions">
+      <button class="btn primary" id="bcDownload">
+        <span>دانلود PNG <i class="fa-solid fa-download"></i></span>
+      </button>
+    </div>`,
+
+  init(){
+    const BANKS = [
+      {f:'1',title:'بانک انصار'},{f:'2',title:'بانک آینده'},{f:'3',title:'بانک حکمت ایرانیان'},
+      {f:'4',title:'بانک دی'},{f:'5',title:'بانک اقتصاد نوین'},{f:'6',title:'بانک گردشگری'},
+      {f:'7',title:'بانک قوامین'},{f:'8',title:'بانک ایران زمین'},{f:'9',title:'بانک کارآفرین'},
+      {f:'10',title:'بانک کشاورزی'},{f:'11',title:'بانک مسکن'},{f:'12',title:'بانک ملت'},
+      {f:'13',title:'بانک ملی ایران'},{f:'14',title:'بانک پاسارگاد'},{f:'15',title:'بانک پارسیان'},
+      {f:'16',title:'پست بانک ایران'},{f:'17',title:'بانک رفاه کارگران'},{f:'18',title:'بانک صادرات ایران'},
+      {f:'19',title:'بانک سامان'},{f:'20',title:'بانک سپه'},{f:'21',title:'قرض الحسنه رسالت'},
+      {f:'22',title:'بانک شهر'},{f:'23',title:'بلوبانک'},{f:'24',title:'بانک مرکزی'},
+      {f:'25',title:'بانک خاورمیانه'},{f:'26',title:'موسسه اعتباری کوثر'},{f:'27',title:'قرض الحسنه مهر ایران'},
+      {f:'28',title:'بانک مهر اقتصاد'},{f:'29',title:'بانک صنعت و معدن'},{f:'30',title:'بانک سرمایه'},
+      {f:'31',title:'بانک سینا'},{f:'32',title:'بانک صادرات'},{f:'33',title:'بانک تعاون'},
+      {f:'34',title:'بانک تجارت'},{f:'35',title:'بانک مهر'},{f:'36',title:'بانک آرمان'},
+      {f:'37',title:'تعاون اسلامی'}
+    ];
+
+    /*const PRESETS = [
+      {g:['#0d1b3d','#1c2f5c','#0a1535']},
+      {g:['#202024','#3a3a40','#26262b']},
+      {g:['#061f15','#0f4a2c','#082e1c']},
+      {g:['#2a0810','#6e1524','#3a0d18']},
+      {g:['#0a0a0e','#1a1a22','#0e0e14']},
+      {g:['#15072e','#3a1a6e','#1c0a3d']},
+      {g:['#052028','#0d4a58','#072e38']},
+      {g:['#2e0a12','#6e1524','#3a0d18']},
+      {g:['#0a1a0e','#1e4528','#0e2818']},
+      {g:['#1e1208','#4a2e12','#2a1a0a']}
+    ];*/
+
+    const PRESETS = [
+  {n:'سرمه‌ای سلطنتی',g:['#0d1b3d','#1c2f5c','#0a1535']},
+  {n:'خاکستری مات',  g:['#202024','#3a3a40','#26262b']},
+  {n:'زمرد شب',      g:['#061f15','#0f4a2c','#082e1c']},
+  {n:'شرابی مجلسی',  g:['#2a0810','#6e1524','#3a0d18']},
+  {n:'ابسیدین',      g:['#0a0a0e','#1a1a22','#0e0e14']},
+  {n:'بنفش سلطنتی',  g:['#15072e','#3a1a6e','#1c0a3d']},
+  {n:'فیروزه شب',    g:['#052028','#0d4a58','#072e38']},
+  {n:'زیتونی کلاسیک',g:['#1a1a08','#3a3a12','#24240c']},
+  {n:'نارنجی غروب',  g:['#3a1208','#7a2e12','#4a1a0a']},
+  {n:'برنز لوکس',    g:['#1e1208','#4a2e12','#2a1a0a']},
+  {n:'نقره‌ای پلاتینیوم',g:['#2a2d33','#565b63','#383c42']},
+  {n:'کهربایی شب',   g:['#3a2408','#7a4e12','#4a2e0a']},
+  {n:'نیلی کهربایی', g:['#0a1535','#3d2e0a','#1a1a0a']},
+  {n:'ارغوانی شب',   g:['#2e0830','#6e186e','#3a0d3a']},
+  {n:'طلایی کهنه',   g:['#1e1808','#4a3a12','#2a240a']},
+  {n:'آبی نفتی',     g:['#081a28','#0e3852','#0a2438']},
+  {n:'صورتی مرجانی', g:['#3a0a18','#7a1a3a','#4a1024']},
+  {n:'قهوه‌ای موکا', g:['#1e1008','#4a2812','#2a180a']},
+  {n:'یاسی مات',     g:['#252030','#453a58','#302a40']},
+  {n:'نیلی یخی',     g:['#081828','#1a3a58','#0d2438']}
+];
+
+    const sel = $('#bcBank');
+    const nameIn = $('#bcName');
+    const numIn = $('#bcNumber');
+    const ibanTog = $('#bcIbanToggle');
+    const ibanWrap = $('#bcIbanWrap');
+    const ibanIn = $('#bcIban');
+    const logoWhite = $('#bcLogoWhite');
+    const presetsWrap = $('#bcPresets');
+    const cvs = $('#bcCanvas');
+    const ctx = cvs.getContext('2d');
+    const W = cvs.width;
+    const H = cvs.height;
+
+    let currentBank = BANKS[12];
+    let currentPreset = 0;
+    let logoImg = null;
+    let numberGroups = ['0000','0000','0000','0000'];
+    let ibanGroups = [];
+    let userName = '';
+
+    sel.innerHTML = BANKS.map((b, i) => '<option value="' + i + '">' + esc(b.title) + '</option>').join('');
+    sel.value = '12';
+
+    presetsWrap.innerHTML = PRESETS.map((p, i) =>
+      '<div class="bk-preset' + (i === 0 ? ' active' : '') + '" data-i="' + i +
+      '" style="background:linear-gradient(135deg,' + p.g[0] + ',' + p.g[1] + ',' + p.g[2] + ')"></div>'
+    ).join('');
+
+    function roundRect(x, y, w, h, r){
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    function drawJustified(groups, x1, x2, y, font){
+      ctx.font = font;
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.direction = 'ltr';
+      const widths = groups.map(g => ctx.measureText(g).width);
+      const total = widths.reduce((a, b) => a + b, 0);
+      const gap = groups.length > 1 ? (x2 - x1 - total) / (groups.length - 1) : 0;
+      let x = x1;
+      for (let i = 0; i < groups.length; i++){
+        ctx.fillText(groups[i], x, y);
+        x += widths[i] + gap;
+      }
+    }
+
+    function draw(){
+      /* 1) تمیز کردن کل بوم */
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      ctx.filter = 'none';
+
+      /* 2) کلیپ گوشه‌های گرد */
+      ctx.save();
+      roundRect(0, 0, W, H, 44);
+      ctx.clip();
+
+      /* 3) پس‌زمینه گرادیانت */
+      const p = PRESETS[currentPreset];
+      const g = ctx.createLinearGradient(0, 0, W, H);
+      g.addColorStop(0, p.g[0]);
+      g.addColorStop(0.5, p.g[1]);
+      g.addColorStop(1, p.g[2]);
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+
+      /* 4) درخشش ملایم */
+      const glowA = ctx.createRadialGradient(W * 0.2, H * 0.15, 0, W * 0.2, H * 0.15, W * 0.55);
+      glowA.addColorStop(0, 'rgba(255,255,255,.13)');
+      glowA.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = glowA;
+      ctx.fillRect(0, 0, W, H);
+
+      const glowB = ctx.createRadialGradient(W * 0.85, H * 0.9, 0, W * 0.85, H * 0.9, W * 0.5);
+      glowB.addColorStop(0, 'rgba(255,255,255,.06)');
+      glowB.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = glowB;
+      ctx.fillRect(0, 0, W, H);
+
+      /* 5) لوگو بالا-راست */
+      if (logoImg && logoImg.complete && logoImg.naturalWidth){
+        const MAX_W = 190, MAX_H = 90;
+        const lw = logoImg.naturalWidth;
+        const lh = logoImg.naturalHeight;
+        const scale = Math.min(MAX_W / lw, MAX_H / lh);
+        const dw = lw * scale;
+        const dh = lh * scale;
+        const dx = W - 60 - dw;
+        const dy = 60;
+        ctx.save();
+        if (logoWhite.checked) ctx.filter = 'brightness(0) invert(1)';
+        ctx.drawImage(logoImg, dx, dy, dw, dh);
+        ctx.restore();
+      }
+
+      /* 6) شماره شبا (بالای شماره کارت) */
+      if (ibanGroups.length){
+        drawJustified(ibanGroups, 60, W - 60, 235, '500 28px "Space Grotesk", ui-monospace, monospace');
+      }
+
+      /* 7) شماره کارت (وسط) */
+      drawJustified(numberGroups, 60, W - 60, 380, '700 72px "Space Grotesk", ui-monospace, monospace');
+
+      /* 8) نام کاربر پایین-راست */
+      ctx.font = '800 32px Vazirmatn, sans-serif';
+      ctx.fillStyle = '#ffffff';
+      ctx.direction = 'rtl';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillText(userName || 'نام شما', W - 60, H - 55);
+
+      /* 9) نام بانک پایین-چپ */
+      ctx.font = '700 26px Vazirmatn, sans-serif';
+      ctx.fillStyle = 'rgba(255,255,255,.92)';
+      ctx.direction = 'rtl';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillText(currentBank.title, 60, H - 55);
+
+      ctx.restore();
+    }
+
+    function updateNumber(){
+      const raw = toEn(numIn.value).replace(/\D/g, '').slice(0, 16);
+      const groups = [];
+      for (let i = 0; i < raw.length; i += 4) groups.push(raw.substr(i, 4));
+      numIn.value = groups.join(' ');
+      while (groups.length < 4) groups.push('0000');
+      numberGroups = groups.slice(0, 4);
+      draw();
+    }
+
+    function updateIban(){
+      if (!ibanTog.checked){
+        ibanWrap.style.display = 'none';
+        ibanGroups = [];
+        draw();
+        return;
+      }
+      ibanWrap.style.display = 'block';
+      const raw = toEn(ibanIn.value).replace(/\D/g, '').slice(0, 24);
+      const sizes = [2, 4, 4, 4, 4, 4, 2];
+      const parts = [];
+      let i = 0;
+      for (const s of sizes){
+        if (i >= raw.length) break;
+        parts.push(raw.substr(i, s));
+        i += s;
+      }
+      ibanIn.value = parts.join(' ');
+      ibanGroups = raw.length ? ['IR'].concat(parts) : [];
+      draw();
+    }
+
+    function updateName(){
+      userName = nameIn.value.trim();
+      draw();
+    }
+
+    function loadLogo(src){
+      const img = new Image();
+      img.onload = () => { logoImg = img; draw(); };
+      img.onerror = () => { logoImg = null; draw(); };
+      img.src = src;
+    }
+
+    function applyBank(){
+      currentBank = BANKS[+sel.value];
+      loadLogo('img/bank/' + currentBank.f + '.svg');
+    }
+
+    sel.addEventListener('change', applyBank);
+    numIn.addEventListener('input', updateNumber);
+    nameIn.addEventListener('input', updateName);
+    ibanTog.addEventListener('change', updateIban);
+    ibanIn.addEventListener('input', updateIban);
+    logoWhite.addEventListener('change', draw);
+
+    presetsWrap.addEventListener('click', e => {
+      const t = e.target.closest('.bk-preset');
+      if (!t) return;
+      currentPreset = +t.dataset.i;
+      presetsWrap.querySelectorAll('.bk-preset').forEach((el, idx) => {
+        el.classList.toggle('active', idx === currentPreset);
+      });
+      draw();
+    });
+
+    $('#bcDownload').addEventListener('click', () => {
+      cvs.toBlob(b => {
+        if (!b){ toast('خطا در تولید تصویر'); return; }
+        download(b, 'bank-card-' + currentBank.f + '.png');
+        toast('کارت دانلود شد ✦');
+      }, 'image/png');
+    });
+
+    /* بارگذاری فونت‌ها قبل از رسم */
+    (async () => {
+      if (document.fonts && document.fonts.load){
+        try {
+          await document.fonts.load('700 72px "Space Grotesk"');
+          await document.fonts.load('500 28px "Space Grotesk"');
+          await document.fonts.load('800 32px "Vazirmatn"');
+          await document.fonts.load('700 26px "Vazirmatn"');
+        } catch(e){}
+      }
+      applyBank();
+      updateNumber();
+      updateName();
+    })();
+  }
+});
+    
+  
+
+
+
+    
+
+
+    
+
+TOOLS.push({
+  id:'age', cat:'general', icon:'fa-solid fa-cake-candles',
+  title:'ماشین‌حساب سن و تاریخ سه‌گانه', tag:'عمومی',
+  desc:'تبدیل شمسی، میلادی، قمری + محاسبه سن دقیق.',
+  html:`<div class="f"><label>نوع تاریخ ورودی</label><select id="agType"><option value="jalali" selected>شمسی</option><option value="gregorian">میلادی</option></select></div>
+    <div class="frow"><div class="f"><label>روز</label><input type="number" id="agd" value="26" min="1" max="31"></div><div class="f"><label>ماه</label><input type="number" id="agm" value="2" min="1" max="12"></div><div class="f"><label>سال</label><input type="number" id="agy" value="1384"></div></div>
+    <div class="btnrow"><button class="btn" id="agrun"><span>محاسبه <i class="fa-solid fa-cake-candles"></i></span></button></div>
+    <div id="agdate"></div>
+    <div class="stats" id="agout" style="margin-top:1rem"></div>`,
+  init(){
+    const ZODIAC = [{sign:'حمل ♈',animal:'خروس 🐔',gs:[3,21],ge:[4,19]},{sign:'ثور ♉',animal:'خروس 🐔',gs:[4,20],ge:[5,20]},{sign:'جوزا ♊',animal:'سگ 🐶',gs:[5,21],ge:[6,20]},{sign:'سرطان ♋',animal:'سگ 🐶',gs:[6,21],ge:[7,22]},{sign:'اسد ♌',animal:'خوک 🐷',gs:[7,23],ge:[8,22]},{sign:'سنبله ♍',animal:'خوک 🐷',gs:[8,23],ge:[9,22]},{sign:'میزان ♎',animal:'موش 🐭',gs:[9,23],ge:[10,22]},{sign:'عقرب ♏',animal:'موش 🐭',gs:[10,23],ge:[11,21]},{sign:'قوس ♐',animal:'گاو 🐮',gs:[11,22],ge:[12,21]},{sign:'جدی ♑',animal:'گاو 🐮',gs:[12,22],ge:[1,19]},{sign:'دلو ♒',animal:'ببر 🐯',gs:[1,20],ge:[2,18]},{sign:'حوت ♓',animal:'ببر 🐯',gs:[2,19],ge:[3,20]}];
+    const CN = ['موش 🐭','گاو 🐮','ببر 🐯','خرگوش 🐰','اژدها 🐲','مار 🐍','اسب 🐴','بز 🐐','میمون 🐵','خروس 🐔','سگ 🐶','خوک 🐷'];
+    function getZ(gy,gm,gd){ for (const z of ZODIAC){ const [sm,sd]=z.gs,[em,ed]=z.ge; if (sm<=em){ if ((gm===sm&&gd>=sd)||(gm===em&&gd<=ed)||(gm>sm&&gm<em)) return z; } else { if ((gm===sm&&gd>=sd)||(gm===em&&gd<=ed)) return z; } } return ZODIAC[0]; }
+    function calc(){
+      const type = $('#agType').value;
+      let gy, gm, gd;
+      const y = +$('#agy').value, m = +$('#agm').value, d = +$('#agd').value;
+      if (type === 'jalali'){ if (y < 1200 || y > 1600 || m < 1 || m > 12 || d < 1 || d > 31){ $('#agout').innerHTML = '<div style="grid-column:1/-1"><b>—</b><span>تاریخ نامعتبر</span></div>'; $('#agdate').innerHTML = ''; return; } [gy,gm,gd] = jalaliToGreg(y,m,d); } else { gy=y; gm=m; gd=d; }
+      const date = new Date(gy, gm-1, gd);
+      if (isNaN(date.getTime())) return;
+      const [jy,jm,jd] = gregToJalali(gy,gm,gd);
+      const [hy,hm,hd] = gregToHijri(gy,gm,gd);
+      const zod = getZ(gy,gm,gd);
+      const animal = CN[((gy-2020)%12+12)%12];
+      $('#agdate').innerHTML = '<div class="date-grid"><div class="date-card"><div class="dc-label">شمسی</div><div class="dc-val">' + toFa(jd) + ' / ' + toFa(jm) + ' / ' + toFa(jy) + '</div><div class="dc-month">' + J_MONTHS[jm-1] + '</div></div><div class="date-card"><div class="dc-label">میلادی</div><div class="dc-val">' + toFa(gd) + ' / ' + toFa(gm) + ' / ' + toFa(gy) + '</div><div class="dc-month">' + G_MONTHS[gm-1] + '</div></div><div class="date-card"><div class="dc-label">قمری</div><div class="dc-val">' + toFa(hd) + ' / ' + toFa(hm) + ' / ' + toFa(hy) + '</div><div class="dc-month">' + H_MONTHS[(hm-1+12)%12] + '</div></div></div><div class="date-extra"><div class="date-card"><div class="dc-label">برج فلکی</div><div class="dc-val">' + zod.sign + '</div></div><div class="date-card"><div class="dc-label">حیوان سال</div><div class="dc-val">' + animal + '</div></div></div>';
+      const now = new Date();
+      let years = now.getFullYear() - date.getFullYear(), months = now.getMonth() - date.getMonth(), days = now.getDate() - date.getDate();
+      if (days < 0){ months--; days += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
+      if (months < 0){ years--; months += 12; }
+      const totalDays = Math.floor((now - date) / 86400000);
+      const totalWeeks = Math.floor(totalDays / 7);
+      const totalMonths = years * 12 + months;
+      const nextB = new Date(now.getFullYear(), date.getMonth(), date.getDate());
+      if (nextB < now) nextB.setFullYear(nextB.getFullYear() + 1);
+      const daysToNext = Math.ceil((nextB - now) / 86400000);
+      $('#agout').innerHTML = '<div><b>' + toFa(years) + ' سال</b><span>سن</span></div><div><b>' + toFa(months) + ' ماه</b><span>اضافه</span></div><div><b>' + toFa(days) + ' روز</b><span>اضافه</span></div><div><b>' + toFa(totalDays) + '</b><span>کل روزها</span></div><div><b>' + toFa(totalWeeks) + '</b><span>کل هفته‌ها</span></div><div><b>' + toFa(totalMonths) + '</b><span>کل ماه‌ها</span></div><div><b>' + toFa(daysToNext) + ' روز</b><span>تا تولد بعدی</span></div><div><b>—</b><span>—</span></div>';
+    }
+    $('#agrun').addEventListener('click', calc);
+    ['agy','agm','agd','agType'].forEach(id => $('#'+id).addEventListener('input', calc));
+    calc();
+  }
+});
+
+TOOLS.push({
+  id:'datediff', cat:'general', icon:'fa-solid fa-calendar-days',
+  title:'فاصله بین دو تاریخ', tag:'عمومی',
+  desc:'تعداد روز، هفته، ماه و سال بین دو تاریخ.',
+  html:`<div style="margin-bottom:.6rem;font-size:.75rem;font-weight:700;color:var(--gold)">تاریخ اول</div>
+    <div class="frow"><div class="f"><label>روز</label><input type="number" id="dd1d" value="1" min="1" max="31"></div><div class="f"><label>ماه</label><input type="number" id="dd1m" value="1" min="1" max="12"></div><div class="f"><label>سال</label><input type="number" id="dd1y" value="1400"></div></div>
+    <div style="margin:.6rem 0;font-size:.75rem;font-weight:700;color:var(--gold)">تاریخ دوم</div>
+    <div class="frow"><div class="f"><label>روز</label><input type="number" id="dd2d" value="1" min="1" max="31"></div><div class="f"><label>ماه</label><input type="number" id="dd2m" value="1" min="1" max="12"></div><div class="f"><label>سال</label><input type="number" id="dd2y" value="1404"></div></div>
+    <div class="f"><label>نوع تاریخ</label><select id="ddType"><option value="jalali" selected>شمسی</option><option value="gregorian">میلادی</option></select></div>
+    <div class="btnrow"><button class="btn" id="ddrun"><span>محاسبه <i class="fa-solid fa-calendar-days"></i></span></button></div>
+    <div class="stats" id="ddout" style="margin-top:1rem"></div>`,
+  init(){
+    function calc(){
+      const type = $('#ddType').value;
+      let g1, g2;
+      if (type === 'jalali'){ g1 = jalaliToGreg(+$('#dd1y').value,+$('#dd1m').value,+$('#dd1d').value); g2 = jalaliToGreg(+$('#dd2y').value,+$('#dd2m').value,+$('#dd2d').value); }
+      else { g1 = [+$('#dd1y').value,+$('#dd1m').value,+$('#dd1d').value]; g2 = [+$('#dd2y').value,+$('#dd2m').value,+$('#dd2d').value]; }
+      const d1 = new Date(g1[0], g1[1]-1, g1[2]), d2 = new Date(g2[0], g2[1]-1, g2[2]);
+      if (isNaN(d1.getTime()) || isNaN(d2.getTime())){ $('#ddout').innerHTML = '<div style="grid-column:1/-1"><b>—</b><span>تاریخ نامعتبر</span></div>'; return; }
+      const earlier = d1 < d2 ? d1 : d2, later = d1 < d2 ? d2 : d1;
+      const totalDays = Math.floor((later - earlier) / 86400000);
+      const totalWeeks = Math.floor(totalDays / 7);
+      const totalMonths = (later.getFullYear() - earlier.getFullYear()) * 12 + (later.getMonth() - earlier.getMonth());
+      let years = later.getFullYear() - earlier.getFullYear(), months = later.getMonth() - earlier.getMonth(), days = later.getDate() - earlier.getDate();
+      if (days < 0){ months--; days += new Date(later.getFullYear(), later.getMonth(), 0).getDate(); }
+      if (months < 0){ years--; months += 12; }
+      $('#ddout').innerHTML = '<div><b>' + toFa(years) + ' سال</b><span>سال</span></div><div><b>' + toFa(months) + ' ماه</b><span>ماه</span></div><div><b>' + toFa(days) + ' روز</b><span>روز</span></div><div><b>' + toFa(totalMonths) + '</b><span>کل ماه‌ها</span></div><div><b>' + toFa(totalWeeks) + '</b><span>کل هفته‌ها</span></div><div><b>' + toFa(totalDays) + '</b><span>کل روزها</span></div>';
+    }
+    $('#ddrun').addEventListener('click', calc);
+    ['dd1y','dd1m','dd1d','dd2y','dd2m','dd2d','ddType'].forEach(id => $('#'+id).addEventListener('input', calc));
+    calc();
+  }
+});
+
+TOOLS.push({
+  id:'bmi', cat:'general', icon:'fa-solid fa-heart-pulse',
+  title:'ماشین‌حساب BMI', tag:'عمومی',
+  desc:'شاخص توده بدنی، وزن ایده‌آل و کالری روزانه.',
+  html:`<div class="frow"><div class="f"><label>قد (cm)</label><input type="number" id="bh" value="175"></div><div class="f"><label>وزن (kg)</label><input type="number" id="bw" value="70"></div></div>
+    <div class="frow"><div class="f"><label>سن</label><input type="number" id="ba" value="25"></div><div class="f"><label>جنسیت</label><select id="bg"><option value="m">مرد</option><option value="f">زن</option></select></div></div>
+    <div class="f"><label>سطح فعالیت</label><select id="bl"><option value="1.2">کم‌تحرک</option><option value="1.375">سبک</option><option value="1.55" selected>متوسط</option><option value="1.725">زیاد</option><option value="1.9">ورزشکار</option></select></div>
+    <div class="btnrow"><button class="btn" id="brun"><span>محاسبه <i class="fa-solid fa-heart-pulse"></i></span></button></div>
+    <div id="bout"></div>`,
+  init(){
+    function calc(){
+      const h = +$('#bh').value/100, w = +$('#bw').value, age = +$('#ba').value, g = $('#bg').value, lvl = +$('#bl').value;
+      if (!h || !w) return;
+      const bmi = w/(h*h);
+      let cat = '';
+      if (bmi < 18.5) cat = 'کمبود وزن'; else if (bmi < 25) cat = 'وزن نرمال'; else if (bmi < 30) cat = 'اضافه وزن'; else if (bmi < 35) cat = 'چاقی درجه ۱'; else if (bmi < 40) cat = 'چاقی درجه ۲'; else cat = 'چاقی شدید';
+      const iMin = 18.5*h*h, iMax = 24.9*h*h;
+      let bmr; if (g === 'm') bmr = 10*w + 6.25*(h*100) - 5*age + 5; else bmr = 10*w + 6.25*(h*100) - 5*age - 161;
+      const tdee = Math.round(bmr*lvl);
+      const marker = Math.max(0, Math.min(100, ((bmi-15)/30)*100));
+      $('#bout').innerHTML = '<div class="out" style="text-align:center;font-size:1.4rem;font-weight:900;padding:1rem;margin-top:1rem">' + bmi.toFixed(2) + ' <small style="font-size:.65rem;color:var(--muted);font-weight:500">— ' + cat + '</small></div><div class="bmi-bar"><div class="bmi-marker" style="left:' + marker + '%"></div></div><div class="stats" style="margin-top:1rem"><div><b>' + toFa(iMin.toFixed(1)) + ' kg</b><span>حداقل وزن</span></div><div><b>' + toFa(iMax.toFixed(1)) + ' kg</b><span>حداکثر وزن</span></div><div><b>' + toFa(Math.round(bmr)) + '</b><span>BMR</span></div><div><b>' + toFa(tdee) + '</b><span>TDEE</span></div></div>';
+    }
+    $('#brun').addEventListener('click', calc);
+    ['bh','bw','ba','bg','bl'].forEach(id => $('#'+id).addEventListener('input', calc));
+    calc();
+  }
+});
+
+TOOLS.push({
+  id:'units', cat:'general', icon:'fa-solid fa-ruler-combined',
+  title:'تبدیل واحد پیشرفته', tag:'عمومی',
+  desc:'طول، وزن، حجم، دما، سرعت، مساحت، داده، زمان.',
+  html:`<div class="f"><label>دسته</label><select id="uc"><option value="length">طول</option><option value="weight">وزن</option><option value="volume">حجم</option><option value="temp">دما</option><option value="speed">سرعت</option><option value="area">مساحت</option><option value="data">داده</option><option value="time">زمان</option></select></div>
+    <div class="frow"><div class="f"><label>از</label><select id="uf"></select></div><div class="f"><label>به</label><select id="ut"></select></div></div>
+    <div class="f"><label>مقدار</label><input type="number" id="uv" value="1"></div>
+    <div class="out" id="uo" style="text-align:center;font-size:1.2rem;padding:1.2rem;margin-top:1rem;font-weight:900"></div>`,
+  init(){
+    const CATS = {
+      length:{units:{m:['متر',1],km:['کیلومتر',1000],cm:['سانتی‌متر',0.01],mm:['میلی‌متر',0.001],in:['اینچ',0.0254],ft:['فوت',0.3048],yd:['یارد',0.9144],mi:['مایل',1609.344],nmi:['مایل دریایی',1852]}},
+      weight:{units:{kg:['کیلوگرم',1],g:['گرم',0.001],mg:['میلی‌گرم',1e-6],t:['تن',1000],lb:['پوند',0.45359237],oz:['اونس',0.0283495]}},
+      volume:{units:{l:['لیتر',1],ml:['میلی‌لیتر',0.001],m3:['متر مکعب',1000],gal:['گالن',3.78541],qt:['کوارت',0.946353],cup:['پیمانه',0.236588]}},
+      temp:{custom:'temp'},
+      speed:{units:{mps:['متر بر ثانیه',1],kmh:['کیلومتر بر ساعت',0.277778],mph:['مایل بر ساعت',0.44704],kn:['نات',0.514444]}},
+      area:{units:{m2:['متر مربع',1],km2:['کیلومتر مربع',1e6],cm2:['سانتی‌متر مربع',0.0001],ha:['هکتار',10000],ft2:['فوت مربع',0.092903],ac:['ایکر',4046.86]}},
+      data:{units:{B:['بایت',1],KB:['کیلوبایت',1024],MB:['مگابایت',1048576],GB:['گیگابایت',1073741824],TB:['ترابایت',1.0995e12],bit:['بیت',0.125]}},
+      time:{units:{s:['ثانیه',1],min:['دقیقه',60],h:['ساعت',3600],d:['روز',86400],wk:['هفته',604800],mo:['ماه',2592000],yr:['سال',31536000]}}
+    };
+    const C = $('#uc'), F = $('#uf'), T = $('#ut'), V = $('#uv'), O = $('#uo');
+    function fill(){
+      const cat = CATS[C.value]; F.innerHTML = ''; T.innerHTML = '';
+      if (cat.custom === 'temp'){ [['c','سلسیوس'],['f','فارنهایت'],['k','کلوین']].forEach(([k,n]) => { F.innerHTML += '<option value="'+k+'">'+n+'</option>'; T.innerHTML += '<option value="'+k+'">'+n+'</option>'; }); F.value = 'c'; T.value = 'f'; }
+      else { for (const k in cat.units){ F.innerHTML += '<option value="'+k+'">'+cat.units[k][0]+'</option>'; T.innerHTML += '<option value="'+k+'">'+cat.units[k][0]+'</option>'; } const keys = Object.keys(cat.units); if (keys.length > 1) T.value = keys[1]; }
+      conv();
+    }
+    function conv(){
+      const cat = CATS[C.value], v = parseFloat(V.value) || 0;
+      let result = 0;
+      if (cat.custom === 'temp'){ let c; if (F.value === 'c') c = v; else if (F.value === 'f') c = (v-32)*5/9; else c = v - 273.15; if (T.value === 'c') result = c; else if (T.value === 'f') result = c*9/5+32; else result = c + 273.15; }
+      else { result = v * cat.units[F.value][1] / cat.units[T.value][1]; }
+      let d; if (Math.abs(result) < 0.0001 && result !== 0){ d = result.toExponential(4); } else { d = result.toFixed(6).replace(/\.?0+$/, ''); if (d === '' || d === '-') d = '0'; }
+      O.textContent = d;
+    }
+    C.addEventListener('change', fill); F.addEventListener('change', conv); T.addEventListener('change', conv); V.addEventListener('input', conv);
+    fill();
+  }
+});
+
+TOOLS.push({
+  id:'wheel', cat:'general', icon:'fa-solid fa-dharmachakra',
+  title:'گردونه شانس', tag:'عمومی',
+  desc:'گزینه‌های خود را وارد کنید و گردونه را بچرخانید.',
+  html:`<div class="f"><label>گزینه‌ها (هر خط یکی)</label><textarea id="wop" style="min-height:90px">گزینه اول
+گزینه دوم
+گزینه سوم
+گزینه چهارم
+گزینه پنجم</textarea></div>
+    <div class="wheelwrap"><div class="wheelp"></div><canvas id="wheelC" width="600" height="600"></canvas></div>
+    <div class="wres" id="wres"></div>
+    <div class="btnrow"><button class="btn" id="wspin"><span>بچرخان <i class="fa-solid fa-dharmachakra"></i></span></button></div>`,
+  init(){
+    const T = $('#wop'), C = $('#wheelC'), R = $('#wres');
+    const ctx = C.getContext('2d');
+    const COLORS = ['#D9C200','#1F3A93','#8B0045','#2E8B57','#7B2D8E','#B87333','#40E0D0','#9B111E','#3B3B98','#FFA500','#5FA8D3','#7DDBA0'];
+    let items = [], currentAngle = 0, spinning = false;
+    function draw(){
+      const cx = C.width/2, cy = C.height/2, radius = Math.min(cx, cy) - 12;
+      ctx.clearRect(0, 0, C.width, C.height);
+      if (!items.length){ ctx.fillStyle = 'rgba(255,255,255,.08)'; ctx.beginPath(); ctx.arc(cx, cy, radius, 0, Math.PI*2); ctx.fill(); ctx.fillStyle = '#8b9ba6'; ctx.font = 'bold 22px Vazirmatn'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('حداقل ۲ گزینه', cx, cy); return; }
+      const n = items.length, slice = (Math.PI*2)/n;
+      for (let i = 0; i < n; i++){
+        const start = i*slice + currentAngle, end = start + slice;
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, radius, start, end); ctx.closePath();
+        ctx.fillStyle = COLORS[i % COLORS.length]; ctx.fill();
+        ctx.strokeStyle = 'rgba(0,0,0,.35)'; ctx.lineWidth = 2; ctx.stroke();
+        ctx.save(); ctx.translate(cx, cy); ctx.rotate(start + slice/2); ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff'; ctx.font = 'bold 20px Vazirmatn'; ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 6;
+        const label = items[i].length > 20 ? items[i].slice(0, 18) + '…' : items[i]; ctx.fillText(label, radius - 24, 0); ctx.restore();
+      }
+      ctx.beginPath(); ctx.arc(cx, cy, radius, 0, Math.PI*2); ctx.strokeStyle = '#D9C200'; ctx.lineWidth = 6; ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx, cy, 32, 0, Math.PI*2); ctx.fillStyle = '#001830'; ctx.fill(); ctx.strokeStyle = '#D9C200'; ctx.lineWidth = 4; ctx.stroke();
+    }
+    function update(){ items = T.value.split('\n').map(s => s.trim()).filter(Boolean); R.textContent = items.length < 2 ? 'حداقل ۲ گزینه' : ''; draw(); }
+    function spin(){
+      if (spinning) return;
+      if (items.length < 2){ toast('حداقل ۲ گزینه لازم است'); return; }
+      spinning = true; R.textContent = 'در حال چرخش...';
+      const n = items.length, slice = (Math.PI*2)/n, winner = Math.floor(Math.random()*n);
+      let target = -Math.PI/2 - winner*slice - slice/2;
+      target += Math.PI*2*(5 + Math.floor(Math.random()*3));
+      while (target < currentAngle + Math.PI*8) target += Math.PI*2;
+      const startA = currentAngle, delta = target - startA, dur = 5200, t0 = performance.now();
+      function animate(now){
+        const p = Math.min((now - t0)/dur, 1), eased = 1 - Math.pow(1 - p, 4);
+        currentAngle = startA + delta*eased; draw();
+        if (p < 1) requestAnimationFrame(animate);
+        else { spinning = false; R.textContent = '🎉 نتیجه: ' + items[winner]; }
+      }
+      requestAnimationFrame(animate);
+    }
+    T.addEventListener('input', update);
+    $('#wspin').addEventListener('click', spin);
+    update();
+  }
+});
+
+TOOLS.push({
+  id:'riyal', cat:'general', icon:'fa-solid fa-money-bill-wave',
+  title:'مبدل ریال و تومان', tag:'عمومی',
+  desc:'تبدیل ریال به تومان و برعکس با نوشتار حروفی.',
+  html:`<div class="f"><label>واحد ورودی</label><select id="rc_from"><option value="toman" selected>تومان</option><option value="riyal">ریال</option></select></div>
+    <div class="f"><label>مقدار</label><input type="text" id="rc_input" value="۲۵۰۰۰۰۰" inputmode="numeric" style="font-family:monospace;font-size:1.05rem;text-align:center;letter-spacing:.05em"></div>
+    <div class="rc-out" id="rc_out"></div>`,
+  init(){
+    const SEL = $('#rc_from'), IN = $('#rc_input'), OUT = $('#rc_out');
+    const yk = ['','یک','دو','سه','چهار','پنج','شش','هفت','هشت','نه'];
+    const dh = ['ده','یازده','دوازده','سیزده','چهارده','پانزده','شانزده','هفده','هجده','نوزده'];
+    const dg = ['','','بیست','سی','چهل','پنجاه','شصت','هفتاد','هشتاد','نود'];
+    const sd = ['','صد','دویست','سیصد','چهارصد','پانصد','ششصد','هفتصد','هشتصد','نهصد'];
+    const sc = ['','هزار','میلیون','میلیارد','بیلیون'];
+    function three(n){ const p = []; const s = Math.floor(n/100), r = n%100; if (s>0) p.push(sd[s]); if (r>=10&&r<20) p.push(dh[r-10]); else { const d = Math.floor(r/10), y = r%10; if (d>0) p.push(dg[d]); if (y>0) p.push(yk[y]); } return p.join(' و '); }
+    function words(n){ if (!isFinite(n) || n < 0) return '—'; n = Math.floor(n); if (n === 0) return 'صفر'; const g = []; while (n > 0){ g.push(n % 1000); n = Math.floor(n/1000); } const p = []; for (let i = g.length - 1; i >= 0; i--){ if (g[i] === 0) continue; let t = three(g[i]); if (i > 0 && sc[i]) t += ' ' + sc[i]; p.push(t); } return p.join(' و '); }
+    function group(n){ return toFa(n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')); }
+    function conv(){
+      const raw = toEn(IN.value).replace(/[^\d]/g, '');
+      const val = parseFloat(raw);
+      if (isNaN(val) || val < 0){ OUT.innerHTML = '<p class="hint" style="text-align:center">عدد معتبر وارد کنید</p>'; return; }
+      const isT = SEL.value === 'toman';
+      const inU = isT ? 'تومان' : 'ریال', outU = isT ? 'ریال' : 'تومان';
+      const res = Math.floor(isT ? val * 10 : val / 10);
+      OUT.innerHTML = '<div class="rc-block"><div class="rc-label">ورودی</div><div class="rc-value">' + group(val) + ' <small>' + inU + '</small></div></div><div class="rc-arrow"><i class="fa-solid fa-arrow-down"></i></div><div class="rc-block rc-block-primary"><div class="rc-label">معادل</div><div class="rc-value rc-value-big">' + group(res) + ' <small>' + outU + '</small></div></div><div class="rc-text"><i class="fa-solid fa-quote-right"></i><p>' + words(res) + ' ' + outU + '</p></div><div class="btnrow" style="margin-top:1rem"><button class="btn ghost" id="rc_copy"><span>کپی عدد</span></button><button class="btn ghost" id="rc_copy_text"><span>کپی حروفی</span></button></div>';
+      const c1 = document.getElementById('rc_copy'), c2 = document.getElementById('rc_copy_text');
+      if (c1) c1.addEventListener('click', () => copy(res.toString(), 'عدد کپی شد ✦'));
+      if (c2) c2.addEventListener('click', () => copy(words(res) + ' ' + outU, 'حروفی کپی شد ✦'));
+    }
+    IN.addEventListener('input', () => { const en = toEn(IN.value).replace(/[^\d]/g, ''); if (en !== toEn(IN.value)) IN.value = toFa(en); conv(); });
+    SEL.addEventListener('change', conv);
+    conv();
+  }
+});
+
+TOOLS.push({
+  id:'sizes', cat:'general', icon:'fa-solid fa-ruler-combined',
+  title:'مرجع ابعاد استاندارد', tag:'عمومی',
+  desc:'ابعاد شبکه‌های اجتماعی و اندازه‌های چاپ.',
+  html:`<div class="size-tabs"><button class="size-tab active" data-stab="social"><i class="fa-solid fa-share-nodes"></i> شبکه‌ها</button><button class="size-tab" data-stab="print"><i class="fa-solid fa-print"></i> چاپ</button><button class="size-tab" data-stab="paper"><i class="fa-solid fa-file"></i> کاغذ</button></div>
+    <div id="sizeBody" style="margin-top:1rem"></div>`,
+  init(){
+    const SOCIAL = [
+      {name:'اینستاگرام',icon:'fa-brands fa-instagram',items:[{t:'پست مربع',s:'۱۰۸۰ × ۱۰۸۰'},{t:'پست پرتره',s:'۱۰۸۰ × ۱۳۵۰'},{t:'پست افقی',s:'۱۰۸۰ × ۵۶۶'},{t:'استوری / ریلز',s:'۱۰۸۰ × ۱۹۲۰'},{t:'پروفایل',s:'۳۲۰ × ۳۲۰'}]},
+      {name:'تلگرام',icon:'fa-brands fa-telegram',items:[{t:'پروفایل',s:'۵۱۲ × ۵۱۲'},{t:'استیکر',s:'۵۱۲ × ۵۱۲'},{t:'کاور کانال',s:'۱۲۸۰ × ۷۲۰'}]},
+      {name:'یوتیوب',icon:'fa-brands fa-youtube',items:[{t:'تامبنیل',s:'۱۲۸۰ × ۷۲۰'},{t:'بنر کانال',s:'۲۵۶۰ × ۱۴۴۰'},{t:'پروفایل',s:'۸۰۰ × ۸۰۰'},{t:'Shorts',s:'۱۰۸۰ × ۱۹۲۰'}]},
+      {name:'لینکدین',icon:'fa-brands fa-linkedin',items:[{t:'پروفایل',s:'۴۰۰ × ۴۰۰'},{t:'کاور',s:'۱۵۸۴ × ۳۹۶'},{t:'پست',s:'۱۲۰۰ × ۶۲۷'}]},
+      {name:'توییتر X',icon:'fa-brands fa-x-twitter',items:[{t:'پروفایل',s:'۴۰۰ × ۴۰۰'},{t:'هدر',s:'۱۵۰۰ × ۵۰۰'},{t:'پست',s:'۱۲۰۰ × ۶۷۵'}]},
+      {name:'فیسبوک',icon:'fa-brands fa-facebook',items:[{t:'پروفایل',s:'۱۸۰ × ۱۸۰'},{t:'کاور',s:'۸۲۰ × ۳۱۲'},{t:'پست',s:'۱۲۰۰ × ۶۳۰'}]},
+      {name:'ایتا',icon:'fa-solid fa-comment-dots',items:[{t:'پروفایل',s:'۵۱۲ × ۵۱۲'},{t:'پست کانال',s:'۱۰۸۰ × ۱۰۸۰'},{t:'استوری',s:'۱۰۸۰ × ۱۹۲۰'}]},
+      {name:'روبیکا',icon:'fa-solid fa-cube',items:[{t:'پروفایل',s:'۵۱۲ × ۵۱۲'},{t:'پست / ویدیو',s:'۱۰۸۰ × ۱۰۸۰'}]},
+      {name:'بله',icon:'fa-solid fa-check-double',items:[{t:'پروفایل',s:'۵۱۲ × ۵۱۲'},{t:'پست',s:'۱۰۸۰ × ۱۰۸۰'}]}
+    ];
+    const PRINT = [
+      {name:'کارت ویزیت',icon:'fa-solid fa-id-card',items:[{t:'استاندارد ایران',s:'۸۵ × ۴۸ mm',r:'۳۰۰DPI: ۱۰۰۴ × ۵۶۷'},{t:'استاندارد اروپا',s:'۸۵ × ۵۵ mm',r:'۳۰۰DPI: ۱۰۰۴ × ۶۵۰'}]},
+      {name:'پوستر و بنر',icon:'fa-solid fa-image',items:[{t:'A3',s:'۲۹۷ × ۴۲۰ mm',r:'۳۰۰DPI: ۳۵۰۸ × ۴۹۶۱'},{t:'A2',s:'۴۲۰ × ۵۹۴ mm',r:'۳۰۰DPI: ۴۹۶۱ × ۷۰۱۶'},{t:'A1',s:'۵۹۴ × ۸۴۱ mm',r:'۳۰۰DPI: ۷۰۱۶ × ۹۹۳۳'},{t:'رول‌آپ',s:'۸۵۰ × ۲۰۰۰ mm'},{t:'بنر بزرگ',s:'۳۰۰۰ × ۱۰۰۰ mm',r:'۷۲DPI: ۸۵۰۴ × ۲۸۳۵'}]},
+      {name:'تراکت',icon:'fa-solid fa-scroll',items:[{t:'A5',s:'۱۴۸ × ۲۱۰ mm',r:'۳۰۰DPI: ۱۷۴۸ × ۲۴۸۰'},{t:'A6',s:'۱۰۵ × ۱۴۸ mm',r:'۳۰۰DPI: ۱۲۴۰ × ۱۷۴۸'},{t:'بروشور ۳ لت',s:'۲۱۰ × ۲۹۷ mm',r:'۳۰۰DPI: ۲۴۸۰ × ۳۵۰۸'}]}
+    ];
+    const PAPER = [
+      {name:'سری A',icon:'fa-solid fa-file',items:[{t:'A0',s:'۸۴۱ × ۱۱۸۹ mm',r:'۳۰۰DPI: ۹۹۳۳ × ۱۴۰۴۳'},{t:'A1',s:'۵۹۴ × ۸۴۱ mm',r:'۳۰۰DPI: ۷۰۱۶ × ۹۹۳۳'},{t:'A2',s:'۴۲۰ × ۵۹۴ mm',r:'۳۰۰DPI: ۴۹۶۱ × ۷۰۱۶'},{t:'A3',s:'۲۹۷ × ۴۲۰ mm',r:'۳۰۰DPI: ۳۵۰۸ × ۴۹۶۱'},{t:'A4',s:'۲۱۰ × ۲۹۷ mm',r:'۳۰۰DPI: ۲۴۸۰ × ۳۵۰۸'},{t:'A5',s:'۱۴۸ × ۲۱۰ mm',r:'۳۰۰DPI: ۱۷۴۸ × ۲۴۸۰'}]},
+      {name:'سری B',icon:'fa-solid fa-file',items:[{t:'B4',s:'۲۵۰ × ۳۵۳ mm'},{t:'B5',s:'۱۷۶ × ۲۵۰ mm'}]},
+      {name:'آمریکا',icon:'fa-solid fa-file',items:[{t:'Letter',s:'۲۱۶ × ۲۷۹ mm',r:'۸.۵ × ۱۱ اینچ'},{t:'Legal',s:'۲۱۶ × ۳۵۶ mm',r:'۸.۵ × ۱۴ اینچ'}]}
+    ];
+    const body = $('#sizeBody'), tabs = $$('.size-tab');
+    function card(item){ return '<div class="size-card"><b>' + item.t + '</b><span class="size-dim">' + item.s + '</span>' + (item.r ? '<small>' + item.r + '</small>' : '') + '</div>'; }
+    function render(data){ body.innerHTML = data.map(s => '<div class="size-section"><div class="size-section-head"><i class="' + s.icon + '"></i><h3>' + s.name + '</h3></div><div class="size-grid">' + s.items.map(card).join('') + '</div></div>').join(''); }
+    tabs.forEach(t => { t.addEventListener('click', () => { tabs.forEach(x => x.classList.remove('active')); t.classList.add('active'); const k = t.dataset.stab; render(k === 'social' ? SOCIAL : k === 'print' ? PRINT : PAPER); }); });
+    render(SOCIAL);
+  }
+});
+
+/* ══════ DEV ══════ */
+TOOLS.push({
+  id:'json', cat:'dev', icon:'fa-solid fa-brackets-curly',
+  title:'مرتب‌ساز JSON', tag:'توسعه‌دهنده',
+  desc:'JSON را مرتب، فشرده یا اعتبارسنجی کنید.',
+  html:`<div class="f"><label>ورودی</label><textarea id="ji" placeholder='{"name":"Mahdi","age":25}' style="font-family:monospace;direction:ltr;text-align:left"></textarea></div>
+    <div class="f"><label>تودرتویی</label><select id="jt"><option value="2">۲ فاصله</option><option value="4">۴ فاصله</option></select></div>
+    <div class="btnrow"><button class="btn" id="jf"><span>مرتب کن</span></button><button class="btn" id="jm"><span>فشرده کن</span></button><button class="btn ghost" id="jc"><span>کپی</span></button></div>
+    <div class="out" id="jo" style="margin-top:1rem;white-space:pre-wrap;max-height:260px;overflow:auto;direction:ltr;text-align:left"></div>`,
+  init(){
+    const I = $('#ji'), O = $('#jo');
+    function f(min){ const v = I.value.trim(); if (!v){ O.textContent = 'ورودی خالی'; return; } try { const o = JSON.parse(v); O.textContent = min ? JSON.stringify(o) : JSON.stringify(o, null, +$('#jt').value); toast('انجام شد ✦'); } catch(e){ O.textContent = 'خطا: ' + e.message; } }
+    $('#jf').addEventListener('click', () => f(false));
+    $('#jm').addEventListener('click', () => f(true));
+    $('#jc').addEventListener('click', () => { if (O.textContent) copy(O.textContent, 'کپی شد ✦'); });
+  }
+});
+
+TOOLS.push({
+  id:'uuid', cat:'dev', icon:'fa-solid fa-fingerprint',
+  title:'تولید UUID', tag:'توسعه‌دهنده',
+  desc:'شناسه‌های یکتا (v4) بسازید.',
+  html:`<div class="f"><label>تعداد (۱ تا ۵۰)</label><input type="number" id="un" value="5" min="1" max="50"></div>
+    <label class="chk"><input type="checkbox" id="uu"> حروف بزرگ</label>
+    <label class="chk"><input type="checkbox" id="ub"> با { } احاطه شود</label>
+    <div class="btnrow"><button class="btn" id="ug"><span>تولید <i class="fa-solid fa-rotate"></i></span></button><button class="btn ghost" id="uc"><span>کپی</span></button></div>
+    <div class="out" id="uo" style="margin-top:1rem;white-space:pre-wrap;line-height:2;direction:ltr;text-align:left"></div>`,
+  init(){
+    const O = $('#uo');
+    function gen(){ const n = Math.max(1, Math.min(50, +$('#un').value || 5)), u = $('#uu').checked, b = $('#ub').checked; const a = []; for (let i = 0; i < n; i++){ let x = crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => { const r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16); }); if (u) x = x.toUpperCase(); if (b) x = '{' + x + '}'; a.push(x); } O.textContent = a.join('\n'); }
+    $('#ug').addEventListener('click', gen);
+    $('#uc').addEventListener('click', () => { if (O.textContent) copy(O.textContent, 'کپی شد ✦'); });
+    ['un','uu','ub'].forEach(id => $('#'+id).addEventListener('input', gen));
+    gen();
+  }
+});
+
+TOOLS.push({
+  id:'hash', cat:'dev', icon:'fa-solid fa-shield-halved',
+  title:'تولید هش', tag:'توسعه‌دهنده',
+  desc:'هش SHA-1، SHA-256 و SHA-512 از متن.',
+  html:`<div class="f"><label>متن ورودی</label><textarea id="hi" placeholder="متن برای هش..."></textarea></div>
+    <div class="btnrow"><button class="btn" id="hgo"><span>تولید هش <i class="fa-solid fa-shield"></i></span></button></div>
+    <div id="ho" style="margin-top:1rem"></div>`,
+  init(){
+    const I = $('#hi'), O = $('#ho');
+    async function gen(){ const t = I.value; if (!t){ O.innerHTML = ''; return; } if (!window.crypto || !window.crypto.subtle){ O.innerHTML = '<p class="hint" style="color:#ff9a9a">مرورگر پشتیبانی نمی‌کند</p>'; return; } const enc = new TextEncoder().encode(t); let html = ''; for (const a of ['SHA-1','SHA-256','SHA-512']){ try { const buf = await crypto.subtle.digest(a, enc); const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join(''); html += '<div class="f"><label>' + a + '</label><div class="out" style="direction:ltr;text-align:left">' + hex + '</div></div>'; } catch(e){} } O.innerHTML = html; }
+    $('#hgo').addEventListener('click', gen);
+    let tId; I.addEventListener('input', () => { clearTimeout(tId); tId = setTimeout(gen, 300); });
+  }
+});
+
+TOOLS.push({
+  id:'bases', cat:'dev', icon:'fa-solid fa-0',
+  title:'باینری / هگز / دسیمال', tag:'توسعه‌دهنده',
+  desc:'تبدیل اعداد بین مبناهای ۲، ۸، ۱۰ و ۱۶.',
+  html:`<div class="f"><label>عدد</label><input type="text" id="bi2" value="255" style="direction:ltr;text-align:left;font-family:monospace"></div>
+    <div class="f"><label>مبنای ورودی</label><select id="bb"><option value="2">باینری</option><option value="8">اکتال</option><option value="10" selected>دسیمال</option><option value="16">هگز</option></select></div>
+    <div class="btnrow"><button class="btn" id="bg"><span>تبدیل</span></button></div>
+    <div id="bo2" style="margin-top:1rem"></div>`,
+  init(){
+    const I = $('#bi2'), B = $('#bb'), O = $('#bo2');
+    function gen(){ const v = I.value.trim(); if (!v){ O.innerHTML = '<p class="hint">عدد را وارد کنید</p>'; return; } const n = parseInt(v, +B.value); if (isNaN(n)){ O.innerHTML = '<p class="hint" style="color:#ff9a9a">عدد معتبر نیست</p>'; return; } O.innerHTML = '<div class="f"><label>باینری</label><div class="out" style="direction:ltr;text-align:left">' + n.toString(2) + '</div></div><div class="f"><label>اکتال</label><div class="out" style="direction:ltr;text-align:left">' + n.toString(8) + '</div></div><div class="f"><label>دسیمال</label><div class="out" style="direction:ltr;text-align:left">' + n.toString(10) + '</div></div><div class="f"><label>هگز</label><div class="out" style="direction:ltr;text-align:left">' + n.toString(16).toUpperCase() + '</div></div>'; }
+    I.addEventListener('input', gen); B.addEventListener('change', gen); $('#bg').addEventListener('click', gen);
+    gen();
+  }
+});
+
+TOOLS.push({
+  id:'minify', cat:'dev', icon:'fa-solid fa-code',
+  title:'Minify / Beautify', tag:'توسعه‌دهنده',
+  desc:'کد CSS، JS یا HTML را فشرده یا مرتب کنید.',
+  html:`<div class="f"><label>نوع کد</label><select id="mtype"><option value="css">CSS</option><option value="js">JavaScript</option><option value="html">HTML</option></select></div>
+    <div class="f"><label>کد ورودی</label><textarea id="min" style="min-height:140px;font-family:monospace;direction:ltr;text-align:left"></textarea></div>
+    <div class="btnrow"><button class="btn" id="mmin"><span>فشرده کن</span></button><button class="btn" id="mbea"><span>مرتب کن</span></button><button class="btn ghost" id="mcp"><span>کپی</span></button></div>
+    <div class="f" style="margin-top:1rem"><label>خروجی</label><textarea id="mout" readonly style="min-height:140px;font-family:monospace;direction:ltr;text-align:left"></textarea></div>`,
+  init(){
+    const T = $('#mtype'), I = $('#min'), O = $('#mout');
+    const minCSS = s => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').replace(/\s*([{}:;,])\s*/g, '$1').replace(/;}/g, '}').trim();
+    const minJS = s => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:\\])\/\/[^\n\r]*/g, '$1').replace(/\s+/g, ' ').replace(/\s*([{}();,:=\+\-\*\/<>!&|])\s*/g, '$1').trim();
+    const minHTML = s => s.replace(/<!--[\s\S]*?-->/g, '').replace(/\s+/g, ' ').replace(/>\s+</g, '><').trim();
+    const beaCSS = s => s.replace(/\s*{\s*/g, ' {\n  ').replace(/;\s*/g, ';\n  ').replace(/\s*}\s*/g, '\n}\n').replace(/\n\s*\n/g, '\n').trim();
+    const beaJS = s => s.replace(/\s*{\s*/g, ' {\n  ').replace(/;\s*/g, ';\n  ').replace(/\s*}\s*/g, '\n}\n').replace(/\n\s*\n/g, '\n').trim();
+    const beaHTML = s => s.replace(/></g, '>\n<').trim();
+    $('#mmin').addEventListener('click', () => { const t = T.value, v = I.value; if (!v){ toast('کدی وارد کنید'); return; } O.value = t === 'css' ? minCSS(v) : t === 'js' ? minJS(v) : minHTML(v); toast('فشرده شد ✦'); });
+    $('#mbea').addEventListener('click', () => { const t = T.value, v = I.value; if (!v){ toast('کدی وارد کنید'); return; } O.value = t === 'css' ? beaCSS(v) : t === 'js' ? beaJS(v) : beaHTML(v); toast('مرتب شد ✦'); });
+    $('#mcp').addEventListener('click', () => { if (O.value) copy(O.value, 'کپی شد ✦'); });
+  }
+});
+
+/* ══════ RENDER ══════ */
+const GRID = document.getElementById('toolsGrid');
+const MODAL = document.getElementById('modal');
+const MBODY = document.getElementById('mbody');
+let currentFilter = 'all', currentQuery = '';
+
+function renderGrid(filter, query){
+  filter = filter || 'all';
+  query = (query || '').toLowerCase().trim();
+  let list = filter === 'all' ? TOOLS.slice() : TOOLS.filter(t => t.cat === filter);
+  if (query){ list = list.filter(t => t.title.toLowerCase().includes(query) || t.desc.toLowerCase().includes(query) || t.tag.toLowerCase().includes(query) || t.id.toLowerCase().includes(query)); }
+  GRID.innerHTML = '';
+  if (!list.length){ GRID.innerHTML = '<div class="empty"><i class="fa-solid fa-magnifying-glass"></i>ابزاری پیدا نشد</div>'; return; }
+  list.forEach((t, i) => {
+    const c = document.createElement('div');
+    c.className = 'card';
+    c.style.animationDelay = (i * 0.025) + 's';
+    c.innerHTML = '<div class="arrow"><i class="fa-solid fa-arrow-up-left"></i></div><div class="cicon"><i class="' + t.icon + '"></i></div><h3>' + esc(t.title) + '</h3><p>' + esc(t.desc) + '</p><span class="tag">' + esc(t.tag) + '</span>';
+    c.addEventListener('click', () => openTool(t.id));
+    GRID.appendChild(c);
+  });
+}
+
+function openTool(id){
+  const t = TOOLS.find(x => x.id === id);
+  if (!t) return;
+  MBODY.innerHTML = '<div class="mtitle"><div class="mticon"><i class="' + t.icon + '"></i></div><div><h2>' + esc(t.title) + '</h2><p>' + esc(t.desc) + '</p></div></div>' + t.html;
+  MODAL.classList.add('open');
+  document.body.classList.add('lock');
+  requestAnimationFrame(() => {
+    try { if (typeof t.init === 'function') t.init(); }
+    catch(e){ console.error('Tool init error:', t.id, e); MBODY.insertAdjacentHTML('beforeend', '<p class="hint" style="color:#ff9a9a;margin-top:1rem">خطا در راه‌اندازی ابزار.</p>'); }
+  });
+}
+function closeModal(){
+  MODAL.classList.remove('open');
+  document.body.classList.remove('lock');
+  setTimeout(() => { MBODY.innerHTML = ''; }, 400);
+}
+document.getElementById('mclose').addEventListener('click', closeModal);
+document.getElementById('mback').addEventListener('click', closeModal);
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && MODAL.classList.contains('open')) closeModal(); });
+
+document.querySelectorAll('#filters .filter').forEach(f => {
+  f.addEventListener('click', () => {
+    document.querySelectorAll('#filters .filter').forEach(x => x.classList.remove('active'));
+    f.classList.add('active');
+    currentFilter = f.dataset.filter;
+    renderGrid(currentFilter, currentQuery);
+  });
+});
+document.getElementById('searchInput').addEventListener('input', e => {
+  currentQuery = e.target.value;
+  renderGrid(currentFilter, currentQuery);
+});
+
+/* ══════ STARS ══════ */
+(function starfield(){
+  const canvas = document.getElementById('stars');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr, list = [], rafId = null, isVisible = true;
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.width = innerWidth * dpr; h = canvas.height = innerHeight * dpr;
+    canvas.style.width = innerWidth + 'px'; canvas.style.height = innerHeight + 'px';
+    const n = Math.min(60, Math.floor(innerWidth / 22));
+    list = new Array(n);
+    for (let i = 0; i < n; i++) list[i] = { x: Math.random()*w, y: Math.random()*h, r: (Math.random()*1.2+0.3)*dpr, vx: (Math.random()-0.5)*0.15*dpr, vy: (Math.random()-0.5)*0.15*dpr, a: Math.random()*0.5+0.2 };
+  }
+  function draw(){
+    if (!isVisible){ rafId = null; return; }
+    ctx.clearRect(0, 0, w, h);
+    for (let i = 0; i < list.length; i++){
+      const s = list[i];
+      s.x += s.vx; s.y += s.vy;
+      if (s.x < 0) s.x = w; else if (s.x > w) s.x = 0;
+      if (s.y < 0) s.y = h; else if (s.y > h) s.y = 0;
+      ctx.globalAlpha = s.a;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fillStyle = '#D9C200'; ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    rafId = requestAnimationFrame(draw);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  document.addEventListener('visibilitychange', () => { isVisible = !document.hidden; if (isVisible && rafId === null) draw(); });
+  draw();
+})();
+
+/* ══════ MUSIC ══════ */
+(function music(){
+  const audio = document.getElementById('bgMusic');
+  const btn = document.getElementById('musicBtn');
+  const icon = document.getElementById('musicIcon');
+  if (!audio || !btn || !icon) return;
+  const VOL = 0.15, FADE = 2000, KEY = 'portfolio_music_on';
+  let started = false, wantOn = true, raf = null;
+  try { const s = localStorage.getItem(KEY); if (s === 'off') wantOn = false; } catch(e){}
+  function updateUI(){ const playing = !audio.paused && !audio.ended && started; btn.classList.toggle('playing', playing); icon.className = playing ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark'; }
+  updateUI();
+  function fadeTo(target, dur, done){ if (raf) cancelAnimationFrame(raf); const start = audio.volume, t0 = performance.now(); function step(now){ const p = Math.min((now - t0) / dur, 1), e = p < 0.5 ? 2*p*p : 1 - Math.pow(-2*p + 2, 2) / 2; audio.volume = Math.max(0, Math.min(1, start + (target - start) * e)); if (p < 1) raf = requestAnimationFrame(step); else { raf = null; if (typeof done === 'function') done(); } } raf = requestAnimationFrame(step); }
+  function start(){ if (started) return; const p = audio.play(); if (p && typeof p.then === 'function'){ p.then(() => { started = true; audio.volume = 0; fadeTo(VOL, FADE); updateUI(); removeL(); }).catch(() => updateUI()); } else { audio.volume = VOL; started = true; updateUI(); removeL(); } }
+  function stop(fade){ if (!fade){ audio.pause(); audio.volume = 0; updateUI(); return; } fadeTo(0, 700, () => { audio.pause(); updateUI(); }); }
+  btn.addEventListener('click', e => { e.stopPropagation(); if (!started){ wantOn = true; try { localStorage.setItem(KEY, 'on'); } catch(err){} start(); return; } if (audio.paused){ wantOn = true; try { localStorage.setItem(KEY, 'on'); } catch(err){} audio.play().then(() => { fadeTo(VOL, 900); updateUI(); }).catch(() => {}); } else { wantOn = false; try { localStorage.setItem(KEY, 'off'); } catch(err){} stop(true); } });
+  const events = ['click', 'scroll', 'touchstart', 'keydown', 'pointerdown'];
+  function onFirst(){ if (started || !wantOn) return; start(); }
+  function addL(){ events.forEach(e => window.addEventListener(e, onFirst, { passive: true })); }
+  function removeL(){ events.forEach(e => window.removeEventListener(e, onFirst)); }
+  if (wantOn) addL();
+  let wasPlaying = false;
+  document.addEventListener('visibilitychange', () => { if (document.hidden){ wasPlaying = !audio.paused && started; if (wasPlaying){ audio.pause(); updateUI(); } } else if (wasPlaying && wantOn && started){ audio.play().then(() => { fadeTo(VOL, 700); updateUI(); }).catch(() => {}); } });
+  audio.addEventListener('error', () => { btn.style.opacity = '.4'; btn.style.cursor = 'not-allowed'; });
+})();
+
+/* ══════ BACK TO TOP ══════ */
+(function(){
+  const btn = document.getElementById('toTop');
+  if (!btn) return;
+  let ticking = false;
+  function onScroll(){ btn.classList.toggle('show', window.scrollY > 400); ticking = false; }
+  window.addEventListener('scroll', () => { if (!ticking){ requestAnimationFrame(onScroll); ticking = true; } }, { passive: true });
+  onScroll();
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+
+document.addEventListener('contextmenu', e => { if (e.target.closest('input, textarea, select')) return; e.preventDefault(); });
+document.addEventListener('dragstart', e => e.preventDefault());
+(function(){ const el = document.getElementById('year'); if (el) el.textContent = toFa(new Date().getFullYear()); })();
+
+renderGrid('all');
+</script>
+
+</body>
+</html>

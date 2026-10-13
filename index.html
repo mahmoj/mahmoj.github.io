@@ -1,0 +1,2348 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مهدی مجاهد | طراح و توسعه‌دهنده وب</title>
+<meta name="description" content="پورتفولیوی مهدی مجاهد — طراحی وب، ادیت فیلم و عکس، پوستر، لوگو و برندینگ">
+
+<link rel="icon" href="img/20261011_025918.ico" type="image/x-icon">
+<link rel="shortcut icon" href="img/20261011_025918.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="img/20261011_025918.ico">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<script>
+  document.documentElement.classList.remove('no-js');
+  document.documentElement.classList.add('js');
+</script>
+
+<style>
+/* ============================================================
+   1. TOKENS
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --gold:#D9C200;
+  --navy:#001830;
+  --ink:#1D241D;
+  --white:#ffffff;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease-2:cubic-bezier(.34,1.56,.64,1);
+
+  --bg:#000d18;
+  --bg-2:#001830;
+  --panel:rgba(255,255,255,.045);
+  --panel-2:rgba(0,24,48,.55);
+  --stroke:rgba(255,255,255,.09);
+  --text:#f1f5f7;
+  --muted:#8b9ba6;
+  --accent-soft:rgba(217,194,0,.13);
+  --nav-bg:rgba(0,13,24,.86);
+  --shadow:0 30px 70px rgba(0,0,0,.6);
+  --glow:0 0 60px rgba(217,194,0,.28);
+  --blend:screen;
+}
+
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:80px;
+  -webkit-text-size-adjust:100%;
+  overflow-x:clip;
+  max-width:100%;
+}
+@supports not (overflow: clip){
+  html{overflow-x:hidden}
+}
+
+body{
+  font-family:"Vazirmatn",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:clip;
+  max-width:100%;
+  width:100%;
+  position:relative;
+  line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+  -webkit-tap-highlight-color:transparent;
+}
+@supports not (overflow: clip){
+  body{overflow-x:hidden}
+}
+body.lock{overflow:hidden}
+
+input, textarea, [contenteditable="true"]{
+  -webkit-user-select:text;
+  -moz-user-select:text;
+  -ms-user-select:text;
+  user-select:text;
+}
+
+img,video,canvas,svg,iframe{max-width:100%;display:block}
+img{-webkit-user-drag:none;user-drag:none;pointer-events:none}
+
+h1,h2,h3,h4,p,a,span,li,b,small,label,strong,em{
+  overflow-wrap:anywhere;
+  word-wrap:break-word;
+  min-width:0;
+  max-width:100%;
+}
+
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--gold);color:#001830}
+::-moz-selection{background:var(--gold);color:#001830}
+
+::-webkit-scrollbar{width:9px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--gold),var(--navy));border-radius:99px}
+
+/* ============================================================
+   2. BACKGROUND LAYERS
+   ============================================================ */
+.bg-layer{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.aurora{position:absolute;border-radius:50%;filter:blur(110px);opacity:.5;will-change:transform}
+.aurora.a{width:min(58vw,520px);height:min(58vw,520px);background:#D9C200;top:-14vw;right:-14vw;animation:float1 22s ease-in-out infinite}
+.aurora.b{width:min(52vw,480px);height:min(52vw,480px);background:#003a63;bottom:-16vw;left:-16vw;animation:float2 27s ease-in-out infinite}
+.aurora.c{width:min(42vw,380px);height:min(42vw,380px);background:#1D241D;top:42%;left:38%;animation:float3 32s ease-in-out infinite}
+@keyframes float1{50%{transform:translateY(8vh) scale(1.12)}}
+@keyframes float2{50%{transform:translateY(-7vh) scale(1.15)}}
+@keyframes float3{50%{transform:translateY(-6vh) scale(.88)}}
+
+/* بوم ستاره‌های تعاملی */
+#stars{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.9;
+}
+
+.grain{
+  position:fixed;inset:-200%;z-index:9998;pointer-events:none;opacity:.028;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 8s steps(6) infinite;
+}
+@keyframes grain{
+  0%,100%{transform:translate(0,0)}10%{transform:translate(-4%,-4%)}20%{transform:translate(-8%,3%)}
+  30%{transform:translate(3%,-7%)}40%{transform:translate(-3%,7%)}50%{transform:translate(-8%,5%)}
+  60%{transform:translate(6%,0)}70%{transform:translate(0,6%)}80%{transform:translate(4%,-4%)}90%{transform:translate(-4%,4%)}
+}
+
+.cursor-glow{
+  position:fixed;width:min(480px,55vw);height:min(480px,55vw);border-radius:50%;
+  background:radial-gradient(circle,rgba(217,194,0,.16),transparent 62%);
+  transform:translate(-50%,-50%);pointer-events:none;z-index:9997;
+  mix-blend-mode:var(--blend);opacity:0;transition:opacity .5s;
+}
+body.has-cursor .cursor-glow{opacity:1}
+@media (hover: none),(pointer: coarse){
+  .cursor-glow{display:none !important}
+}
+
+/* ============================================================
+   3. ANIMATIONS عمومی
+   ============================================================ */
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shine{to{background-position:220% center}}
+@keyframes angleSpin{to{--a:360deg}}
+@keyframes cardFloat{50%{transform:translateY(-12px)}}
+@keyframes barSweep{60%,100%{transform:translateX(100%)}}
+@keyframes popIn{from{opacity:0;transform:translateY(20px)}}
+@keyframes ping{to{transform:scale(2.6);opacity:0}}
+@keyframes blink{50%{opacity:0}}
+@keyframes wheel{50%{transform:translateY(11px);opacity:.2}}
+@keyframes underline{to{transform:scaleX(1)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes markGlow{50%{box-shadow:0 0 44px rgba(217,194,0,.85)}}
+
+/* ============================================================
+   4. PROGRESS + HEADER
+   ============================================================ */
+.progress{
+  position:fixed;top:0;right:0;height:3px;width:0;z-index:200;
+  background:linear-gradient(90deg,var(--gold),#fff,var(--gold));
+  box-shadow:0 0 18px rgba(217,194,0,.8);
+  transition:width .12s linear;
+}
+
+.header{
+  position:fixed;top:0;right:0;left:0;
+  z-index:130;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem clamp(1rem,4vw,3rem);
+  transition:padding .4s var(--ease),background .4s var(--ease);
+  will-change:padding;
+}
+.header.scrolled{
+  padding:.55rem clamp(1rem,4vw,3rem);
+  background:var(--nav-bg);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--stroke);
+}
+body.lock .header.scrolled{
+  background:transparent;
+  border-bottom-color:transparent;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+
+.logo{display:flex;align-items:center;gap:.55rem;font-weight:800;font-size:.95rem;letter-spacing:-.02em;min-width:0}
+.logo-mark{
+  width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+  background:linear-gradient(140deg,var(--gold),#8a7a00);
+  color:#001830;flex:none;overflow:hidden;
+  box-shadow:0 0 26px rgba(217,194,0,.45);
+  animation:markGlow 4s ease-in-out infinite;
+}
+.logo-mark img{width:68%;height:68%;object-fit:contain;filter:invert(1) brightness(.1)}
+.logo small{display:block;font-size:.52rem;font-weight:500;color:var(--muted);letter-spacing:.14em;line-height:1.2}
+
+/* گروه دکمه‌های سمت چپ هدر */
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  flex:none;
+}
+
+/* دکمه‌ی مربعی مشترک — شبیه همبرگری */
+.icon-btn{
+  position:relative;
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  flex:none;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  color:var(--gold);
+  font-size:1.05rem;
+  text-decoration:none;
+  cursor:pointer;
+  transition:background .3s var(--ease),
+             border-color .3s var(--ease),
+             box-shadow .3s var(--ease),
+             transform .3s var(--ease);
+  -webkit-tap-highlight-color:transparent;
+  overflow:hidden;
+}
+.icon-btn i{
+  position:relative;
+  z-index:1;
+  transition:transform .4s var(--ease-2);
+}
+.icon-btn:hover{
+  background:var(--accent-soft);
+  border-color:var(--gold);
+  box-shadow:0 0 22px rgba(217,194,0,.35);
+}
+.icon-btn:hover i{
+  transform:rotate(-8deg) scale(1.12);
+}
+.icon-btn:active{transform:scale(.94)}
+
+/* ضربان ملایم طلایی روی دکمه‌ی جعبه‌ابزار */
+.icon-btn.tools-btn::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:inherit;
+  border:1px solid var(--gold);
+  opacity:0;
+  pointer-events:none;
+  animation:toolPulse 3.5s ease-out infinite;
+}
+@keyframes toolPulse{
+  0%,55%,100%{opacity:0;transform:scale(1)}
+  15%{opacity:.55}
+  35%{opacity:0;transform:scale(1.18)}
+}
+
+.burger{
+  position:relative;z-index:140;width:48px;height:48px;border-radius:15px;
+  display:grid;place-items:center;flex:none;
+  background:var(--panel);border:1px solid var(--stroke);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  transition:background .3s;
+}
+.burger:hover{background:var(--accent-soft)}
+.burger:active{transform:scale(.94)}
+.burger i{
+  display:block;position:absolute;height:2px;width:22px;border-radius:9px;
+  background:var(--text);transition:.4s var(--ease);
+}
+.burger i:nth-child(1){transform:translateY(-6px)}
+.burger i:nth-child(3){transform:translateY(6px)}
+.burger.open i:nth-child(1){transform:rotate(45deg)}
+.burger.open i:nth-child(2){opacity:0;transform:scaleX(0)}
+.burger.open i:nth-child(3){transform:rotate(-45deg)}
+
+/* ============================================================
+   5. NAV
+   ============================================================ */
+.nav{
+  position:fixed;inset:0;z-index:110;
+  background:var(--nav-bg);
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  opacity:0;visibility:hidden;transform:translateY(-20px);
+  transition:opacity .45s var(--ease),visibility .45s var(--ease),transform .55s var(--ease);
+  pointer-events:none;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(2rem,7vw,5rem);
+  overflow-y:auto;overflow-x:clip;
+  max-width:100vw;max-height:100vh;
+}
+.nav.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+
+.nav-list{list-style:none;display:flex;flex-direction:column;gap:.15rem;width:100%}
+.nav-list li{overflow:hidden;width:100%}
+.nav-list a{
+  display:inline-flex;align-items:center;gap:.75rem;
+  font-size:clamp(1.15rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.025em;
+  padding:.3rem 0;color:var(--text);
+  transform:translateY(110%);opacity:0;
+  transition:transform .7s var(--ease),opacity .7s var(--ease),color .3s;
+  max-width:100%;
+}
+.nav.open .nav-list a{transform:translateY(0);opacity:1}
+.nav-list li:nth-child(1) a{transition-delay:.1s}
+.nav-list li:nth-child(2) a{transition-delay:.15s}
+.nav-list li:nth-child(3) a{transition-delay:.2s}
+.nav-list li:nth-child(4) a{transition-delay:.25s}
+.nav-list li:nth-child(5) a{transition-delay:.3s}
+.nav-list li:nth-child(6) a{transition-delay:.35s}
+.nav-list li:nth-child(7) a{transition-delay:.4s}
+.nav-list a::before{
+  content:"";width:0;height:3px;border-radius:9px;background:var(--gold);
+  transition:width .4s var(--ease);flex:none;
+}
+.nav-list a:hover{color:var(--gold)}
+.nav-list a:hover::before{width:clamp(22px,5vw,50px)}
+
+/* ============================================================
+   6. LAYOUT
+   ============================================================ */
+main{position:relative;z-index:1;overflow-x:clip}
+section{
+  padding:clamp(3rem,8vh,6rem) clamp(1rem,3.5vw,3rem);
+  position:relative;overflow-x:clip;
+}
+.wrap{max-width:1140px;margin:0 auto;width:100%}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.68rem;font-weight:700;letter-spacing:.2em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:.85rem;
+}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--gold);border-radius:9px;flex:none}
+
+h2.title{
+  font-size:clamp(1.2rem,3.6vw,2.2rem);font-weight:900;letter-spacing:-.028em;
+  line-height:1.3;margin-bottom:.85rem;
+}
+h2.title em{
+  font-style:normal;
+  background:linear-gradient(105deg,var(--gold),#fff6b0,var(--gold));
+  background-size:220% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shine 5s linear infinite;
+}
+
+.lead{color:var(--muted);font-size:clamp(.85rem,1.2vw,.95rem);max-width:60ch}
+
+/* ============================================================
+   7. REVEAL (اسکرول مداوم)
+   ============================================================ */
+[data-reveal]{
+  opacity:0;transform:translateY(40px);
+  transition:opacity .85s var(--ease),transform .85s var(--ease);
+  transition-delay:var(--d,0s);
+  will-change:opacity,transform;
+}
+[data-reveal="right"]{transform:translateY(55px)}
+[data-reveal="left"]{transform:translateY(45px)}
+[data-reveal="scale"]{transform:translateY(30px) scale(.94)}
+[data-reveal].in{opacity:1;transform:none}
+
+html.no-js [data-reveal]{
+  opacity:1 !important;
+  transform:none !important;
+}
+
+/* ============================================================
+   8. BUTTONS
+   ============================================================ */
+@property --btn-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.btn{
+  position:relative;display:inline-flex;padding:2px;border-radius:999px;
+  overflow:hidden;isolation:isolate;cursor:pointer;flex:none;max-width:100%;
+}
+.btn::before{
+  content:"";
+  position:absolute;inset:0;border-radius:inherit;padding:2px;
+  background:conic-gradient(
+    from var(--btn-angle),
+    transparent 0deg, transparent 190deg,
+    var(--gold) 265deg, #fff8c4 300deg, var(--gold) 330deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: btnSpin 3.6s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+.btn:nth-child(even)::before{animation-duration:4.6s;animation-direction:reverse}
+@keyframes btnSpin{to{--btn-angle:360deg}}
+
+.btn > span{
+  position:relative;z-index:1;
+  flex:1 1 auto;
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.85rem 1.8rem;border-radius:999px;
+  background:var(--panel-2);
+  border:1px solid transparent;
+  backdrop-filter:blur(16px) saturate(180%);
+  -webkit-backdrop-filter:blur(16px) saturate(180%);
+  font-weight:700;font-size:.85rem;white-space:nowrap;
+  text-align:center;min-width:0;
+  transition:background .4s var(--ease),color .4s,letter-spacing .4s var(--ease);
+}
+.btn:hover > span{background:var(--accent-soft);color:var(--gold);letter-spacing:.02em}
+.btn:active{transform:scale(.97)}
+.btn.ghost > span{background:transparent}
+.btn.big > span{padding:1rem 2.4rem;font-size:.9rem}
+
+.btn > span::after{
+  content:"";position:absolute;top:0;bottom:0;width:45%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);
+  transform:translateX(-260%) skewX(-18deg);
+  transition:transform .9s var(--ease);
+}
+.btn:hover > span::after{transform:translateX(260%) skewX(-18deg)}
+
+.form-card > .btn{ width: 100%; }
+.form-card > .btn > span{ width: 100%; }
+
+/* ============================================================
+   9. HERO
+   ============================================================ */
+.hero{
+  min-height:100svh;display:flex;align-items:center;
+  padding-top:7rem;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1.15fr .85fr;
+  gap:clamp(2rem,5vw,4.5rem);align-items:center;
+}
+.hero-grid > *{min-width:0;max-width:100%}
+
+.badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.45rem 1rem;border-radius:999px;
+  background:var(--accent-soft);border:1px solid rgba(217,194,0,.32);
+  font-size:.72rem;font-weight:600;color:var(--gold);margin-bottom:1.2rem;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  max-width:100%;
+}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);position:relative;flex:none}
+.pulse-dot::after{
+  content:"";position:absolute;inset:-4px;border-radius:50%;
+  border:1px solid var(--gold);animation:ping 1.8s ease-out infinite;
+}
+
+h1.hero-title{
+  font-size:clamp(1.4rem,5vw,3.1rem);font-weight:900;
+  line-height:1.25;letter-spacing:-.03em;margin-bottom:1rem;
+  word-break:break-word;
+}
+h1.hero-title em{
+  font-style:normal;position:relative;color:var(--gold);
+  text-shadow:0 0 42px rgba(217,194,0,.45);
+}
+h1.hero-title em::after{
+  content:"";position:absolute;right:0;left:0;bottom:.06em;height:.12em;
+  background:var(--gold);opacity:.28;border-radius:9px;
+  transform:scaleX(0);transform-origin:right;
+  animation:underline 1.1s var(--ease) 1.1s forwards;
+}
+
+.hero-sub{font-size:clamp(.82rem,1.3vw,.95rem);color:var(--muted);max-width:52ch;margin-bottom:1.8rem}
+.hero-cta{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center;width:100%}
+.hero-cta > *{min-width:0}
+
+.type-line{
+  font-family:ui-monospace,monospace;font-size:clamp(.68rem,1.8vw,.82rem);color:var(--gold);
+  margin-bottom:.9rem;min-height:1.6em;direction:ltr;text-align:right;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;
+}
+.type-line .caret{
+  display:inline-block;width:7px;height:1em;vertical-align:-2px;
+  background:var(--gold);margin-right:4px;animation:blink 1s steps(2) infinite;
+}
+
+.hero-card{
+  position:relative;border-radius:26px;padding:1.7rem;
+  background:var(--panel);border:1px solid var(--stroke);
+  backdrop-filter:blur(22px) saturate(170%);
+  -webkit-backdrop-filter:blur(22px) saturate(170%);
+  box-shadow:var(--shadow);
+  animation:cardFloat 7s ease-in-out infinite;
+  min-width:0;max-width:100%;
+}
+.hero-card::before{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;
+  background:linear-gradient(140deg,rgba(217,194,0,.6),transparent 40%,transparent 60%,rgba(217,194,0,.35));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+}
+.avatar-ring{
+  width:88px;height:88px;border-radius:50%;margin:0 auto 1rem;
+  display:grid;place-items:center;position:relative;
+  background:conic-gradient(from 0deg,var(--gold),#001830,var(--gold));
+  animation:spin 7s linear infinite;
+}
+.avatar-inner{
+  position:absolute;inset:4px;border-radius:50%;background:var(--bg-2);
+  display:grid;place-items:center;overflow:hidden;
+  animation:spin 7s linear infinite reverse;
+}
+.avatar-inner img{width:66%;height:66%;object-fit:contain}
+.hero-card h3{text-align:center;font-size:.95rem;font-weight:800;margin-bottom:.2rem}
+.hero-card p.role{text-align:center;color:var(--muted);font-size:.74rem;margin-bottom:1.1rem}
+
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.stat{
+  text-align:center;padding:.7rem .25rem;border-radius:12px;
+  background:var(--panel);border:1px solid var(--stroke);
+  transition:.4s var(--ease);min-width:0;
+}
+.stat:hover{transform:translateY(-5px);border-color:rgba(217,194,0,.4);background:var(--accent-soft)}
+.stat b{display:block;font-size:1.05rem;font-weight:900;color:var(--gold)}
+.stat span{font-size:.6rem;color:var(--muted)}
+
+.scroll-hint{
+  position:absolute;bottom:1.8rem;right:50%;transform:translateX(50%);
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
+  font-size:.62rem;color:var(--muted);letter-spacing:.2em;
+}
+.mouse{
+  width:22px;height:34px;border-radius:99px;border:1.5px solid var(--muted);
+  display:grid;justify-items:center;padding-top:5px;
+}
+.mouse i{width:3px;height:6px;border-radius:9px;background:var(--gold);animation:wheel 1.7s ease-in-out infinite}
+
+/* ============================================================
+   10. MARQUEE
+   ============================================================ */
+.marquee{
+  direction:ltr;overflow:hidden;padding:1rem 0;
+  border-top:1px solid var(--stroke);border-bottom:1px solid var(--stroke);
+  background:var(--panel);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+}
+.marquee-track{display:flex;gap:clamp(1.5rem,4vw,3rem);width:max-content;animation:marquee 26s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-track span{
+  font-size:clamp(.72rem,1.7vw,1.15rem);font-weight:800;white-space:nowrap;
+  color:transparent;-webkit-text-stroke:1px var(--muted);letter-spacing:-.02em;
+  transition:color .4s;
+}
+.marquee-track span:nth-child(odd){color:var(--gold);-webkit-text-stroke:0}
+.marquee-track span:hover{color:var(--gold);-webkit-text-stroke:0}
+
+/* ============================================================
+   11. ABOUT
+   ============================================================ */
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(2rem,5vw,4rem);align-items:center;
+}
+.about-grid > *{min-width:0;max-width:100%}
+
+.about-text p{color:var(--muted);margin-bottom:.9rem;font-size:clamp(.82rem,1.2vw,.92rem)}
+.about-text strong{color:var(--text);font-weight:700}
+
+.resume-items{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem}
+.resume-items li{
+  display:flex;align-items:flex-start;gap:.7rem;
+  color:var(--muted);font-size:clamp(.8rem,1.1vw,.88rem);
+}
+.resume-items li i{
+  color:var(--gold);font-size:.85rem;margin-top:.35rem;flex:none;
+  width:1.1rem;text-align:center;
+}
+.resume-items li strong{color:var(--text)}
+
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
+.chip{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.42rem .9rem;border-radius:999px;font-size:.72rem;font-weight:600;
+  background:var(--panel);border:1px solid var(--stroke);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  transition:.35s var(--ease);cursor:default;
+}
+.chip i{color:var(--gold);font-size:.75rem}
+.chip:hover{transform:translateY(-3px) scale(1.04);border-color:var(--gold);color:var(--gold);box-shadow:var(--glow)}
+
+.about-visual{position:relative;aspect-ratio:1;width:100%;max-width:min(100%,360px);margin-inline:auto}
+.orbit{
+  position:absolute;inset:0;border-radius:50%;
+  border:1px dashed rgba(217,194,0,.25);
+  animation:spin 30s linear infinite;
+  will-change:transform;
+}
+.orbit:nth-child(2){inset:14%;animation-duration:22s;animation-direction:reverse;border-style:solid;border-color:rgba(217,194,0,.14)}
+.orbit:nth-child(3){inset:28%;animation-duration:16s;border-color:rgba(217,194,0,.1)}
+.orbit i{
+  position:absolute;top:-8px;right:50%;width:14px;height:14px;border-radius:50%;
+  background:var(--gold);box-shadow:0 0 22px var(--gold);
+}
+.core{
+  position:absolute;inset:36%;border-radius:50%;
+  background:linear-gradient(140deg,var(--gold),#001830);
+  display:grid;place-items:center;
+  box-shadow:0 0 60px rgba(217,194,0,.45);
+  animation:cardFloat 6s ease-in-out infinite;
+  overflow:hidden;padding:14%;
+}
+.core img{width:100%;height:100%;object-fit:contain}
+
+/* ============================================================
+   12. SKILLS
+   ============================================================ */
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+  gap:.9rem;margin-top:2rem;
+}
+.skill{
+  padding:1.15rem 1.3rem;border-radius:16px;
+  background:var(--panel);border:1px solid var(--stroke);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  transition:.45s var(--ease);position:relative;overflow:hidden;
+  min-width:0;
+}
+.skill::before{
+  content:"";position:absolute;inset:0;opacity:0;transition:.45s;
+  background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(217,194,0,.13),transparent 45%);
+}
+.skill:hover::before{opacity:1}
+.skill:hover{transform:translateY(-5px);border-color:rgba(217,194,0,.45);box-shadow:var(--shadow)}
+
+.skill-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;position:relative;gap:.5rem}
+.skill-name{font-weight:700;font-size:.85rem;display:flex;align-items:center;gap:.5rem;min-width:0}
+.skill-name i{font-style:normal;font-size:.9rem;flex:none;color:var(--gold);width:1.1rem;text-align:center}
+.skill-num{font-weight:900;color:var(--gold);font-size:.88rem;font-variant-numeric:tabular-nums;flex:none}
+.skill-bar{height:6px;border-radius:99px;background:var(--stroke);overflow:hidden;position:relative}
+.skill-bar i{
+  display:block;height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,var(--gold),#fff2a0,var(--gold));
+  background-size:200% auto;
+  box-shadow:0 0 18px rgba(217,194,0,.6);
+  transition:width 1.6s var(--ease);
+  animation:shine 3s linear infinite;
+}
+.skill-bar i::after{
+  content:"";position:absolute;top:0;bottom:0;left:0;right:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:translateX(-100%);animation:barSweep 2.4s ease-in-out infinite;
+}
+
+.skill.skill-more{
+  border-style:dashed;
+  border-color:rgba(217,194,0,.35);
+}
+.skill.skill-more .skill-bar i{
+  background:repeating-linear-gradient(
+    90deg,
+    var(--gold) 0,
+    var(--gold) 6px,
+    rgba(217,194,0,.25) 6px,
+    rgba(217,194,0,.25) 12px
+  );
+  background-size:auto;
+  animation:none;
+}
+
+.skills-note-wrap{
+  text-align:center;
+  width:100%;
+}
+.skills-note{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.55rem;
+  margin:1.6rem auto 0;
+  padding:.7rem 1.3rem;
+  border-radius:99px;
+  background:var(--accent-soft);
+  border:1px dashed rgba(217,194,0,.4);
+  color:var(--gold);
+  font-size:.8rem;
+  font-weight:600;
+  text-align:center;
+  max-width:100%;
+  line-height:1.7;
+}
+.skills-note i{
+  font-size:.95rem;
+  flex:none;
+  animation:markGlow 3s ease-in-out infinite;
+}
+
+/* ============================================================
+   13. CTA
+   ============================================================ */
+.cta-box{
+  position:relative;border-radius:26px;padding:clamp(2rem,5vw,3.8rem);
+  text-align:center;overflow:hidden;
+  background:var(--panel);border:1px solid var(--stroke);
+  backdrop-filter:blur(22px) saturate(170%);
+  -webkit-backdrop-filter:blur(22px) saturate(170%);
+  box-shadow:var(--shadow);
+}
+.cta-box::before{
+  content:"";position:absolute;inset:-2px;border-radius:inherit;padding:1.5px;
+  background:conic-gradient(from var(--a,0deg),transparent 0 65%,var(--gold) 80%,transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  animation:angleSpin 6s linear infinite;pointer-events:none;
+}
+@property --a{syntax:"<angle>";initial-value:0deg;inherits:false}
+
+.cta-box h2{
+  font-size:clamp(1.1rem,3.2vw,1.9rem);font-weight:900;
+  letter-spacing:-.028em;margin-bottom:.9rem;position:relative;
+}
+.cta-box p{color:var(--muted);max-width:48ch;margin:0 auto 1.8rem;position:relative;font-size:clamp(.82rem,1.2vw,.92rem)}
+
+/* ============================================================
+   14. COMMENTS (غیرفعال)
+   ============================================================ */
+.comments-wrap{
+  position:relative;
+  margin-top:2rem;
+  border-radius:24px;
+  overflow:hidden;
+}
+
+.comments-grid{
+  display:grid;grid-template-columns:.95fr 1.05fr;
+  gap:clamp(1.5rem,4vw,2.5rem);
+  align-items:stretch;
+  filter:blur(1.2px) saturate(.7);
+  opacity:.55;
+  transition:filter .4s var(--ease),opacity .4s var(--ease);
+  pointer-events:none;
+}
+.comments-grid > *{min-width:0;max-width:100%}
+
+.form-card{
+  padding:clamp(1.2rem,3.5vw,1.7rem);border-radius:20px;
+  background:var(--panel);border:1px solid var(--stroke);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  display:flex;flex-direction:column;
+}
+.field{margin-bottom:.9rem;position:relative}
+.field label{display:block;font-size:.72rem;font-weight:700;color:var(--muted);margin-bottom:.4rem}
+.field input,.field textarea{
+  width:100%;padding:.8rem .95rem;border-radius:12px;
+  background:var(--panel);border:1px solid var(--stroke);
+  color:var(--text);font:inherit;font-size:.85rem;
+  transition:.35s var(--ease);resize:vertical;
+}
+.field textarea{min-height:100px;flex:1}
+.form-msg{font-size:.75rem;margin-top:.7rem;min-height:1.3em;color:var(--gold)}
+
+.comments-list{
+  display:flex;flex-direction:column;gap:.8rem;
+  overflow-y:auto;padding-left:.3rem;
+}
+.comment{
+  padding:1rem 1.15rem;border-radius:16px;
+  background:var(--panel);border:1px solid var(--stroke);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  display:flex;gap:.85rem;align-items:flex-start;
+  flex:0 0 auto;
+}
+.c-avatar{
+  width:38px;height:38px;border-radius:12px;flex:none;display:grid;place-items:center;
+  font-weight:900;color:#001830;font-size:.88rem;
+  background:linear-gradient(140deg,var(--gold),#a89300);
+}
+.c-body{flex:1;min-width:0}
+.c-head{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.25rem}
+.c-name{font-weight:800;font-size:.85rem}
+.c-time{font-size:.62rem;color:var(--muted)}
+.c-text{font-size:.8rem;color:var(--muted);line-height:1.8;word-break:break-word}
+
+/* لایه‌ی شیشه‌ای روی بخش نظرات */
+.comments-disabled{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:clamp(1.5rem,4vw,2.5rem);
+  border-radius:24px;
+  background:rgba(0,13,24,.62);
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  border:1px solid rgba(217,194,0,.22);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),
+             0 30px 60px rgba(0,0,0,.5);
+  z-index:5;
+  animation:disabledPulse 5s ease-in-out infinite;
+}
+@keyframes disabledPulse{
+  0%,100%{border-color:rgba(217,194,0,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 60px rgba(0,0,0,.5)}
+  50%{border-color:rgba(217,194,0,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 60px rgba(0,0,0,.5),0 0 40px rgba(217,194,0,.15)}
+}
+.comments-disabled-inner{
+  max-width:520px;
+  position:relative;
+  z-index:2;
+}
+.comments-disabled-icon{
+  width:72px;
+  height:72px;
+  margin:0 auto 1.1rem;
+  border-radius:22px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(140deg,rgba(217,194,0,.18),rgba(217,194,0,.05));
+  border:1px solid rgba(217,194,0,.32);
+  color:var(--gold);
+  font-size:1.7rem;
+  box-shadow:0 0 40px rgba(217,194,0,.25);
+  animation:cardFloat 4s ease-in-out infinite;
+}
+.comments-disabled h3{
+  font-size:clamp(1rem,2.4vw,1.35rem);
+  font-weight:900;
+  letter-spacing:-.025em;
+  margin-bottom:.55rem;
+  color:var(--text);
+}
+.comments-disabled p{
+  font-size:clamp(.8rem,1.15vw,.88rem);
+  color:var(--muted);
+  line-height:1.9;
+  max-width:44ch;
+  margin:0 auto;
+}
+.comments-disabled p strong{
+  color:var(--gold);
+  font-weight:700;
+}
+
+@media (min-width: 901px){
+  .form-card{ height: 600px; }
+  .comments-list{ height: 600px; max-height: 600px; }
+}
+
+/* ============================================================
+   15. SOCIAL
+   ============================================================ */
+.social-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));
+  gap:.8rem;margin-top:2rem;
+}
+.social{
+  position:relative;padding:1.2rem .8rem;border-radius:18px;text-align:center;
+  background:var(--panel);border:1px solid var(--stroke);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  overflow:hidden;transition:.5s var(--ease);min-width:0;
+}
+.social::before{
+  content:"";position:absolute;inset:0;opacity:0;
+  background:linear-gradient(140deg,var(--accent-soft),transparent);
+  transition:.5s;
+}
+.social:hover::before{opacity:1}
+.social:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:var(--glow)}
+.social i{font-size:1.35rem;display:block;margin-bottom:.4rem;position:relative;transition:.5s var(--ease-2);color:var(--gold)}
+.social:hover i{transform:scale(1.18)}
+.social b{display:block;font-size:.78rem;font-weight:700;position:relative}
+.social small{font-size:.6rem;color:var(--muted);position:relative}
+
+.social.coming-soon{opacity:.7;cursor:default}
+.social.coming-soon:hover{transform:none;border-color:var(--stroke);box-shadow:none}
+.social.coming-soon i{opacity:.5}
+.social .soon-tag{
+  position:absolute;top:.5rem;left:.5rem;
+  font-size:.55rem;font-weight:700;
+  padding:.2rem .5rem;border-radius:99px;
+  background:var(--accent-soft);color:var(--gold);
+  border:1px solid rgba(217,194,0,.25);
+}
+
+/* ============================================================
+   16. FOOTER
+   ============================================================ */
+footer{
+  position:relative;z-index:1;
+  padding:clamp(2.2rem,6vw,4rem) clamp(1rem,3.5vw,3rem) 1.5rem;
+  border-top:1px solid var(--stroke);
+  background:var(--panel);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  overflow-x:clip;
+}
+.foot-top{
+  display:flex;justify-content:space-between;align-items:center;gap:1.2rem;
+  flex-wrap:wrap;padding-bottom:1.8rem;border-bottom:1px solid var(--stroke);
+}
+.foot-top > *{min-width:0}
+.foot-top h3{font-size:clamp(.95rem,2vw,1.35rem);font-weight:900;letter-spacing:-.028em;margin-bottom:.3rem}
+.foot-top p{color:var(--muted);font-size:.78rem}
+.foot-bottom{
+  padding-top:1.3rem;display:flex;justify-content:space-between;
+  align-items:center;gap:.9rem;flex-wrap:wrap;
+  font-size:.7rem;color:var(--muted);
+}
+.foot-bottom > *{min-width:0}
+.foot-bottom a{color:var(--gold);font-weight:700;transition:.3s}
+.foot-bottom a:hover{text-shadow:0 0 18px var(--gold)}
+
+.to-top{
+  position:fixed;z-index:80;
+  bottom:max(1.2rem,env(safe-area-inset-bottom));
+  left:max(1.2rem,env(safe-area-inset-left));
+  width:44px;height:44px;border-radius:14px;display:grid;place-items:center;
+  background:var(--panel-2);border:1px solid var(--stroke);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  opacity:0;transform:translateY(15px);pointer-events:none;
+  transition:.5s var(--ease-2);
+}
+.to-top.show{opacity:1;transform:none;pointer-events:auto}
+.to-top:hover{background:var(--accent-soft);border-color:var(--gold);transform:translateY(-4px)}
+
+/* ============================================================
+   17. MUSIC BUTTON
+   ============================================================ */
+.music-btn{
+  position:fixed;
+  z-index:90;
+  bottom:max(1.2rem,env(safe-area-inset-bottom));
+  right:max(1.2rem,env(safe-area-inset-right));
+  width:52px;
+  height:52px;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  background:var(--panel-2);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(18px) saturate(180%);
+  -webkit-backdrop-filter:blur(18px) saturate(180%);
+  color:var(--gold);
+  cursor:pointer;
+  transition:transform .4s var(--ease-2),
+             background .4s var(--ease),
+             border-color .4s var(--ease),
+             box-shadow .4s var(--ease),
+             color .4s var(--ease);
+  box-shadow:0 8px 26px rgba(0,0,0,.4);
+  overflow:visible;
+  -webkit-tap-highlight-color:transparent;
+}
+.music-btn:hover{
+  background:var(--accent-soft);
+  border-color:var(--gold);
+  transform:translateY(-3px);
+  box-shadow:var(--glow);
+}
+.music-btn:active{transform:translateY(-1px) scale(.96)}
+.music-btn i{
+  font-size:1.05rem;
+  transition:transform .35s var(--ease-2);
+  position:relative;
+  z-index:2;
+}
+.music-btn.playing i{
+  animation:musicPulse 2s ease-in-out infinite;
+}
+@keyframes musicPulse{
+  50%{transform:scale(1.18)}
+}
+.music-btn .music-ring{
+  position:absolute;
+  inset:-3px;
+  border-radius:inherit;
+  border:1px solid var(--gold);
+  opacity:0;
+  pointer-events:none;
+  z-index:1;
+}
+.music-btn.playing .music-ring{
+  animation:musicRing 2s ease-out infinite;
+}
+@keyframes musicRing{
+  0%{opacity:.65;transform:scale(1)}
+  100%{opacity:0;transform:scale(1.45)}
+}
+
+/* ============================================================
+   18. RESPONSIVE — TABLET (≤ 900px)
+   ============================================================ */
+@media (max-width:900px){
+  .hero{min-height:auto;padding-top:6rem;padding-bottom:3rem}
+  .hero-grid{grid-template-columns:1fr;gap:2rem}
+  h1.hero-title{font-size:clamp(1.4rem,6vw,2.4rem)}
+  .about-grid{grid-template-columns:1fr;gap:2rem}
+  .about-visual{max-width:min(85%,300px)}
+  .comments-grid{grid-template-columns:1fr}
+  .form-card{position:static;height:auto}
+  .comments-list{max-height:520px;height:auto}
+  .foot-top{flex-direction:column;align-items:flex-start;gap:1rem}
+  .foot-bottom{flex-direction:column;align-items:flex-start;gap:.4rem;text-align:start}
+}
+
+/* ============================================================
+   19. RESPONSIVE — MOBILE (≤ 640px)
+   ============================================================ */
+@media (max-width:640px){
+  section{padding:2.6rem 1rem}
+
+  .header{padding:.65rem .9rem}
+  .header.scrolled{padding:.5rem .9rem}
+  .logo{font-size:.9rem;gap:.45rem}
+  .logo-mark{width:34px;height:34px;border-radius:11px}
+  .logo small{font-size:.5rem;letter-spacing:.1em}
+
+  .header-actions{gap:.4rem}
+  .icon-btn{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    font-size:.95rem;
+  }
+  .burger{width:42px;height:42px;border-radius:13px}
+  .burger i{width:19px}
+
+  .nav{padding:4.8rem 1.2rem 1.4rem;justify-content:flex-start}
+  .nav-list a{font-size:clamp(1.1rem,5vw,1.5rem);gap:.5rem;padding:.25rem 0}
+  .nav-list a::before{height:2px}
+
+  .hero{padding-top:4.8rem;padding-bottom:2.5rem}
+  .badge{font-size:.66rem;padding:.35rem .8rem;margin-bottom:1rem}
+  h1.hero-title{font-size:clamp(1.3rem,6.5vw,1.9rem);margin-bottom:.9rem;line-height:1.28}
+  .hero-sub{font-size:.82rem;margin-bottom:1.4rem}
+
+  .hero-cta{
+    gap:.55rem;
+    flex-direction:column;
+    align-items:stretch;
+    width:100%;
+  }
+  .hero-cta .btn{
+    width:100%;
+    max-width:100%;
+  }
+  .hero-cta .btn > span{
+    width:100%;
+    padding:.8rem 1.2rem;
+    font-size:.8rem;
+    gap:.4rem;
+  }
+
+  .btn > span{padding:.75rem 1.4rem;font-size:.8rem;gap:.4rem}
+  .btn.big > span{padding:.85rem 1.6rem;font-size:.84rem}
+
+  .hero-card{padding:1.3rem 1.1rem;border-radius:20px}
+  .avatar-ring{width:74px;height:74px;margin-bottom:.9rem}
+  .hero-card h3{font-size:.9rem}
+  .hero-card p.role{font-size:.7rem;margin-bottom:1rem}
+  .stat-row{gap:.4rem}
+  .stat{padding:.55rem .2rem;border-radius:11px}
+  .stat b{font-size:.95rem}
+  .stat span{font-size:.55rem}
+
+  .scroll-hint{display:none}
+
+  .marquee{padding:.8rem 0}
+
+  .eyebrow{font-size:.62rem;letter-spacing:.18em;margin-bottom:.7rem}
+  h2.title{font-size:clamp(1.05rem,4.5vw,1.5rem);margin-bottom:.7rem}
+  .lead{font-size:.82rem}
+
+  .chips{gap:.4rem;margin-top:1.1rem}
+  .chip{font-size:.68rem;padding:.35rem .75rem}
+  .about-visual{max-width:min(85%,240px)}
+  .about-text p{font-size:.8rem}
+  .resume-items li{font-size:.78rem}
+
+  .skills-grid{grid-template-columns:1fr;gap:.65rem;margin-top:1.6rem}
+  .skill{padding:.95rem 1.05rem;border-radius:14px}
+  .skill-name{font-size:.82rem;gap:.4rem}
+  .skill-num{font-size:.82rem}
+  .skill-bar{height:5px}
+  .skills-note{font-size:.72rem;padding:.55rem 1rem;gap:.4rem}
+  .skills-note i{font-size:.85rem}
+
+  .cta-box{padding:1.7rem 1.1rem;border-radius:20px}
+  .cta-box h2{font-size:clamp(1.05rem,5vw,1.5rem)}
+  .cta-box p{font-size:.8rem;margin-bottom:1.3rem}
+
+  .comments-grid{gap:1.2rem}
+  .form-card{padding:1.1rem .95rem;border-radius:16px}
+  .field label{font-size:.68rem}
+  .field input,.field textarea{padding:.7rem .85rem;font-size:.82rem;border-radius:11px}
+  .field textarea{min-height:90px}
+  .comment{padding:.85rem .95rem;border-radius:14px;gap:.7rem}
+  .c-avatar{width:34px;height:34px;border-radius:11px;font-size:.82rem}
+  .c-name{font-size:.78rem}
+  .c-text{font-size:.75rem}
+  .c-time{font-size:.58rem}
+
+  .comments-disabled-icon{width:60px;height:60px;border-radius:19px;font-size:1.4rem;margin-bottom:.9rem}
+  .comments-disabled h3{font-size:1.05rem}
+  .comments-disabled p{font-size:.78rem}
+
+  .social-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;margin-top:1.6rem}
+  .social{padding:1rem .55rem;border-radius:15px}
+  .social i{font-size:1.2rem;margin-bottom:.3rem}
+  .social b{font-size:.75rem}
+  .social small{font-size:.58rem}
+
+  footer{padding:2.2rem 1rem 1.4rem}
+  .foot-top h3{font-size:1rem}
+  .foot-top p{font-size:.74rem}
+  .foot-bottom{font-size:.66rem;line-height:1.9}
+
+  .to-top{width:40px;height:40px;border-radius:12px;font-size:.9rem}
+
+  .music-btn{
+    width:46px;
+    height:46px;
+    border-radius:14px;
+    bottom:max(1rem,env(safe-area-inset-bottom));
+    right:max(1rem,env(safe-area-inset-right));
+  }
+  .music-btn i{font-size:.95rem}
+}
+
+/* ============================================================
+   20. RESPONSIVE — SMALL MOBILE (≤ 400px)
+   ============================================================ */
+@media (max-width:400px){
+  section{padding:2.2rem .85rem}
+  h1.hero-title{font-size:clamp(1.2rem,7vw,1.7rem)}
+  .hero-sub{font-size:.78rem}
+  .hero-cta .btn > span{padding:.7rem 1rem;font-size:.76rem}
+  .btn > span{padding:.7rem 1.15rem;font-size:.76rem}
+  .btn.big > span{padding:.78rem 1.35rem;font-size:.8rem}
+  .nav-list a{font-size:1.15rem}
+  .social-grid{gap:.5rem}
+  .social{padding:.85rem .5rem}
+  .social b{font-size:.7rem}
+  .social small{font-size:.54rem}
+  .stat b{font-size:.88rem}
+  .hero-card{padding:1.1rem .9rem}
+  .about-visual{max-width:min(85%,200px)}
+  .cta-box{padding:1.4rem .9rem}
+  .foot-top h3{font-size:.95rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  [data-reveal]{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== BACKGROUND ===== -->
+<div class="bg-layer">
+  <div class="aurora a"></div>
+  <div class="aurora b"></div>
+  <div class="aurora c"></div>
+</div>
+<canvas id="stars"></canvas>
+<div class="grain"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="progress" id="progress"></div>
+
+<!-- ===== AUDIO (مخفی) ===== -->
+<audio id="bgMusic" loop preload="auto" playsinline>
+  <source src="audio/f4b6ed86-c45b-4c96-aa29-50a0ae687ab1.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+  <a href="#home" class="logo">
+    <span class="logo-mark">
+      <img src="img/20261011_025918.ico" alt="مهدی مجاهد">
+    </span>
+    <span>
+      مهدی مجاهد
+      <small>WEB &amp; VISUAL</small>
+    </span>
+  </a>
+
+  <div class="header-actions">
+    <a href="tools.html" class="icon-btn tools-btn" aria-label="جعبه ابزار" title="جعبه ابزار">
+      <i class="fa-solid fa-toolbox"></i>
+    </a>
+
+    <button class="burger" id="burger" aria-label="منو" aria-expanded="false">
+      <i></i><i></i><i></i>
+    </button>
+  </div>
+</header>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <ul class="nav-list">
+    <li><a href="#home"      data-nav>خانه</a></li>
+    <li><a href="#about"     data-nav>درباره من</a></li>
+    <li><a href="#skills"    data-nav>مهارت‌ها</a></li>
+    <li><a href="#portfolio" data-nav>نمونه‌کارها</a></li>
+    <li><a href="#comments"  data-nav>نظرات</a></li>
+    <li><a href="#contact"   data-nav>ارتباط</a></li>
+    <li><a href="tools.html">جعبه ابزار</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ===== HERO ===== -->
+<section id="home" class="hero">
+  <div class="wrap hero-grid">
+
+    <div>
+      <div class="badge" data-reveal>
+        <span class="pulse-dot"></span>
+        آمادهٔ همکاری در پروژه‌های جدید
+      </div>
+
+      <div class="type-line" data-reveal style="--d:.05s">
+        <span id="typed"></span><span class="caret"></span>
+      </div>
+
+      <h1 class="hero-title">
+        <span data-reveal style="--d:.1s">سلام، من <em>مهدی مجاهد</em> هستم</span><br>
+        <span data-reveal style="--d:.22s">می‌سازم، طراحی می‌کنم،</span><br>
+        <span data-reveal style="--d:.34s">روایت می‌کنم.</span>
+      </h1>
+
+      <p class="hero-sub" data-reveal style="--d:.46s">
+        طراح گرافیک، تدوینگر و توسعه‌دهنده وب با بیش از ۸ سال تجربه.
+        از طراحی پوستر و لوگو تا ساخت فیلم و کدنویسی وب — ایده‌ها را به واقعیت تبدیل می‌کنم.
+      </p>
+
+      <div class="hero-cta" data-reveal style="--d:.58s">
+        <a href="portfolio.html" class="btn"><span>مشاهده نمونه‌کارها <i class="fa-solid fa-arrow-up-left"></i></span></a>
+        <a href="#contact" class="btn ghost"><span>تماس با من</span></a>
+      </div>
+    </div>
+
+    <div class="hero-card" data-reveal="scale" style="--d:.3s">
+      <div class="avatar-ring">
+        <span class="avatar-inner">
+          <img src="img/20261011_025918.ico" alt="مهدی مجاهد">
+        </span>
+      </div>
+      <h3>مهدی مجاهد</h3>
+      <p class="role">Graphic Designer · Editor · Web Developer</p>
+
+      <div class="stat-row">
+        <div class="stat"><b data-count="8">۰</b><span>سال تجربه</span></div>
+        <div class="stat"><b data-count="300">۰</b><span>پروژه</span></div>
+        <div class="stat"><b data-count="20">۰</b><span>کارآموز</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <span class="mouse"><i></i></span>
+  </div>
+</section>
+
+<!-- ===== MARQUEE ===== -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>WEB DEVELOPMENT</span><span>·</span>
+    <span>POSTER DESIGN</span><span>·</span>
+    <span>VIDEO EDITING</span><span>·</span>
+    <span>LOGO DESIGN</span><span>·</span>
+    <span>TYPOGRAPHY</span><span>·</span>
+    <span>KUFIC ART</span><span>·</span>
+    <span>PHOTO RETOUCH</span><span>·</span>
+    <span>BRANDING</span><span>·</span>
+    <span>WEB DEVELOPMENT</span><span>·</span>
+    <span>POSTER DESIGN</span><span>·</span>
+    <span>VIDEO EDITING</span><span>·</span>
+    <span>LOGO DESIGN</span><span>·</span>
+    <span>TYPOGRAPHY</span><span>·</span>
+    <span>KUFIC ART</span><span>·</span>
+    <span>PHOTO RETOUCH</span><span>·</span>
+    <span>BRANDING</span><span>·</span>
+  </div>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>درباره من</span>
+    <h2 class="title" data-reveal style="--d:.06s">من پشت <em>پردهٔ</em> این تصویرم</h2>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p data-reveal style="--d:.12s">
+          من <strong>مهدی مجاهد</strong> هستم؛ طراح گرافیک، تدوینگر و توسعه‌دهنده وب.
+          مسیرم را از دبیرستان با رشتهٔ <strong>شبکه و نرم‌افزار</strong> شروع کردم و در دانشگاه
+          مدرک کارشناسی <strong>مهندسی کامپیوتر — فناوری اطلاعات (IT)</strong> گرفتم.
+          علاوه بر نرم‌افزار کامپیوتر، به <strong>سخت‌افزار</strong> هم مسلط هستم.
+        </p>
+
+        <ul class="resume-items">
+          <li data-reveal style="--d:.18s">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>کارشناسی <strong>مهندسی کامپیوتر — فناوری اطلاعات (IT)</strong></span>
+          </li>
+          <li data-reveal style="--d:.22s">
+            <i class="fa-solid fa-network-wired"></i>
+            <span>دیپلم <strong>شبکه و نرم‌افزار</strong> — فنی و حرفه‌ای</span>
+          </li>
+          <li data-reveal style="--d:.26s">
+            <i class="fa-solid fa-microchip"></i>
+            <span>تسلط بر <strong>سخت‌افزار کامپیوتر</strong> در کنار نرم‌افزار</span>
+          </li>
+          <li data-reveal style="--d:.3s">
+            <i class="fa-solid fa-palette"></i>
+            <span>بیش از <strong>۸ سال تجربه</strong> در طراحی پوستر و ادیت</span>
+          </li>
+          <li data-reveal style="--d:.34s">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span><strong>سه سال مسئول متنای گردان سایبری شهرستان</strong></span>
+          </li>
+          <li data-reveal style="--d:.38s">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span><strong>مدرس موبایل‌گرافی</strong> در شهرستان</span>
+          </li>
+          <li data-reveal style="--d:.42s">
+            <i class="fa-solid fa-camera-retro"></i>
+            <span>فیلم‌برداری و عکاسی حرفه‌ای از رویدادها</span>
+          </li>
+        </ul>
+
+        <p data-reveal style="--d:.46s">
+          پوسترهای <strong>مراسمات مذهبی، تبلیغاتی، اطلاع‌رسانی</strong> و غیره می‌سازم.
+          طراح <strong>لوگو، پروفایل، تایپوگرافی و کوفی‌بنایی</strong> هستم و طراحی سنتی
+          و مدرن را به‌صورت تلفیقی ارائه می‌دهم.
+        </p>
+
+        <div class="chips" data-reveal style="--d:.5s">
+          <span class="chip"><i class="fa-solid fa-graduation-cap"></i> مهندسی IT</span>
+          <span class="chip"><i class="fa-solid fa-network-wired"></i> شبکه و نرم‌افزار</span>
+          <span class="chip"><i class="fa-solid fa-microchip"></i> سخت‌افزار</span>
+          <span class="chip"><i class="fa-solid fa-palette"></i> طراحی گرافیک</span>
+          <span class="chip"><i class="fa-solid fa-film"></i> تدوین فیلم</span>
+          <span class="chip"><i class="fa-solid fa-camera"></i> عکاسی</span>
+          <span class="chip"><i class="fa-solid fa-pen-nib"></i> کوفی‌بنایی</span>
+          <span class="chip"><i class="fa-solid fa-shapes"></i> تایپوگرافی</span>
+        </div>
+      </div>
+
+      <div class="about-visual" data-reveal="scale" style="--d:.2s">
+        <div class="orbit"><i></i></div>
+        <div class="orbit"><i></i></div>
+        <div class="orbit"><i></i></div>
+        <div class="core">
+          <img src="img/20261011_025918.ico" alt="مهدی مجاهد" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>توانمندی‌ها</span>
+    <h2 class="title" data-reveal style="--d:.06s">چیزهایی که <em>بلد</em> هستم</h2>
+    <p class="lead" data-reveal style="--d:.12s">
+      ترکیبی از مهارت‌های فنی و هنری که به من اجازه می‌دهد یک پروژه را از صفر تا صد پیش ببرم.
+    </p>
+
+    <div class="skills-grid">
+
+      <div class="skill" data-reveal style="--d:.05s" data-skill="70">
+        <div class="skill-top">
+          <span class="skill-name"><i class="fa-brands fa-html5"></i> HTML / CSS</span>
+          <span class="skill-num">0%</span>
+        </div>
+        <div class="skill-bar"><i></i></div>
+      </div>
+
+      <div class="skill" data-reveal style="--d:.1s" data-skill="30">
+        <div class="skill-top">
+          <span class="skill-name"><i class="fa-brands fa-js"></i> JavaScript</span>
+          <span class="skill-num">0%</span>
+        </div>
+        <div class="skill-bar"><i></i></div>
+      </div>
+
+      <div class="skill" data-reveal style="--d:.15s" data-skill="50">
+        <div class="skill-top">
+          <span class="skill-name"><i class="fa-brands fa-php"></i> PHP</span>
+          <span class="skill-num">0%</span>
+        </div>
+        <div class="skill-bar"><i></i></div>
+      </div>
+
+      <div class="skill" data-reveal style="--d:.2s" data-skill="99">
+        <div class="skill-top">
+          <span class="skill-name"><i class="fa-solid fa-mobile-screen"></i> PixelLab</span>
+          <span class="skill-num">0%</span>
+        </div>
+        <div class="skill-bar"><i></i></div>
+      </div>
+
+      <div class="skill" data-reveal style="--d:.25s" data-skill="86">
+        <div class="skill-top">
+          <span class="skill-name"><i class="fa-solid fa-wand-magic-sparkles"></i> Alight Motion</span>
+          <span class="skill-num">0%</span>
+        </div>
+        <div class="skill-bar"><i></i></div>
+      </div>
+
+      <div class="skill" data-reveal style="--d:.3s" data-skill="89">
+        <div class="skill-top">
+          <span class="skill-name"><i class="fa-solid fa-scissors"></i> CapCut</span>
+          <span class="skill-num">0%</span>
+        </div>
+        <div class="skill-bar"><i></i></div>
+      </div>
+
+      <div class="skill" data-reveal style="--d:.35s" data-skill="39">
+        <div class="skill-top">
+          <span class="skill-name"><i class="fa-solid fa-layer-group"></i> Adobe Photoshop</span>
+          <span class="skill-num">0%</span>
+        </div>
+        <div class="skill-bar"><i></i></div>
+      </div>
+
+      <div class="skill" data-reveal style="--d:.4s" data-skill="90">
+        <div class="skill-top">
+          <span class="skill-name"><i class="fa-solid fa-robot"></i> Artificial Intelligence</span>
+          <span class="skill-num">0%</span>
+        </div>
+        <div class="skill-bar"><i></i></div>
+      </div>
+
+      <div class="skill skill-more" data-reveal style="--d:.45s" data-skill="50">
+        <div class="skill-top">
+          <span class="skill-name"><i class="fa-solid fa-infinity"></i> Other Software</span>
+          <span class="skill-num">0%</span>
+        </div>
+        <div class="skill-bar"><i></i></div>
+      </div>
+
+    </div>
+
+    <div class="skills-note-wrap">
+      <p class="skills-note" data-reveal style="--d:.5s">
+        <i class="fa-solid fa-circle-plus"></i>
+        <span>و خیلی نرم‌افزارها و مهارت‌های دیگر که اینجا جای همهٔ آن‌ها نیست...</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA / PORTFOLIO ===== -->
+<section id="portfolio">
+  <div class="wrap">
+    <div class="cta-box" data-reveal="scale">
+      <h2>نمونه‌کارهای من را ببینید</h2>
+      <p>
+        گزیده‌ای از پروژه‌های وب، طراحی‌های گرافیکی، پوسترها، لوگوها و ویدیوهایی که ساخته‌ام.
+        هرکدام یک داستان پشت خودشان دارند.
+      </p>
+      <a href="portfolio.html" class="btn big">
+        <span>مشاهده نمونه‌کارها <i class="fa-solid fa-arrow-up-left"></i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMMENTS (غیرفعال) ===== -->
+<section id="comments">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>بازخورد</span>
+    <h2 class="title" data-reveal style="--d:.06s">نظر <em>شما</em> چیه؟</h2>
+    <p class="lead" data-reveal style="--d:.12s">
+      اگر با من همکاری کرده‌اید یا از کارهایم خوشتان آمده، خوشحال می‌شوم نظرتان را بنویسید.
+    </p>
+
+    <div class="comments-wrap" data-reveal style="--d:.18s">
+
+      <div class="comments-grid">
+        <form class="form-card">
+          <div class="field">
+            <label for="cName">نام شما</label>
+            <input type="text" id="cName" maxlength="40" placeholder="مثلاً: مهدی مجاهد" disabled>
+          </div>
+          <div class="field">
+            <label for="cText">نظر شما</label>
+            <textarea id="cText" maxlength="400" placeholder="تجربه‌تان را بنویسید..." disabled></textarea>
+          </div>
+          <button type="button" class="btn" disabled><span>ارسال نظر <i class="fa-solid fa-paper-plane"></i></span></button>
+          <div class="form-msg"></div>
+        </form>
+
+        <div class="comments-list">
+          <div class="comment">
+            <div class="c-avatar">ر</div>
+            <div class="c-body">
+              <div class="c-head">
+                <span class="c-name">رضا محمدی</span>
+                <span class="c-time">۵ روز پیش</span>
+              </div>
+              <p class="c-text">همکاری با آقای مجاهد تجربهٔ بسیار خوبی بود. پوسترهای مراسم را دقیقاً همان‌طور که در ذهن داشتم طراحی کرد و سرعت تحویل فوق‌العاده بود.</p>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="c-avatar">ا</div>
+            <div class="c-body">
+              <div class="c-head">
+                <span class="c-name">امیر کریمی</span>
+                <span class="c-time">۴ روز پیش</span>
+              </div>
+              <p class="c-text">تدوین ویدیوی معرفی شرکت را سپردم؛ کیفیت کار و خلاقیت در انتخاب ریتم تصاویر واقعاً حرفه‌ای بود. حتماً دوباره همکاری می‌کنم.</p>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="c-avatar">م</div>
+            <div class="c-body">
+              <div class="c-head">
+                <span class="c-name">محمد نوری</span>
+                <span class="c-time">۳ روز پیش</span>
+              </div>
+              <p class="c-text">طراحی لوگو و هویت بصری برندم را به ایشان سپردم. ترکیب طراحی سنتی و مدرن که انجام دادند بی‌نظیر بود. کاملاً راضی هستم.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- لایهٔ شیشه‌ای غیرفعال -->
+      <div class="comments-disabled">
+        <div class="comments-disabled-inner">
+          <div class="comments-disabled-icon">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <h3>ارسال نظر موقتاً غیرفعال است</h3>
+          <p>
+            در حال آماده‌سازی سیستم نظرات هستم تا همهٔ بازدیدکنندگان بتوانند نظرات یکدیگر را ببینند.
+            <br>
+            <strong>به‌زودی این بخش فعال خواهد شد.</strong>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOCIAL ===== -->
+<section id="contact">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>ارتباط</span>
+    <h2 class="title" data-reveal style="--d:.06s">من را <em>دنبال</em> کنید</h2>
+    <p class="lead" data-reveal style="--d:.12s">
+      برای همکاری، سفارش پروژه یا حتی یک گفت‌وگوی سادهٔ فنی، از هر کدام از این راه‌ها در دسترس هستم.
+    </p>
+
+    <div class="social-grid">
+
+      <a class="social" href="https://eitaa.com/mahmoj_ir" target="_blank" rel="noopener" data-reveal style="--d:.05s">
+        <i class="fa-solid fa-comment-dots"></i><b>ایتا</b><small>mahmoj_ir@</small>
+      </a>
+
+      <a class="social" href="https://instagram.com/mahmoj.ir" target="_blank" rel="noopener" data-reveal style="--d:.1s">
+        <i class="fa-brands fa-instagram"></i><b>اینستاگرام</b><small>mahmoj.ir@</small>
+      </a>
+
+      <a class="social" href="https://t.me/mahmoj_ir" target="_blank" rel="noopener" data-reveal style="--d:.15s">
+        <i class="fa-brands fa-telegram"></i><b>تلگرام</b><small>mahmoj_ir@</small>
+      </a>
+
+      <a class="social" href="https://t.me/mahmoj_graph" target="_blank" rel="noopener" data-reveal style="--d:.2s">
+        <i class="fa-solid fa-palette"></i><b>کانال گرافیک</b><small>mahmoj_graph@</small>
+      </a>
+
+      <div class="social coming-soon" data-reveal style="--d:.25s">
+        <span class="soon-tag">به‌زودی...</span>
+        <i class="fa-brands fa-github"></i><b>گیت‌هاب</b><small>—</small>
+      </div>
+
+      <div class="social coming-soon" data-reveal style="--d:.3s">
+        <span class="soon-tag">به‌زودی...</span>
+        <i class="fa-solid fa-cube"></i><b>روبیکا</b><small>—</small>
+      </div>
+
+      <div class="social coming-soon" data-reveal style="--d:.35s">
+        <span class="soon-tag">به‌زودی...</span>
+        <i class="fa-solid fa-check-double"></i><b>بله</b><small>—</small>
+      </div>
+
+      <div class="social coming-soon" data-reveal style="--d:.4s">
+        <span class="soon-tag">به‌زودی...</span>
+        <i class="fa-brands fa-whatsapp"></i><b>واتس‌اپ</b><small>—</small>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top" data-reveal>
+      <div>
+        <h3>پروژه‌ای در ذهن دارید؟</h3>
+        <p>بیایید درباره‌اش حرف بزنیم — از ایده تا اجرا کنارتان هستم.</p>
+      </div>
+      <a href="https://eitaa.com/mahmoj_ir" target="_blank" rel="noopener" class="btn"><span>درخواست پروژه <i class="fa-solid fa-bolt"></i></span></a>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> مهدی مجاهد — تمامی حقوق محفوظ است.</span>
+      <span>ساخته‌شده با <i class="fa-solid fa-heart" style="color:var(--gold)"></i> و کد — میزبانی روی GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== MUSIC BUTTON ===== -->
+<button class="music-btn" id="musicBtn" aria-label="پخش یا توقف موسیقی" title="موسیقی پس‌زمینه">
+  <span class="music-ring"></span>
+  <i class="fa-solid fa-volume-xmark" id="musicIcon"></i>
+</button>
+
+<button class="to-top" id="toTop" aria-label="بازگشت به بالا"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script>
+/* ============================================================
+   helper
+   ============================================================ */
+const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+
+/* ============================================================
+   0. محافظت از محتوا
+   ============================================================ */
+(function protectContent(){
+  document.addEventListener('contextmenu', e => {
+    const t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+    e.preventDefault();
+  });
+  document.addEventListener('dragstart', e => e.preventDefault());
+
+  document.addEventListener('selectstart', e => {
+    const t = e.target;
+    if (!t) return;
+    const tag = t.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+    if (t.isContentEditable) return;
+    e.preventDefault();
+  });
+
+  document.addEventListener('keydown', e => {
+    const k = (e.key || '').toLowerCase();
+    if (e.key === 'F12'){ e.preventDefault(); return; }
+    if (e.ctrlKey && e.shiftKey && (k === 'i' || k === 'j' || k === 'c')){
+      e.preventDefault(); return;
+    }
+    if (e.ctrlKey && !e.shiftKey && k === 'u'){ e.preventDefault(); return; }
+    if (e.ctrlKey && !e.shiftKey && k === 's'){ e.preventDefault(); return; }
+    if (e.ctrlKey && !e.shiftKey && k === 'p'){ e.preventDefault(); return; }
+  });
+})();
+
+/* ============================================================
+   1. HAMBURGER
+   ============================================================ */
+const burger = document.getElementById('burger');
+const nav    = document.getElementById('nav');
+
+function toggleNav(force){
+  if (!nav || !burger) return;
+  const open = force !== undefined ? force : !nav.classList.contains('open');
+  nav.classList.toggle('open', open);
+  burger.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', String(open));
+  document.body.classList.toggle('lock', open);
+}
+if (burger) burger.addEventListener('click', () => toggleNav());
+document.querySelectorAll('[data-nav]').forEach(a =>
+  a.addEventListener('click', () => toggleNav(false))
+);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') toggleNav(false);
+});
+
+/* ============================================================
+   2. SCROLL
+   ============================================================ */
+const header   = document.getElementById('header');
+const progress = document.getElementById('progress');
+const toTop    = document.getElementById('toTop');
+
+let ticking = false;
+function onScroll(){
+  const y = window.scrollY;
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  if (progress) progress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+  if (header) header.classList.toggle('scrolled', y > 40);
+  if (toTop) toTop.classList.toggle('show', y > 600);
+  ticking = false;
+}
+window.addEventListener('scroll', () => {
+  if (!ticking){ requestAnimationFrame(onScroll); ticking = true; }
+}, { passive:true });
+onScroll();
+
+if (toTop){
+  toTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+}
+
+/* ============================================================
+   3. REVEAL (اسکرول مداوم)
+   ============================================================ */
+try {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const el = entry.target;
+      if (entry.isIntersecting){
+        if (el.dataset.once){
+          el.style.transitionDelay = '0s';
+        } else {
+          el.dataset.once = '1';
+        }
+        el.classList.add('in');
+      } else {
+        if (el.dataset.once){
+          el.style.transitionDelay = '0s';
+          el.classList.remove('in');
+        }
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -8% 0px'
+  });
+
+  document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
+} catch (err) {
+  document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('in'));
+}
+
+/* ============================================================
+   4. COUNTER
+   ============================================================ */
+function animateCount(el, target, duration = 1500){
+  const start = performance.now();
+  const isPercent = el.classList.contains('skill-num');
+  function frame(now){
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    const val = Math.round(eased * target);
+    el.textContent = toFa(val) + (isPercent ? '%' : '+');
+    if (p < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+try {
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const card  = entry.target;
+      const value = +card.dataset.skill;
+      const bar = card.querySelector('.skill-bar i');
+      if (bar) bar.style.width = value + '%';
+      const num = card.querySelector('.skill-num');
+      if (num) animateCount(num, value, 1700);
+      skillObserver.unobserve(card);
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('.skill').forEach(el => skillObserver.observe(el));
+
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      animateCount(entry.target, +entry.target.dataset.count, 1800);
+      statObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach(el => statObserver.observe(el));
+} catch(e){
+  document.querySelectorAll('.skill').forEach(el => {
+    const v = +el.dataset.skill;
+    const bar = el.querySelector('.skill-bar i');
+    if (bar) bar.style.width = v + '%';
+    const num = el.querySelector('.skill-num');
+    if (num) num.textContent = toFa(v) + '%';
+  });
+}
+
+/* ============================================================
+   5. TYPEWRITER
+   ============================================================ */
+(function typewriter(){
+  const el = document.getElementById('typed');
+  if (!el) return;
+  const lines = [
+    'const dev = "Mahdi Mojahed";',
+    'design + code + motion',
+    'let ideas = becomeReality();'
+  ];
+  let li = 0, ci = 0, deleting = false;
+
+  function tick(){
+    const current = lines[li];
+    el.textContent = current.slice(0, ci);
+
+    if (!deleting){
+      if (ci < current.length){ ci++; setTimeout(tick, 65); }
+      else { deleting = true; setTimeout(tick, 1600); }
+    } else {
+      if (ci > 0){ ci--; setTimeout(tick, 28); }
+      else { deleting = false; li = (li + 1) % lines.length; setTimeout(tick, 350); }
+    }
+  }
+  tick();
+})();
+
+/* ============================================================
+   6. CURSOR GLOW
+   ============================================================ */
+(function cursorGlow(){
+  const glow = document.getElementById('cursorGlow');
+  if (!glow) return;
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let cx = mx, cy = my;
+
+  window.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    document.body.classList.add('has-cursor');
+  });
+
+  (function loop(){
+    cx += (mx - cx) * 0.09;
+    cy += (my - cy) * 0.09;
+    glow.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ============================================================
+   7. SPOTLIGHT روی کارت‌های مهارت
+   ============================================================ */
+document.querySelectorAll('.skill').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+});
+
+/* ============================================================
+   8. STARFIELD تعاملی (کهکشانی + واکنش به موس/لمس)
+   ============================================================ */
+(function interactiveStars(){
+  const canvas = document.getElementById('stars');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  let w, h, dpr;
+  let stars = [];
+  let nebulas = [];
+
+  /* موقعیت موس و لمس */
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let targetX = mouseX;
+  let targetY = mouseY;
+  let hasInteracted = false;
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.width  = window.innerWidth  * dpr;
+    h = canvas.height = window.innerHeight * dpr;
+    canvas.style.width  = window.innerWidth  + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+
+    /* تعداد ستاره‌ها بر اساس عرض صفحه */
+    const count = Math.min(220, Math.max(80, Math.floor(window.innerWidth / 9)));
+
+    stars = [];
+    for (let i = 0; i < count; i++){
+      /* depth بین 0.2 تا 1.0 */
+      const depth = 0.2 + Math.random() * 0.8;
+      const size = (Math.random() * 1.4 + 0.35) * dpr * depth;
+
+      /* رنگ: اکثراً طلایی، برخی سفید، برخی آبی ملایم */
+      const roll = Math.random();
+      let color;
+      if (roll < 0.55) color = { r: 217, g: 194, b: 0 };      /* طلایی */
+      else if (roll < 0.85) color = { r: 255, g: 255, b: 255 }; /* سفید */
+      else color = { r: 120, g: 180, b: 255 };                  /* آبی ملایم */
+
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: size,
+        depth: depth,
+        color: color,
+        baseA: 0.25 + Math.random() * 0.55,
+        twinklePhase: Math.random() * Math.PI * 2,
+        twinkleSpeed: 0.4 + Math.random() * 1.4,
+        /* حرکت کند ذاتی */
+        vx: (Math.random() - 0.5) * 0.08 * dpr * depth,
+        vy: (Math.random() - 0.5) * 0.08 * dpr * depth,
+        /* برای هاله‌ی روی موس */
+        glow: 0
+      });
+    }
+
+    /* سحابی‌های نرم پس‌زمینه */
+    nebulas = [
+      { xOff: 0.3, yOff: 0.4, r: 260, color: '217,194,0', a: 0.05 },
+      { xOff: 0.7, yOff: 0.65, r: 220, color: '90,150,255', a: 0.045 },
+      { xOff: 0.5, yOff: 0.3, r: 180, color: '180,120,255', a: 0.035 }
+    ];
+  }
+
+  /* ردیابی موس */
+  window.addEventListener('mousemove', (e) => {
+    targetX = e.clientX;
+    targetY = e.clientY;
+    hasInteracted = true;
+  }, { passive: true });
+
+  /* ردیابی لمس */
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]){
+      targetX = e.touches[0].clientX;
+      targetY = e.touches[0].clientY;
+      hasInteracted = true;
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches[0]){
+      targetX = e.touches[0].clientX;
+      targetY = e.touches[0].clientY;
+      hasInteracted = true;
+    }
+  }, { passive: true });
+
+  /* برای موبایل وقتی انگشت برداشته می‌شود، به مرکز برگردد */
+  window.addEventListener('touchend', () => {
+    targetX = window.innerWidth / 2;
+    targetY = window.innerHeight / 2;
+  }, { passive: true });
+
+  /* وقتی موس از صفحه خارج شد، به مرکز برگردد */
+  document.addEventListener('mouseleave', () => {
+    targetX = window.innerWidth / 2;
+    targetY = window.innerHeight / 2;
+  });
+
+  let lastTime = performance.now();
+
+  function draw(now){
+    const dt = Math.min((now - lastTime) / 1000, 0.05); /* حداکثر 50ms */
+    lastTime = now;
+
+    ctx.clearRect(0, 0, w, h);
+
+    /* میان‌یابی نرم موقعیت موس */
+    mouseX += (targetX - mouseX) * 0.06;
+    mouseY += (targetY - mouseY) * 0.06;
+
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    const offsetX = (mouseX - cx) / cx;
+    const offsetY = (mouseY - cy) / cy;
+
+    const mx = mouseX * dpr;
+    const my = mouseY * dpr;
+
+    /* ===== سحابی‌های نرم ===== */
+    nebulas.forEach(n => {
+      const nx = w * n.xOff + offsetX * 30 * dpr;
+      const ny = h * n.yOff + offsetY * 30 * dpr;
+      const g = ctx.createRadialGradient(nx, ny, 0, nx, ny, n.r * dpr);
+      g.addColorStop(0, 'rgba(' + n.color + ',' + n.a + ')');
+      g.addColorStop(1, 'rgba(' + n.color + ',0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, w, h);
+    });
+
+    /* ===== هالهٔ بزرگ دنبال موس ===== */
+    if (hasInteracted){
+      const halo = ctx.createRadialGradient(mx, my, 0, mx, my, 280 * dpr);
+      halo.addColorStop(0, 'rgba(217,194,0,0.08)');
+      halo.addColorStop(0.5, 'rgba(217,194,0,0.03)');
+      halo.addColorStop(1, 'rgba(217,194,0,0)');
+      ctx.fillStyle = halo;
+      ctx.fillRect(0, 0, w, h);
+    }
+
+    /* ===== ستاره‌ها ===== */
+    const time = now * 0.001;
+
+    stars.forEach(s => {
+      /* حرکت ذاتی */
+      s.x += s.vx;
+      s.y += s.vy;
+
+      /* wrap */
+      if (s.x < -10) s.x = w + 10;
+      if (s.x > w + 10) s.x = -10;
+      if (s.y < -10) s.y = h + 10;
+      if (s.y > h + 10) s.y = -10;
+
+      /* پارالاکس نسبت به موقعیت موس */
+      const px = offsetX * 45 * s.depth * dpr;
+      const py = offsetY * 45 * s.depth * dpr;
+      const drawX = s.x + px;
+      const drawY = s.y + py;
+
+      /* فاصله تا موس (به پیکسل CSS) */
+      const dx = drawX / dpr - mouseX;
+      const dy = drawY / dpr - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      /* محاسبهٔ شدت درخشش نزدیک موس */
+      const glowRange = 200;
+      let targetGlow = 0;
+      if (dist < glowRange){
+        targetGlow = 1 - dist / glowRange;
+        targetGlow = targetGlow * targetGlow; /* منحنی نرم */
+      }
+      s.glow += (targetGlow - s.glow) * 0.15;
+
+      /* چشمک‌زدن */
+      const twinkle = 0.65 + 0.35 * Math.sin(time * s.twinkleSpeed + s.twinklePhase);
+      const alpha = Math.min(1, s.baseA * twinkle + s.glow * 0.75);
+
+      /* اندازهٔ نهایی با درخشش */
+      const finalR = s.r * (1 + s.glow * 1.6);
+
+      /* هاله‌ی ستاره (وقتی درخشان‌تر) */
+      if (s.glow > 0.05 || s.depth > 0.75){
+        const haloR = finalR * (4 + s.glow * 6);
+        const haloGrad = ctx.createRadialGradient(drawX, drawY, 0, drawX, drawY, haloR);
+        const c = s.color;
+        const haloAlpha = (alpha * 0.55) * (0.4 + s.glow);
+        haloGrad.addColorStop(0, 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + haloAlpha + ')');
+        haloGrad.addColorStop(1, 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0)');
+        ctx.fillStyle = haloGrad;
+        ctx.beginPath();
+        ctx.arc(drawX, drawY, haloR, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      /* هستهٔ ستاره */
+      ctx.beginPath();
+      ctx.arc(drawX, drawY, finalR, 0, Math.PI * 2);
+      const c = s.color;
+      /* هرچه درخشان‌تر، به سفید نزدیک‌تر */
+      const whiteBoost = s.glow * 0.6;
+      const cr = Math.round(c.r + (255 - c.r) * whiteBoost);
+      const cg = Math.round(c.g + (255 - c.g) * whiteBoost);
+      const cb = Math.round(c.b + (255 - c.b) * whiteBoost);
+      ctx.fillStyle = 'rgba(' + cr + ',' + cg + ',' + cb + ',' + alpha + ')';
+      ctx.fill();
+
+      /* جرقه‌ی چهارپر برای ستاره‌های درخشان */
+      if (s.glow > 0.4){
+        ctx.save();
+        ctx.translate(drawX, drawY);
+        ctx.globalAlpha = (s.glow - 0.4) / 0.6 * alpha * 0.6;
+        ctx.strokeStyle = 'rgba(' + cr + ',' + cg + ',' + cb + ',1)';
+        ctx.lineWidth = 1 * dpr;
+        const sparkleLen = finalR * 6 * s.glow;
+        ctx.beginPath();
+        ctx.moveTo(-sparkleLen, 0);
+        ctx.lineTo(sparkleLen, 0);
+        ctx.moveTo(0, -sparkleLen);
+        ctx.lineTo(0, sparkleLen);
+        ctx.stroke();
+        ctx.restore();
+      }
+    });
+
+    /* ===== خطوط ظریف بین ستاره‌های نزدیک به موس ===== */
+    if (hasInteracted){
+      const nearStars = [];
+      for (let i = 0; i < stars.length; i++){
+        if (stars[i].glow > 0.35){
+          nearStars.push({
+            x: stars[i].x + offsetX * 45 * stars[i].depth * dpr,
+            y: stars[i].y + offsetY * 45 * stars[i].depth * dpr,
+            g: stars[i].glow
+          });
+        }
+      }
+
+      /* اتصال حداکثر 6 ستاره */
+      const limit = Math.min(nearStars.length, 6);
+      ctx.lineWidth = 0.8 * dpr;
+      for (let i = 0; i < limit; i++){
+        for (let j = i + 1; j < limit; j++){
+          const a = nearStars[i], b = nearStars[j];
+          const ddx = a.x - b.x, ddy = a.y - b.y;
+          const d = Math.sqrt(ddx * ddx + ddy * ddy);
+          const maxDist = 200 * dpr;
+          if (d < maxDist){
+            const lineAlpha = (1 - d / maxDist) * Math.min(a.g, b.g) * 0.35;
+            ctx.strokeStyle = 'rgba(217,194,0,' + lineAlpha + ')';
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  /* اگر کاربر روی موبایل بود، به‌طور خودکار کمی حرکت داشته باشد */
+  if (window.matchMedia('(pointer: coarse)').matches){
+    setInterval(() => {
+      if (!hasInteracted){
+        targetX = window.innerWidth / 2 + (Math.random() - 0.5) * 120;
+        targetY = window.innerHeight / 2 + (Math.random() - 0.5) * 120;
+      }
+    }, 4000);
+  }
+
+  requestAnimationFrame(draw);
+})();
+
+/* ============================================================
+   9. MUSIC PLAYER
+   ============================================================ */
+(function music(){
+  const audio = document.getElementById('bgMusic');
+  const btn   = document.getElementById('musicBtn');
+  const icon  = document.getElementById('musicIcon');
+  if (!audio || !btn || !icon) return;
+
+  const TARGET_VOLUME = 0.15;
+  const FADE_DURATION = 2000;
+  const STORE_KEY     = 'portfolio_music_on';
+
+  let hasStarted = false;
+  let userWantsOn = true;
+  let fadeRAF = null;
+
+  try {
+    const saved = localStorage.getItem(STORE_KEY);
+    if (saved === 'off') userWantsOn = false;
+    else if (saved === 'on') userWantsOn = true;
+    else userWantsOn = true;
+  } catch(e){
+    userWantsOn = true;
+  }
+
+  function updateUI(){
+    const playing = !audio.paused && !audio.ended && hasStarted;
+    btn.classList.toggle('playing', playing);
+    btn.setAttribute('aria-label', playing ? 'توقف موسیقی' : 'پخش موسیقی');
+    btn.title = playing ? 'توقف موسیقی' : 'پخش موسیقی';
+    icon.className = playing ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+  }
+  updateUI();
+
+  function fadeTo(targetVolume, duration, onDone){
+    if (fadeRAF) cancelAnimationFrame(fadeRAF);
+    const startVol = audio.volume;
+    const startTime = performance.now();
+
+    function step(now){
+      const t = Math.min((now - startTime) / duration, 1);
+      const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      audio.volume = Math.max(0, Math.min(1, startVol + (targetVolume - startVol) * eased));
+      if (t < 1){
+        fadeRAF = requestAnimationFrame(step);
+      } else {
+        fadeRAF = null;
+        if (typeof onDone === 'function') onDone();
+      }
+    }
+    fadeRAF = requestAnimationFrame(step);
+  }
+
+  function tryStart(){
+    if (hasStarted) return;
+    const playPromise = audio.play();
+    if (playPromise && typeof playPromise.then === 'function'){
+      playPromise.then(() => {
+        hasStarted = true;
+        audio.volume = 0;
+        fadeTo(TARGET_VOLUME, FADE_DURATION);
+        updateUI();
+        removeStartListeners();
+      }).catch(() => {
+        updateUI();
+      });
+    } else {
+      try {
+        audio.volume = TARGET_VOLUME;
+        hasStarted = true;
+        updateUI();
+        removeStartListeners();
+      } catch(e){}
+    }
+  }
+
+  function stopMusic(fade){
+    if (!fade){
+      audio.pause();
+      audio.volume = 0;
+      updateUI();
+      return;
+    }
+    fadeTo(0, 700, () => {
+      audio.pause();
+      updateUI();
+    });
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    if (!hasStarted){
+      userWantsOn = true;
+      try { localStorage.setItem(STORE_KEY, 'on'); } catch(err){}
+      tryStart();
+      return;
+    }
+
+    if (audio.paused){
+      userWantsOn = true;
+      try { localStorage.setItem(STORE_KEY, 'on'); } catch(err){}
+      audio.play().then(() => {
+        fadeTo(TARGET_VOLUME, 900);
+        updateUI();
+      }).catch(()=>{});
+    } else {
+      userWantsOn = false;
+      try { localStorage.setItem(STORE_KEY, 'off'); } catch(err){}
+      stopMusic(true);
+    }
+  });
+
+  const startEvents = ['click', 'scroll', 'touchstart', 'keydown', 'pointerdown'];
+
+  function onFirstInteraction(){
+    if (hasStarted) return;
+    if (!userWantsOn) return;
+    tryStart();
+  }
+
+  function addStartListeners(){
+    startEvents.forEach(evt => {
+      window.addEventListener(evt, onFirstInteraction, { passive: true });
+    });
+  }
+  function removeStartListeners(){
+    startEvents.forEach(evt => {
+      window.removeEventListener(evt, onFirstInteraction);
+    });
+  }
+
+  if (userWantsOn){
+    addStartListeners();
+  } else {
+    updateUI();
+  }
+
+  let wasPlayingBeforeHide = false;
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden){
+      wasPlayingBeforeHide = !audio.paused && hasStarted;
+      if (wasPlayingBeforeHide){
+        audio.pause();
+        updateUI();
+      }
+    } else {
+      if (wasPlayingBeforeHide && userWantsOn && hasStarted){
+        audio.play().then(() => {
+          fadeTo(TARGET_VOLUME, 700);
+          updateUI();
+        }).catch(()=>{});
+      }
+    }
+  });
+
+  audio.addEventListener('error', () => {
+    btn.style.opacity = '.4';
+    btn.style.cursor = 'not-allowed';
+    btn.title = 'فایل موسیقی در دسترس نیست';
+  });
+})();
+
+/* ============================================================
+   10. YEAR
+   ============================================================ */
+(function year(){
+  const el = document.getElementById('year');
+  if (el) el.textContent = toFa(new Date().getFullYear());
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>۴۰۴ — صفحه پیدا نشد | مهدی مجاهد</title>
+<meta name="robots" content="noindex">
+
+<link rel="icon" href="img/20261011_025918.ico" type="image/x-icon">
+<link rel="shortcut icon" href="img/20261011_025918.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="img/20261011_025918.ico">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+/* ============================================================
+   1. TOKENS
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --gold:#D9C200;
+  --gold-soft:#fff6b0;
+  --navy:#001830;
+  --bg:#000d18;
+  --bg-2:#001830;
+  --panel:rgba(255,255,255,.045);
+  --panel-2:rgba(0,24,48,.6);
+  --stroke:rgba(255,255,255,.09);
+  --text:#f1f5f7;
+  --muted:#8b9ba6;
+  --accent-soft:rgba(217,194,0,.13);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease-2:cubic-bezier(.34,1.56,.64,1);
+}
+
+html{
+  scroll-behavior:smooth;
+  overflow-x:clip;
+  max-width:100%;
+  -webkit-text-size-adjust:100%;
+}
+@supports not (overflow: clip){
+  html{overflow-x:hidden}
+}
+
+body{
+  font-family:"Vazirmatn",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  min-height:100svh;
+  overflow-x:clip;
+  max-width:100%;
+  line-height:1.85;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:clamp(1.5rem,5vw,3rem);
+  -webkit-font-smoothing:antialiased;
+  -webkit-user-select:none;
+  user-select:none;
+  position:relative;
+  cursor:crosshair;
+}
+@supports not (overflow: clip){
+  body{overflow-x:hidden}
+}
+
+img,video,canvas,svg,iframe{max-width:100%;display:block}
+img{-webkit-user-drag:none;user-drag:none;pointer-events:none}
+
+h1,h2,h3,p,a,span,b,small,em{
+  overflow-wrap:anywhere;
+  word-wrap:break-word;
+  min-width:0;
+  max-width:100%;
+}
+
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--gold);color:#001830}
+
+/* ============================================================
+   2. پس‌زمینه
+   ============================================================ */
+.bg-layer{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.aurora{position:absolute;border-radius:50%;filter:blur(120px);opacity:.5;will-change:transform}
+.aurora.a{width:min(60vw,540px);height:min(60vw,540px);background:#D9C200;top:-16vw;right:-14vw;animation:float1 22s ease-in-out infinite}
+.aurora.b{width:min(52vw,480px);height:min(52vw,480px);background:#003a63;bottom:-18vw;left:-14vw;animation:float2 27s ease-in-out infinite}
+.aurora.c{width:min(38vw,360px);height:min(38vw,360px);background:#1D241D;top:48%;left:44%;animation:float3 32s ease-in-out infinite}
+@keyframes float1{50%{transform:translateY(8vh) scale(1.12)}}
+@keyframes float2{50%{transform:translateY(-7vh) scale(1.15)}}
+@keyframes float3{50%{transform:translateY(-5vh) scale(.9)}}
+
+#stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.55}
+
+.grain{
+  position:fixed;inset:-200%;z-index:9998;pointer-events:none;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 8s steps(6) infinite;
+}
+@keyframes grain{
+  0%,100%{transform:translate(0,0)}10%{transform:translate(-4%,-4%)}20%{transform:translate(-8%,3%)}
+  30%{transform:translate(3%,-7%)}40%{transform:translate(-3%,7%)}50%{transform:translate(-8%,5%)}
+  60%{transform:translate(6%,0)}70%{transform:translate(0,6%)}80%{transform:translate(4%,-4%)}90%{transform:translate(-4%,4%)}
+}
+
+/* ذرات شناور */
+.particles{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.particle{
+  position:absolute;
+  width:4px;height:4px;
+  border-radius:50%;
+  background:var(--gold);
+  opacity:.6;
+  filter:blur(.5px);
+  animation:rise linear infinite;
+  will-change:transform,opacity;
+}
+@keyframes rise{
+  0%{transform:translateY(110vh) scale(0);opacity:0}
+  10%{opacity:.8}
+  90%{opacity:.6}
+  100%{transform:translateY(-10vh) scale(1.4);opacity:0}
+}
+
+/* ============================================================
+   3. کارت اصلی
+   ============================================================ */
+.card{
+  position:relative;
+  max-width:720px;
+  width:100%;
+  border-radius:32px;
+  padding:clamp(2rem,6vw,3.5rem);
+  background:rgba(0,24,48,.55);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  box-shadow:0 40px 90px rgba(0,0,0,.65);
+  text-align:center;
+  overflow:hidden;
+  animation:cardIn 1s var(--ease) both;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(40px) scale(.96)}
+  to{opacity:1;transform:none}
+}
+
+.card::before{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;
+  background:linear-gradient(140deg,rgba(217,194,0,.55),transparent 40%,transparent 60%,rgba(217,194,0,.3));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;
+  z-index:3;
+}
+
+/* ============================================================
+   4. صحنهٔ سه‌بعدی ۴۰۴
+   ============================================================ */
+.hero-404{
+  position:relative;
+  padding:clamp(1.5rem,4vw,2.5rem) 0 clamp(1rem,3vw,1.6rem);
+  display:grid;
+  place-items:center;
+  perspective:1100px;
+  perspective-origin:50% 45%;
+  min-height:clamp(180px,32vw,320px);
+}
+
+/* هالهٔ چرخان پشت ۴۰۴ */
+.aura-ring{
+  position:absolute;
+  width:clamp(240px,48vw,460px);
+  height:clamp(240px,48vw,460px);
+  border-radius:50%;
+  background:conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(217,194,0,.45) 60deg,
+    rgba(217,194,0,.05) 140deg,
+    transparent 200deg,
+    rgba(217,194,0,.3) 300deg,
+    transparent 360deg
+  );
+  filter:blur(46px);
+  animation:spin 14s linear infinite;
+  z-index:0;
+  pointer-events:none;
+  opacity:.85;
+}
+
+/* هالهٔ دوم برای عمق بیشتر */
+.aura-ring.ring-2{
+  width:clamp(200px,40vw,380px);
+  height:clamp(200px,40vw,380px);
+  filter:blur(30px);
+  animation:spin 22s linear infinite reverse;
+  opacity:.55;
+}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* پوشش متن ۳D */
+.text-3d-wrap{
+  position:relative;
+  z-index:1;
+  transition:transform .35s var(--ease);
+  will-change:transform;
+}
+
+.text-3d{
+  position:relative;
+  display:inline-block;
+  font-size:clamp(5.5rem,22vw,13rem);
+  font-weight:900;
+  line-height:1;
+  letter-spacing:-.06em;
+  transform-style:preserve-3d;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  will-change:transform;
+  font-family:"Vazirmatn",system-ui,sans-serif;
+}
+
+.text-3d .layer{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  display:grid;
+  place-items:center;
+  font:inherit;
+  font-size:inherit;
+  font-weight:inherit;
+  letter-spacing:inherit;
+  line-height:inherit;
+  color:transparent;
+  -webkit-text-stroke:1.2px rgba(217,194,0,.42);
+  text-stroke:1.2px rgba(217,194,0,.42);
+  pointer-events:none;
+  user-select:none;
+}
+
+/* ترتیب لایه‌ها از عقب به جلو */
+.text-3d .layer:nth-child(1){transform:translateZ(-56px);opacity:.32}
+.text-3d .layer:nth-child(2){transform:translateZ(-46px);opacity:.4}
+.text-3d .layer:nth-child(3){transform:translateZ(-36px);opacity:.5}
+.text-3d .layer:nth-child(4){transform:translateZ(-26px);opacity:.6}
+.text-3d .layer:nth-child(5){transform:translateZ(-16px);opacity:.72}
+.text-3d .layer:nth-child(6){transform:translateZ(-8px);opacity:.85}
+
+/* لایهٔ جلو */
+.text-3d .layer.front{
+  position:relative;
+  color:transparent;
+  -webkit-text-stroke:0;
+  text-stroke:0;
+  background:linear-gradient(115deg,
+    var(--gold) 0%,
+    var(--gold-soft) 38%,
+    #fff 50%,
+    var(--gold-soft) 62%,
+    var(--gold) 100%);
+  background-size:250% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  animation:shine 4s linear infinite;
+  filter:drop-shadow(0 0 24px rgba(217,194,0,.55))
+         drop-shadow(0 12px 34px rgba(217,194,0,.35));
+  transform:translateZ(0);
+  z-index:2;
+}
+@keyframes shine{to{background-position:250% center}}
+
+/* خط زیر ۴۰۴ که با هاور می‌درخشد */
+.text-3d-wrap::after{
+  content:"";
+  position:absolute;
+  bottom:-14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:60%;
+  height:2px;
+  background:linear-gradient(90deg,
+    transparent,
+    rgba(217,194,0,.75),
+    transparent);
+  filter:blur(.5px);
+  animation:underlinePulse 3s ease-in-out infinite;
+}
+@keyframes underlinePulse{
+  0%,100%{opacity:.4;width:55%}
+  50%{opacity:1;width:70%}
+}
+
+/* گلیچ نامحسوس هر چند ثانیه */
+.text-3d.glitch .layer.front{
+  animation:shine 4s linear infinite, glitchShift .35s steps(2) 1;
+}
+@keyframes glitchShift{
+  0%{transform:translateZ(0) translate(0)}
+  25%{transform:translateZ(0) translate(-4px,2px)}
+  50%{transform:translateZ(0) translate(4px,-2px)}
+  75%{transform:translateZ(0) translate(-2px,1px)}
+  100%{transform:translateZ(0) translate(0)}
+}
+
+/* ============================================================
+   5. متن‌ها
+   ============================================================ */
+.title{
+  font-size:clamp(1.15rem,3.8vw,1.9rem);
+  font-weight:900;
+  letter-spacing:-.025em;
+  margin-bottom:.9rem;
+  position:relative;
+  z-index:2;
+}
+.title em{
+  font-style:normal;
+  color:var(--gold);
+  text-shadow:0 0 32px rgba(217,194,0,.55);
+}
+
+.sub{
+  color:var(--muted);
+  font-size:clamp(.85rem,1.4vw,1rem);
+  max-width:48ch;
+  margin:0 auto 2rem;
+  position:relative;
+  z-index:2;
+}
+
+/* ============================================================
+   6. دکمه‌ها (هم‌ساختار با صفحهٔ اصلی)
+   ============================================================ */
+@property --btn-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.actions{
+  display:flex;
+  gap:.8rem;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+  position:relative;
+  z-index:2;
+}
+
+.btn{
+  position:relative;
+  display:inline-flex;
+  padding:2px;
+  border-radius:999px;
+  overflow:hidden;
+  isolation:isolate;
+  cursor:pointer;
+  flex:none;
+  max-width:100%;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  padding:2px;
+  background:conic-gradient(
+    from var(--btn-angle),
+    transparent 0deg, transparent 190deg,
+    var(--gold) 265deg, #fff8c4 300deg, var(--gold) 330deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite:exclude;
+  animation:btnSpin 3.6s linear infinite;
+  z-index:0;
+  pointer-events:none;
+}
+.btn:nth-child(even)::before{
+  animation-duration:4.6s;
+  animation-direction:reverse;
+}
+@keyframes btnSpin{to{--btn-angle:360deg}}
+
+.btn > span{
+  position:relative;
+  z-index:1;
+  flex:1 1 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.55rem;
+  padding:.95rem 2rem;
+  border-radius:999px;
+  background:var(--panel-2);
+  border:1px solid transparent;
+  backdrop-filter:blur(16px) saturate(180%);
+  -webkit-backdrop-filter:blur(16px) saturate(180%);
+  font-weight:700;
+  font-size:.88rem;
+  white-space:nowrap;
+  text-align:center;
+  min-width:0;
+  transition:background .4s var(--ease),
+             color .4s,
+             letter-spacing .4s var(--ease),
+             transform .4s var(--ease);
+}
+.btn:hover > span{
+  background:var(--accent-soft);
+  color:var(--gold);
+  letter-spacing:.02em;
+  transform:translateY(-2px);
+}
+.btn:active{transform:scale(.97)}
+.btn.ghost > span{background:transparent}
+.btn i{font-size:.85rem}
+
+/* دکمه‌ها در موبایل تمام‌عرض */
+@media (max-width:520px){
+  .actions{
+    flex-direction:column;
+    align-items:stretch;
+    gap:.6rem;
+  }
+  .actions .btn{width:100%}
+  .actions .btn > span{
+    width:100%;
+    padding:.85rem 1.4rem;
+    font-size:.82rem;
+  }
+}
+
+/* ============================================================
+   7. فوتر کوچک
+   ============================================================ */
+.foot-note{
+  margin-top:2rem;
+  font-size:.72rem;
+  color:var(--muted);
+  position:relative;
+  z-index:2;
+}
+.foot-note i{
+  color:var(--gold);
+  margin:0 .3rem;
+  animation:markGlow 4s ease-in-out infinite;
+  display:inline-block;
+}
+@keyframes markGlow{50%{text-shadow:0 0 20px rgba(217,194,0,.9)}}
+
+/* ============================================================
+   8. ریسپانسیو
+   ============================================================ */
+@media (max-width:640px){
+  .card{
+    padding:1.8rem 1.2rem;
+    border-radius:24px;
+  }
+  .hero-404{
+    min-height:clamp(150px,42vw,220px);
+    padding:1rem 0 1.4rem;
+  }
+  .sub{
+    font-size:.82rem;
+    margin-bottom:1.6rem;
+  }
+  .title{
+    font-size:clamp(1.05rem,5vw,1.5rem);
+  }
+}
+
+@media (max-width:400px){
+  .text-3d{
+    font-size:clamp(4.5rem,20vw,6rem);
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== BACKGROUND ===== -->
+<div class="bg-layer">
+  <div class="aurora a"></div>
+  <div class="aurora b"></div>
+  <div class="aurora c"></div>
+</div>
+<canvas id="stars"></canvas>
+<div class="grain"></div>
+<div class="particles" id="particles"></div>
+
+<!-- ===== CARD ===== -->
+<main class="card">
+
+  <div class="hero-404">
+    <div class="aura-ring"></div>
+    <div class="aura-ring ring-2"></div>
+
+    <div class="text-3d-wrap" id="tiltWrap">
+      <div class="text-3d" id="tilt3d">
+        <span class="layer" aria-hidden="true">404</span>
+        <span class="layer" aria-hidden="true">404</span>
+        <span class="layer" aria-hidden="true">404</span>
+        <span class="layer" aria-hidden="true">404</span>
+        <span class="layer" aria-hidden="true">404</span>
+        <span class="layer" aria-hidden="true">404</span>
+        <span class="layer front">404</span>
+      </div>
+    </div>
+  </div>
+
+  <h1 class="title">این صفحه <em>پیدا نشد</em></h1>
+
+  <p class="sub">
+    آدرسی که وارد کرده‌اید وجود ندارد یا جابه‌جا شده است.
+    می‌توانید از دکمه‌ی زیر به صفحه‌ی اصلی برگردید یا از بخش تماس با من ارتباط بگیرید.
+  </p>
+
+  <div class="actions">
+    <a href="/" class="btn">
+      <span><i class="fa-solid fa-house"></i> بازگشت به خانه</span>
+    </a>
+    <a href="/#contact" class="btn ghost">
+      <span><i class="fa-solid fa-comment-dots"></i> تماس با من</span>
+    </a>
+  </div>
+
+  <p class="foot-note">
+    مهدی مجاهد <i class="fa-solid fa-circle"></i> WEB &amp; VISUAL
+  </p>
+
+</main>
+
+<script>
+/* ============================================================
+   1. چرخش سه‌بعدی ۴۰۴ با موس و لمس
+   ============================================================ */
+(function tilt3D(){
+  const wrap = document.getElementById('tiltWrap');
+  const el   = document.getElementById('tilt3d');
+  if (!wrap || !el) return;
+
+  const MAX_TILT = 18;      // حداکثر درجه چرخش
+  const SMOOTH   = 0.12;    // نرمی حرکت
+
+  let targetX = 0, targetY = 0;
+  let currentX = 0, currentY = 0;
+  let rafId = null;
+
+  function update(){
+    currentX += (targetX - currentX) * SMOOTH;
+    currentY += (targetY - currentY) * SMOOTH;
+
+    el.style.transform =
+      'rotateX(' + currentX.toFixed(2) + 'deg) ' +
+      'rotateY(' + currentY.toFixed(2) + 'deg)';
+
+    if (Math.abs(targetX - currentX) > 0.05 ||
+        Math.abs(targetY - currentY) > 0.05){
+      rafId = requestAnimationFrame(update);
+    } else {
+      rafId = null;
+    }
+  }
+
+  function startLoop(){
+    if (rafId === null) rafId = requestAnimationFrame(update);
+  }
+
+  function setTilt(clientX, clientY){
+    const rect = wrap.getBoundingClientRect();
+    const px = (clientX - rect.left) / rect.width;   // 0..1
+    const py = (clientY - rect.top)  / rect.height;  // 0..1
+
+    // محدودهٔ -1..1
+    const nx = (px - 0.5) * 2;
+    const ny = (py - 0.5) * 2;
+
+    targetY =  nx * MAX_TILT;      // چرخش حول محور Y
+    targetX = -ny * MAX_TILT;      // چرخش حول محور X
+
+    // حرکت ملایم کل بلوک
+    wrap.style.transform =
+      'translate3d(' + (nx * 6).toFixed(2) + 'px, ' +
+                      (ny * 6).toFixed(2) + 'px, 0)';
+
+    startLoop();
+  }
+
+  function resetTilt(){
+    targetX = 0;
+    targetY = 0;
+    wrap.style.transform = 'translate3d(0,0,0)';
+    startLoop();
+  }
+
+  // موس
+  window.addEventListener('mousemove', (e) => {
+    setTilt(e.clientX, e.clientY);
+  }, { passive:true });
+
+  window.addEventListener('mouseleave', resetTilt);
+
+  // لمس
+  window.addEventListener('touchmove', (e) => {
+    const t = e.touches && e.touches[0];
+    if (!t) return;
+    setTilt(t.clientX, t.clientY);
+  }, { passive:true });
+
+  window.addEventListener('touchend', resetTilt);
+  window.addEventListener('touchcancel', resetTilt);
+})();
+
+/* ============================================================
+   2. گلیچ هر چند ثانیه روی ۴۰۴
+   ============================================================ */
+(function glitch(){
+  const el = document.getElementById('tilt3d');
+  if (!el) return;
+
+  function fire(){
+    el.classList.add('glitch');
+    setTimeout(() => el.classList.remove('glitch'), 400);
+    setTimeout(fire, 5000 + Math.random() * 4000);
+  }
+
+  setTimeout(fire, 3500);
+})();
+
+/* ============================================================
+   3. ذرات شناور
+   ============================================================ */
+(function particles(){
+  const host = document.getElementById('particles');
+  if (!host) return;
+
+  const count = Math.min(28, Math.max(12, Math.floor(window.innerWidth / 60)));
+
+  for (let i = 0; i < count; i++){
+    const p = document.createElement('span');
+    p.className = 'particle';
+
+    const size = 2 + Math.random() * 3;
+    p.style.width  = size + 'px';
+    p.style.height = size + 'px';
+    p.style.left   = Math.random() * 100 + '%';
+    p.style.background = Math.random() > 0.4 ? 'var(--gold)' : '#ffffff';
+    p.style.animationDuration = (14 + Math.random() * 16) + 's';
+    p.style.animationDelay    = (-Math.random() * 20) + 's';
+    p.style.opacity = 0.3 + Math.random() * 0.5;
+
+    host.appendChild(p);
+  }
+})();
+
+/* ============================================================
+   4. ستاره‌های پس‌زمینه
+   ============================================================ */
+(function starfield(){
+  const canvas = document.getElementById('stars');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr, stars = [];
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.width  = innerWidth  * dpr;
+    h = canvas.height = innerHeight * dpr;
+    canvas.style.width  = innerWidth  + 'px';
+    canvas.style.height = innerHeight + 'px';
+
+    const n = Math.min(80, Math.floor(innerWidth / 18));
+    stars = Array.from({ length: n }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: (Math.random() * 1.2 + 0.35) * dpr,
+      vx: (Math.random() - 0.5) * 0.18 * dpr,
+      vy: (Math.random() - 0.5) * 0.18 * dpr,
+      a: Math.random() * 0.6 + 0.2
+    }));
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, w, h);
+    const gold = getComputedStyle(document.documentElement)
+                   .getPropertyValue('--gold').trim() || '#D9C200';
+
+    stars.forEach(s => {
+      s.x += s.vx; s.y += s.vy;
+      if (s.x < 0) s.x = w; if (s.x > w) s.x = 0;
+      if (s.y < 0) s.y = h; if (s.y > h) s.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = gold;
+      ctx.globalAlpha = s.a;
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+})();
+
+/* ============================================================
+   5. محافظت از محتوا (بازدارنده)
+   ============================================================ */
+(function protect(){
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('dragstart',   e => e.preventDefault());
+  document.addEventListener('selectstart', e => {
+    const t = e.target;
+    if (!t) return;
+    if (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA') return;
+    if (t.isContentEditable) return;
+    e.preventDefault();
+  });
+})();
+</script>
+
+</body>
+</html>
