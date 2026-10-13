@@ -913,6 +913,1104 @@ TOOLS.push({
 
 /* ▓▓▓ پیام ۳ ▓▓▓ */
 
+/* ══════ METADATA ══════ */
+TOOLS.push({
+  id:'metadata', cat:'image', icon:'fa-solid fa-shield-halved',
+  title:'بازرس و پاک‌ساز متادیتا', tag:'تصویر',
+  desc:'اطلاعات مخفی عکس (دوربین، تاریخ، GPS) را ببینید و پاک کنید.',
+  html:`<style>
+      .md-drop{padding:1.6rem 1rem;border-radius:14px;border:2px dashed rgba(217,194,0,.4);background:var(--panel);text-align:center;cursor:pointer;transition:.3s;display:block;width:100%}
+      .md-drop:hover{border-color:var(--gold);background:var(--soft)}
+      .md-drop i{font-size:1.8rem;color:var(--gold);display:block;margin-bottom:.5rem}
+      .md-drop b{font-size:.85rem;font-weight:800;display:block;margin-bottom:.2rem}
+      .md-drop small{font-size:.66rem;color:var(--muted);display:block}
+      .md-drop input{display:none}
+      .md-loader{display:none;text-align:center;padding:1.5rem;color:var(--muted);font-size:.8rem}
+      .md-loader.on{display:block}
+      .md-loader i{color:var(--gold);font-size:1.4rem;display:block;margin-bottom:.5rem;animation:mdSpin 1.5s linear infinite}
+      @keyframes mdSpin{to{transform:rotate(360deg)}}
+      .md-preview{margin-top:1rem;max-width:100%;max-height:200px;border-radius:12px;border:1px solid var(--stroke);object-fit:contain;margin-inline:auto;display:none}
+      .md-info{margin-top:1rem;display:none}
+      .md-info.on{display:block}
+      .md-section{margin-bottom:1rem;padding:1rem;border-radius:12px;background:var(--panel);border:1px solid var(--stroke)}
+      .md-section h4{font-size:.82rem;font-weight:800;color:var(--gold);margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem}
+      .md-section h4 i{font-size:.75rem}
+      .md-row{display:grid;grid-template-columns:minmax(110px,auto) 1fr;gap:.6rem;padding:.45rem 0;border-bottom:1px dashed rgba(255,255,255,.05);font-size:.78rem}
+      .md-row:last-child{border-bottom:0}
+      .md-row b{color:var(--muted);font-weight:700;overflow-wrap:anywhere}
+      .md-row span{color:var(--text);font-family:ui-monospace,monospace;font-size:.76rem;direction:ltr;text-align:left;overflow-wrap:anywhere;word-break:break-word}
+      .md-empty{text-align:center;padding:1.2rem;color:var(--muted);font-size:.78rem;background:var(--panel);border-radius:12px;border:1px dashed var(--stroke)}
+      .md-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+      .md-actions .btn{flex:1 1 auto;min-width:130px}
+      .md-map{margin-top:.8rem;border-radius:10px;overflow:hidden;border:1px solid var(--stroke);background:#0a1526;padding:.8rem;font-family:ui-monospace,monospace;font-size:.75rem;color:var(--gold);text-align:center;direction:ltr}
+    </style>
+    <label class="md-drop" for="mdFile">
+      <span>
+        <i class="fa-solid fa-file-shield"></i>
+        <b>انتخاب فایل تصویری</b>
+        <small>JPEG، PNG، WebP — همه چیز در مرورگر پردازش می‌شود</small>
+      </span>
+      <input type="file" id="mdFile" accept="image/*">
+    </label>
+    <div class="md-loader" id="mdLoader">
+      <i class="fa-solid fa-circle-notch"></i>
+      در حال تحلیل فایل...
+    </div>
+    <img class="md-preview" id="mdPreview" alt="">
+    <div class="md-info" id="mdInfo"></div>
+    <div class="md-actions" id="mdActions" style="display:none">
+      <button class="btn primary" id="mdClean"><span>حذف متادیتا و دانلود <i class="fa-solid fa-eraser"></i></span></button>
+    </div>
+    <p class="hint">توجه: حذف متادیتا فقط از فایل‌های JPEG به‌صورت کامل پشتیبانی می‌شود.</p>`,
+  init(){
+    let piexifLoaded = null;
+    function loadPiexif(){
+      if (window.piexif) return Promise.resolve(window.piexif);
+      if (piexifLoaded) return piexifLoaded;
+      piexifLoaded = new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/piexifjs@1.0.6/piexif.js';
+        s.onload = () => resolve(window.piexif);
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+      return piexifLoaded;
+    }
+
+    const fileEl = document.getElementById('mdFile');
+    const loader = document.getElementById('mdLoader');
+    const preview = document.getElementById('mdPreview');
+    const info = document.getElementById('mdInfo');
+    const actions = document.getElementById('mdActions');
+
+    let currentFile = null;
+    let currentDataURL = null;
+
+    /* تبدیل درجه به فرمت DMS */
+    function degToDMS(deg){
+      if (!Array.isArray(deg) || deg.length < 2) return null;
+      const d = deg[0][0] / deg[0][1];
+      const m = deg[1][0] / deg[1][1];
+      const s = deg[2] ? deg[2][0] / deg[2][1] : 0;
+      return d + '° ' + m + "' " + s.toFixed(1) + '"';
+    }
+
+    /* ترجمه برچسب‌های رایج EXIF */
+    const LABELS = {
+      Make:'سازنده', Model:'مدل', Software:'نرم‌افزار', DateTime:'تاریخ و زمان',
+      DateTimeOriginal:'تاریخ ثبت', DateTimeDigitized:'تاریخ دیجیتالی شدن',
+      ExposureTime:'زمان نوردهی', FNumber:'عدد دیافراگم', ISO:'ISO', ISOSpeedRatings:'ISO',
+      FocalLength:'فاصله کانونی', Flash:'فلاش', Orientation:'جهت‌گیری',
+      ExifImageWidth:'عرض تصویر', ExifImageHeight:'ارتفاع تصویر',
+      LensModel:'مدل لنز', LensMake:'سازنده لنز', Artist:'هنرمند', Copyright:'کپی‌رایت',
+      ImageDescription:'توضیح تصویر', UserComment:'نظر کاربر',
+      GPSLatitude:'عرض جغرافیایی', GPSLongitude:'طول جغرافیایی', GPSAltitude:'ارتفاع',
+      GPSLatitudeRef:'نیم‌کره شمالی/جنوبی', GPSLongitudeRef:'نیم‌کره شرقی/غربی',
+      GPSDateStamp:'تاریخ GPS', GPSTimeStamp:'زمان GPS'
+    };
+
+    function labelFor(k){
+      return LABELS[k] || k;
+    }
+
+    function renderRow(key, value){
+      const label = labelFor(key);
+      let v = value;
+      if (Array.isArray(v) && key.indexOf('GPS') === 0 && v[0] && Array.isArray(v[0])){
+        v = degToDMS(v);
+      }
+      if (Array.isArray(v)){
+        v = v.map(x => Array.isArray(x) ? (x[0] + '/' + x[1]) : x).join(', ');
+      }
+      return '<div class="md-row"><b>' + esc(label) + '</b><span>' + esc(String(v)) + '</span></div>';
+    }
+
+    function analyze(dataURL){
+      info.classList.add('on');
+      info.innerHTML = '';
+
+      if (!/^data:image\/jpeg/.test(dataURL)){
+        info.innerHTML = '<div class="md-empty">این فرمت از تحلیل EXIF پشتیبانی نمی‌کند.<br>فایل‌های JPEG را انتخاب کنید.</div>';
+        return;
+      }
+
+      let exif = null;
+      try {
+        const exifObj = window.piexif ? window.piexif.load(dataURL) : null;
+        if (exifObj && exifObj['0th']) exif = exifObj;
+      } catch(e){
+        info.innerHTML = '<div class="md-empty">هیچ متادیتای قابل خواندنی در این فایل وجود ندارد.</div>';
+        return;
+      }
+
+      if (!exif){
+        info.innerHTML = '<div class="md-empty">این فایل هیچ متادیتای EXIF ندارد.</div>';
+        return;
+      }
+
+      let html = '';
+
+      /* بخش ۰th (اطلاعات اصلی) */
+      const zeroth = exif['0th'] || {};
+      const zerothKeys = Object.keys(zeroth).filter(k => !isNaN(parseInt(k)) && String(k).length <= 3);
+      const zerothMap = {
+        271:'Make', 272:'Model', 305:'Software', 306:'DateTime',
+        270:'ImageDescription', 274:'Orientation', 315:'Artist', 33432:'Copyright'
+      };
+      const mainItems = [];
+      for (const k in zerothMap){
+        if (zeroth[k] !== undefined){
+          let v = zeroth[k];
+          if (v instanceof Uint8Array || (v && v.byteLength)) v = '[داده دودویی]';
+          mainItems.push(renderRow(zerothMap[k], v));
+        }
+      }
+      if (mainItems.length) html += '<div class="md-section"><h4><i class="fa-solid fa-camera"></i> اطلاعات دوربین</h4>' + mainItems.join('') + '</div>';
+
+      /* بخش Exif (تنظیمات عکس) */
+      const exifIfd = exif['Exif'] || {};
+      const exifMap = {
+        33434:'ExposureTime', 33437:'FNumber', 34855:'ISO',
+        37386:'FocalLength', 36867:'DateTimeOriginal', 36868:'DateTimeDigitized',
+        37377:'ShutterSpeedValue', 37378:'ApertureValue', 37380:'ExposureBiasValue',
+        41986:'ExposureMode', 41987:'WhiteBalance', 42036:'LensModel',
+        42035:'LensMake', 36864:'ExifVersion', 37500:'UserComment'
+      };
+      const exifItems = [];
+      for (const k in exifMap){
+        if (exifIfd[k] !== undefined){
+          let v = exifIfd[k];
+          if (v instanceof Uint8Array) v = '[داده دودویی]';
+          if (k == 33434 && Array.isArray(v) && v.length === 2){
+            v = (v[0] / v[1]).toFixed(4) + ' s';
+          } else if (k == 33437 && Array.isArray(v) && v.length === 2){
+            v = 'f/' + (v[0] / v[1]).toFixed(2);
+          } else if (k == 37386 && Array.isArray(v) && v.length === 2){
+            v = (v[0] / v[1]).toFixed(2) + ' mm';
+          }
+          exifItems.push(renderRow(exifMap[k], v));
+        }
+      }
+      if (exifItems.length) html += '<div class="md-section"><h4><i class="fa-solid fa-sliders"></i> تنظیمات عکس</h4>' + exifItems.join('') + '</div>';
+
+      /* بخش GPS */
+      const gps = exif['GPS'] || {};
+      const gpsMap = {
+        1:'GPSLatitudeRef', 2:'GPSLatitude', 3:'GPSLongitudeRef', 4:'GPSLongitude',
+        5:'GPSAltitude', 6:'GPSAltitude', 7:'GPSTimeStamp', 29:'GPSDateStamp'
+      };
+      const gpsItems = [];
+      let lat = null, lon = null;
+      for (const k in gpsMap){
+        if (gps[k] !== undefined){
+          let v = gps[k];
+          if (k == 2){
+            lat = degToDMS(v);
+            const ref = gps[1] || '';
+            gpsItems.push('<div class="md-row"><b>عرض جغرافیایی</b><span>' + esc(ref + ' ' + lat) + '</span></div>');
+          } else if (k == 4){
+            lon = degToDMS(v);
+            const ref = gps[3] || '';
+            gpsItems.push('<div class="md-row"><b>طول جغرافیایی</b><span>' + esc(ref + ' ' + lon) + '</span></div>');
+          } else if (k != 1 && k != 3){
+            let val = v;
+            if (Array.isArray(val)){
+              val = val.map(x => Array.isArray(x) ? (x[0] + '/' + x[1]) : x).join(', ');
+            }
+            gpsItems.push(renderRow(gpsMap[k], val));
+          }
+        }
+      }
+      if (gpsItems.length){
+        html += '<div class="md-section"><h4><i class="fa-solid fa-location-dot"></i> موقعیت مکانی (GPS)</h4>' + gpsItems.join('');
+        if (lat && lon){
+          html += '<div class="md-map">' + lat + ' , ' + lon + '</div>';
+        }
+        html += '</div>';
+      }
+
+      /* IPTC و XMP */
+      const iptc = exif['1st'] || {};
+      const iptcItems = [];
+      for (const k in iptc){
+        if (iptc[k] !== undefined && iptc[k] !== ''){
+          iptcItems.push(renderRow('IPTC_' + k, iptc[k]));
+        }
+      }
+      if (iptcItems.length) html += '<div class="md-section"><h4><i class="fas fa-tags"></i> متادیتای IPTC</h4>' + iptcItems.join('') + '</div>';
+
+      /* خلاصه */
+      let total = 0;
+      ['0th','Exif','GPS','1st'].forEach(ifd => {
+        if (exif[ifd]) total += Object.keys(exif[ifd]).filter(k => !isNaN(parseInt(k))).length;
+      });
+
+      html = '<div class="rinfo"><div>تعداد فیلدهای متادیتا: <b>' + toFa(total) + '</b></div><div>حجم فایل: <b>' + fmtBytes(currentFile.size) + '</b></div></div>' + html;
+
+      if (total === 0){
+        html += '<div class="md-empty">هیچ متادیتای پرمعنایی یافت نشد.</div>';
+      }
+
+      info.innerHTML = html;
+    }
+
+    fileEl.addEventListener('change', async () => {
+      const f = fileEl.files[0];
+      if (!f) return;
+      currentFile = f;
+      preview.src = URL.createObjectURL(f);
+      preview.style.display = 'block';
+      info.classList.remove('on');
+      actions.style.display = 'none';
+      loader.classList.add('on');
+
+      try {
+        await loadPiexif();
+      } catch(e){
+        loader.classList.remove('on');
+        info.classList.add('on');
+        info.innerHTML = '<div class="md-empty">کتابخانه تحلیل بارگذاری نشد. اتصال اینترنت را بررسی کنید.</div>';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        currentDataURL = reader.result;
+        try { analyze(currentDataURL); }
+        catch(e){ console.error(e); info.innerHTML = '<div class="md-empty">خطا در تحلیل فایل.</div>'; }
+        loader.classList.remove('on');
+        actions.style.display = 'flex';
+      };
+      reader.readAsDataURL(f);
+    });
+
+    document.getElementById('mdClean').addEventListener('click', () => {
+      if (!currentFile){ toast('ابتدا یک تصویر انتخاب کنید'); return; }
+      if (!/^data:image\/jpeg/.test(currentDataURL)){
+        toast('حذف متادیتا فقط برای JPEG پشتیبانی می‌شود');
+        return;
+      }
+      try {
+        const cleanDataURL = window.piexif.remove(currentDataURL);
+        const byteString = atob(cleanDataURL.split(',')[1]);
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
+        const blob = new Blob([ab], {type:'image/jpeg'});
+        const baseName = currentFile.name.replace(/\.[^.]+$/, '');
+        download(blob, baseName + '-clean.jpg');
+        toast('فایل پاک‌شده دانلود شد ✦');
+      } catch(e){
+        console.error(e);
+        toast('خطا در حذف متادیتا');
+      }
+    });
+  }
+});
+
+
+
+    /* ══════ FILE INFO ══════ */
+TOOLS.push({
+  id:'fileinfo', cat:'image', icon:'fa-solid fa-circle-info',
+  title:'اطلاعات فایل تصویری', tag:'تصویر',
+  desc:'تمام جزئیات عکس را ببینید — ابعاد، حجم، رنگ‌ها، ساختار PNG.',
+  html:`<style>
+      .fi-drop{padding:1.6rem 1rem;border-radius:14px;border:2px dashed rgba(217,194,0,.4);background:var(--panel);text-align:center;cursor:pointer;transition:.3s;display:block;width:100%}
+      .fi-drop:hover{border-color:var(--gold);background:var(--soft)}
+      .fi-drop i{font-size:1.8rem;color:var(--gold);display:block;margin-bottom:.5rem}
+      .fi-drop b{font-size:.85rem;font-weight:800;display:block;margin-bottom:.2rem}
+      .fi-drop small{font-size:.66rem;color:var(--muted);display:block}
+      .fi-drop input{display:none}
+      .fi-loader{display:none;text-align:center;padding:1.5rem;color:var(--muted);font-size:.8rem}
+      .fi-loader.on{display:block}
+      .fi-loader i{color:var(--gold);font-size:1.4rem;display:block;margin-bottom:.5rem;animation:fiSpin 1.5s linear infinite}
+      @keyframes fiSpin{to{transform:rotate(360deg)}}
+      .fi-preview{margin-top:1rem;max-width:100%;max-height:200px;border-radius:12px;border:1px solid var(--stroke);object-fit:contain;margin-inline:auto;display:none}
+      .fi-content{margin-top:1.2rem;display:none}
+      .fi-content.on{display:block;animation:fiFade .4s ease}
+      @keyframes fiFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+      .fi-section{margin-bottom:1rem;padding:1rem;border-radius:12px;background:var(--panel);border:1px solid var(--stroke)}
+      .fi-section h4{font-size:.82rem;font-weight:800;color:var(--gold);margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem}
+      .fi-section h4 i{font-size:.75rem}
+      .fi-row{display:grid;grid-template-columns:minmax(120px,auto) 1fr;gap:.6rem;padding:.5rem 0;border-bottom:1px dashed rgba(255,255,255,.05);font-size:.78rem;align-items:center}
+      .fi-row:last-child{border-bottom:0}
+      .fi-row b{color:var(--muted);font-weight:700;overflow-wrap:anywhere}
+      .fi-row span{color:var(--text);font-family:ui-monospace,monospace;font-size:.76rem;direction:ltr;text-align:left;overflow-wrap:anywhere;word-break:break-word}
+      .fi-color-dot{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-left:.4rem;border:1px solid rgba(255,255,255,.25)}
+      .fi-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}
+      .fi-actions .btn{flex:1 1 auto;min-width:120px}
+      .fi-empty{text-align:center;padding:1.2rem;color:var(--muted);font-size:.78rem;background:var(--panel);border-radius:12px;border:1px dashed var(--stroke)}
+    </style>
+    <label class="fi-drop" for="fiFile">
+      <span>
+        <i class="fa-solid fa-file-image"></i>
+        <b>انتخاب فایل تصویری</b>
+        <small>JPEG، PNG، WebP، GIF، SVG — همه چیز در مرورگر پردازش می‌شود</small>
+      </span>
+      <input type="file" id="fiFile" accept="image/*">
+    </label>
+    <div class="fi-loader" id="fiLoader">
+      <i class="fa-solid fa-circle-notch"></i>
+      در حال تحلیل فایل...
+    </div>
+    <img class="fi-preview" id="fiPreview" alt="">
+    <div class="fi-content" id="fiContent"></div>`,
+  init(){
+    const fileEl = document.getElementById('fiFile');
+    const loader = document.getElementById('fiLoader');
+    const preview = document.getElementById('fiPreview');
+    const content = document.getElementById('fiContent');
+    let currentFile = null;
+
+    function esc2(s){
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+    function fmtBytes(b){
+      if (b < 1024) return b + ' B';
+      if (b < 1048576) return (b/1024).toFixed(2) + ' KB';
+      if (b < 1073741824) return (b/1048576).toFixed(2) + ' MB';
+      return (b/1073741824).toFixed(2) + ' GB';
+    }
+    function rgbToHex2(r,g,b){
+      return '#' + [r,g,b].map(v => Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('').toUpperCase();
+    }
+
+    async function analyzeGeneral(file, imgEl){
+      const w = imgEl.naturalWidth;
+      const h = imgEl.naturalHeight;
+      const gcd = (a,b) => b ? gcd(b, a%b) : a;
+      const g = gcd(w, h);
+
+      const mimeMap = {
+        'image/jpeg':'JPEG', 'image/png':'PNG', 'image/webp':'WebP',
+        'image/gif':'GIF', 'image/bmp':'BMP', 'image/svg+xml':'SVG',
+        'image/avif':'AVIF', 'image/heic':'HEIC', 'image/heif':'HEIF',
+        'image/tiff':'TIFF', 'image/x-icon':'ICO'
+      };
+      let format = mimeMap[file.type] || '';
+      if (!format){
+        const n = file.name.toLowerCase();
+        const m = n.match(/\.([a-z0-9]+)$/);
+        if (m) format = m[1].toUpperCase();
+        else format = 'نامشخص';
+      }
+
+      let html = '<div class="fi-section"><h4><i class="fa-solid fa-circle-info"></i> اطلاعات عمومی</h4>';
+      html += '<div class="fi-row"><b>نام فایل</b><span>' + esc2(file.name) + '</span></div>';
+      html += '<div class="fi-row"><b>حجم فایل</b><span>' + fmtBytes(file.size) + ' (' + file.size.toLocaleString('en-US') + ' بایت)</span></div>';
+      html += '<div class="fi-row"><b>نوع MIME</b><span>' + esc2(file.type || 'نامشخص') + '</span></div>';
+      html += '<div class="fi-row"><b>فرمت</b><span>' + format + '</span></div>';
+
+      if (file.lastModified){
+        const d = new Date(file.lastModified);
+        const [jy, jm, jd] = gregToJalali(d.getFullYear(), d.getMonth()+1, d.getDate());
+        const time = String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+        html += '<div class="fi-row"><b>آخرین تغییر</b><span>' + toFa(jd) + '/' + toFa(jm) + '/' + toFa(jy) + ' — ' + toFa(time) + '</span></div>';
+      }
+      html += '</div>';
+
+      html += '<div class="fi-section"><h4><i class="fa-solid fa-ruler-combined"></i> ابعاد و اندازه</h4>';
+      html += '<div class="fi-row"><b>عرض</b><span>' + toFa(w) + ' پیکسل</span></div>';
+      html += '<div class="fi-row"><b>ارتفاع</b><span>' + toFa(h) + ' پیکسل</span></div>';
+      html += '<div class="fi-row"><b>ابعاد کامل</b><span>' + toFa(w) + ' × ' + toFa(h) + '</span></div>';
+      html += '<div class="fi-row"><b>تعداد کل پیکسل</b><span>' + (w * h).toLocaleString('en-US') + '</span></div>';
+      html += '<div class="fi-row"><b>نسبت ابعاد</b><span>' + (w/g) + ':' + (h/g) + '</span></div>';
+      if (w && h){
+        const mp = (w * h / 1000000).toFixed(2);
+        html += '<div class="fi-row"><b>مگاپیکسل</b><span>' + mp + ' MP</span></div>';
+      }
+      html += '</div>';
+
+      /* تحلیل رنگ */
+      try {
+        const sw = Math.min(250, w);
+        const sh = Math.min(250, h);
+        const c = document.createElement('canvas');
+        c.width = sw; c.height = sh;
+        const cx = c.getContext('2d');
+        cx.drawImage(imgEl, 0, 0, sw, sh);
+        const data = cx.getImageData(0, 0, sw, sh).data;
+        const colorSet = new Set();
+        let rS = 0, gS = 0, bS = 0, cnt = 0;
+        let hasAlpha = false;
+        let minL = 255, maxL = 0;
+
+        for (let i = 0; i < data.length; i += 4){
+          if (data[i+3] < 250) hasAlpha = true;
+          if (data[i+3] < 128) continue;
+          colorSet.add((data[i]>>3) + ',' + (data[i+1]>>3) + ',' + (data[i+2]>>3));
+          rS += data[i]; gS += data[i+1]; bS += data[i+2];
+          const lum = 0.299*data[i] + 0.587*data[i+1] + 0.114*data[i+2];
+          if (lum < minL) minL = lum;
+          if (lum > maxL) maxL = lum;
+          cnt++;
+        }
+
+        html += '<div class="fi-section"><h4><i class="fa-solid fa-palette"></i> تحلیل رنگ</h4>';
+        if (cnt > 0){
+          const avg = rgbToHex2(rS/cnt, gS/cnt, bS/cnt);
+          html += '<div class="fi-row"><b>تعداد رنگ‌های یکتا</b><span>~' + colorSet.size.toLocaleString('en-US') + '</span></div>';
+          html += '<div class="fi-row"><b>رنگ میانگین</b><span>' + avg + '<span class="fi-color-dot" style="background:' + avg + '"></span></span></div>';
+          html += '<div class="fi-row"><b>محدوده روشنایی</b><span>' + Math.round(minL) + ' تا ' + Math.round(maxL) + '</span></div>';
+          const range = maxL - minL;
+          const contrast = range > 180 ? 'کنتراست بالا' : range > 100 ? 'کنتراست متوسط' : 'کنتراست پایین';
+          html += '<div class="fi-row"><b>کنتراست تصویر</b><span>' + contrast + '</span></div>';
+        }
+        html += '<div class="fi-row"><b>شفافیت</b><span>' + (hasAlpha ? 'دارد (کانال آلفا)' : 'ندارد') + '</span></div>';
+        html += '</div>';
+      } catch(e){ console.warn('color analysis failed', e); }
+
+      return html;
+    }
+
+    async function analyzePngChunks(file){
+      if (!/\.png$/i.test(file.name) && file.type !== 'image/png') return '';
+      try {
+        const buffer = await file.arrayBuffer();
+        const bytes = new Uint8Array(buffer);
+        const view = new DataView(buffer);
+        const sig = [137,80,78,71,13,10,26,10];
+        for (let i = 0; i < 8; i++) if (bytes[i] !== sig[i]) return '';
+
+        let offset = 8;
+        let bitDepth = 0, colorType = 0, interlace = 0;
+        let dpi = null;
+        const texts = [];
+        const chunkTypes = [];
+        const colorTypes = {0:'Grayscale', 2:'RGB', 3:'Indexed', 4:'Grayscale + Alpha', 6:'RGBA'};
+
+        while (offset < bytes.length - 12){
+          const len = view.getUint32(offset, false);
+          const type = String.fromCharCode(bytes[offset+4], bytes[offset+5], bytes[offset+6], bytes[offset+7]);
+          chunkTypes.push(type);
+
+          if (type === 'IHDR'){
+            bitDepth = bytes[offset+8];
+            colorType = bytes[offset+9];
+            interlace = bytes[offset+12];
+          } else if (type === 'pHYs'){
+            const ppuX = view.getUint32(offset+8, false);
+            const unit = bytes[offset+16];
+            if (unit === 1) dpi = Math.round(ppuX * 0.0254);
+          } else if (type === 'tEXt' || type === 'iTXt'){
+            let text = '';
+            const start = offset + 8;
+            for (let i = start; i < offset + 8 + len && i < bytes.length; i++){
+              const b = bytes[i];
+              if (b === 0) break;
+              text += (b >= 32 && b < 127) ? String.fromCharCode(b) : ' ';
+            }
+            if (text.trim()) texts.push(text.trim());
+          }
+
+          offset += 12 + len;
+          if (type === 'IEND') break;
+        }
+
+        let html = '<div class="fi-section"><h4><i class="fa-solid fa-image"></i> ساختار PNG</h4>';
+        html += '<div class="fi-row"><b>عمق رنگ</b><span>' + bitDepth + ' بیت</span></div>';
+        html += '<div class="fi-row"><b>حالت رنگ</b><span>' + (colorTypes[colorType] || ('نوع ' + colorType)) + '</span></div>';
+        html += '<div class="fi-row"><b>درهم‌بافی</b><span>' + (interlace === 1 ? 'Adam7' : 'بدون') + '</span></div>';
+        if (dpi) html += '<div class="fi-row"><b>رزولوشن فیزیکی</b><span>' + dpi + ' DPI</span></div>';
+        if (texts.length){
+          html += '<div class="fi-row"><b>متادیتای متنی</b><span>' + esc2(texts.join(' | ').substring(0, 200)) + '</span></div>';
+        }
+        html += '<div class="fi-row"><b>تعداد Chunks</b><span>' + chunkTypes.length + '</span></div>';
+        html += '<div class="fi-row"><b>Chunkهای موجود</b><span>' + esc2(chunkTypes.join(', ')) + '</span></div>';
+        html += '</div>';
+        return html;
+      } catch(e){
+        return '';
+      }
+    }
+
+    fileEl.addEventListener('change', () => {
+      const f = fileEl.files[0];
+      if (!f) return;
+      currentFile = f;
+      content.classList.remove('on');
+      loader.classList.add('on');
+      preview.style.display = 'none';
+
+      const url = URL.createObjectURL(f);
+      preview.src = url;
+      preview.style.display = 'block';
+
+      const imgEl = new Image();
+      imgEl.onload = async () => {
+        try {
+          const general = await analyzeGeneral(f, imgEl);
+          const png = await analyzePngChunks(f);
+          content.innerHTML = general + png;
+          content.classList.add('on');
+        } catch(e){
+          console.error(e);
+          content.innerHTML = '<div class="fi-empty">خطا در تحلیل فایل.</div>';
+          content.classList.add('on');
+        }
+        loader.classList.remove('on');
+      };
+      imgEl.onerror = () => {
+        loader.classList.remove('on');
+        content.innerHTML = '<div class="fi-empty">فایل تصویری معتبر نیست یا فرمت آن پشتیبانی نمی‌شود.</div>';
+        content.classList.add('on');
+      };
+      imgEl.src = url;
+    });
+  }
+});
+
+
+  /* ══════ ASCII ART ══════ */
+TOOLS.push({
+  id:'ascii', cat:'image', icon:'fa-solid fa-font',
+  title:'تبدیل عکس به متن کاراکتری', tag:'تصویر',
+  desc:'عکس را به هنر کاراکتری (ASCII) تبدیل و کپی کنید.',
+  html:`<style>
+      .as-drop{padding:1.4rem 1rem;border-radius:14px;border:2px dashed rgba(217,194,0,.4);background:var(--panel);text-align:center;cursor:pointer;transition:.3s;display:block;width:100%}
+      .as-drop:hover{border-color:var(--gold);background:var(--soft)}
+      .as-drop i{font-size:1.6rem;color:var(--gold);display:block;margin-bottom:.4rem}
+      .as-drop b{font-size:.82rem;font-weight:800;display:block;margin-bottom:.2rem}
+      .as-drop small{font-size:.64rem;color:var(--muted);display:block}
+      .as-drop input{display:none}
+      .as-preview{margin-top:1rem;max-width:100%;max-height:180px;border-radius:12px;border:1px solid var(--stroke);object-fit:contain;margin-inline:auto;display:none}
+      .as-settings{margin-top:1rem;display:none}
+      .as-settings.on{display:block}
+      .as-charsets{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.4rem;margin-top:.5rem}
+      .as-cs{padding:.6rem .7rem;border-radius:9px;background:var(--panel);border:2px solid var(--stroke);cursor:pointer;transition:.3s;text-align:center;font-size:.7rem;font-weight:700;color:var(--muted);font-family:monospace;letter-spacing:.05em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+      .as-cs:hover{border-color:var(--gold);color:var(--text)}
+      .as-cs.active{border-color:var(--gold);background:var(--soft);color:var(--gold)}
+      .as-output{margin-top:1rem;padding:1rem;border-radius:12px;background:#0a0a0e;border:1px solid var(--stroke);font-family:ui-monospace,'Courier New',monospace;font-size:6px;line-height:1.05;color:#e6e6e6;white-space:pre;overflow:auto;max-height:500px;text-align:left;direction:ltr;letter-spacing:0}
+      @media (max-width:640px){.as-output{font-size:4px}}
+      .as-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+      .as-actions .btn{flex:1 1 auto;min-width:130px}
+      .as-info{font-size:.72rem;color:var(--muted);margin-top:.5rem;text-align:center}
+    </style>
+    <label class="as-drop" for="asFile">
+      <span>
+        <i class="fa-solid fa-image"></i>
+        <b>انتخاب تصویر</b>
+        <small>PNG، JPG یا WebP — همه چیز در مرورگر پردازش می‌شود</small>
+      </span>
+      <input type="file" id="asFile" accept="image/*">
+    </label>
+    <img class="as-preview" id="asPreview" alt="">
+    <div class="as-settings" id="asSettings">
+      <div class="f"><label>عرض کاراکترها: <span id="asWidthVal">۱۰۰</span></label>
+        <input type="range" id="asWidth" min="40" max="200" value="100" step="10">
+      </div>
+      <div class="f"><label>مجموعه کاراکتر</label>
+        <div class="as-charsets" id="asCharsets"></div>
+      </div>
+      <div class="btnrow" style="margin-top:1rem">
+        <button class="btn primary" id="asGenerate"><span>تولید ASCII <i class="fa-solid fa-wand-magic-sparkles"></i></span></button>
+        <button class="btn ghost" id="asCopy"><span>کپی متن</span></button>
+        <button class="btn ghost" id="asDownload"><span>دانلود TXT</span></button>
+      </div>
+    </div>
+    <div class="as-output" id="asOutput"></div>
+    <div class="as-info" id="asInfo"></div>`,
+  init(){
+    const CHARSETS = [
+      {id:'classic', name:'کلاسیک', chars:'@%#*+=-:. '},
+      {id:'dense', name:'متراکم', chars:'$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,"^`\'. '},
+      {id:'blocks', name:'بلوک', chars:'█▓▒░ '},
+      {id:'shade', name:'سایه', chars:'▓▒░ '},
+      {id:'dots', name:'نقطه', chars:'●◉◎○◌ '},
+      {id:'minimal', name:'مینیمال', chars:'#. '},
+      {id:'numeric', name:'عددی', chars:'9876543210 '}
+    ];
+
+    const fileEl = document.getElementById('asFile');
+    const preview = document.getElementById('asPreview');
+    const settings = document.getElementById('asSettings');
+    const widthSlider = document.getElementById('asWidth');
+    const widthVal = document.getElementById('asWidthVal');
+    const charsetBox = document.getElementById('asCharsets');
+    const output = document.getElementById('asOutput');
+    const infoEl = document.getElementById('asInfo');
+
+    let img = null;
+    let currentCharset = 'classic';
+
+    charsetBox.innerHTML = CHARSETS.map(c =>
+      '<div class="as-cs' + (c.id === currentCharset ? ' active' : '') + '" data-id="' + c.id + '">' + esc(c.name) + '</div>'
+    ).join('');
+
+    charsetBox.addEventListener('click', e => {
+      const el = e.target.closest('.as-cs');
+      if (!el) return;
+      charsetBox.querySelectorAll('.as-cs').forEach(x => x.classList.remove('active'));
+      el.classList.add('active');
+      currentCharset = el.dataset.id;
+    });
+
+    widthSlider.addEventListener('input', () => {
+      widthVal.textContent = toFa(widthSlider.value);
+    });
+
+    fileEl.addEventListener('change', () => {
+      const f = fileEl.files[0];
+      if (!f) return;
+      const i = new Image();
+      i.onload = () => {
+        img = i;
+        preview.src = URL.createObjectURL(f);
+        preview.style.display = 'block';
+        settings.classList.add('on');
+        generate();
+      };
+      i.src = URL.createObjectURL(f);
+    });
+
+    function generate(){
+      if (!img){ toast('ابتدا یک تصویر انتخاب کنید'); return; }
+
+      const targetWidth = Math.max(40, Math.min(200, +widthSlider.value));
+      const ratio = img.naturalHeight / img.naturalWidth;
+      /* ارتفاع کاراکترها دو برابر عرض است، پس تقسیم بر ۰.۵ */
+      const targetHeight = Math.round(targetWidth * ratio * 0.5);
+
+      const c = document.createElement('canvas');
+      c.width = targetWidth;
+      c.height = targetHeight;
+      const ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+
+      const data = ctx.getImageData(0, 0, targetWidth, targetHeight).data;
+      const cs = CHARSETS.find(x => x.id === currentCharset) || CHARSETS[0];
+      const chars = cs.chars;
+      const charsLen = chars.length;
+
+      let out = '';
+      for (let y = 0; y < targetHeight; y++){
+        for (let x = 0; x < targetWidth; x++){
+          const i = (y * targetWidth + x) * 4;
+          const r = data[i];
+          const g = data[i+1];
+          const b = data[i+2];
+          const a = data[i+3];
+          /* درخشندگی با فرمول ITU-R BT.601 */
+          const lum = (0.299*r + 0.587*g + 0.114*b) * (a / 255);
+          /* کاراکتر روشن‌تر در ابتدای لیست، تیره‌تر در آخر */
+          const idx = Math.min(charsLen - 1, Math.floor((lum / 255) * charsLen));
+          out += chars[idx];
+        }
+        out += '\n';
+      }
+
+      output.textContent = out;
+      infoEl.textContent = toFa(targetWidth) + ' × ' + toFa(targetHeight) + ' کاراکتر — ' + toFa(out.length) + ' کاراکتر کل';
+    }
+
+    document.getElementById('asGenerate').addEventListener('click', generate);
+
+    document.getElementById('asCopy').addEventListener('click', () => {
+      const txt = output.textContent;
+      if (!txt){ toast('ابتدا ASCII را تولید کنید'); return; }
+      copy(txt, 'متن ASCII کپی شد ✦');
+    });
+
+    document.getElementById('asDownload').addEventListener('click', () => {
+      const txt = output.textContent;
+      if (!txt){ toast('ابتدا ASCII را تولید کنید'); return; }
+      const blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
+      download(blob, 'ascii-art.txt');
+    });
+  }
+});
+
+
+    /* ══════ PIXEL ART ══════ */
+TOOLS.push({
+  id:'pixelart', cat:'image', icon:'fa-solid fa-palette',
+  title:'نقاشی پیکسلی و کوفی', tag:'تصویر',
+  desc:'با پیکسل نقاشی کنید — با راهنمای کوفی‌بنایی و دانلود PNG.',
+  html:`<style>
+      .px-toolbar{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:.8rem;padding:.7rem;background:var(--panel);border:1px solid var(--stroke);border-radius:12px}
+      .px-sizes{display:flex;gap:.3rem;flex-wrap:wrap}
+      .px-size{padding:.4rem .65rem;border-radius:8px;background:transparent;border:1px solid var(--stroke);color:var(--muted);font-size:.7rem;font-weight:700;cursor:pointer;transition:.25s;font-family:monospace;min-width:44px;text-align:center}
+      .px-size:hover{color:var(--text);border-color:var(--gold)}
+      .px-size.active{background:var(--soft);border-color:var(--gold);color:var(--gold)}
+      .px-tool{width:36px;height:36px;border-radius:9px;background:var(--panel);border:1px solid var(--stroke);color:var(--muted);cursor:pointer;transition:.25s;display:grid;place-items:center;font-size:.9rem}
+      .px-tool:hover{color:var(--text);border-color:var(--gold)}
+      .px-tool.active{background:var(--soft);border-color:var(--gold);color:var(--gold)}
+      .px-color-wrap{display:flex;align-items:center;gap:.35rem}
+      .px-color-wrap label{font-size:.68rem;color:var(--muted);font-weight:700}
+      .px-color{width:36px;height:36px;padding:0;border-radius:9px;border:1px solid var(--stroke);cursor:pointer;background:transparent}
+      .px-canvas-wrap{
+        position:relative;
+        width:100%;
+        max-width:520px;
+        margin:0 auto;
+        aspect-ratio:1;
+        background:var(--panel);
+        border:1px solid var(--stroke);
+        border-radius:14px;
+        overflow:hidden;
+        touch-action:none;
+      }
+      #pxCanvas{display:block;width:100%;height:100%;cursor:crosshair;image-rendering:pixelated;image-rendering:crisp-edges}
+      .px-kufic-overlay{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s}
+      .px-kufic-overlay.on{opacity:.18}
+      .px-kufic-overlay svg{width:100%;height:100%}
+      .px-palette{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.7rem;justify-content:center}
+      .px-swatch{width:26px;height:26px;border-radius:7px;border:2px solid var(--stroke);cursor:pointer;transition:.25s}
+      .px-swatch:hover{transform:scale(1.15);border-color:var(--gold)}
+      .px-swatch.active{border-color:var(--gold);box-shadow:0 0 10px rgba(217,194,0,.6)}
+      .px-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem;justify-content:center}
+      .px-actions .btn{flex:1 1 auto;min-width:120px}
+      .px-hint{font-size:.68rem;color:var(--muted);text-align:center;margin-top:.6rem}
+      .px-kufic-templates{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.6rem;justify-content:center}
+      .px-kufic-btn{padding:.4rem .75rem;border-radius:8px;background:transparent;border:1px solid var(--stroke);color:var(--muted);font-size:.68rem;font-weight:700;cursor:pointer;transition:.25s}
+      .px-kufic-btn:hover,.px-kufic-btn.active{border-color:var(--gold);color:var(--gold);background:var(--soft)}
+    </style>
+    <div class="px-toolbar">
+      <div class="px-sizes" id="pxSizes"></div>
+      <div style="display:flex;gap:.25rem;margin-inline-start:auto">
+        <button class="px-tool active" data-tool="pencil" title="قلم"><i class="fa-solid fa-pencil"></i></button>
+        <button class="px-tool" data-tool="eraser" title="پاک‌کن"><i class="fa-solid fa-eraser"></i></button>
+        <button class="px-tool" data-tool="undo" title="بازگردانی"><i class="fa-solid fa-rotate-left"></i></button>
+        <button class="px-tool" data-tool="clear" title="پاک کردن همه"><i class="fa-solid fa-trash"></i></button>
+      </div>
+      <div class="px-color-wrap">
+        <label>رنگ:</label>
+        <input type="color" id="pxColor" class="px-color" value="#D9C200">
+      </div>
+    </div>
+
+    <div class="px-palette" id="pxPalette"></div>
+
+    <div class="px-canvas-wrap">
+      <canvas id="pxCanvas" width="512" height="512"></canvas>
+      <div class="px-kufic-overlay" id="pxKuficOverlay"></div>
+    </div>
+
+    <div class="px-kufic-templates">
+      <button class="px-kufic-btn active" data-kufic="none">بدون راهنما</button>
+      <button class="px-kufic-btn" data-kufic="square">کوفی مربعی</button>
+      <button class="px-kufic-btn" data-kufic="diagonal">کوفی مورب</button>
+      <button class="px-kufic-btn" data-kufic="grid">شبکه راهنما</button>
+    </div>
+
+    <div class="px-actions">
+      <button class="btn primary" id="pxDownload"><span>دانلود PNG <i class="fa-solid fa-download"></i></span></button>
+    </div>
+    <p class="px-hint">روی گرید بکشید تا نقاشی کنید — <b>Ctrl+Z</b> برای بازگردانی</p>`,
+  init(){
+    const SIZES = [16, 24, 32, 48, 64, 96, 128];
+    const PALETTE = ['#D9C200','#ffffff','#000000','#e53935','#fb8c00','#fdd835','#43a047','#00acc1','#1e88e5','#5e35b1','#8e24aa','#ec407a','#6d4c41','#9e9e9e','#c0ca33','#00897b'];
+
+    const canvas = document.getElementById('pxCanvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const sizesBox = document.getElementById('pxSizes');
+    const paletteBox = document.getElementById('pxPalette');
+    const colorInput = document.getElementById('pxColor');
+    const overlay = document.getElementById('pxKuficOverlay');
+
+    let gridSize = 32;
+    let currentTool = 'pencil';
+    let currentColor = '#D9C200';
+    /* گرید پیکسل‌ها به‌صورت یک canvas بزرگ مقیاس‌پذیر */
+    let pixels = [];
+    let history = [];
+    let isDrawing = false;
+    let lastCell = null;
+
+    /* مقدار اولیه: همه شفاف */
+    function initPixels(){
+      pixels = new Array(gridSize * gridSize).fill(null);
+    }
+
+    function pushHistory(){
+      history.push(pixels.slice());
+      if (history.length > 30) history.shift();
+    }
+
+    function renderSizes(){
+      sizesBox.innerHTML = SIZES.map(s =>
+        '<button class="px-size' + (s === gridSize ? ' active' : '') + '" data-s="' + s + '">' + toFa(s) + '×' + toFa(s) + '</button>'
+      ).join('');
+    }
+
+    function renderPalette(){
+      paletteBox.innerHTML = PALETTE.map(c =>
+        '<div class="px-swatch' + (c.toUpperCase() === currentColor.toUpperCase() ? ' active' : '') + '" data-color="' + c + '" style="background:' + c + '"></div>'
+      ).join('');
+    }
+
+    function draw(){
+      const cellW = canvas.width / gridSize;
+      const cellH = canvas.height / gridSize;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      /* شفافیت چکربورد */
+      const cbSize = canvas.width / 16;
+      for (let y = 0; y < 16; y++){
+        for (let x = 0; x < 16; x++){
+          ctx.fillStyle = ((x + y) % 2 === 0) ? '#1a1a22' : '#23232c';
+          ctx.fillRect(x * cbSize, y * cbSize, cbSize, cbSize);
+        }
+      }
+
+      /* پیکسل‌ها */
+      for (let y = 0; y < gridSize; y++){
+        for (let x = 0; x < gridSize; x++){
+          const c = pixels[y * gridSize + x];
+          if (c){
+            ctx.fillStyle = c;
+            ctx.fillRect(x * cellW, y * cellH, cellW + 0.5, cellH + 0.5);
+          }
+        }
+      }
+
+      /* خطوط راهنمای نازک فقط اگر تعداد پیکسل کم باشد */
+      if (gridSize <= 32){
+        ctx.strokeStyle = 'rgba(255,255,255,.08)';
+        ctx.lineWidth = 1;
+        for (let i = 0; i <= gridSize; i++){
+          ctx.beginPath();
+          ctx.moveTo(i * cellW, 0);
+          ctx.lineTo(i * cellW, canvas.height);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(0, i * cellH);
+          ctx.lineTo(canvas.width, i * cellH);
+          ctx.stroke();
+        }
+      }
+
+      /* در خطوط کم‌تر، خطوط پرنگ‌تر هر ۴ خانه */
+      if (gridSize <= 64){
+        ctx.strokeStyle = 'rgba(217,194,0,.18)';
+        ctx.lineWidth = 1.5;
+        const step = gridSize / 4;
+        for (let i = 0; i <= 4; i++){
+          const pos = i * step * cellW;
+          ctx.beginPath();
+          ctx.moveTo(pos, 0);
+          ctx.lineTo(pos, canvas.height);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(0, pos);
+          ctx.lineTo(canvas.width, pos);
+          ctx.stroke();
+        }
+      }
+    }
+
+    function getCellFromEvent(e){
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      const gx = Math.floor(x * gridSize);
+      const gy = Math.floor(y * gridSize);
+      if (gx < 0 || gy < 0 || gx >= gridSize || gy >= gridSize) return null;
+      return {x: gx, y: gy};
+    }
+
+    function paintCell(cell){
+      if (!cell) return;
+      const idx = cell.y * gridSize + cell.x;
+      if (currentTool === 'eraser'){
+        pixels[idx] = null;
+      } else {
+        pixels[idx] = currentColor;
+      }
+      draw();
+    }
+
+    function paintLine(a, b){
+      /* رسم خط بین دو خانه با الگوریتم Bresenham */
+      let x0 = a.x, y0 = a.y, x1 = b.x, y1 = b.y;
+      const dx = Math.abs(x1 - x0), dy = Math.abs(y1 - y0);
+      const sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1;
+      let err = dx - dy;
+      while (true){
+        const idx = y0 * gridSize + x0;
+        if (currentTool === 'eraser') pixels[idx] = null;
+        else pixels[idx] = currentColor;
+        if (x0 === x1 && y0 === y1) break;
+        const e2 = 2 * err;
+        if (e2 > -dy){ err -= dy; x0 += sx; }
+        if (e2 < dx){ err += dx; y0 += sy; }
+      }
+      draw();
+    }
+
+    canvas.addEventListener('pointerdown', e => {
+      if (e.button !== 0 && e.pointerType === 'mouse') return;
+      e.preventDefault();
+      isDrawing = true;
+      lastCell = getCellFromEvent(e);
+      pushHistory();
+      paintCell(lastCell);
+      canvas.setPointerCapture(e.pointerId);
+    });
+
+    canvas.addEventListener('pointermove', e => {
+      if (!isDrawing) return;
+      e.preventDefault();
+      const cell = getCellFromEvent(e);
+      if (cell && lastCell){
+        if (cell.x !== lastCell.x || cell.y !== lastCell.y){
+          paintLine(lastCell, cell);
+        }
+      } else if (cell){
+        paintCell(cell);
+      }
+      lastCell = cell;
+    });
+
+    function endDraw(){
+      isDrawing = false;
+      lastCell = null;
+    }
+    canvas.addEventListener('pointerup', endDraw);
+    canvas.addEventListener('pointercancel', endDraw);
+    canvas.addEventListener('pointerleave', endDraw);
+
+    canvas.addEventListener('contextmenu', e => e.preventDefault());
+
+    /* ابزارها */
+    document.querySelectorAll('.px-tool').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tool = btn.dataset.tool;
+        if (tool === 'undo'){
+          if (history.length){
+            pixels = history.pop();
+            draw();
+          }
+          return;
+        }
+        if (tool === 'clear'){
+          if (!pixels.some(x => x)) return;
+          pushHistory();
+          initPixels();
+          draw();
+          return;
+        }
+        document.querySelectorAll('.px-tool[data-tool="pencil"], .px-tool[data-tool="eraser"]').forEach(x => x.classList.remove('active'));
+        btn.classList.add('active');
+        currentTool = tool;
+      });
+    });
+
+    /* Ctrl+Z */
+    document.addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z'){
+        if (!document.body.contains(canvas)) return;
+        e.preventDefault();
+        if (history.length){
+          pixels = history.pop();
+          draw();
+        }
+      }
+    });
+
+    /* تغییر سایز */
+    sizesBox.addEventListener('click', e => {
+      const b = e.target.closest('.px-size');
+      if (!b) return;
+      const s = +b.dataset.s;
+      if (s === gridSize) return;
+      /* کوچک‌سازی/بزرگ‌سازی با نگه‌داشتن نسبت */
+      const old = pixels;
+      const oldSize = gridSize;
+      const oldCells = [];
+      for (let y = 0; y < oldSize; y++){
+        for (let x = 0; x < oldSize; x++){
+          const c = old[y * oldSize + x];
+          if (c) oldCells.push({x, y, c});
+        }
+      }
+      gridSize = s;
+      initPixels();
+      /* انتقال نقاشی قبلی به ابعاد جدید با نگه‌داشتن نسبت مکان */
+      oldCells.forEach(cell => {
+        const nx = Math.floor(cell.x * s / oldSize);
+        const ny = Math.floor(cell.y * s / oldSize);
+        if (nx < s && ny < s) pixels[ny * s + nx] = cell.c;
+      });
+      history = [];
+      sizesBox.querySelectorAll('.px-size').forEach(x => x.classList.toggle('active', +x.dataset.s === s));
+      draw();
+    });
+
+    /* پالت */
+    paletteBox.addEventListener('click', e => {
+      const s = e.target.closest('.px-swatch');
+      if (!s) return;
+      currentColor = s.dataset.color;
+      colorInput.value = currentColor;
+      paletteBox.querySelectorAll('.px-swatch').forEach(x => x.classList.toggle('active', x === s));
+    });
+
+    colorInput.addEventListener('input', () => {
+      currentColor = colorInput.value.toUpperCase();
+      paletteBox.querySelectorAll('.px-swatch').forEach(x => x.classList.toggle('active', x.dataset.color.toUpperCase() === currentColor));
+    });
+
+    /* راهنمای کوفی */
+    const KUFIC_TEMPLATES = {
+      square: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M10 10 H90 V90 H10 Z" fill="none" stroke="#D9C200" stroke-width="2"/><path d="M30 30 H70 V70 H30 Z M20 50 H80 M50 20 V80" fill="none" stroke="#D9C200" stroke-width="1.5"/></svg>',
+      diagonal: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 0 L100 100 M100 0 L0 100 M0 50 H100 M50 0 V100" fill="none" stroke="#D9C200" stroke-width="1.5"/></svg>',
+      grid: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M25 0 V100 M50 0 V100 M75 0 V100 M0 25 H100 M0 50 H100 M0 75 H100" stroke="#D9C200" stroke-width="1" fill="none"/></svg>'
+    };
+
+    document.querySelectorAll('.px-kufic-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.px-kufic-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        const k = b.dataset.kufic;
+        if (k === 'none'){
+          overlay.classList.remove('on');
+          overlay.innerHTML = '';
+        } else {
+          overlay.innerHTML = KUFIC_TEMPLATES[k] || '';
+          overlay.classList.add('on');
+        }
+      });
+    });
+
+    /* دانلود PNG */
+    document.getElementById('pxDownload').addEventListener('click', () => {
+      /* رندر نهایی: بدون چکربورد، فقط پیکسل‌ها روی پس‌زمینه شفاف */
+      const out = document.createElement('canvas');
+      const SCALE = Math.max(2, Math.floor(512 / gridSize));
+      out.width = gridSize * SCALE;
+      out.height = gridSize * SCALE;
+      const octx = out.getContext('2d');
+
+      for (let y = 0; y < gridSize; y++){
+        for (let x = 0; x < gridSize; x++){
+          const c = pixels[y * gridSize + x];
+          if (c){
+            octx.fillStyle = c;
+            octx.fillRect(x * SCALE, y * SCALE, SCALE, SCALE);
+          }
+        }
+      }
+
+      out.toBlob(b => {
+        if (!b){ toast('خطا در تولید PNG'); return; }
+        download(b, 'pixel-art-' + gridSize + 'x' + gridSize + '.png');
+        toast('تصویر دانلود شد ✦');
+      }, 'image/png');
+    });
+
+    /* مقدار اولیه */
+    renderSizes();
+    renderPalette();
+    initPixels();
+    draw();
+  }
+});
+
+    
+
     /* ══════ IMAGE ══════ */
 TOOLS.push({
   id:'compress', cat:'image', icon:'fa-solid fa-compress',
