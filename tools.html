@@ -814,6 +814,8 @@ TOOLS.push({
   }
 });
 
+    
+
 TOOLS.push({
   id:'fancy', cat:'text', icon:'fa-solid fa-wand-sparkles',
   title:'تبدیل حروف به سبک خاص', tag:'متن',
@@ -1216,6 +1218,142 @@ TOOLS.push({
   }
 });
 
+
+
+/* ══════ SYMBOLS ══════ */
+TOOLS.push({
+  id:'symbols', cat:'general', icon:'fa-solid fa-icons',
+  title:'گالری نمادهای خاص', tag:'عمومی',
+  desc:'بیش از ۳۵۰ نماد کمیاب، تزئینی، مذهبی و ریاضی — با کلیک کپی کنید.',
+  html:`<style>
+      .sym-search{position:relative;margin-bottom:.8rem}
+      .sym-search input{width:100%;padding:.7rem 2.4rem .7rem 1rem;border-radius:99px;background:var(--panel);border:1px solid var(--stroke);color:var(--text);font-size:.82rem}
+      .sym-search input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px var(--soft)}
+      .sym-search i{position:absolute;top:50%;right:.9rem;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:.85rem}
+      .sym-tabs{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.9rem;padding:.35rem;background:var(--panel);border:1px solid var(--stroke);border-radius:12px}
+      .sym-tab{padding:.5rem .85rem;border-radius:9px;background:transparent;border:1px solid transparent;color:var(--muted);font-size:.72rem;font-weight:700;cursor:pointer;transition:.3s;display:inline-flex;align-items:center;gap:.35rem}
+      .sym-tab i{font-size:.68rem;color:var(--gold)}
+      .sym-tab:hover{color:var(--text);background:rgba(255,255,255,.04)}
+      .sym-tab.active{background:var(--soft);border-color:var(--gold);color:var(--gold)}
+      .sym-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:.4rem;max-height:420px;overflow-y:auto;padding:.3rem}
+      .sym-btn{aspect-ratio:1;border-radius:10px;background:var(--panel);border:1px solid var(--stroke);color:var(--text);font-size:1.4rem;cursor:pointer;transition:.25s;display:grid;place-items:center;line-height:1;padding:0;font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2",Vazirmatn,sans-serif}
+      .sym-btn:hover{background:var(--soft);border-color:var(--gold);transform:translateY(-2px) scale(1.05);color:var(--gold)}
+      .sym-btn:active{transform:scale(.94)}
+      .sym-empty{grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted);font-size:.82rem}
+      .sym-recent{margin-bottom:.9rem;padding:.6rem .9rem;border-radius:11px;background:rgba(217,194,0,.06);border:1px dashed rgba(217,194,0,.3);font-size:.72rem;color:var(--muted);display:none}
+      .sym-recent.on{display:block}
+      .sym-recent b{color:var(--gold)}
+      .sym-recent-list{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.4rem}
+      .sym-recent-list span{padding:.3rem .55rem;border-radius:7px;background:var(--panel);cursor:pointer;font-size:1.1rem;transition:.2s;display:grid;place-items:center;min-width:32px;min-height:32px}
+      .sym-recent-list span:hover{background:var(--soft);color:var(--gold)}
+    </style>
+    <div class="sym-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="symSearch" placeholder="جستجو در نمادها..." autocomplete="off">
+    </div>
+    <div class="sym-tabs" id="symTabs"></div>
+    <div class="sym-recent" id="symRecent">
+      <b>آخرین کپی‌ها:</b>
+      <div class="sym-recent-list" id="symRecentList"></div>
+    </div>
+    <div class="sym-grid" id="symGrid"></div>`,
+  init(){
+    const CHARS = {
+      arrows: ['←','↑','→','↓','↔','↕','↖','↗','↘','↙','↚','↛','↜','↝','↞','↟','↠','↡','↢','↣','↤','↥','↦','↧','↨','↩','↪','↫','↬','↭','↮','↯','↰','↱','↲','↳','↴','↵','↶','↷','↺','↻','⇐','⇑','⇒','⇓','⇔','⇕','⇖','⇗','⇘','⇙','⇚','⇛','⇜','⇝','⇞','⇟','⇠','⇡','⇢','⇣','⇤','⇥','⇦','⇧','⇨','⇩'],
+      shapes: ['●','○','◐','◑','◒','◓','◔','◕','◖','◗','◘','◙','◜','◝','◞','◟','◠','◡','◢','◣','◤','◥','◦','◧','◨','◩','◪','◫','◬','◭','◮','◯','◰','◱','◲','◳','◴','◵','◶','◷','◸','◹','◺','◻','◼','◽','◾','◿','■','□','▣','▤','▥','▦','▧','▨','▩','▪','▫','▬','▭','▮','▯','▲','△','▴','▵','▶','▷','▸','▹','►','▻','▼','▽','▾','▿','◀','◁','◂','◃','◄','◅','◆','◇','◈','◉','◊','◌','◍','◎'],
+      stars: ['★','☆','✩','✪','✫','✬','✭','✮','✯','✰','✱','✲','✳','✴','✵','✶','✷','✸','✹','✺','✻','✼','✽','✾','✿','❀','❁','❂','❃','❄','❅','❆','❇','❈','❉','❊','❋','✦','✧','✨','⋆','✢','✣','✤','✥'],
+      decor: ['✁','✂','✃','✄','✆','✇','✈','✉','✎','✏','✐','✑','✒','✓','✔','✕','✖','✗','✘','✙','✚','✛','✜','✝','✞','✟','✠','✡','✢','✣','✤','✥','⚜','⚝','⚞','⚟','☙','☘','❦','❧'],
+      math: ['+','−','×','÷','±','∓','∔','∗','∘','∙','∝','∞','∟','∠','∡','∢','∣','∤','∥','∦','∧','∨','∩','∪','∫','∬','∭','∮','∯','∰','∴','∵','∶','∷','∼','∽','∾','≀','≁','≈','≉','≋','≠','≡','≢','≤','≥','≦','≧','≨','≩','≪','≫','≮','≯'],
+      symbols: ['©','®','™','℠','℃','℉','№','℡','℗','Ω','℧','Å','ℬ','ℭ','℮','ℯ','ℰ','ℱ','ℳ','ℴ','ℵ','ℶ','ℷ','ℸ','ℹ','℺','ℼ','ℽ','ℾ','ℿ','†','‡','•','‣','⁃','⁅','⁆','⁇','⁈','⁉','⁊','⁋','⁌','⁍','⁎','⁏','⁐','⁑','⁒','⁓','⁔','⁕','⁖','⁗','⁘','⁙','⁚','⁛','⁜','⁝','⁞'],
+      religious: ['☪','☫','☬','☭','☮','☯','☰','☱','☲','☳','☴','☵','☶','☷','☸','☹','☺','☻','☼','☽','☾','☿','♀','♁','♂','♃','♄','♅','♆','♇','♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓','卍','卐','✡','✝','☦','☧','☨','☩','♰','♱','ꙮ','꙳','꙰','ॐ','࿊','࿋','࿌','۞','۩'],
+      weird: ['❞','〠','꙳','۝','𖤛','𖠄','⁂','⁑','⁕','⁙','⁘','⋇','⋈','⋉','⋊','⋋','⋌','⋍','⋎','⋏','⋐','⋑','⋒','⋓','⋔','⋕','⋖','⋗','⋘','⋙','⋚','⋛','⋮','⋯','⋰','⋱','⌘','⌥','⌦','⌧','⌫','⌬','⌭','⌮','⌯','⍟','⍠','⍣','⍤','⍥','⍦','⍧','⍨','⍩','⍪','⍫','⍬','⍭','⍮','⍯','⍰','⍱','⍲','⍳','⍴','⍵','⍶','⍷','⍸','⍹','⍺']
+    };
+    const CATS = [
+      {id:'all', name:'همه', icon:'fa-solid fa-grip'},
+      {id:'arrows', name:'فلش', icon:'fa-solid fa-arrow-right'},
+      {id:'shapes', name:'اشکال', icon:'fa-solid fa-shapes'},
+      {id:'stars', name:'ستاره', icon:'fa-solid fa-star'},
+      {id:'decor', name:'تزئینی', icon:'fa-solid fa-wand-magic-sparkles'},
+      {id:'math', name:'ریاضی', icon:'fa-solid fa-square-root-variable'},
+      {id:'symbols', name:'نماد', icon:'fa-solid fa-hashtag'},
+      {id:'religious', name:'مذهبی', icon:'fa-solid fa-star-and-crescent'},
+      {id:'weird', name:'کمیاب', icon:'fa-solid fa-gem'}
+    ];
+    let currentCat = 'all', query = '';
+    const recent = [];
+    const tabs = document.getElementById('symTabs');
+    const grid = document.getElementById('symGrid');
+    const search = document.getElementById('symSearch');
+    const recentBox = document.getElementById('symRecent');
+    const recentList = document.getElementById('symRecentList');
+
+    tabs.innerHTML = CATS.map(c =>
+      '<button class="sym-tab' + (c.id === 'all' ? ' active' : '') + '" data-cat="' + c.id + '">' +
+      '<i class="' + c.icon + '"></i>' + c.name + '</button>'
+    ).join('');
+
+    function getChars(){
+      return currentCat === 'all' ? Object.values(CHARS).flat() : (CHARS[currentCat] || []);
+    }
+
+    function render(){
+      let list = getChars();
+      if (query) list = list.filter(c => c.includes(query));
+      if (!list.length){
+        grid.innerHTML = '<div class="sym-empty">نمادی پیدا نشد</div>';
+        return;
+      }
+      grid.innerHTML = list.map(c =>
+        '<button class="sym-btn" data-sym="' + c.replace(/"/g, '&quot;') + '">' + c + '</button>'
+      ).join('');
+    }
+
+    function addRecent(ch){
+      const i = recent.indexOf(ch);
+      if (i >= 0) recent.splice(i, 1);
+      recent.unshift(ch);
+      if (recent.length > 12) recent.pop();
+      recentBox.classList.add('on');
+      recentList.innerHTML = recent.map(c =>
+        '<span data-sym="' + c.replace(/"/g, '&quot;') + '">' + c + '</span>'
+      ).join('');
+    }
+
+    grid.addEventListener('click', e => {
+      const btn = e.target.closest('.sym-btn');
+      if (!btn) return;
+      const ch = btn.dataset.sym;
+      copy(ch, 'کپی شد: ' + ch);
+      addRecent(ch);
+    });
+
+    recentList.addEventListener('click', e => {
+      const t = e.target.closest('span');
+      if (!t) return;
+      copy(t.dataset.sym, 'کپی شد: ' + t.dataset.sym);
+    });
+
+    tabs.addEventListener('click', e => {
+      const b = e.target.closest('.sym-tab');
+      if (!b) return;
+      tabs.querySelectorAll('.sym-tab').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      currentCat = b.dataset.cat;
+      render();
+    });
+
+    search.addEventListener('input', e => {
+      query = e.target.value.trim();
+      render();
+    });
+
+    render();
+  }
+});
+
+    
+
+    
 TOOLS.push({
   id:'pass', cat:'general', icon:'fa-solid fa-key',
   title:'تولید رمز عبور امن', tag:'عمومی',
@@ -1282,32 +1420,376 @@ TOOLS.push({
   }
 });
 
+
+
+
+    /* ══════ STOPWATCH v2 ══════ */
 TOOLS.push({
   id:'stopwatch', cat:'general', icon:'fa-solid fa-stopwatch',
-  title:'کرنومتر دقیق', tag:'عمومی',
-  desc:'با دقت صدم ثانیه، همراه با ثبت دور.',
+  title:'کرنومتر حرفه‌ای', tag:'عمومی',
+  desc:'با Lap و Split، نمایش رنگی تفاوت‌ها و مرتب‌سازی.',
   html:`<div class="stimer" id="stime">۰۰:۰۰.۰۰</div>
-    <div class="btnrow"><button class="btn" id="sstart"><span>شروع <i class="fa-solid fa-play"></i></span></button><button class="btn ghost" id="slap"><span>دور جدید</span></button><button class="btn ghost" id="sreset"><span>بازنشانی</span></button></div>
+    <div class="btnrow">
+      <button class="btn" id="sstart"><span>شروع <i class="fa-solid fa-play"></i></span></button>
+      <button class="btn primary" id="slap"><span>Lap / Split</span></button>
+      <button class="btn ghost" id="sreset"><span>بازنشانی</span></button>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:.6rem .9rem;margin-top:.7rem;border-radius:10px;background:var(--panel);border:1px solid var(--stroke);font-size:.75rem;font-weight:700">
+      <span style="color:var(--muted)">آخرین Lap</span>
+      <span id="slastlap" style="color:var(--gold);font-family:monospace">--:--.--</span>
+    </div>
     <div class="laps" id="slaps"></div>`,
   init(){
-    const T = $('#stime'), LAPS = $('#slaps');
-    let running = false, startTime = 0, elapsed = 0, raf = null, lastLap = 0, lapCount = 0;
-    function fmt(ms){ const m = Math.floor(ms/60000), s = Math.floor((ms%60000)/1000), cs = Math.floor((ms%1000)/10); return toFa(String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + '.' + String(cs).padStart(2,'0')); }
-    function tick(){ const n = performance.now(); T.textContent = fmt(elapsed + (n - startTime)); if (running) raf = requestAnimationFrame(tick); }
-    function start(){ if (running) return; running = true; startTime = performance.now(); raf = requestAnimationFrame(tick); $('#sstart').querySelector('span').innerHTML = 'توقف <i class="fa-solid fa-pause"></i>'; }
-    function stop(){ if (!running) return; running = false; elapsed += performance.now() - startTime; cancelAnimationFrame(raf); T.textContent = fmt(elapsed); $('#sstart').querySelector('span').innerHTML = 'ادامه <i class="fa-solid fa-play"></i>'; }
-    $('#sstart').addEventListener('click', () => running ? stop() : start());
-    $('#slap').addEventListener('click', () => {
+    const T = document.getElementById('stime');
+    const LAPS = document.getElementById('slaps');
+    const LAST = document.getElementById('slastlap');
+    let running = false, startTime = 0, elapsed = 0, raf = null;
+    let lastSplit = 0, lastLapTime = 0, lapCount = 0;
+
+    function fmt(ms){
+      const m = Math.floor(ms/60000);
+      const s = Math.floor((ms%60000)/1000);
+      const cs = Math.floor((ms%1000)/10);
+      return toFa(String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + '.' + String(cs).padStart(2,'0'));
+    }
+
+    function tick(){
+      const total = elapsed + (performance.now() - startTime);
+      T.textContent = fmt(total);
+      if (running) raf = requestAnimationFrame(tick);
+    }
+
+    document.getElementById('sstart').addEventListener('click', () => {
+      if (running){
+        running = false;
+        elapsed += performance.now() - startTime;
+        cancelAnimationFrame(raf);
+        T.textContent = fmt(elapsed);
+        document.getElementById('sstart').querySelector('span').innerHTML = 'ادامه <i class="fa-solid fa-play"></i>';
+      } else {
+        running = true;
+        startTime = performance.now();
+        raf = requestAnimationFrame(tick);
+        document.getElementById('sstart').querySelector('span').innerHTML = 'توقف <i class="fa-solid fa-pause"></i>';
+      }
+    });
+
+    document.getElementById('slap').addEventListener('click', () => {
       if (!running && elapsed === 0) return;
-      const cur = running ? elapsed + (performance.now() - startTime) : elapsed;
-      const diff = cur - lastLap; lastLap = cur; lapCount++;
-      const d = document.createElement('div'); d.className = 'lap';
-      d.innerHTML = '<span>دور ' + toFa(lapCount) + '</span><span>' + fmt(diff) + '</span><span>' + fmt(cur) + '</span>';
+      const split = running ? elapsed + (performance.now() - startTime) : elapsed;
+      const lapTime = split - lastSplit;
+      const diff = lapCount > 0 ? lapTime - lastLapTime : 0;
+      lastSplit = split;
+      lastLapTime = lapTime;
+      lapCount++;
+
+      LAST.textContent = fmt(lapTime);
+
+      let diffHtml = '<span style="font-size:.72rem;opacity:.4">—</span>';
+      if (lapCount > 1){
+        if (diff < 0) diffHtml = '<span style="color:#7ddba0;font-size:.72rem;font-weight:800">−' + fmt(Math.abs(diff)) + '</span>';
+        else if (diff > 0) diffHtml = '<span style="color:#ff9a9a;font-size:.72rem;font-weight:800">+' + fmt(diff) + '</span>';
+        else diffHtml = '<span style="color:var(--muted);font-size:.72rem">=</span>';
+      }
+
+      const d = document.createElement('div');
+      d.className = 'lap';
+      d.style.cssText = 'display:grid;grid-template-columns:auto 1fr auto auto;gap:.5rem;align-items:center';
+      d.innerHTML =
+        '<span style="color:var(--gold);font-weight:800">#' + toFa(lapCount) + '</span>' +
+        '<span style="font-family:monospace;font-weight:700">' + fmt(lapTime) + '</span>' +
+        diffHtml +
+        '<span style="font-family:monospace;color:var(--muted);font-size:.7rem">' + fmt(split) + '</span>';
       LAPS.prepend(d);
     });
-    $('#sreset').addEventListener('click', () => { running = false; cancelAnimationFrame(raf); elapsed = 0; lastLap = 0; lapCount = 0; T.textContent = '۰۰:۰۰.۰۰'; LAPS.innerHTML = ''; $('#sstart').querySelector('span').innerHTML = 'شروع <i class="fa-solid fa-play"></i>'; });
+
+    document.getElementById('sreset').addEventListener('click', () => {
+      running = false;
+      cancelAnimationFrame(raf);
+      elapsed = 0; lastSplit = 0; lastLapTime = 0; lapCount = 0;
+      T.textContent = '۰۰:۰۰.۰۰';
+      LAST.textContent = '--:--.--';
+      LAPS.innerHTML = '';
+      document.getElementById('sstart').querySelector('span').innerHTML = 'شروع <i class="fa-solid fa-play"></i>';
+    });
   }
 });
+
+
+
+
+    /* ══════ INTERVAL TIMER ══════ */
+TOOLS.push({
+  id:'interval', cat:'general', icon:'fa-solid fa-layer-group',
+  title:'تایمر چند مرحله‌ای', tag:'عمومی',
+  desc:'مراحل زمان‌دار بسازید و به‌صورت حلقه‌ای تکرار کنید.',
+  html:`<style>
+      .iv-stages{display:flex;flex-direction:column;gap:.5rem;margin-bottom:.9rem;max-height:220px;overflow-y:auto;padding:.3rem}
+      .iv-stage{display:grid;grid-template-columns:1fr 90px 38px;gap:.5rem;align-items:center}
+      .iv-stage input{padding:.6rem .8rem;border-radius:10px;background:var(--panel);border:1px solid var(--stroke);color:var(--text);font-size:.82rem;width:100%}
+      .iv-stage input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px var(--soft)}
+      .iv-stage button{width:38px;height:38px;border-radius:10px;background:rgba(229,115,115,.1);border:1px solid rgba(229,115,115,.3);color:#ff9a9a;cursor:pointer;font-size:.85rem;transition:.3s}
+      .iv-stage button:hover{background:rgba(229,115,115,.2)}
+      .iv-add{padding:.6rem;border-radius:10px;background:rgba(217,194,0,.08);border:1px dashed rgba(217,194,0,.4);color:var(--gold);font-weight:700;font-size:.78rem;cursor:pointer;transition:.3s;text-align:center;width:100%;display:block}
+      .iv-add:hover{background:rgba(217,194,0,.15)}
+      .iv-settings{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.9rem}
+      .iv-settings .f{margin:0}
+      .iv-display{display:grid;place-items:center;margin:1.2rem 0 .5rem}
+      .iv-circle{position:relative;width:200px;height:200px}
+      .iv-circle svg{width:100%;height:100%;transform:rotate(-90deg)}
+      .iv-circle .bg-ring{fill:none;stroke:var(--stroke);stroke-width:8}
+      .iv-circle .fg-ring{fill:none;stroke:var(--gold);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset .3s linear;filter:drop-shadow(0 0 8px rgba(217,194,0,.6))}
+      .iv-circle-content{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+      .iv-stage-name{font-size:.78rem;color:var(--muted);font-weight:700;margin-bottom:.3rem}
+      .iv-time{font-size:2rem;font-weight:900;color:var(--gold);font-family:ui-monospace,monospace;line-height:1;text-shadow:0 0 30px rgba(217,194,0,.5)}
+      .iv-repeat-info{font-size:.66rem;color:var(--muted);margin-top:.4rem;font-family:monospace}
+      .iv-badge{display:inline-flex;padding:.3rem .8rem;border-radius:99px;background:var(--soft);border:1px solid rgba(217,194,0,.35);color:var(--gold);font-size:.72rem;font-weight:800;margin-bottom:.6rem}
+    </style>
+    <div class="iv-stages" id="ivStages"></div>
+    <button class="iv-add" id="ivAdd" type="button"><i class="fa-solid fa-plus"></i> افزودن مرحله</button>
+    <div class="iv-settings">
+      <div class="f"><label>تعداد تکرار</label><input type="number" id="ivRepeat" value="3" min="1" max="99"></div>
+      <div class="f"><label>آماده‌سازی (ثانیه)</label><input type="number" id="ivPrep" value="5" min="0" max="60"></div>
+    </div>
+    <div class="iv-display">
+      <span class="iv-badge" id="ivBadge" style="display:none">—</span>
+      <div class="iv-circle">
+        <svg viewBox="0 0 200 200">
+          <circle class="bg-ring" cx="100" cy="100" r="90"/>
+          <circle class="fg-ring" id="ivRing" cx="100" cy="100" r="90" stroke-dasharray="565.5" stroke-dashoffset="0"/>
+        </svg>
+        <div class="iv-circle-content">
+          <div>
+            <div class="iv-stage-name" id="ivName">آماده</div>
+            <div class="iv-time" id="ivTime">۰۰:۰۰</div>
+            <div class="iv-repeat-info" id="ivInfo"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btnrow" style="margin-top:1rem">
+      <button class="btn primary" id="ivStart"><span>شروع <i class="fa-solid fa-play"></i></span></button>
+      <button class="btn ghost" id="ivReset"><span>بازنشانی</span></button>
+    </div>`,
+  init(){
+    let stages = [
+      {name:'تمرین', sec: 120},
+      {name:'استراحت', sec: 30}
+    ];
+    let running = false;
+    let currentIdx = -1;
+    let currentRepeat = 1;
+    let prepMode = false;
+    let remaining = 0;
+    let stageStartTime = 0;
+    let totalStageSec = 0;
+    let raf = null;
+    let audioCtx = null;
+
+    const elStages = document.getElementById('ivStages');
+    const elName = document.getElementById('ivName');
+    const elTime = document.getElementById('ivTime');
+    const elInfo = document.getElementById('ivInfo');
+    const elBadge = document.getElementById('ivBadge');
+    const elRing = document.getElementById('ivRing');
+    const elStart = document.getElementById('ivStart');
+    const elReset = document.getElementById('ivReset');
+    const elAdd = document.getElementById('ivAdd');
+    const elRepeat = document.getElementById('ivRepeat');
+    const elPrep = document.getElementById('ivPrep');
+    const CIRC = 2 * Math.PI * 90;
+
+    function beep(freq, dur, vol){
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.frequency.value = freq;
+        osc.type = 'sine';
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        gain.gain.setValueAtTime(0, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(vol || 0.2, audioCtx.currentTime + 0.02);
+        gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + dur);
+        osc.start();
+        osc.stop(audioCtx.currentTime + dur + 0.05);
+      } catch(e){}
+    }
+
+    function fmt(sec){
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return toFa(String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0'));
+    }
+
+    function renderStages(){
+      elStages.innerHTML = stages.map((s, i) =>
+        '<div class="iv-stage" data-i="' + i + '">' +
+          '<input type="text" class="iv-name" value="' + esc(s.name) + '" maxlength="24">' +
+          '<input type="number" class="iv-sec" value="' + s.sec + '" min="1" max="3600" step="1">' +
+          '<button type="button" data-del="' + i + '" title="حذف"><i class="fa-solid fa-xmark"></i></button>' +
+        '</div>'
+      ).join('');
+    }
+
+    function syncStages(){
+      const rows = elStages.querySelectorAll('.iv-stage');
+      rows.forEach((r, i) => {
+        const name = r.querySelector('.iv-name').value.trim() || 'مرحله ' + (i+1);
+        const sec = Math.max(1, parseInt(r.querySelector('.iv-sec').value) || 30);
+        if (stages[i]) stages[i] = {name, sec};
+      });
+    }
+
+    function updateRing(frac){
+      elRing.style.strokeDashoffset = (CIRC * (1 - frac)).toFixed(2);
+    }
+
+    function startPrep(){
+      const prepSec = Math.max(0, parseInt(elPrep.value) || 0);
+      if (prepSec > 0){
+        prepMode = true;
+        totalStageSec = prepSec;
+        remaining = prepSec;
+        stageStartTime = performance.now();
+        elName.textContent = 'آماده‌سازی';
+        elBadge.style.display = 'inline-flex';
+        elBadge.textContent = 'آماده‌سازی';
+        elInfo.textContent = '';
+        elTime.textContent = fmt(prepSec);
+        updateRing(1);
+        beep(880, 0.15, 0.15);
+        raf = requestAnimationFrame(tick);
+      } else {
+        nextStage();
+      }
+    }
+
+    function nextStage(){
+      if (currentIdx === -1){
+        currentIdx = 0;
+        currentRepeat = 1;
+      } else {
+        currentIdx++;
+        if (currentIdx >= stages.length){
+          currentIdx = 0;
+          currentRepeat++;
+          const maxRep = Math.max(1, parseInt(elRepeat.value) || 1);
+          if (currentRepeat > maxRep){ finish(); return; }
+        }
+      }
+      const st = stages[currentIdx];
+      prepMode = false;
+      totalStageSec = st.sec;
+      remaining = st.sec;
+      stageStartTime = performance.now();
+      elName.textContent = st.name;
+      const maxRep = Math.max(1, parseInt(elRepeat.value) || 1);
+      elBadge.style.display = 'inline-flex';
+      elBadge.textContent = 'تکرار ' + toFa(currentRepeat) + ' از ' + toFa(maxRep);
+      elInfo.textContent = 'مرحله ' + toFa(currentIdx + 1) + ' از ' + toFa(stages.length);
+      elTime.textContent = fmt(st.sec);
+      updateRing(1);
+      beep(660, 0.2, 0.25);
+      raf = requestAnimationFrame(tick);
+    }
+
+    function tick(){
+      if (!running) return;
+      const elapsed = (performance.now() - stageStartTime) / 1000;
+      const left = Math.max(0, totalStageSec - elapsed);
+      remaining = left;
+      elTime.textContent = fmt(Math.ceil(left));
+      updateRing(left / totalStageSec);
+
+      if (left <= 0){
+        if (prepMode){
+          beep(880, 0.15, 0.25);
+          prepMode = false;
+          nextStage();
+        } else {
+          beep(520, 0.3, 0.3);
+          setTimeout(() => beep(780, 0.3, 0.3), 350);
+          nextStage();
+        }
+      } else {
+        raf = requestAnimationFrame(tick);
+      }
+    }
+
+    function finish(){
+      running = false;
+      cancelAnimationFrame(raf);
+      elName.textContent = 'پایان';
+      elTime.textContent = '۰۰:۰۰';
+      elInfo.textContent = '';
+      elBadge.style.display = 'none';
+      updateRing(0);
+      beep(880, 0.3, 0.3);
+      setTimeout(() => beep(1100, 0.5, 0.3), 400);
+      elStart.querySelector('span').innerHTML = 'شروع مجدد <i class="fa-solid fa-rotate-right"></i>';
+    }
+
+    elStart.addEventListener('click', () => {
+      if (running){
+        running = false;
+        cancelAnimationFrame(raf);
+        elStart.querySelector('span').innerHTML = 'ادامه <i class="fa-solid fa-play"></i>';
+        return;
+      }
+      syncStages();
+      if (!stages.length){ toast('حداقل یک مرحله اضافه کنید'); return; }
+      running = true;
+      elStart.querySelector('span').innerHTML = 'توقف <i class="fa-solid fa-pause"></i>';
+      if (currentIdx === -1 && !prepMode){
+        startPrep();
+      } else {
+        stageStartTime = performance.now() - (totalStageSec - remaining) * 1000;
+        raf = requestAnimationFrame(tick);
+      }
+    });
+
+    elReset.addEventListener('click', () => {
+      running = false;
+      cancelAnimationFrame(raf);
+      currentIdx = -1;
+      currentRepeat = 1;
+      prepMode = false;
+      remaining = 0;
+      elName.textContent = 'آماده';
+      elTime.textContent = '۰۰:۰۰';
+      elInfo.textContent = '';
+      elBadge.style.display = 'none';
+      updateRing(1);
+      elStart.querySelector('span').innerHTML = 'شروع <i class="fa-solid fa-play"></i>';
+    });
+
+    elAdd.addEventListener('click', () => {
+      syncStages();
+      stages.push({name:'مرحله ' + (stages.length + 1), sec: 60});
+      renderStages();
+    });
+
+    elStages.addEventListener('click', e => {
+      const btn = e.target.closest('button[data-del]');
+      if (!btn) return;
+      const i = +btn.dataset.del;
+      if (stages.length <= 1){ toast('حداقل یک مرحله لازم است'); return; }
+      syncStages();
+      stages.splice(i, 1);
+      renderStages();
+    });
+
+    elStages.addEventListener('input', syncStages);
+
+    renderStages();
+    updateRing(1);
+  }
+});
+    
+
+    
 
 TOOLS.push({
   id:'dice', cat:'general', icon:'fa-solid fa-dice',
