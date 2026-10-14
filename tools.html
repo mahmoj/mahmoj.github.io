@@ -2511,6 +2511,261 @@ TOOLS.push({
 
 
 
+<!-- ══════ DESIGNER SITES ══════ -->
+TOOLS.push({
+  id:'designsites', cat:'general', icon:'fa-solid fa-store',
+  title:'گنجینه سایت‌های ادیتورها', tag:'عمومی',
+  desc:'بیش از ۶۰ سایت برتر جهان برای پترن، تکسچر، تذهیب، وکتور، AI و... .',
+  html:`<style>
+      .ds-search{position:relative;margin-bottom:.8rem}
+      .ds-search input{width:100%;padding:.7rem 2.4rem .7rem 1rem;border-radius:99px;background:var(--panel);border:1px solid var(--stroke);color:var(--text);font-size:.82rem}
+      .ds-search input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px var(--soft)}
+      .ds-search i{position:absolute;top:50%;right:.9rem;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:.85rem}
+      .ds-tabs{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.9rem;padding:.35rem;background:var(--panel);border:1px solid var(--stroke);border-radius:12px;max-height:150px;overflow-y:auto}
+      .ds-tab{padding:.5rem .85rem;border-radius:9px;background:transparent;border:1px solid transparent;color:var(--muted);font-size:.72rem;font-weight:700;cursor:pointer;transition:.3s;display:inline-flex;align-items:center;gap:.35rem}
+      .ds-tab i{font-size:.68rem;color:var(--gold)}
+      .ds-tab:hover{color:var(--text);background:rgba(255,255,255,.04)}
+      .ds-tab.active{background:var(--soft);border-color:var(--gold);color:var(--gold)}
+      .ds-count{font-size:.7rem;color:var(--muted);margin-bottom:.5rem;text-align:center}
+      .ds-count b{color:var(--gold)}
+      .ds-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.7rem;max-height:500px;overflow-y:auto;padding:.3rem}
+      .ds-card{display:flex;flex-direction:column;gap:.5rem;padding:.9rem;border-radius:12px;background:var(--panel);border:1px solid var(--stroke);transition:.35s var(--ease);cursor:default}
+      .ds-card:hover{border-color:var(--gold);background:var(--soft);transform:translateY(-3px)}
+      .ds-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
+      .ds-name{font-size:.82rem;font-weight:800;color:var(--text)}
+      .ds-vpn{font-size:.58rem;padding:.15rem .5rem;border-radius:99px;font-weight:700;white-space:nowrap}
+      .ds-vpn.ok{background:rgba(80,200,120,.15);color:#7ddba0;border:1px solid rgba(80,200,120,.35)}
+      .ds-vpn.vpn{background:rgba(230,80,80,.12);color:#ff9a9a;border:1px solid rgba(230,80,80,.3)}
+      .ds-desc{font-size:.68rem;color:var(--muted);line-height:1.6;min-height:2.2em}
+      .ds-actions{display:flex;gap:.4rem;margin-top:auto}
+      .ds-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:.35rem;padding:.5rem .6rem;border-radius:9px;background:var(--panel2);border:1px solid var(--stroke);color:var(--text);font-size:.7rem;font-weight:700;cursor:pointer;transition:.3s;text-decoration:none}
+      .ds-btn:hover{background:var(--soft);border-color:var(--gold);color:var(--gold)}
+      .ds-btn i{font-size:.65rem}
+      .ds-btn.copy{flex:0 0 auto;width:34px;padding:.5rem}
+      .ds-btn.copy:hover{background:rgba(217,194,0,.2);border-color:var(--gold);color:var(--gold)}
+      .ds-empty{grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted);font-size:.82rem}
+    </style>
+    <div class="ds-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="dsSearch" placeholder="جستجو در سایت‌ها..." autocomplete="off">
+    </div>
+    <div class="ds-tabs" id="dsTabs"></div>
+    <div class="ds-count" id="dsCount"></div>
+    <div class="ds-grid" id="dsGrid"></div>`,
+  init(){
+    const SITES = {
+      pattern: [
+        {n:'Paaatterns', u:'https://products.ls.graphics/paaatterns/', d:'پترن‌های برداری رایگان برای همه فرمت‌ها', vpn:false},
+        {n:'Hero Patterns', u:'https://heropatterns.com/', d:'پترن‌های SVG قابل تکرار برای پس‌زمینه', vpn:false},
+        {n:'BEAUBUS Patterns', u:'https://beaubus.com/patterns', d:'بیش از ۱۵۰ پترن SVG رایگان', vpn:false},
+        {n:'PatternPad', u:'https://patternpad.com/', d:'طراحی پترن نامحدود و رایگان', vpn:false},
+        {n:'Doodad Pattern', u:'https://doodad.dev/pattern-generator/', d:'تولید پترن‌های رویالتی-فری', vpn:false},
+        {n:'Pattern Monster', u:'https://pattern.monster/', d:'گالری پترن‌های SVG', vpn:false},
+        {n:'SVG Backgrounds', u:'https://www.svgbackgrounds.com/', d:'پس‌زمینه‌های SVG آماده', vpn:false},
+      ],
+      texture: [
+        {n:'Poly Haven', u:'https://polyhaven.com/textures', d:'تکسچرهای PBR ۴K و ۸K (CC0)', vpn:false},
+        {n:'AmbientCG', u:'https://ambientcg.com/', d:'بیش از ۱۰۰۰ تکسچر تا ۸K (CC0)', vpn:false},
+        {n:'CG Bookcase', u:'https://www.cgbookcase.com/', d:'تکسچرهای کاملاً رایگان و رویالتی-فری', vpn:false},
+        {n:'Textures.com', u:'https://www.textures.com/', d:'اعتبار روزانه رایگان', vpn:false},
+        {n:'3DTextures.me', u:'https://3dtextures.me/', d:'تکسچرهای PBR با دسته‌بندی متنوع', vpn:false},
+        {n:'Share Textures', u:'https://www.sharetextures.com/', d:'تکسچرهای واقع‌گرایانه و استایلایز', vpn:false},
+      ],
+      tazhib: [
+        {n:'Openclipart - Persian Tazhib', u:'https://openclipart.org/search/?query=persian+tazhib', d:'وکتورهای تذهیب فارسی', vpn:false},
+        {n:'PersianGFX', u:'https://www.persiangfx.com/', d:'۲۵ وکتور تذهیب و الگوهای اسلامی', vpn:false},
+        {n:'Graphiran', u:'https://www.graphiran.com/', d:'وکتورهای تذهیب و هنر اسلامی', vpn:false},
+        {n:'Torobche', u:'https://torobche.com/', d:'وکتورهای اسلیمی، محراب و ترنج', vpn:false},
+      ],
+      vector: [
+        {n:'unDraw', u:'https://undraw.co/', d:'۳۰۰۰+ تصویرسازی SVG (MIT)', vpn:false},
+        {n:'Humaaans', u:'https://www.humaaans.com/', d:'تصویرسازی‌های ترکیبی از افراد (CC0)', vpn:false},
+        {n:'Open Peeps', u:'https://www.openpeeps.com/', d:'کتابخانه تصویرسازی دست‌کشیده (CC0)', vpn:false},
+        {n:'DrawKit', u:'https://www.drawkit.com/', d:'تصویرسازی‌های وکتور رایگان', vpn:false},
+        {n:'ManyPixels', u:'https://www.manypixels.co/gallery', d:'گالری تصویرسازی‌های حرفه‌ای', vpn:false},
+        {n:'IRA Design', u:'https://iradesign.io/', d:'تصویرسازی‌های وکتور با مجوز MIT', vpn:false},
+        {n:'Storyset by Freepik', u:'https://storyset.com/', d:'تصویرسازی‌های قابل شخصی‌سازی', vpn:true},
+      ],
+      gradient: [
+        {n:'Coolors Gradient', u:'https://coolors.co/gradients', d:'ساخت گرادینت با خروجی CSS', vpn:false},
+        {n:'MagicPattern Mesh', u:'https://www.magicpattern.design/tools/mesh-gradients', d:'گرادینت‌های مشی و ارگانیک', vpn:false},
+        {n:'UI Gradients', u:'https://uigradients.com/', d:'گرادینت‌های آماده با کپی CSS', vpn:false},
+        {n:'Grabient', u:'https://www.grabient.com/', d:'تنظیم دقیق گرادینت', vpn:false},
+        {n:'ColorSpace', u:'https://mycolor.space/gradient', d:'ساخت گرادینت از رنگ پایه', vpn:false},
+        {n:'CSS Gradient', u:'https://cssgradient.io/', d:'تولید گرادینت خطی و شعاعی', vpn:false},
+      ],
+      color: [
+        {n:'Coolors', u:'https://coolors.co/', d:'تولیدکننده پالت ۵ رنگی', vpn:false},
+        {n:'Radix Colors', u:'https://www.radix-ui.com/colors', d:'پالت‌های معنایی آماده', vpn:false},
+        {n:'Color Hunt', u:'https://colorhunt.co/', d:'پالت‌های دست‌چین شده', vpn:false},
+        {n:'Adobe Color', u:'https://color.adobe.com/', d:'چرخ رنگ تعاملی', vpn:true},
+        {n:'Colormind', u:'http://colormind.io/', d:'تولید پالت با هوش مصنوعی', vpn:false},
+        {n:'Realtime Colors', u:'https://realtimecolors.com/', d:'پیش‌نمایش پالت در زمینه واقعی', vpn:false},
+      ],
+      inspiration: [
+        {n:'Dribbble', u:'https://dribbble.com/', d:'کشف الهام طراحی', vpn:true},
+        {n:'Behance', u:'https://www.behance.net/', d:'نمونه‌کارهای خلاقانه', vpn:true},
+        {n:'Awwwards', u:'https://www.awwwards.com/', d:'بهترین وب‌سایت‌های جهان', vpn:true},
+        {n:'Pinterest', u:'https://www.pinterest.com/', d:'کاوش ایده‌های بصری', vpn:true},
+        {n:'UI Design Daily', u:'https://www.uidesigndaily.com/', d:'کامپوننت‌های UI روزانه', vpn:false},
+      ],
+      mockup: [
+        {n:'Mockuuups Studio', u:'https://mockuuups.studio/', d:'۵۰۰+ ماکاپ آماده', vpn:false},
+        {n:'Mockup Mark', u:'https://mockupmark.com/', d:'ساخت ماکاپ سفارشی دستگاه', vpn:false},
+        {n:'Dimmy.Club', u:'https://dimmy.club/', d:'تولیدکننده ماکاپ مرورگر', vpn:false},
+        {n:'AppLaunchpad', u:'https://theapplaunchpad.com/', d:'تولید ماکاپ برای اپ و وب', vpn:false},
+        {n:'Shots', u:'https://shots.so/', d:'ماکاپ با فریم و پس‌زمینه', vpn:false},
+        {n:'ZippyPixels', u:'https://zippypixels.com/', d:'ماکاپ‌های PSD رایگان', vpn:false},
+      ],
+      ai: [
+        {n:'Leonardo.Ai', u:'https://leonardo.ai/', d:'اعتبار روزانه رایگان با مجوز تجاری', vpn:true},
+        {n:'Adobe Firefly', u:'https://firefly.adobe.com/', d:'ابزارهای AI ادوبی', vpn:true},
+        {n:'Ideogram', u:'https://ideogram.ai/', d:'متخصص تایپوگرافی در تولید تصویر', vpn:true},
+        {n:'Recraft', u:'https://www.recraft.ai/', d:'تنها تولیدکننده SVG بومی با AI', vpn:true},
+        {n:'FLUX', u:'https://blackforestlabs.ai/', d:'مدل متن‌باز با کیفیت بالا', vpn:false},
+        {n:'Canva AI', u:'https://www.canva.com/ai-image-generator/', d:'ابزارهای AI کانوا', vpn:true},
+        {n:'Pika', u:'https://pika.art/', d:'بهترین برای ویدیوهای کوتاه', vpn:true},
+        {n:'Kling AI', u:'https://klingai.com/', d:'تبدیل عکس به ویدیو', vpn:true},
+        {n:'Luma Dream Machine', u:'https://lumalabs.ai/dream-machine', d:'ویدیوهای سینمایی', vpn:true},
+        {n:'Hailuo (MiniMax)', u:'https://hailuoai.com/', d:'رایگان با محدودیت روزانه', vpn:true},
+        {n:'Runway', u:'https://runwayml.com/', d:'پلتفرم حرفه‌ای ویدیوی AI', vpn:true},
+        {n:'Suno', u:'https://suno.com/', d:'تولید آهنگ با کلام', vpn:true},
+        {n:'Udio', u:'https://www.udio.com/', d:'کیفیت حرفه‌ای موسیقی', vpn:true},
+        {n:'ElevenLabs', u:'https://elevenlabs.io/', d:'بهترین TTS و کلون صدا', vpn:true},
+        {n:'Murf AI', u:'https://murf.ai/', d:'استودیو-grade صدا', vpn:true},
+      ],
+      font: [
+        {n:'Google Fonts', u:'https://fonts.google.com/', d:'۱۰۰۰+ فونت رایگان', vpn:false},
+        {n:'Fontshare', u:'https://www.fontshare.com/', d:'۱۰۰ فونت با کیفیت از ITF', vpn:false},
+        {n:'DaFont', u:'https://www.dafont.com/', d:'آرشیو بزرگ فونت‌ها', vpn:false},
+        {n:'Font Squirrel', u:'https://www.fontsquirrel.com/', d:'فونت‌های با مجوز تجاری', vpn:false},
+        {n:'Typewolf', u:'https://www.typewolf.com/', d:'راهنمای جامع فونت‌ها', vpn:false},
+      ],
+      icon: [
+        {n:'Feather Icons', u:'https://feathericons.com/', d:'آیکون‌های اوپن‌سورس ساده', vpn:false},
+        {n:'Heroicons', u:'https://heroicons.com/', d:'آیکون‌های SVG با مجوز MIT', vpn:false},
+        {n:'Phosphor Icons', u:'https://phosphoricons.com/', d:'مجموعه آیکون سبک و انعطاف‌پذیر', vpn:false},
+        {n:'Remix Icon', u:'https://remixicon.com/', d:'آیکون‌های اوپن‌سورس', vpn:false},
+        {n:'Bootstrap Icons', u:'https://icons.getbootstrap.com/', d:'کتابخانه رسمی آیکون بوت‌استرپ', vpn:false},
+        {n:'SVG Repo', u:'https://www.svgrepo.com/', d:'۴۰۰,۰۰۰+ آیکون رایگان', vpn:false},
+      ],
+      threed: [
+        {n:'BlenderKit', u:'https://www.blenderkit.com/', d:'۱۷,۰۰۰+ مدل سه‌بعدی رایگان', vpn:false},
+        {n:'3Dassets.one', u:'https://3dassets.one/', d:'موتور جستجوی مدل و تکسچر', vpn:false},
+        {n:'NASA 3D Resources', u:'https://nasa3d.arc.nasa.gov/', d:'مدل‌های سه‌بعدی ناسا', vpn:false},
+      ],
+      motion: [
+        {n:'LottieFiles', u:'https://lottiefiles.com/', d:'۸۰۰,۰۰۰+ انیمیشن Lottie', vpn:false},
+        {n:'Mixamo', u:'https://www.mixamo.com/', d:'۲۰۰۰+ انیمیشن کاراکتر', vpn:true},
+        {n:'Motion', u:'https://motion.dev/', d:'کتابخانه انیمیشن JavaScript', vpn:false},
+      ],
+      stock: [
+        {n:'Unsplash', u:'https://unsplash.com/', d:'عکس‌های با کیفیت بالا', vpn:false},
+        {n:'Pexels', u:'https://www.pexels.com/', d:'عکس و ویدیوی رویالتی-فری', vpn:false},
+        {n:'Pixabay', u:'https://pixabay.com/', d:'۱ میلیون+ عکس رایگان', vpn:false},
+        {n:'Burst by Shopify', u:'https://burst.shopify.com/', d:'عکس‌های استوک رایگان', vpn:false},
+      ],
+      learn: [
+        {n:'Figma Learn', u:'https://help.figma.com/hc/en-us/categories/360002051613', d:'دوره‌های آموزشی رایگان Figma', vpn:false},
+        {n:'Canva Design School', u:'https://www.canva.com/designschool/', d:'آموزش طراحی گرافیک', vpn:true},
+        {n:'Design+Code', u:'https://designcode.io/', d:'آموزش طراحی و کد', vpn:false},
+      ]
+    };
+
+    const CATS = [
+      {id:'all', name:'همه', icon:'fa-solid fa-grip'},
+      {id:'pattern', name:'الگو و پترن', icon:'fa-solid fa-border-all'},
+      {id:'texture', name:'تکسچر و بافت', icon:'fa-solid fa-layer-group'},
+      {id:'tazhib', name:'تذهیب و اسلیمی', icon:'fa-solid fa-mosque'},
+      {id:'vector', name:'وکتور و تصویرسازی', icon:'fa-solid fa-pen-nib'},
+      {id:'gradient', name:'گرادینت', icon:'fa-solid fa-fill-drip'},
+      {id:'color', name:'ترکیب رنگ', icon:'fa-solid fa-palette'},
+      {id:'inspiration', name:'الهام و نمایش', icon:'fa-solid fa-lightbulb'},
+      {id:'mockup', name:'ماکاپ', icon:'fa-solid fa-mobile-screen'},
+      {id:'ai', name:'هوش مصنوعی', icon:'fa-solid fa-robot'},
+      {id:'font', name:'فونت', icon:'fa-solid fa-font'},
+      {id:'icon', name:'آیکون', icon:'fa-solid fa-icons'},
+      {id:'threed', name:'سه‌بعدی', icon:'fa-solid fa-cube'},
+      {id:'motion', name:'انیمیشن', icon:'fa-solid fa-film'},
+      {id:'stock', name:'عکس استوک', icon:'fa-solid fa-camera'},
+      {id:'learn', name:'آموزش', icon:'fa-solid fa-graduation-cap'},
+    ];
+
+    let currentCat = 'all', query = '';
+    const tabs = document.getElementById('dsTabs');
+    const grid = document.getElementById('dsGrid');
+    const search = document.getElementById('dsSearch');
+    const countEl = document.getElementById('dsCount');
+
+    const allSites = (() => {
+      const arr = [];
+      for (const k in SITES) SITES[k].forEach(s => arr.push({...s, cat:k}));
+      return arr;
+    })();
+
+    tabs.innerHTML = CATS.map(c => {
+      const count = c.id === 'all' ? allSites.length : (SITES[c.id] || []).length;
+      return '<button class="ds-tab' + (c.id === 'all' ? ' active' : '') + '" data-cat="' + c.id + '">' +
+        '<i class="' + c.icon + '"></i>' + c.name +
+        '<span style="font-size:.6rem;opacity:.7;margin-right:.2rem">(' + count + ')</span>' +
+      '</button>';
+    }).join('');
+
+    function getSites(){
+      if (currentCat === 'all') return allSites;
+      return (SITES[currentCat] || []).map(s => ({...s, cat:currentCat}));
+    }
+
+    function render(){
+      let list = getSites();
+      if (query) list = list.filter(s => s.n.toLowerCase().includes(query) || s.d.toLowerCase().includes(query));
+      if (!list.length){
+        grid.innerHTML = '<div class="ds-empty">سایتی پیدا نشد</div>';
+        countEl.innerHTML = '';
+        return;
+      }
+      grid.innerHTML = list.map(s => {
+        const vpnHtml = s.vpn
+          ? '<span class="ds-vpn vpn"><i class="fa-solid fa-shield-halved"></i> نیاز به VPN</span>'
+          : '<span class="ds-vpn ok"><i class="fa-solid fa-check-circle"></i> بدون VPN</span>';
+        return '<div class="ds-card">' +
+          '<div class="ds-card-top"><span class="ds-name">' + esc(s.n) + '</span>' + vpnHtml + '</div>' +
+          '<p class="ds-desc">' + esc(s.d) + '</p>' +
+          '<div class="ds-actions">' +
+            '<a class="ds-btn" href="' + s.u + '" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> بازدید</a>' +
+            '<button class="ds-btn copy" data-url="' + s.u + '" title="کپی لینک"><i class="fa-solid fa-copy"></i></button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+      countEl.innerHTML = 'نمایش <b>' + toFa(list.length) + '</b> سایت از ' + toFa(allSites.length) + ' سایت';
+    }
+
+    grid.addEventListener('click', e => {
+      const btn = e.target.closest('.ds-btn.copy');
+      if (!btn) return;
+      copy(btn.dataset.url, 'لینک کپی شد ✦');
+    });
+
+    tabs.addEventListener('click', e => {
+      const b = e.target.closest('.ds-tab');
+      if (!b) return;
+      tabs.querySelectorAll('.ds-tab').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      currentCat = b.dataset.cat;
+      render();
+    });
+
+    search.addEventListener('input', e => {
+      query = e.target.value.trim();
+      render();
+    });
+
+    render();
+  }
+});
+
+
+    
 /* ══════ SYMBOLS ══════ */
  
 
@@ -3912,25 +4167,6 @@ TOOLS.push({
     $('#jf').addEventListener('click', () => f(false));
     $('#jm').addEventListener('click', () => f(true));
     $('#jc').addEventListener('click', () => { if (O.textContent) copy(O.textContent, 'کپی شد ✦'); });
-  }
-});
-
-TOOLS.push({
-  id:'uuid', cat:'dev', icon:'fa-solid fa-fingerprint',
-  title:'تولید UUID', tag:'توسعه‌دهنده',
-  desc:'شناسه‌های یکتا (v4) بسازید.',
-  html:`<div class="f"><label>تعداد (۱ تا ۵۰)</label><input type="number" id="un" value="5" min="1" max="50"></div>
-    <label class="chk"><input type="checkbox" id="uu"> حروف بزرگ</label>
-    <label class="chk"><input type="checkbox" id="ub"> با { } احاطه شود</label>
-    <div class="btnrow"><button class="btn" id="ug"><span>تولید <i class="fa-solid fa-rotate"></i></span></button><button class="btn ghost" id="uc"><span>کپی</span></button></div>
-    <div class="out" id="uo" style="margin-top:1rem;white-space:pre-wrap;line-height:2;direction:ltr;text-align:left"></div>`,
-  init(){
-    const O = $('#uo');
-    function gen(){ const n = Math.max(1, Math.min(50, +$('#un').value || 5)), u = $('#uu').checked, b = $('#ub').checked; const a = []; for (let i = 0; i < n; i++){ let x = crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => { const r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16); }); if (u) x = x.toUpperCase(); if (b) x = '{' + x + '}'; a.push(x); } O.textContent = a.join('\n'); }
-    $('#ug').addEventListener('click', gen);
-    $('#uc').addEventListener('click', () => { if (O.textContent) copy(O.textContent, 'کپی شد ✦'); });
-    ['un','uu','ub'].forEach(id => $('#'+id).addEventListener('input', gen));
-    gen();
   }
 });
 
