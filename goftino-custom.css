@@ -1,0 +1,193 @@
+/* ============================================================
+   Goftino Custom Theme - Dark Mode with Gold Accent
+   ============================================================ */
+
+/* ---------- متغیرهای رنگی گفتینو ---------- */
+:root {
+  --goftino-bg: #001830;           /* رنگ پس‌زمینه اصلی (سرمه‌ای تیره) */
+  --goftino-bg-2: #000d18;         /* پس‌زمینه تیره‌تر */
+  --goftino-surface: rgba(255, 255, 255, 0.045); /* سطوح شیشه‌ای */
+  --goftino-border: rgba(255, 255, 255, 0.09);    /* حاشیه‌ها */
+  --goftino-text: #f1f5f7;         /* متن اصلی */
+  --goftino-muted: #8b9ba6;        /* متن کم‌رنگ */
+  --goftino-gold: #D9C200;         /* رنگ طلایی اصلی */
+  --goftino-gold-soft: rgba(217, 194, 0, 0.13); /* طلایی شفاف */
+}
+
+/* ---------- پنجره اصلی چت ---------- */
+#goftino-widget {
+  background: var(--goftino-bg) !important;
+  border: 1px solid var(--goftino-border) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6) !important;
+  font-family: "Vazirmatn", system-ui, sans-serif !important;
+  overflow: hidden !important;
+}
+
+/* ---------- هدر پنجره چت ---------- */
+#goftino-widget .goftino-header {
+  background: var(--goftino-bg-2) !important;
+  border-bottom: 1px solid var(--goftino-border) !important;
+  padding: 12px 16px !important;
+}
+
+#goftino-widget .goftino-header .goftino-title {
+  color: var(--goftino-text) !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+}
+
+#goftino-widget .goftino-header .goftino-status {
+  color: var(--goftino-gold) !important;
+  font-size: 11px !important;
+}
+
+/* ---------- ناحیه پیام‌ها ---------- */
+#goftino-widget .goftino-messages {
+  background: var(--goftino-bg) !important;
+  padding: 16px !important;
+}
+
+/* ---------- حباب پیام اپراتور (چپ) ---------- */
+#goftino-widget .goftino-message.operator .goftino-bubble {
+  background: var(--goftino-surface) !important;
+  border: 1px solid var(--goftino-border) !important;
+  color: var(--goftino-text) !important;
+  border-radius: 14px 14px 14px 4px !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+#goftino-widget .goftino-message.operator .goftino-bubble p {
+  color: var(--goftino-text) !important;
+}
+
+/* ---------- حباب پیام کاربر (راست) ---------- */
+#goftino-widget .goftino-message.user .goftino-bubble {
+  background: var(--goftino-gold-soft) !important;
+  border: 1px solid rgba(217, 194, 0, 0.3) !important;
+  color: var(--goftino-text) !important;
+  border-radius: 14px 14px 4px 14px !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+#goftino-widget .goftino-message.user .goftino-bubble p {
+  color: var(--goftino-text) !important;
+}
+
+/* ---------- زمان پیام‌ها ---------- */
+#goftino-widget .goftino-time {
+  color: var(--goftino-muted) !important;
+  font-size: 10px !important;
+}
+
+/* ---------- ناحیه ورودی متن ---------- */
+#goftino-widget .goftino-footer {
+  background: var(--goftino-bg-2) !important;
+  border-top: 1px solid var(--goftino-border) !important;
+  padding: 12px 16px !important;
+}
+
+#goftino-widget .goftino-footer textarea,
+#goftino-widget .goftino-footer input {
+  background: var(--goftino-surface) !important;
+  border: 1px solid var(--goftino-border) !important;
+  color: var(--goftino-text) !important;
+  border-radius: 12px !important;
+  font-family: "Vazirmatn", system-ui, sans-serif !important;
+  font-size: 13px !important;
+}
+
+#goftino-widget .goftino-footer textarea::placeholder,
+#goftino-widget .goftino-footer input::placeholder {
+  color: var(--goftino-muted) !important;
+}
+
+/* ---------- دکمه ارسال ---------- */
+#goftino-widget .goftino-send-button {
+  background: var(--goftino-gold) !important;
+  color: #001830 !important;
+  border-radius: 12px !important;
+  transition: all 0.3s ease !important;
+}
+
+#goftino-widget .goftino-send-button:hover {
+  box-shadow: 0 0 22px rgba(217, 194, 0, 0.5) !important;
+  transform: scale(1.05) !important;
+}
+
+#goftino-widget .goftino-send-button i {
+  color: #001830 !important;
+}
+
+/* ---------- فرم‌های داخل چت (شماره، ایمیل و...) ---------- */
+#goftino-widget .goftino-form input,
+#goftino-widget .goftino-form textarea,
+#goftino-widget .goftino-form select {
+  background: var(--goftino-surface) !important;
+  border: 1px solid var(--goftino-border) !important;
+  color: var(--goftino-text) !important;
+  border-radius: 10px !important;
+  font-family: "Vazirmatn", system-ui, sans-serif !important;
+}
+
+#goftino-widget .goftino-form label {
+  color: var(--goftino-muted) !important;
+  font-size: 12px !important;
+}
+
+/* ---------- دکمه‌های داخل چت ---------- */
+#goftino-widget .goftino-button,
+#goftino-widget .goftino-btn {
+  background: var(--goftino-gold-soft) !important;
+  border: 1px solid rgba(217, 194, 0, 0.4) !important;
+  color: var(--goftino-gold) !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+#goftino-widget .goftino-button:hover,
+#goftino-widget .goftino-btn:hover {
+  background: rgba(217, 194, 0, 0.25) !important;
+  box-shadow: 0 0 18px rgba(217, 194, 0, 0.35) !important;
+}
+
+/* ---------- پیام‌های سیستمی ---------- */
+#goftino-widget .goftino-system-message {
+  color: var(--goftino-muted) !important;
+  font-size: 11px !important;
+}
+
+/* ---------- اسکرول‌بار ---------- */
+#goftino-widget .goftino-messages::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+#goftino-widget .goftino-messages::-webkit-scrollbar-track {
+  background: var(--goftino-bg) !important;
+}
+
+#goftino-widget .goftino-messages::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--goftino-gold), #001830) !important;
+  border-radius: 99px !important;
+}
+
+/* ---------- آیکون دکمه شناور (در صورت نیاز) ---------- */
+#goftino-widget-button {
+  background: var(--goftino-gold) !important;
+  box-shadow: 0 0 30px rgba(217, 194, 0, 0.45) !important;
+  border-radius: 16px !important;
+}
+
+#goftino-widget-button i {
+  color: #001830 !important;
+}
+
+/* ---------- انیمیشن‌های ظریف ---------- */
+#goftino-widget {
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+#goftino-widget .goftino-bubble {
+  transition: background 0.3s ease, border-color 0.3s ease !important;
+}
