@@ -2381,7 +2381,46 @@ document.querySelectorAll('.skill').forEach(card => {
     }
   }, 6000);
 </script>
+  <div id="goftino-debug-output" style="position:fixed;bottom:0;left:0;right:0;background:#D9C200;color:#001830;padding:10px;font-size:11px;z-index:99999;direction:ltr;text-align:left;max-height:40vh;overflow:auto;font-family:monospace;white-space:pre-wrap;"></div>
+
+<script>
+setTimeout(function(){
+  var out = document.getElementById('goftino-debug-output');
+  out.textContent = 'در حال بررسی iframeها...\n';
   
+  var iframes = document.querySelectorAll('iframe');
+  out.textContent += 'تعداد iframeها: ' + iframes.length + '\n';
+  
+  iframes.forEach(function(f, idx){
+    try {
+      var doc = f.contentDocument || f.contentWindow.document;
+      if (doc && doc.body) {
+        var classes = {};
+        doc.querySelectorAll('*').forEach(function(el){
+          if (el.className && typeof el.className === 'string') {
+            el.className.split(/\s+/).forEach(function(c){
+              if (c && c.trim()) classes[c.trim()] = (classes[c.trim()] || 0) + 1;
+            });
+          }
+        });
+        // فقط کلاس‌هایی که احتمالاً مربوط به گفتینو هستند
+        var relevant = Object.keys(classes).filter(function(c){
+          return c.indexOf('goftino') !== -1 || c.indexOf('chat') !== -1 || 
+                 c.indexOf('message') !== -1 || c.indexOf('widget') !== -1 ||
+                 c.indexOf('bubble') !== -1 || c.indexOf('header') !== -1 ||
+                 c.indexOf('footer') !== -1 || c.indexOf('input') !== -1;
+        });
+        out.textContent += '\n--- iframe ' + idx + ' ---\n';
+        out.textContent += relevant.join('\n');
+      } else {
+        out.textContent += '\n--- iframe ' + idx + ': cross-origin (غیرقابل دسترس) ---\n';
+      }
+    } catch(e) {
+      out.textContent += '\n--- iframe ' + idx + ': ' + e.message + ' ---\n';
+    }
+  });
+}, 5000);
+</script>
 
   
 </body>
