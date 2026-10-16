@@ -2346,80 +2346,92 @@ document.querySelectorAll('.skill').forEach(card => {
 
 
 
-  <!-- ===== GOFTINO WIDGET - CUSTOM DARK THEME ===== -->
-<!-- ===== GOFTINO - DEBUG VERSION ===== -->
-<div id="goftino-debug" style="position:fixed;bottom:0;left:0;right:0;background:#D9C200;color:#001830;padding:8px;font-size:12px;z-index:99999;text-align:center;font-family:monospace;direction:ltr;">
-  Goftino: <span id="dbg-status">loading...</span>
-</div>
-
+  <!-- ===== GOFTINO - CUSTOM DARK THEME ===== -->
 <script>
   !function(){var i="YJmaTq",a=window,d=document;function g(){var g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}"complete"===d.readyState?g():a.attachEvent?a.attachEvent("onload",g):a.addEventListener("load",g,!1);}();
 
-  var dbg = document.getElementById('dbg-status');
+  // ===== استایل تیره با کلاس‌های واقعی گفتینو =====
+  var darkCSS = [
+    /* --- ناحیه پیام‌ها: پس‌زمینه روشن و والپیپر را حذف کن --- */
+    '.box-chat-content{background:#001830 !important;background-image:none !important;}',
+    '.box-chat-content *{background-color:transparent;}',
 
-  window.addEventListener('goftino_ready', function () {
-    dbg.textContent = 'ready ✓';
-    
-    if (typeof window.Goftino !== 'undefined') {
-      dbg.textContent = 'calling setWidget...';
-      
-      window.Goftino.setWidget({
-        marginBottom: 80,
-        marginRight: 20,
-        cssUrl: 'https://mahmoj.github.io/goftino-custom.css'
-      });
-      
-      setTimeout(function(){ dbg.textContent = 'setWidget sent ✓'; }, 500);
-    } else {
-      dbg.textContent = 'Goftino object NOT found!';
+    /* --- هدر --- */
+    '.box-header{background:#000d18 !important;border-bottom:1px solid rgba(255,255,255,0.09) !important;}',
+    '.box-header *{color:#f1f5f7 !important;}',
+
+    /* --- نوار پایین (ورودی) --- */
+    '.box-footer{background:#000d18 !important;border-top:1px solid rgba(255,255,255,0.09) !important;}',
+
+    /* --- فیلد ورودی --- */
+    '.material-input{background:rgba(255,255,255,0.045) !important;border:1px solid rgba(255,255,255,0.09) !important;border-radius:12px !important;}',
+    '.material-input input,.material-input textarea{background:transparent !important;color:#f1f5f7 !important;font-family:Vazirmatn,system-ui,sans-serif !important;}',
+    '.material-input input::placeholder,.material-input textarea::placeholder{color:#8b9ba6 !important;}',
+
+    /* --- حباب پیام‌ها --- */
+    '.box-new-message{background:rgba(255,255,255,0.06) !important;color:#f1f5f7 !important;border-radius:14px !important;}',
+    '.box-new-message *{color:#f1f5f7 !important;}',
+
+    /* --- زمان و متادیتا --- */
+    '[class*="time"],[class*="date"]{color:#8b9ba6 !important;}',
+
+    /* --- آیکون شناور --- */
+    '.widget-icon{background:#D9C200 !important;box-shadow:0 0 30px rgba(217,194,0,0.5) !important;}',
+    '.widget-icon svg,.widget-icon i,.widget-icon path{fill:#001830 !important;color:#001830 !important;}',
+
+    /* --- حالت خالی (placeholder) --- */
+    '[class*="placeholder"],[class*="empty"]{color:#8b9ba6 !important;}'
+  ].join('');
+
+  // ===== تزریق استایل داخل iframe گفتینو =====
+  function injectStyles(){
+    var iframes = document.querySelectorAll('iframe');
+    for (var k = 0; k < iframes.length; k++){
+      try {
+        var doc = iframes[k].contentDocument || iframes[k].contentWindow.document;
+        if (doc && doc.head){
+          var old = doc.getElementById('goftino-dark-theme');
+          if (old) old.remove();
+          var s = doc.createElement('style');
+          s.id = 'goftino-dark-theme';
+          s.textContent = darkCSS;
+          doc.head.appendChild(s);
+        }
+      } catch(e){}
     }
+  }
+
+  // ===== موقعیت دکمه بالای دکمه موسیقی =====
+  function positionGoftino(){
+    if (typeof window.Goftino === 'undefined' || typeof window.Goftino.setWidget !== 'function') return;
+    var musicBtn = document.querySelector('.music-btn');
+    var marginBottom = 80, marginRight = 20;
+    if (musicBtn){
+      var r = musicBtn.getBoundingClientRect();
+      marginBottom = Math.round(window.innerHeight - r.top + 15);
+      marginRight = Math.round(window.innerWidth - r.right);
+    }
+    window.Goftino.setWidget({
+      marginBottom: marginBottom,
+      marginRight: marginRight
+    });
+  }
+
+  // ===== اجرا پس از آماده شدن ابزارک =====
+  window.addEventListener('goftino_ready', function(){
+    injectStyles();
+    setTimeout(injectStyles, 800);
+    setTimeout(injectStyles, 2000);
+    setTimeout(injectStyles, 4000);
+    positionGoftino();
+    window.addEventListener('resize', positionGoftino);
   });
 
+  // ===== تایمر پشتیبان =====
   setTimeout(function(){
-    if (dbg.textContent === 'loading...') {
-      dbg.textContent = 'timeout - goftino_ready did not fire';
-    }
-  }, 6000);
-</script>
-  <div id="goftino-debug-output" style="position:fixed;bottom:0;left:0;right:0;background:#D9C200;color:#001830;padding:10px;font-size:11px;z-index:99999;direction:ltr;text-align:left;max-height:40vh;overflow:auto;font-family:monospace;white-space:pre-wrap;"></div>
-
-<script>
-setTimeout(function(){
-  var out = document.getElementById('goftino-debug-output');
-  out.textContent = 'در حال بررسی iframeها...\n';
-  
-  var iframes = document.querySelectorAll('iframe');
-  out.textContent += 'تعداد iframeها: ' + iframes.length + '\n';
-  
-  iframes.forEach(function(f, idx){
-    try {
-      var doc = f.contentDocument || f.contentWindow.document;
-      if (doc && doc.body) {
-        var classes = {};
-        doc.querySelectorAll('*').forEach(function(el){
-          if (el.className && typeof el.className === 'string') {
-            el.className.split(/\s+/).forEach(function(c){
-              if (c && c.trim()) classes[c.trim()] = (classes[c.trim()] || 0) + 1;
-            });
-          }
-        });
-        // فقط کلاس‌هایی که احتمالاً مربوط به گفتینو هستند
-        var relevant = Object.keys(classes).filter(function(c){
-          return c.indexOf('goftino') !== -1 || c.indexOf('chat') !== -1 || 
-                 c.indexOf('message') !== -1 || c.indexOf('widget') !== -1 ||
-                 c.indexOf('bubble') !== -1 || c.indexOf('header') !== -1 ||
-                 c.indexOf('footer') !== -1 || c.indexOf('input') !== -1;
-        });
-        out.textContent += '\n--- iframe ' + idx + ' ---\n';
-        out.textContent += relevant.join('\n');
-      } else {
-        out.textContent += '\n--- iframe ' + idx + ': cross-origin (غیرقابل دسترس) ---\n';
-      }
-    } catch(e) {
-      out.textContent += '\n--- iframe ' + idx + ': ' + e.message + ' ---\n';
-    }
-  });
-}, 5000);
+    injectStyles();
+    positionGoftino();
+  }, 5000);
 </script>
 
   
