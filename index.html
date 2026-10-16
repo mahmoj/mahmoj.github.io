@@ -2350,40 +2350,41 @@ document.querySelectorAll('.skill').forEach(card => {
 <script>
   !function(){var i="YJmaTq",a=window,d=document;function g(){var g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}"complete"===d.readyState?g():a.attachEvent?a.attachEvent("onload",g):a.addEventListener("load",g,!1);}();
 
-  // ===== استایل تیره با کلاس‌های واقعی گفتینو =====
   var darkCSS = [
-    /* --- ناحیه پیام‌ها: پس‌زمینه روشن و والپیپر را حذف کن --- */
-    '.box-chat-content{background:#001830 !important;background-image:none !important;}',
-    '.box-chat-content *{background-color:transparent;}',
+    /* 1. ریشه‌ی iframe - تیره کن */
+    'html,body{background-color:#001830 !important;background-image:none !important;background:#001830 !important;}',
 
-    /* --- هدر --- */
-    '.box-header{background:#000d18 !important;border-bottom:1px solid rgba(255,255,255,0.09) !important;}',
-    '.box-header *{color:#f1f5f7 !important;}',
+    /* 2. همهٔ تصاویر پس‌زمینه (والپیپر طرح‌دار) را حذف کن */
+    '*{background-image:none !important;}',
 
-    /* --- نوار پایین (ورودی) --- */
-    '.box-footer{background:#000d18 !important;border-top:1px solid rgba(255,255,255,0.09) !important;}',
+    /* 3. همهٔ کانتینرهای اصلی شفاف تا رنگ تیره‌ی والد نمایان شود */
+    '[class*="box-"],[class*="chat"],[class*="content"],[class*="container"],[class*="wrapper"]{background-color:transparent !important;}',
 
-    /* --- فیلد ورودی --- */
-    '.material-input{background:rgba(255,255,255,0.045) !important;border:1px solid rgba(255,255,255,0.09) !important;border-radius:12px !important;}',
+    /* 4. خود محتوای اصلی چت را تیره کن */
+    '.box-chat-content{background-color:#001830 !important;background:#001830 !important;}',
+
+    /* 5. هدر و فوتر تیره‌تر */
+    '.box-header{background-color:#000d18 !important;border-bottom:1px solid rgba(255,255,255,0.09) !important;}',
+    '.box-footer{background-color:#000d18 !important;border-top:1px solid rgba(255,255,255,0.09) !important;}',
+    '.box-header *,.box-footer *{color:#f1f5f7 !important;}',
+
+    /* 6. حباب پیام‌ها */
+    '.box-new-message{background-color:rgba(255,255,255,0.06) !important;color:#f1f5f7 !important;border-radius:14px !important;}',
+    '.box-new-message *{color:#f1f5f7 !important;}',
+
+    /* 7. ورودی متن */
+    '.material-input{background-color:rgba(255,255,255,0.045) !important;border:1px solid rgba(255,255,255,0.09) !important;border-radius:12px !important;}',
     '.material-input input,.material-input textarea{background:transparent !important;color:#f1f5f7 !important;font-family:Vazirmatn,system-ui,sans-serif !important;}',
     '.material-input input::placeholder,.material-input textarea::placeholder{color:#8b9ba6 !important;}',
 
-    /* --- حباب پیام‌ها --- */
-    '.box-new-message{background:rgba(255,255,255,0.06) !important;color:#f1f5f7 !important;border-radius:14px !important;}',
-    '.box-new-message *{color:#f1f5f7 !important;}',
-
-    /* --- زمان و متادیتا --- */
+    /* 8. زمان و متادیتا */
     '[class*="time"],[class*="date"]{color:#8b9ba6 !important;}',
 
-    /* --- آیکون شناور --- */
-    '.widget-icon{background:#D9C200 !important;box-shadow:0 0 30px rgba(217,194,0,0.5) !important;}',
-    '.widget-icon svg,.widget-icon i,.widget-icon path{fill:#001830 !important;color:#001830 !important;}',
-
-    /* --- حالت خالی (placeholder) --- */
-    '[class*="placeholder"],[class*="empty"]{color:#8b9ba6 !important;}'
+    /* 9. آیکون شناور طلایی */
+    '.widget-icon{background-color:#D9C200 !important;background:#D9C200 !important;box-shadow:0 0 30px rgba(217,194,0,0.5) !important;}',
+    '.widget-icon svg,.widget-icon i,.widget-icon path{fill:#001830 !important;color:#001830 !important;}'
   ].join('');
 
-  // ===== تزریق استایل داخل iframe گفتینو =====
   function injectStyles(){
     var iframes = document.querySelectorAll('iframe');
     for (var k = 0; k < iframes.length; k++){
@@ -2401,7 +2402,6 @@ document.querySelectorAll('.skill').forEach(card => {
     }
   }
 
-  // ===== موقعیت دکمه بالای دکمه موسیقی =====
   function positionGoftino(){
     if (typeof window.Goftino === 'undefined' || typeof window.Goftino.setWidget !== 'function') return;
     var musicBtn = document.querySelector('.music-btn');
@@ -2411,27 +2411,19 @@ document.querySelectorAll('.skill').forEach(card => {
       marginBottom = Math.round(window.innerHeight - r.top + 15);
       marginRight = Math.round(window.innerWidth - r.right);
     }
-    window.Goftino.setWidget({
-      marginBottom: marginBottom,
-      marginRight: marginRight
-    });
+    window.Goftino.setWidget({ marginBottom: marginBottom, marginRight: marginRight });
   }
 
-  // ===== اجرا پس از آماده شدن ابزارک =====
   window.addEventListener('goftino_ready', function(){
     injectStyles();
-    setTimeout(injectStyles, 800);
-    setTimeout(injectStyles, 2000);
-    setTimeout(injectStyles, 4000);
+    setTimeout(injectStyles, 500);
+    setTimeout(injectStyles, 1500);
+    setTimeout(injectStyles, 3000);
     positionGoftino();
     window.addEventListener('resize', positionGoftino);
   });
 
-  // ===== تایمر پشتیبان =====
-  setTimeout(function(){
-    injectStyles();
-    positionGoftino();
-  }, 5000);
+  setTimeout(function(){ injectStyles(); positionGoftino(); }, 4000);
 </script>
 
   
