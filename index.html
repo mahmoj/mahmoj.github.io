@@ -2351,40 +2351,45 @@ document.querySelectorAll('.skill').forEach(card => {
 <!-- ===== GOFTINO - CUSTOM DARK THEME v4 ===== -->
 
 <!-- ===== GOFTINO - CUSTOM DARK THEME v5 ===== -->
+  <!-- ===== GOFTINO - CUSTOM DARK THEME v6 ===== -->
 <script>
   !function(){var i="YJmaTq",a=window,d=document;function g(){var g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}"complete"===d.readyState?g():a.attachEvent?a.attachEvent("onload",g):a.addEventListener("load",g,!1);}();
 
   var darkCSS = [
-    /* ===== ۱. حذف همهٔ الگوهای تصویری پس‌زمینه ===== */
+    /* 1. حذف تصاویر پس‌زمینه — بدون تغییر از v5 */
     '*{background-image:none !important;}',
 
-    /* ===== ۲. رنگ تیره‌ی پایه ===== */
+    /* 2. پایهٔ تیره — بدون تغییر از v5 */
     'html,body{background-color:#001830 !important;background:#001830 !important;}',
 
-    /* ===== ۳. شفاف‌سازی لایه‌های میانی (کلید موفقیت نسخه‌ی دوم) ===== */
-    '[class*="box-"],[class*="chat"],[class*="content"],[class*="container"],[class*="wrapper"]{background-color:transparent !important;}',
+    /* 3. لایه‌های box-* شفاف می‌شوند، ولی حباب و ورودی مستثنی هستند */
+    '[class*="box-"]:not(.box-new-message):not(.material-input){background-color:transparent !important;background:transparent !important;}',
 
-    /* ===== ۴. حالا رنگ‌های اختصاصی را دوباره اعمال می‌کنیم (بعد از قانون بالا، پس برنده می‌شوند) ===== */
+    /* 4. نواحی تیره اصلی */
     '.box-chat-content{background-color:#001830 !important;background:#001830 !important;}',
     '.box-header{background-color:#000d18 !important;background:#000d18 !important;}',
-    '.box-header,.box-header *{color:#f1f5f7 !important;}',
     '.box-footer{background-color:#000d18 !important;background:#000d18 !important;}',
-    '.box-footer,.box-footer *{color:#f1f5f7 !important;}',
 
-    /* ===== ۵. حباب پیام‌ها - طلایی ملایم و واضح ===== */
-    '.box-new-message{background-color:rgba(217,194,0,0.16) !important;background:rgba(217,194,0,0.16) !important;border:1px solid rgba(217,194,0,0.35) !important;color:#f1f5f7 !important;border-radius:14px !important;padding:10px 14px !important;}',
-    '.box-new-message,.box-new-message *{color:#f1f5f7 !important;}',
+    /* 5. همهٔ فرزندان فوتر شفاف می‌شوند جز ورودی */
+    '.box-footer *:not(input):not(textarea):not(.material-input):not(.material-input *){background-color:transparent !important;background:transparent !important;}',
 
-    /* ===== ۶. فیلد ورودی ===== */
-    '.material-input{background-color:rgba(255,255,255,0.07) !important;background:rgba(255,255,255,0.07) !important;border-radius:12px !important;}',
-    '.material-input,.material-input *{color:#f1f5f7 !important;}',
-    '.material-input input,.material-input textarea{background-color:transparent !important;color:#f1f5f7 !important;font-family:Vazirmatn,system-ui,sans-serif !important;}',
-    '.material-input input::placeholder,.material-input textarea::placeholder{color:#8b9ba6 !important;}',
+    /* 6. فیلد ورودی — با specificity بالاتر تا شفاف نشود */
+    '.box-footer .material-input{background-color:rgba(255,255,255,0.08) !important;background:rgba(255,255,255,0.08) !important;border-radius:12px !important;}',
+    '.box-footer .material-input *{background-color:transparent !important;background:transparent !important;}',
+    '.box-footer .material-input input,.box-footer .material-input textarea{background-color:transparent !important;color:#f1f5f7 !important;font-family:Vazirmatn,system-ui,sans-serif !important;}',
+    '.box-footer .material-input input::placeholder,.box-footer .material-input textarea::placeholder{color:#8b9ba6 !important;}',
 
-    /* ===== ۷. آیکون‌های داخل فوتر ===== */
+    /* 7. حباب پیام — طلایی ملایم، کاملاً واضح روی پس‌زمینهٔ تیره */
+    '.box-new-message{background-color:rgba(217,194,0,0.18) !important;background:rgba(217,194,0,0.18) !important;border:1px solid rgba(217,194,0,0.4) !important;border-radius:14px !important;padding:10px 14px !important;}',
+    '.box-new-message > *{background-color:transparent !important;background:transparent !important;}',
+
+    /* 8. متن‌ها روشن */
+    '.box-header,.box-header *,.box-footer,.box-footer *,.box-new-message,.box-new-message *{color:#f1f5f7 !important;}',
+
+    /* 9. آیکون‌های داخل فوتر خاکستری روشن */
     '.box-footer svg,.box-footer path,.box-footer i{fill:#8b9ba6 !important;color:#8b9ba6 !important;}',
 
-    /* ===== ۸. زمان پیام ===== */
+    /* 10. زمان پیام */
     '[class*="time"],[class*="date"]{color:#8b9ba6 !important;}'
   ].join('');
 
@@ -2428,7 +2433,6 @@ document.querySelectorAll('.skill').forEach(card => {
 
   setTimeout(function(){ injectStyles(); positionGoftino(); }, 4000);
 </script>
-  
   
 </body>
 </html>
