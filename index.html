@@ -2347,217 +2347,39 @@ document.querySelectorAll('.skill').forEach(card => {
 
 
   <!-- ===== GOFTINO WIDGET - CUSTOM DARK THEME ===== -->
+<!-- ===== GOFTINO - DEBUG VERSION ===== -->
+<div id="goftino-debug" style="position:fixed;bottom:0;left:0;right:0;background:#D9C200;color:#001830;padding:8px;font-size:12px;z-index:99999;text-align:center;font-family:monospace;direction:ltr;">
+  Goftino: <span id="dbg-status">loading...</span>
+</div>
+
 <script>
   !function(){var i="YJmaTq",a=window,d=document;function g(){var g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}"complete"===d.readyState?g():a.attachEvent?a.attachEvent("onload",g):a.addEventListener("load",g,!1);}();
 
-  // ====== 1. استایل‌های سفارشی (به صورت فشرده) ======
-  var goftinoDarkCSS = `
-    /* --- پنجره اصلی چت --- */
-    .goftino-widget, .goftino-container, #goftino-container, .goftino-chat-window, 
-    .goftino-chat-container, [class*="goftino"] .goftino-box {
-      background-color: #001830 !important;
-      background: #001830 !important;
-      border: 1px solid rgba(255,255,255,0.09) !important;
-      border-radius: 18px !important;
-      box-shadow: 0 30px 70px rgba(0,0,0,0.6) !important;
-      font-family: "Vazirmatn", system-ui, sans-serif !important;
-      overflow: hidden !important;
-    }
+  var dbg = document.getElementById('dbg-status');
 
-    /* --- هدر --- */
-    .goftino-header, .goftino-widget-header, .goftino-chat-header,
-    [class*="goftino"] .goftino-top-bar {
-      background-color: #000d18 !important;
-      background: #000d18 !important;
-      border-bottom: 1px solid rgba(255,255,255,0.09) !important;
-      padding: 12px 16px !important;
-    }
-    .goftino-title, .goftino-header-title, .goftino-chat-header-title,
-    [class*="goftino"] .goftino-title-text {
-      color: #f1f5f7 !important;
-      font-weight: 700 !important;
-      font-size: 14px !important;
-    }
-
-    /* --- ناحیه پیام‌ها --- */
-    .goftino-messages, .goftino-body, .goftino-chat-body, .goftino-message-list,
-    [class*="goftino"] .goftino-conversation {
-      background-color: #001830 !important;
-      background: #001830 !important;
-      padding: 16px !important;
-    }
-
-    /* --- حباب پیام اپراتور (سمت چپ) --- */
-    .goftino-message.operator .goftino-bubble,
-    .goftino-message.agent .goftino-bubble,
-    .goftino-msg.operator .goftino-msg-bubble,
-    .goftino-message-left .goftino-bubble,
-    [class*="goftino"] .goftino-message.left .goftino-bubble {
-      background-color: rgba(255,255,255,0.045) !important;
-      background: rgba(255,255,255,0.045) !important;
-      border: 1px solid rgba(255,255,255,0.09) !important;
-      color: #f1f5f7 !important;
-      border-radius: 14px 14px 14px 4px !important;
-      backdrop-filter: blur(12px) !important;
-    }
-    .goftino-message.operator .goftino-bubble p,
-    .goftino-message.agent .goftino-bubble p,
-    [class*="goftino"] .goftino-message.left .goftino-bubble p {
-      color: #f1f5f7 !important;
-    }
-
-    /* --- حباب پیام کاربر (سمت راست) --- */
-    .goftino-message.user .goftino-bubble,
-    .goftino-message.visitor .goftino-bubble,
-    .goftino-msg.user .goftino-msg-bubble,
-    .goftino-message-right .goftino-bubble,
-    [class*="goftino"] .goftino-message.right .goftino-bubble {
-      background-color: rgba(217,194,0,0.13) !important;
-      background: rgba(217,194,0,0.13) !important;
-      border: 1px solid rgba(217,194,0,0.3) !important;
-      color: #f1f5f7 !important;
-      border-radius: 14px 14px 4px 14px !important;
-      backdrop-filter: blur(12px) !important;
-    }
-    .goftino-message.user .goftino-bubble p,
-    .goftino-message.visitor .goftino-bubble p,
-    [class*="goftino"] .goftino-message.right .goftino-bubble p {
-      color: #f1f5f7 !important;
-    }
-
-    /* --- ناحیه ورودی متن --- */
-    .goftino-footer, .goftino-input-area, .goftino-chat-footer,
-    [class*="goftino"] .goftino-bottom-bar {
-      background-color: #000d18 !important;
-      background: #000d18 !important;
-      border-top: 1px solid rgba(255,255,255,0.09) !important;
-      padding: 12px 16px !important;
-    }
-    .goftino-footer textarea, .goftino-footer input,
-    .goftino-input-area textarea, .goftino-input-area input,
-    [class*="goftino"] .goftino-bottom-bar textarea,
-    [class*="goftino"] .goftino-bottom-bar input {
-      background-color: rgba(255,255,255,0.045) !important;
-      background: rgba(255,255,255,0.045) !important;
-      border: 1px solid rgba(255,255,255,0.09) !important;
-      color: #f1f5f7 !important;
-      border-radius: 12px !important;
-      font-family: "Vazirmatn", system-ui, sans-serif !important;
-      font-size: 13px !important;
-    }
-    .goftino-footer textarea::placeholder, .goftino-footer input::placeholder,
-    [class*="goftino"] .goftino-bottom-bar textarea::placeholder {
-      color: #8b9ba6 !important;
-    }
-
-    /* --- دکمه ارسال --- */
-    .goftino-send-button, .goftino-footer button[type="submit"],
-    [class*="goftino"] .goftino-send-btn, [class*="goftino"] .goftino-submit {
-      background-color: #D9C200 !important;
-      background: #D9C200 !important;
-      color: #001830 !important;
-      border-radius: 12px !important;
-    }
-    .goftino-send-button i, .goftino-footer button[type="submit"] i,
-    [class*="goftino"] .goftino-send-btn i {
-      color: #001830 !important;
-    }
-
-    /* --- اسکرول‌بار --- */
-    .goftino-messages::-webkit-scrollbar { width: 6px !important; }
-    .goftino-messages::-webkit-scrollbar-track { background: #001830 !important; }
-    .goftino-messages::-webkit-scrollbar-thumb {
-      background: linear-gradient(#D9C200, #001830) !important;
-      border-radius: 99px !important;
-    }
-
-    /* --- پیام‌های سیستمی --- */
-    .goftino-system-message, [class*="goftino"] .goftino-system-text {
-      color: #8b9ba6 !important;
-      font-size: 11px !important;
-    }
-
-    /* --- زمان پیام‌ها --- */
-    .goftino-time, [class*="goftino"] .goftino-message-time {
-      color: #8b9ba6 !important;
-      font-size: 10px !important;
-    }
-
-    /* --- حالت‌های اضافی --- */
-    .goftino-message .goftino-bubble a { color: #D9C200 !important; }
-    .goftino-message .goftino-bubble strong { color: #f1f5f7 !important; }
-    [class*="goftino"] .goftino-close-btn { color: #f1f5f7 !important; }
-    [class*="goftino"] .goftino-avatar { background: rgba(217,194,0,0.13) !important; }
-  `;
-
-  // ====== 2. تابع تزریق استایل به داخل iframe ======
-  function injectGoftinoStyles() {
-    var iframes = document.querySelectorAll('iframe');
-    var injected = false;
-
-    for (var k = 0; k < iframes.length; k++) {
-      var iframe = iframes[k];
-      try {
-        var doc = iframe.contentDocument || iframe.contentWindow.document;
-        if (doc && doc.head) {
-          // حذف استایل قبلی برای جلوگیری از تکراری شدن
-          var existing = doc.getElementById('goftino-dark-style');
-          if (existing) existing.remove();
-
-          var style = doc.createElement('style');
-          style.id = 'goftino-dark-style';
-          style.textContent = goftinoDarkCSS;
-          doc.head.appendChild(style);
-          injected = true;
-        }
-      } catch (e) {
-        // اگر iframe cross-origin باشد، نمی‌توانیم به آن دسترسی داشته باشیم
-      }
-    }
-    return injected;
-  }
-
-  // ====== 3. تابع تنظیم موقعیت دکمه ======
-  function positionGoftino() {
-    if (typeof window.Goftino === 'undefined' || typeof window.Goftino.setWidget !== 'function') return;
-
-    var musicBtn = document.querySelector('.music-btn');
-    var marginBottom = 80, marginRight = 20;
-
-    if (musicBtn) {
-      var rect = musicBtn.getBoundingClientRect();
-      marginBottom = Math.round(window.innerHeight - rect.top + 15);
-      marginRight = Math.round(window.innerWidth - rect.right);
-    }
-
-    window.Goftino.setWidget({
-      marginBottom: marginBottom,
-      marginRight: marginRight
-    });
-  }
-
-  // ====== 4. اجرا پس از آماده شدن ابزارک ======
   window.addEventListener('goftino_ready', function () {
-    // تلاش اول برای تزریق استایل
-    injectGoftinoStyles();
-
-    // تلاش‌های مجدد برای اطمینان از بارگذاری کامل iframe
-    setTimeout(injectGoftinoStyles, 800);
-    setTimeout(injectGoftinoStyles, 2000);
-    setTimeout(injectGoftinoStyles, 4000);
-
-    // تنظیم موقعیت
-    positionGoftino();
-    window.addEventListener('resize', positionGoftino);
+    dbg.textContent = 'ready ✓';
+    
+    if (typeof window.Goftino !== 'undefined') {
+      dbg.textContent = 'calling setWidget...';
+      
+      window.Goftino.setWidget({
+        marginBottom: 80,
+        marginRight: 20,
+        cssUrl: 'https://mahmoj.github.io/goftino-custom.css'
+      });
+      
+      setTimeout(function(){ dbg.textContent = 'setWidget sent ✓'; }, 500);
+    } else {
+      dbg.textContent = 'Goftino object NOT found!';
+    }
   });
 
-  // ====== 5. تایمر پشتیبان ======
-  setTimeout(function() {
-    if (typeof window.Goftino !== 'undefined') {
-      injectGoftinoStyles();
-      positionGoftino();
+  setTimeout(function(){
+    if (dbg.textContent === 'loading...') {
+      dbg.textContent = 'timeout - goftino_ready did not fire';
     }
-  }, 5000);
+  }, 6000);
 </script>
   
 
