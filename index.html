@@ -2347,42 +2347,45 @@ document.querySelectorAll('.skill').forEach(card => {
 
 
   <!-- ===== GOFTINO - CUSTOM DARK THEME ===== -->
+<!-- ===== GOFTINO - CUSTOM DARK THEME v3 ===== -->
 <script>
   !function(){var i="YJmaTq",a=window,d=document;function g(){var g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}"complete"===d.readyState?g():a.attachEvent?a.attachEvent("onload",g):a.addEventListener("load",g,!1);}();
 
   var darkCSS = [
-    /* 1. ریشه‌ی iframe - تیره کن */
-    'html,body{background-color:#001830 !important;background-image:none !important;background:#001830 !important;}',
+    /* ===== پایه ===== */
+    'html,body{background-color:#001830 !important;}',
 
-    /* 2. همهٔ تصاویر پس‌زمینه (والپیپر طرح‌دار) را حذف کن */
-    '*{background-image:none !important;}',
+    /* ===== هدر ===== */
+    '.box-header{background-color:#000d18 !important;}',
+    '.box-header,.box-header *{color:#f1f5f7 !important;}',
 
-    /* 3. همهٔ کانتینرهای اصلی شفاف تا رنگ تیره‌ی والد نمایان شود */
-    '[class*="box-"],[class*="chat"],[class*="content"],[class*="container"],[class*="wrapper"]{background-color:transparent !important;}',
+    /* ===== ناحیه پیام‌ها ===== */
+    '.box-chat-content{background-color:#001830 !important;background-image:none !important;}',
 
-    /* 4. خود محتوای اصلی چت را تیره کن */
-    '.box-chat-content{background-color:#001830 !important;background:#001830 !important;}',
+    /* ===== حباب پیام‌ها (اصلاح‌شده) ===== */
+    '.box-new-message{background-color:#1a3456 !important;background:#1a3456 !important;color:#f1f5f7 !important;border-radius:12px !important;padding:10px 14px !important;margin:6px 0 !important;}',
+    '.box-new-message,.box-new-message *{color:#f1f5f7 !important;background-color:transparent !important;background-image:none !important;}',
 
-    /* 5. هدر و فوتر تیره‌تر */
-    '.box-header{background-color:#000d18 !important;border-bottom:1px solid rgba(255,255,255,0.09) !important;}',
-    '.box-footer{background-color:#000d18 !important;border-top:1px solid rgba(255,255,255,0.09) !important;}',
-    '.box-header *,.box-footer *{color:#f1f5f7 !important;}',
+    /* ===== نوار پایین (ورودی) - این بار قاطع‌تر ===== */
+    '.box-footer{background-color:#000d18 !important;background:#000d18 !important;}',
+    '.box-footer,.box-footer *{color:#f1f5f7 !important;}',
+    '.box-footer > *{background-color:transparent !important;}',
 
-    /* 6. حباب پیام‌ها */
-    '.box-new-message{background-color:rgba(255,255,255,0.06) !important;color:#f1f5f7 !important;border-radius:14px !important;}',
-    '.box-new-message *{color:#f1f5f7 !important;}',
-
-    /* 7. ورودی متن */
-    '.material-input{background-color:rgba(255,255,255,0.045) !important;border:1px solid rgba(255,255,255,0.09) !important;border-radius:12px !important;}',
-    '.material-input input,.material-input textarea{background:transparent !important;color:#f1f5f7 !important;font-family:Vazirmatn,system-ui,sans-serif !important;}',
+    /* ===== فیلد ورودی ===== */
+    '.material-input{background-color:rgba(255,255,255,0.07) !important;background:rgba(255,255,255,0.07) !important;border-radius:12px !important;}',
+    '.material-input,.material-input *{color:#f1f5f7 !important;}',
+    '.material-input input,.material-input textarea{background-color:transparent !important;color:#f1f5f7 !important;font-family:Vazirmatn,system-ui,sans-serif !important;}',
     '.material-input input::placeholder,.material-input textarea::placeholder{color:#8b9ba6 !important;}',
 
-    /* 8. زمان و متادیتا */
+    /* ===== آیکون‌های ضمیمه و ایموجی داخل فوتر ===== */
+    '.box-footer svg,.box-footer path,.box-footer i{fill:#8b9ba6 !important;color:#8b9ba6 !important;}',
+
+    /* ===== زمان پیام ===== */
     '[class*="time"],[class*="date"]{color:#8b9ba6 !important;}',
 
-    /* 9. آیکون شناور طلایی */
+    /* ===== آیکون شناور طلایی ===== */
     '.widget-icon{background-color:#D9C200 !important;background:#D9C200 !important;box-shadow:0 0 30px rgba(217,194,0,0.5) !important;}',
-    '.widget-icon svg,.widget-icon i,.widget-icon path{fill:#001830 !important;color:#001830 !important;}'
+    '.widget-icon svg,.widget-icon path,.widget-icon i{fill:#001830 !important;color:#001830 !important;}'
   ].join('');
 
   function injectStyles(){
@@ -2425,7 +2428,6 @@ document.querySelectorAll('.skill').forEach(card => {
 
   setTimeout(function(){ injectStyles(); positionGoftino(); }, 4000);
 </script>
-
   
 </body>
 </html>
