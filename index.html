@@ -2345,8 +2345,39 @@ document.querySelectorAll('.skill').forEach(card => {
 </script>
 
 
-  <script type="text/javascript">
+  <script>
   !function(){var i="YJmaTq",a=window,d=document;function g(){var g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}"complete"===d.readyState?g():a.attachEvent?a.attachEvent("onload",g):a.addEventListener("load",g,!1);}();
+
+  // تابع کمکی برای قرار دادن دکمه گفتینو بالای دکمه صوت
+  function positionGoftinoAboveMusic() {
+    var musicBtn = document.querySelector('.music-btn');
+    if (!musicBtn || !window.Goftino || typeof window.Goftino.setWidget !== 'function') return;
+
+    var rect = musicBtn.getBoundingClientRect();
+    var gap = 12; // فاصله بین دو دکمه به پیکسل
+
+    // فاصله از پایین صفحه تا بالای دکمه صوت + فاصله
+    var marginBottom = Math.round(window.innerHeight - rect.top + gap);
+
+    // فاصله از لبه راست صفحه تا لبه راست دکمه صوت
+    var marginRight = Math.round(window.innerWidth - rect.right);
+
+    window.Goftino.setWidget({
+      marginBottom: marginBottom,
+      marginRight: marginRight,
+      cssUrl: 'goftino-custom.css' // فایل تم تیره که قبلاً ساختیم
+    });
+  }
+
+  // وقتی ابزارک گفتینو آماده شد، موقعیت‌دهی انجام شود
+  window.addEventListener('goftino_ready', function () {
+    positionGoftinoAboveMusic();
+
+    // در صورت تغییر اندازه پنجره (چرخش گوشی، باز/بسته شدن کیبورد و...) دوباره محاسبه شود
+    window.addEventListener('resize', function () {
+      positionGoftinoAboveMusic();
+    });
+  });
 </script>
 
 </body>
