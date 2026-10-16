@@ -2345,39 +2345,52 @@ document.querySelectorAll('.skill').forEach(card => {
 </script>
 
 
-  <script>
+  <!-- ===== GOFTINO WIDGET ===== -->
+<script>
+  // 1. بارگذاری اسکریپت اصلی گفتینو
   !function(){var i="YJmaTq",a=window,d=document;function g(){var g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}"complete"===d.readyState?g():a.attachEvent?a.attachEvent("onload",g):a.addEventListener("load",g,!1);}();
 
-  // تابع کمکی برای قرار دادن دکمه گفتینو بالای دکمه صوت
-  function positionGoftinoAboveMusic() {
+  // 2. تابع اصلی برای تنظیم ظاهر و موقعیت دکمه گفتینو
+  function setupGoftino() {
+    if (typeof window.Goftino === 'undefined' || typeof window.Goftino.setWidget !== 'function') {
+      setTimeout(setupGoftino, 200);
+      return;
+    }
+
     var musicBtn = document.querySelector('.music-btn');
-    if (!musicBtn || !window.Goftino || typeof window.Goftino.setWidget !== 'function') return;
+    if (!musicBtn) {
+      // اگر دکمه موسیقی پیدا نشد، فقط تم را اعمال کن
+      window.Goftino.setWidget({
+        cssUrl: 'https://USERNAME.github.io/REPO/goftino-custom.css' // ← مسیر را جایگزین کنید
+      });
+      return;
+    }
 
     var rect = musicBtn.getBoundingClientRect();
-    var gap = 12; // فاصله بین دو دکمه به پیکسل
+    var gap = 15;
 
-    // فاصله از پایین صفحه تا بالای دکمه صوت + فاصله
     var marginBottom = Math.round(window.innerHeight - rect.top + gap);
-
-    // فاصله از لبه راست صفحه تا لبه راست دکمه صوت
     var marginRight = Math.round(window.innerWidth - rect.right);
 
     window.Goftino.setWidget({
       marginBottom: marginBottom,
       marginRight: marginRight,
-      cssUrl: 'goftino-custom.css' // فایل تم تیره که قبلاً ساختیم
+      cssUrl: 'https://USERNAME.github.io/REPO/goftino-custom.css' // ← مسیر را جایگزین کنید
     });
+
+    console.log('Goftino positioned:', { marginBottom, marginRight });
   }
 
-  // وقتی ابزارک گفتینو آماده شد، موقعیت‌دهی انجام شود
+  // 3. اجرا پس از آماده شدن ابزارک
   window.addEventListener('goftino_ready', function () {
-    positionGoftinoAboveMusic();
-
-    // در صورت تغییر اندازه پنجره (چرخش گوشی، باز/بسته شدن کیبورد و...) دوباره محاسبه شود
-    window.addEventListener('resize', function () {
-      positionGoftinoAboveMusic();
-    });
+    setupGoftino();
+    window.addEventListener('resize', setupGoftino);
   });
+
+  // 4. تایمر پشتیبان
+  setTimeout(function() {
+    if (typeof window.Goftino !== 'undefined') setupGoftino();
+  }, 3000);
 </script>
 
 </body>
