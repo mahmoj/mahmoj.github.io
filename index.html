@@ -2345,53 +2345,78 @@ document.querySelectorAll('.skill').forEach(card => {
 </script>
 
 
-  <!-- ===== GOFTINO WIDGET ===== -->
+<!-- ===== GOFTINO WIDGET ===== -->
 <script>
   // 1. بارگذاری اسکریپت اصلی گفتینو
-  !function(){var i="YJmaTq",a=window,d=document;function g(){var g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}"complete"===d.readyState?g():a.attachEvent?a.attachEvent("onload",g):a.addEventListener("load",g,!1);}();
+  (function(){
+    var i = "YJmaTq";
+    var a = window, d = document;
+    function g(){
+      var g = d.createElement("script"),
+          s = "https://www.goftino.com/widget/" + i,
+          l = localStorage.getItem("goftino_" + i);
+      g.async = !0;
+      g.src = l ? s + "?o=" + l : s;
+      d.getElementsByTagName("head")[0].appendChild(g);
+    }
+    if ("complete" === d.readyState) { g(); }
+    else if (a.attachEvent) { a.attachEvent("onload", g); }
+    else { a.addEventListener("load", g, !1); }
+  })();
 
-  // 2. تابع اصلی برای تنظیم ظاهر و موقعیت دکمه گفتینو
-  function setupGoftino() {
+  // 2. تابع تنظیمات - فقط داخل goftino_ready فراخوانی می‌شود
+  function applyGoftinoSettings() {
+    // بررسی وجود آبجکت Goftino
     if (typeof window.Goftino === 'undefined' || typeof window.Goftino.setWidget !== 'function') {
-      setTimeout(setupGoftino, 200);
+      console.warn('Goftino هنوز آماده نیست. 500 میلی‌ثانیه دیگر تلاش مجدد...');
+      setTimeout(applyGoftinoSettings, 500);
       return;
     }
 
+    // پیدا کردن دکمه موسیقی
     var musicBtn = document.querySelector('.music-btn');
-    if (!musicBtn) {
-      // اگر دکمه موسیقی پیدا نشد، فقط تم را اعمال کن
-      window.Goftino.setWidget({
-        cssUrl: 'https://USERNAME.github.io/REPO/goftino-custom.css' // ← مسیر را جایگزین کنید
-      });
-      return;
+    var marginBottom = 80;
+    var marginRight = 20;
+
+    if (musicBtn) {
+      var rect = musicBtn.getBoundingClientRect();
+      var gap = 15;
+      marginBottom = Math.round(window.innerHeight - rect.top + gap);
+      marginRight = Math.round(window.innerWidth - rect.right);
+      console.log('موقعیت دکمه موسیقی:', rect);
+    } else {
+      console.warn('دکمه موسیقی پیدا نشد. از موقعیت پیش‌فرض استفاده می‌شود.');
     }
 
-    var rect = musicBtn.getBoundingClientRect();
-    var gap = 15;
-
-    var marginBottom = Math.round(window.innerHeight - rect.top + gap);
-    var marginRight = Math.round(window.innerWidth - rect.right);
-
+    // ⚠️ مسیر CSS را با آدرس واقعی خود جایگزین کنید
     window.Goftino.setWidget({
       marginBottom: marginBottom,
       marginRight: marginRight,
-      cssUrl: 'https://USERNAME.github.io/REPO/goftino-custom.css' // ← مسیر را جایگزین کنید
+      cssUrl: 'https://mahmoj.github.io/goftino-custom.css'
     });
 
-    console.log('Goftino positioned:', { marginBottom, marginRight });
+    console.log('✅ تنظیمات گفتینو اعمال شد:', { marginBottom, marginRight });
   }
 
-  // 3. اجرا پس از آماده شدن ابزارک
+  // 3. اجرا پس از آماده شدن کامل ابزارک
   window.addEventListener('goftino_ready', function () {
-    setupGoftino();
-    window.addEventListener('resize', setupGoftino);
+    console.log('✅ رویداد goftino_ready اجرا شد.');
+    applyGoftinoSettings();
+    window.addEventListener('resize', applyGoftinoSettings);
   });
 
-  // 4. تایمر پشتیبان
+  // 4. تایمر پشتیبان (در صورت عدم اجرای رویداد)
   setTimeout(function() {
-    if (typeof window.Goftino !== 'undefined') setupGoftino();
-  }, 3000);
+    if (typeof window.Goftino !== 'undefined' && typeof window.Goftino.setWidget === 'function') {
+      console.log('⏰ تلاش پشتیبان برای اعمال تنظیمات گفتینو...');
+      applyGoftinoSettings();
+    } else {
+      console.warn('❌ آبجکت Goftino پس از ۵ ثانیه هنوز موجود نیست.');
+    }
+  }, 5000);
 </script>
+  
 
+  
 </body>
 </html>
