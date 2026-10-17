@@ -2352,45 +2352,51 @@ document.querySelectorAll('.skill').forEach(card => {
 
 <!-- ===== GOFTINO - CUSTOM DARK THEME v5 ===== -->
   <!-- ===== GOFTINO - CUSTOM DARK THEME v6 ===== -->
+
+
+  <!-- ===== GOFTINO - FINAL CUSTOM DARK THEME ===== -->
 <script>
   !function(){var i="YJmaTq",a=window,d=document;function g(){var g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}"complete"===d.readyState?g():a.attachEvent?a.attachEvent("onload",g):a.addEventListener("load",g,!1);}();
 
   var darkCSS = [
-    /* 1. حذف تصاویر پس‌زمینه — بدون تغییر از v5 */
+    /* 1. حذف کامل تصاویر و طرح‌های پس‌زمینه */
     '*{background-image:none !important;}',
 
-    /* 2. پایهٔ تیره — بدون تغییر از v5 */
-    'html,body{background-color:#001830 !important;background:#001830 !important;}',
+    /* 2. پایه تیره برای کل صفحه چت */
+    'html, body, .box-chat-content{background-color:#001830 !important;background:#001830 !important;}',
 
-    /* 3. لایه‌های box-* شفاف می‌شوند، ولی حباب و ورودی مستثنی هستند */
-    '[class*="box-"]:not(.box-new-message):not(.material-input){background-color:transparent !important;background:transparent !important;}',
+    /* 3. شفاف کردن لایه‌های میانی (به جز هدر، فوتر، حباب و ورودی) */
+    '[class*="box-"]:not(.box-header):not(.box-footer):not(.box-new-message):not(.material-input){background-color:transparent !important;background:transparent !important;}',
 
-    /* 4. نواحی تیره اصلی */
-    '.box-chat-content{background-color:#001830 !important;background:#001830 !important;}',
-    '.box-header{background-color:#000d18 !important;background:#000d18 !important;}',
+    /* 4. هدر: زرد با متن و آیکون سرمه‌ای */
+    '.box-header{background-color:#D9C200 !important;background:#D9C200 !important;}',
+    '.box-header, .box-header *{color:#001830 !important;}',
+    '.box-header svg, .box-header path, .box-header i{fill:#001830 !important;color:#001830 !important;}',
+
+    /* 5. فوتر (نوار پایین): تیره */
     '.box-footer{background-color:#000d18 !important;background:#000d18 !important;}',
-
-    /* 5. همهٔ فرزندان فوتر شفاف می‌شوند جز ورودی */
+    '.box-footer, .box-footer *{color:#f1f5f7 !important;}',
     '.box-footer *:not(input):not(textarea):not(.material-input):not(.material-input *){background-color:transparent !important;background:transparent !important;}',
 
-    /* 6. فیلد ورودی — با specificity بالاتر تا شفاف نشود */
+    /* 6. فیلد ورودی پیام */
     '.box-footer .material-input{background-color:rgba(255,255,255,0.08) !important;background:rgba(255,255,255,0.08) !important;border-radius:12px !important;}',
     '.box-footer .material-input *{background-color:transparent !important;background:transparent !important;}',
-    '.box-footer .material-input input,.box-footer .material-input textarea{background-color:transparent !important;color:#f1f5f7 !important;font-family:Vazirmatn,system-ui,sans-serif !important;}',
-    '.box-footer .material-input input::placeholder,.box-footer .material-input textarea::placeholder{color:#8b9ba6 !important;}',
+    '.box-footer .material-input input, .box-footer .material-input textarea{background-color:transparent !important;color:#f1f5f7 !important;font-family:Vazirmatn,system-ui,sans-serif !important;}',
+    '.box-footer .material-input input::placeholder, .box-footer .material-input textarea::placeholder{color:#8b9ba6 !important;}',
 
-    /* 7. حباب پیام — طلایی ملایم، کاملاً واضح روی پس‌زمینهٔ تیره */
-    '.box-new-message{background-color:rgba(217,194,0,0.18) !important;background:rgba(217,194,0,0.18) !important;border:1px solid rgba(217,194,0,0.4) !important;border-radius:14px !important;padding:10px 14px !important;}',
-    '.box-new-message > *{background-color:transparent !important;background:transparent !important;}',
+    /* 7. حباب پیام: زرد با متن سرمه‌ای (رفع مشکل گوشه سفید) */
+    '.box-new-message{background-color:#D9C200 !important;background:#D9C200 !important;border-radius:14px !important;padding:10px 14px !important;}',
+    '.box-new-message, .box-new-message *{color:#001830 !important;}',
+    
+    /* 8. نابودی گوشه سفید (شبه‌عنصرها و آیکون‌های اضافی حباب) */
+    '.box-new-message::before, .box-new-message::after{background-color:#D9C200 !important;background:#D9C200 !important;border-color:#D9C200 !important;}',
+    '.box-new-message svg, .box-new-message path{fill:#D9C200 !important;stroke:#D9C200 !important;}',
 
-    /* 8. متن‌ها روشن */
-    '.box-header,.box-header *,.box-footer,.box-footer *,.box-new-message,.box-new-message *{color:#f1f5f7 !important;}',
+    /* 9. آیکون‌های داخل فوتر (گیره، میکروفون و...) */
+    '.box-footer svg, .box-footer path, .box-footer i{fill:#8b9ba6 !important;color:#8b9ba6 !important;}',
 
-    /* 9. آیکون‌های داخل فوتر خاکستری روشن */
-    '.box-footer svg,.box-footer path,.box-footer i{fill:#8b9ba6 !important;color:#8b9ba6 !important;}',
-
-    /* 10. زمان پیام */
-    '[class*="time"],[class*="date"]{color:#8b9ba6 !important;}'
+    /* 10. رنگ زمان پیام‌ها */
+    '[class*="time"], [class*="date"]{color:#8b9ba6 !important;}'
   ].join('');
 
   function injectStyles(){
