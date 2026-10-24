@@ -111,7 +111,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 .refresh-btn i{font-size:.7rem;color:var(--gold)}
 
 /* ══════════════════════════════════════════════════════════
-   GALLERY — MASONRY با ستون‌های مستقل
+   GALLERY — MASONRY
    ══════════════════════════════════════════════════════════ */
 .gallery-section{padding-top:.5rem}
 .gallery{
@@ -137,6 +137,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 @media (min-width:640px){.gallery-col{gap:.8rem;}}
 @media (min-width:1024px){.gallery-col{gap:.9rem;}}
 
+/* ── کارت — انیمیشن ورود بسیار سریع، بدون stagger ── */
 .gallery-item{
   position:relative;
   display:block;
@@ -152,12 +153,16 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
     transform .45s var(--ease),
     box-shadow .45s var(--ease),
     border-color .45s var(--ease);
-  will-change:transform;
   opacity:0;
-  animation:tileIn .55s var(--ease) forwards;
+  animation: tileIn .35s var(--ease) forwards;
+}
+/* کارت‌های offscreen بدون انیمیشن — مستقیم ظاهر می‌شوند */
+.gallery-item.no-anim{
+  opacity:1;
+  animation:none;
 }
 @media (min-width:640px){.gallery-item{border-radius:16px;}}
-@keyframes tileIn{from{opacity:0;transform:translateY(24px) scale(.94);}to{opacity:1;transform:none;}}
+@keyframes tileIn{from{opacity:0;}to{opacity:1;}}
 
 .gallery-item img{
   position:absolute;
@@ -168,14 +173,15 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   opacity:0;
   z-index:1;
   transition:
-    opacity .55s var(--ease),
-    transform .6s var(--ease),
+    opacity .4s var(--ease),
+    transform .5s var(--ease),
     filter .45s var(--ease);
   user-select:none;
   pointer-events:none;
 }
 .gallery-item.loaded img{opacity:1;}
 
+/* ── Skeleton ── */
 .skeleton{
   position:absolute;
   inset:0;
@@ -194,7 +200,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
     rgba(255,255,255,.02);
   background-size:250% 100%;
   animation:shimmer 1.8s ease-in-out infinite;
-  transition:opacity .45s var(--ease);
+  transition:opacity .4s var(--ease);
 }
 .skeleton::after{
   content:"\f03e";
@@ -203,6 +209,15 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   font-size:1.6rem;
   color:rgba(217,194,0,.22);
   animation:iconPulse 2s ease-in-out infinite;
+}
+/* Offscreen: skeleton استاتیک (بدون انیمیشن) — صرفه‌جویی باتری/CPU */
+.gallery-item.no-anim .skeleton{
+  animation:none;
+  background:rgba(255,255,255,.03);
+}
+.gallery-item.no-anim .skeleton::after{
+  animation:none;
+  opacity:.15;
 }
 .gallery-item.loaded .skeleton{opacity:0;pointer-events:none;}
 @keyframes shimmer{
@@ -219,6 +234,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   animation:none;
 }
 
+/* ── Hover ── */
 .gallery-item:hover,
 .gallery-item:focus-visible{
   transform:translateY(-6px) scale(1.015);
@@ -234,6 +250,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   filter:brightness(.92) saturate(1.15) contrast(1.05);
 }
 
+/* ── بج کد ── */
 .code-mini{
   position:absolute;bottom:8px;left:8px;z-index:3;
   font-family:"Space Grotesk",ui-monospace,monospace;
@@ -247,6 +264,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 }
 .gallery-item:hover .code-mini{opacity:0;transform:translateY(6px);}
 
+/* ── گلس مات ── */
 .glass-overlay{
   position:absolute;inset:0;z-index:2;
   display:flex;align-items:center;justify-content:center;
@@ -273,22 +291,39 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 
 /* ══════ LOADER / EMPTY ══════ */
 .loader{
-  display:none;flex-direction:column;align-items:center;gap:.9rem;
-  padding:3rem 1rem;text-align:center;color:var(--muted);font-size:.84rem;
+  display:none;flex-direction:column;align-items:center;gap:1rem;
+  padding:3.5rem 1rem;text-align:center;color:var(--muted);font-size:.84rem;
 }
 .loader.on{display:flex}
-.loader i{
+.loader i.fa-circle-notch{
   font-size:2.2rem;color:var(--gold);
-  animation:spin 1.5s linear infinite;
+  animation:spin 1.2s linear infinite;
   filter:drop-shadow(0 0 20px rgba(217,194,0,.6));
 }
 @keyframes spin{to{transform:rotate(360deg)}}
-.loader-text{max-width:280px}
-.loader-text b{color:var(--gold);font-weight:800}
-.loader-stage{
-  font-size:.72rem;color:var(--muted);margin-top:.3rem;
-  direction:rtl;opacity:.7;
+.loader-text{max-width:280px;font-weight:700}
+.loader-bar{
+  width:min(240px,60vw);
+  height:4px;
+  border-radius:99px;
+  background:var(--stroke);
+  overflow:hidden;
+  position:relative;
 }
+.loader-bar i{
+  display:block;
+  height:100%;
+  width:45%;
+  border-radius:99px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  position:absolute;
+  animation:indeterminate 1.4s ease-in-out infinite;
+}
+@keyframes indeterminate{
+  0% {transform:translateX(-120%);}
+  100%{transform:translateX(320%);}
+}
+.loader-stage{font-size:.72rem;color:var(--muted);opacity:.7;direction:rtl;min-height:1em}
 
 .empty{
   text-align:center;padding:3.5rem 1.5rem;border-radius:20px;
@@ -553,7 +588,8 @@ footer a{color:var(--gold);font-weight:700;}
     <div class="wrap">
       <div class="loader on" id="loader">
         <i class="fa-solid fa-circle-notch"></i>
-        <div class="loader-text">در حال بارگذاری تصاویر…</div>
+        <div class="loader-text">در حال بارگذاری گالری…</div>
+        <div class="loader-bar"><i></i></div>
         <div class="loader-stage" id="loaderStage">آماده‌سازی…</div>
       </div>
     </div>
@@ -572,10 +608,9 @@ footer a{color:var(--gold);font-weight:700;}
           <b>راهنمایی برای رفع مشکل:</b>
           <ul>
             <li>پوشهٔ <code>img/monasebati/</code> وجود دارد؟</li>
-            <li>فایل‌ها با پسوند <code>png/jpg/jpeg/webp</code> هستند؟</li>
+            <li>فایل‌ها با پسوند <code>.png</code> هستند؟</li>
             <li><b>Ad blocker</b> (uBlock, Brave Shields) را برای این سایت غیرفعال کن</li>
             <li>یک بار <b>Ctrl+Shift+R</b> بزن (hard refresh)</li>
-            <li>اگر باز هم نشد، یک بار <code>list.json</code> بساز</li>
           </ul>
         </div>
       </div>
@@ -620,7 +655,6 @@ footer a{color:var(--gold);font-weight:700;}
 <script>
 /* ══════ HELPERS ══════ */
 const $ = (s, ctx = document) => ctx.querySelector(s);
-const $$ = (s, ctx = document) => Array.from(ctx.querySelectorAll(s));
 const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
 
 let toastT = null;
@@ -639,30 +673,34 @@ function setStage(text){
 }
 
 /* ══════════════════════════════════════════════════════════
-   CONFIG — تنظیمات اصلی
+   CONFIG
    ══════════════════════════════════════════════════════════ */
 const CONFIG = {
   folder: 'img/monasebati/',
   manifestFile: 'img/monasebati/list.json',
   githubRepo: null,
 
-  /* ── تنظیمات جستجوی مستقیم ── */
-  extensions: ['png', 'jpg', 'jpeg', 'webp'],
-  maxProbeNumber: 1000,      /* ← افزایش از ۱۰۰ به ۱۰۰۰ (رفع باگ «فقط ۱۰۰ تصویر») */
-  stopAfterMisses: 50,       /* ← تحمل ۵۰ شکست پشت‌سرهم (رفع توقف زودهنگام) */
-  probeConcurrency: 60,      /* ← افزایش موازی‌سازی */
-  probeTimeout: 3000,        /* ← تایم‌اوت ۳ ثانیه برای هر تصویر */
+  /* ── فقط png — همه تصاویر png شدند ── */
+  extension: 'png',
+  maxProbeNumber: 2000,
+  stopAfterMisses: 30,
+  probeConcurrency: 100,
+  probeTimeout: 1500,
 
-  /* ── کش ── */
-  cacheKey: 'gallery_monasebati_v2',
-  cacheTTL: 6 * 60 * 60 * 1000, /* ۶ ساعت */
+  /* ── کش localStorage ── */
+  cacheKey: 'gallery_matna_v3',
+  cacheTTL: 6 * 60 * 60 * 1000,
+
+  /* ── eager برای N تای اول، بقیه lazy ── */
+  eagerLimit: 12,
+
+  /* ── کارت‌های بالاتر از این ایندکس، بدون انیمیشن نمایش داده می‌شوند ── */
+  noAnimThreshold: 30,
 
   downloadPrefix: ''
 };
 
-/* ══════════════════════════════════════════════════════════
-   FETCH WITH TIMEOUT
-   ══════════════════════════════════════════════════════════ */
+/* ══════ FETCH WITH TIMEOUT ══════ */
 async function fetchWithTimeout(url, ms, opts = {}){
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), ms);
@@ -688,18 +726,12 @@ function detectGitHubRepo(){
   return { owner, repo: owner + '.github.io' };
 }
 
-/* ══════════════════════════════════════════════════════════
-   CACHE (localStorage)
-   ══════════════════════════════════════════════════════════ */
+/* ══════ CACHE ══════ */
 function saveCache(images){
   try {
-    localStorage.setItem(CONFIG.cacheKey, JSON.stringify({
-      ts: Date.now(),
-      images: images
-    }));
+    localStorage.setItem(CONFIG.cacheKey, JSON.stringify({ ts: Date.now(), images }));
   } catch(e){ console.warn('[Cache] save failed:', e.message); }
 }
-
 function loadCache(){
   try {
     const raw = localStorage.getItem(CONFIG.cacheKey);
@@ -707,11 +739,10 @@ function loadCache(){
     const data = JSON.parse(raw);
     if (!data || !data.ts || !Array.isArray(data.images)) return null;
     if (Date.now() - data.ts > CONFIG.cacheTTL) return null;
-    console.log('[Gallery] ✓ Cache hit (' + data.images.length + ' images, age: ' + Math.round((Date.now()-data.ts)/60000) + 'min)');
+    console.log('[Gallery] ✓ Cache (' + data.images.length + ' items, ' + Math.round((Date.now()-data.ts)/60000) + 'min old)');
     return data.images;
   } catch(e){ return null; }
 }
-
 function clearCache(){
   try { localStorage.removeItem(CONFIG.cacheKey); } catch(e){}
 }
@@ -719,7 +750,7 @@ function clearCache(){
 /* ══════ SOURCE 1: MANIFEST ══════ */
 async function fetchManifest(){
   try {
-    const res = await fetchWithTimeout(CONFIG.manifestFile + '?v=' + Date.now(), 3000, { cache: 'no-store' });
+    const res = await fetchWithTimeout(CONFIG.manifestFile + '?v=' + Date.now(), 2500, { cache: 'no-store' });
     if (!res.ok) return null;
     const data = await res.json();
     if (!Array.isArray(data) || !data.length) return null;
@@ -729,7 +760,7 @@ async function fetchManifest(){
       const numM = name.match(/(\d+)/);
       return {
         num: numM ? parseInt(numM[1]) : (i + 1),
-        name: name,
+        name,
         src: CONFIG.folder + name,
         time: (item && item.time) || null
       };
@@ -749,12 +780,12 @@ async function fetchGitHubAPI(){
       headers: { 'Accept': 'application/vnd.github+json' },
       cache: 'no-store'
     });
-    console.log('[Gallery] GitHub API status:', res.status);
+    console.log('[Gallery] GitHub API:', res.status);
     if (!res.ok) return null;
     const files = await res.json();
     if (!Array.isArray(files)) return null;
     const images = files
-      .filter(f => f.type === 'file' && /\.(png|jpe?g|webp|gif|avif)$/i.test(f.name))
+      .filter(f => f.type === 'file' && /\.png$/i.test(f.name))
       .map((f, i) => {
         const numM = f.name.match(/(\d+)/);
         return {
@@ -782,19 +813,19 @@ async function fetchJsDelivr(){
     try {
       const url = `https://data.jsdelivr.com/v1/packages/gh/${repo.owner}/${repo.repo}@${branch}?structure=flat`;
       const res = await fetchWithTimeout(url, 3500);
-      console.log('[Gallery] jsDelivr (' + branch + ') status:', res.status);
+      console.log('[Gallery] jsDelivr (' + branch + '):', res.status);
       if (!res.ok) continue;
       const data = await res.json();
       if (!data.files || !Array.isArray(data.files)) continue;
       const prefix = '/' + CONFIG.folder.replace(/^\/+|\/+$/g, '') + '/';
       const images = data.files
-        .filter(f => f.name.startsWith(prefix) && /\.(png|jpe?g|webp|gif|avif)$/i.test(f.name))
+        .filter(f => f.name.startsWith(prefix) && /\.png$/i.test(f.name))
         .map((f, i) => {
           const name = f.name.substring(prefix.length);
           const numM = name.match(/(\d+)/);
           return {
             num: numM ? parseInt(numM[1]) : (i + 1),
-            name: name,
+            name,
             src: CONFIG.folder + name,
             time: f.time || null
           };
@@ -809,90 +840,60 @@ async function fetchJsDelivr(){
 }
 
 /* ══════════════════════════════════════════════════════════
-   SOURCE 4: PROBING (بهینه‌شده)
+   SOURCE 4: PROBING — بهینه برای png
    ══════════════════════════════════════════════════════════ */
-function probeImage(num, primaryExt){
+function probeImage(num){
   return new Promise(resolve => {
     let resolved = false;
     const timer = setTimeout(() => {
       if (!resolved){ resolved = true; resolve(null); }
     }, CONFIG.probeTimeout);
 
-    const done = (result) => {
+    const img = new Image();
+    const src = CONFIG.folder + num + '.' + CONFIG.extension;
+
+    img.onload = () => {
       if (resolved) return;
       resolved = true;
       clearTimeout(timer);
-      resolve(result);
-    };
-
-    /* اگر primaryExt داده شده، اول همان را امتحان کن */
-    const exts = primaryExt
-      ? [primaryExt, ...CONFIG.extensions.filter(e => e !== primaryExt)]
-      : CONFIG.extensions;
-
-    let i = 0;
-    function tryNext(){
-      if (resolved) return;
-      if (i >= exts.length){ done(null); return; }
-      const ext = exts[i++];
-      const src = CONFIG.folder + num + '.' + ext;
-      const img = new Image();
-      img.onload = () => done({
-        num, name: num + '.' + ext, src,
+      resolve({
+        num, name: num + '.' + CONFIG.extension, src,
         w: img.naturalWidth, h: img.naturalHeight, time: null
       });
-      img.onerror = tryNext;
-      img.src = src;
-    }
-    tryNext();
+    };
+    img.onerror = () => {
+      if (resolved) return;
+      resolved = true;
+      clearTimeout(timer);
+      resolve(null);
+    };
+    img.src = src;
   });
 }
 
 async function probeAll(){
   const found = [];
-
-  /* ── فاز ۱: تشخیص پسوند غالب با ۳۰ تصویر اول ── */
-  setStage('جستجو: تشخیص پسوند غالب…');
-  const phase1 = [];
-  for (let n = 1; n <= 30; n++) phase1.push(probeImage(n));
-  const phase1Results = await Promise.all(phase1);
-  const found1 = phase1Results.filter(Boolean);
-  found1.forEach(r => found.push(r));
-
-  if (found1.length === 0){
-    console.log('[Gallery] Nothing in 1-30, stopping');
-    setStage('هیچ تصویری پیدا نشد');
-    return [];
-  }
-
-  /* تشخیص پسوند غالب */
-  const extCounts = {};
-  found1.forEach(img => {
-    const ext = img.name.split('.').pop().toLowerCase();
-    extCounts[ext] = (extCounts[ext] || 0) + 1;
-  });
-  const dominantExt = Object.keys(extCounts).sort((a,b) => extCounts[b] - extCounts[a])[0];
-  console.log('[Gallery] Dominant extension:', dominantExt, extCounts);
-
-  /* ── فاز ۲: جستجوی بقیه با پسوند غالب ── */
   let missStreak = 0;
   const step = CONFIG.probeConcurrency;
 
-  for (let n = 31; n <= CONFIG.maxProbeNumber; n += step){
+  for (let n = 1; n <= CONFIG.maxProbeNumber; n += step){
     const batch = [];
     for (let k = 0; k < step && n + k <= CONFIG.maxProbeNumber; k++){
-      batch.push(probeImage(n + k, dominantExt));
+      batch.push(probeImage(n + k));
     }
     const results = await Promise.all(batch);
+
     results.forEach(r => {
       if (r){ found.push(r); missStreak = 0; }
       else missStreak++;
     });
 
-    setStage(`جستجو — ${toFa(found.length)} مورد پیدا شد (تا شمارهٔ ${toFa(Math.min(n + step - 1, CONFIG.maxProbeNumber))})`);
+    /* فقط پیام کلی — بدون شمارش تدریجی */
+    const last = Math.min(n + step - 1, CONFIG.maxProbeNumber);
+    setStage(`بررسی تا شمارهٔ ${toFa(last)}…`);
 
-    if (missStreak >= CONFIG.stopAfterMisses) {
-      console.log('[Gallery] Stopped at num ' + (n + step - 1) + ' (missStreak: ' + missStreak + ')');
+    if (missStreak >= CONFIG.stopAfterMisses){
+      console.log('[Gallery] Stop at ' + last + ' (missStreak: ' + missStreak + ')');
       break;
     }
   }
@@ -901,16 +902,12 @@ async function probeAll(){
   return found;
 }
 
-/* ══════════════════════════════════════════════════════════
-   MAIN LOADER — زنجیره
-   ══════════════════════════════════════════════════════════ */
+/* ══════ MAIN LOADER ══════ */
 async function loadGallery(forceRefresh = false){
-  /* 1. Manifest */
-  setStage('تلاش ۱ از ۵: manifest محلی…');
+  setStage('تلاش ۱: manifest…');
   const manifest = await fetchManifest();
   if (manifest){ console.log('[Gallery] ✓ manifest'); return manifest; }
 
-  /* 2. Cache (اگر معتبر) */
   if (!forceRefresh){
     const cached = loadCache();
     if (cached){
@@ -919,18 +916,15 @@ async function loadGallery(forceRefresh = false){
     }
   }
 
-  /* 3. GitHub API */
-  setStage('تلاش ۲ از ۵: GitHub API…');
+  setStage('تلاش ۲: GitHub API…');
   const api = await fetchGitHubAPI();
   if (api){ saveCache(api); return api; }
 
-  /* 4. jsDelivr */
-  setStage('تلاش ۳ از ۵: jsDelivr CDN…');
+  setStage('تلاش ۳: jsDelivr CDN…');
   const jsd = await fetchJsDelivr();
   if (jsd){ saveCache(jsd); return jsd; }
 
-  /* 5. Probe */
-  setStage('تلاش ۴ از ۵: جستجوی مستقیم (اولین بار کمی طول می‌کشد)…');
+  setStage('تلاش ۴: جستجوی مستقیم…');
   const probed = await probeAll();
   if (probed.length > 0) saveCache(probed);
   return probed;
@@ -963,16 +957,19 @@ function getColumnCount(){
 function buildCard(img, idx){
   const card = document.createElement('div');
   card.className = 'gallery-item';
+  /* بدون stagger — همه یکجا ظاهر می‌شوند */
+  if (idx >= CONFIG.noAnimThreshold) card.classList.add('no-anim');
+
   card.dataset.idx = idx;
   card.dataset.code = img.num;
   card.tabIndex = 0;
   card.setAttribute('role', 'button');
   card.setAttribute('aria-label', 'اثر شمارهٔ ' + img.num);
+
   const ratio = (img.w && img.h) ? (img.w + ' / ' + img.h) : '4 / 5';
   card.style.setProperty('--ratio', ratio);
-  card.style.animationDelay = Math.min(idx * 0.02, 0.6) + 's';
 
-  const loadAttr = idx < 6 ? 'eager' : 'lazy';
+  const loadAttr = idx < CONFIG.eagerLimit ? 'eager' : 'lazy';
   card.innerHTML = `
     <div class="skeleton" aria-hidden="true"></div>
     <img src="${img.src}" alt="اثر شمارهٔ ${img.num}" loading="${loadAttr}" decoding="async">
@@ -1033,11 +1030,15 @@ function renderGallery(){
     colEls.push(col);
   }
 
+  /* ساخت fragment برای هر ستون و append یک‌جا — بسیار سریع‌تر از append تک‌تک */
+  const frags = Array.from({length: cols}, () => document.createDocumentFragment());
+
   GALLERY_IMAGES.forEach((img, i) => {
     const colIdx = i % cols;
-    const card = buildCard(img, i);
-    colEls[colIdx].appendChild(card);
+    frags[colIdx].appendChild(buildCard(img, i));
   });
+
+  frags.forEach((frag, c) => colEls[c].appendChild(frag));
 
   statsRow.style.display = 'flex';
   $('#statCount').textContent = toFa(GALLERY_IMAGES.length);
@@ -1046,14 +1047,14 @@ function renderGallery(){
   emptySec.style.display = 'none';
 }
 
-/* رندر مجدد هنگام resize */
+/* resize با debounce */
 let resizeTimer = null;
 window.addEventListener('resize', () => {
   if (!GALLERY_IMAGES.length) return;
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
     if (getColumnCount() !== currentColCount) renderGallery();
-  }, 250);
+  }, 300);
 });
 
 /* ══════ REFRESH ══════ */
