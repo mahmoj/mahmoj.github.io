@@ -46,9 +46,7 @@ a{color:inherit;text-decoration:none}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:linear-gradient(var(--gold),var(--navy));border-radius:99px}
 
-/* ══════════════════════════════════════════════════════════
-   BACKGROUND
-   ══════════════════════════════════════════════════════════ */
+/* ══════ BACKGROUND ══════ */
 .bg{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
 .au{position:absolute;border-radius:50%;filter:blur(110px);opacity:.5}
 .au.a{width:min(58vw,520px);height:min(58vw,520px);background:#D9C200;top:-14vw;right:-14vw;animation:f1 22s ease-in-out infinite}
@@ -57,9 +55,7 @@ a{color:inherit;text-decoration:none}
 @keyframes f2{50%{transform:translateY(-7vh) scale(1.15)}}
 #stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5}
 
-/* ══════════════════════════════════════════════════════════
-   HEADER
-   ══════════════════════════════════════════════════════════ */
+/* ══════ HEADER ══════ */
 header{
   position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
@@ -82,9 +78,7 @@ header{
 .back i{color:var(--gold)}
 .back:hover{background:var(--soft);border-color:var(--gold);color:var(--gold)}
 
-/* ══════════════════════════════════════════════════════════
-   LAYOUT
-   ══════════════════════════════════════════════════════════ */
+/* ══════ LAYOUT ══════ */
 main{padding-top:80px;overflow-x:clip}
 section{padding:clamp(1.5rem,5vh,3rem) clamp(1rem,3.5vw,3rem);overflow-x:clip}
 .wrap{max-width:1200px;margin:0 auto;width:100%}
@@ -95,9 +89,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 @keyframes sh{to{background-position:220% center}}
 .lead{color:var(--muted);font-size:clamp(.85rem,1.2vw,.95rem);max-width:62ch}
 
-/* ══════════════════════════════════════════════════════════
-   STATS
-   ══════════════════════════════════════════════════════════ */
+/* ══════ STATS ══════ */
 .stats-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem}
 .stat-pill{
   display:inline-flex;align-items:center;gap:.4rem;
@@ -108,9 +100,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 .stat-pill i{color:var(--gold);font-size:.7rem}
 .stat-pill b{color:var(--gold);font-weight:800;font-family:"Space Grotesk",ui-monospace,monospace;direction:ltr}
 
-/* ══════════════════════════════════════════════════════════
-   GALLERY — Masonry
-   ══════════════════════════════════════════════════════════ */
+/* ══════ GALLERY ══════ */
 .gallery-section{padding-top:.5rem}
 .gallery{column-count:2;column-gap:.6rem;width:100%}
 @media (min-width:640px){.gallery{column-count:3;column-gap:.8rem;}}
@@ -139,10 +129,8 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 }
 @media (min-width:640px){.gallery-item{margin-bottom:.8rem;border-radius:16px;}}
 @media (min-width:1024px){.gallery-item{margin-bottom:.9rem;}}
-@keyframes tileIn{
-  from{opacity:0;transform:translateY(24px) scale(.94);}
-  to{opacity:1;transform:none;}
-}
+@keyframes tileIn{from{opacity:0;transform:translateY(24px) scale(.94);}to{opacity:1;transform:none;}}
+
 .gallery-item img{
   display:block;width:100%;height:auto;
   transition:transform .6s var(--ease),filter .45s var(--ease);
@@ -192,17 +180,13 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   background:linear-gradient(140deg,var(--gold),#fff2a0);
   padding:.4rem 1rem;border-radius:99px;direction:ltr;
   transform:scale(.65);opacity:0;
-  transition:
-    transform .45s cubic-bezier(.34,1.56,.64,1),
-    opacity .3s var(--ease);
+  transition:transform .45s cubic-bezier(.34,1.56,.64,1),opacity .3s var(--ease);
   box-shadow:0 10px 30px rgba(217,194,0,.5);
 }
 .gallery-item:hover .code-badge,
 .gallery-item:focus-visible .code-badge{transform:scale(1);opacity:1;}
 
-/* ══════════════════════════════════════════════════════════
-   LOADER / EMPTY
-   ══════════════════════════════════════════════════════════ */
+/* ══════ LOADER / EMPTY ══════ */
 .loader{
   display:none;flex-direction:column;align-items:center;gap:.9rem;
   padding:3rem 1rem;text-align:center;color:var(--muted);font-size:.84rem;
@@ -214,17 +198,9 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   filter:drop-shadow(0 0 20px rgba(217,194,0,.6));
 }
 @keyframes spin{to{transform:rotate(360deg)}}
-.loader-text b{color:var(--gold);font-weight:800;font-family:"Space Grotesk",monospace;direction:ltr}
-.loader-bar{
-  width:min(280px,70vw);height:4px;border-radius:99px;
-  background:var(--stroke);overflow:hidden;margin-top:.3rem;
-}
-.loader-bar i{
-  display:block;height:100%;width:0;border-radius:99px;
-  background:linear-gradient(90deg,var(--gold),#fff2a0,var(--gold));
-  background-size:200% auto;animation:sh 2s linear infinite;
-  transition:width .3s var(--ease);
-}
+.loader-text{max-width:280px}
+.loader-text b{color:var(--gold);font-weight:800}
+
 .empty{
   text-align:center;padding:3.5rem 1.5rem;border-radius:20px;
   background:var(--panel);border:1px dashed rgba(217,194,0,.35);
@@ -245,9 +221,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   display:inline-block;font-size:.8rem;margin:.2rem 0;
 }
 
-/* ══════════════════════════════════════════════════════════
-   LIGHTBOX — تمام صفحه با دانلود
-   ══════════════════════════════════════════════════════════ */
+/* ══════ LIGHTBOX ══════ */
 .lightbox{
   position:fixed;inset:0;z-index:1000;
   display:grid;place-items:center;
@@ -335,7 +309,6 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   border:1px solid var(--stroke);
   background:rgba(255,255,255,.03);
 }
-
 .lb-dl{
   display:inline-flex;
   align-items:center;
@@ -350,23 +323,13 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   cursor:pointer;
   transition:.3s var(--ease);
   box-shadow:0 8px 24px rgba(217,194,0,.4);
-  position:relative;
-  overflow:hidden;
 }
-.lb-dl:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 32px rgba(217,194,0,.6);
-}
+.lb-dl:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(217,194,0,.6);}
 .lb-dl:active{transform:scale(.96);}
 .lb-dl i{font-size:.78rem;}
-.lb-dl.dl-success{
-  background:linear-gradient(140deg,#4CAF50,#7ddba0);
-  color:#fff;
-}
-.lb-dl.dl-error{
-  background:linear-gradient(140deg,#E57373,#ff9a9a);
-  color:#fff;
-}
+.lb-dl.dl-success{background:linear-gradient(140deg,#4CAF50,#7ddba0);color:#fff;}
+.lb-dl.dl-error{background:linear-gradient(140deg,#E57373,#ff9a9a);color:#fff;}
+.lb-dl[disabled]{opacity:.6;cursor:wait;}
 
 .lb-btn{
   position:absolute;
@@ -384,11 +347,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   z-index:5;
   pointer-events:auto;
 }
-.lb-btn:hover{
-  background:var(--soft);
-  border-color:var(--gold);
-  transform:scale(1.08);
-}
+.lb-btn:hover{background:var(--soft);border-color:var(--gold);transform:scale(1.08);}
 .lb-close{top:1rem;left:1rem;font-size:1.1rem;}
 .lb-close:hover{transform:rotate(90deg) scale(1.08);}
 .lb-prev{top:50%;right:1rem;transform:translateY(-50%);}
@@ -407,9 +366,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   .lb-dl{font-size:.72rem;padding:.4rem .85rem;}
 }
 
-/* ══════════════════════════════════════════════════════════
-   TOAST
-   ══════════════════════════════════════════════════════════ */
+/* ══════ TOAST ══════ */
 .toast{
   position:fixed;bottom:2rem;left:50%;
   transform:translateX(-50%) translateY(40px);
@@ -426,9 +383,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* ══════════════════════════════════════════════════════════
-   BACK TO TOP + MUSIC
-   ══════════════════════════════════════════════════════════ */
+/* ══════ BACK TO TOP + MUSIC ══════ */
 .to-top{
   position:fixed;
   bottom:max(1.2rem,env(safe-area-inset-bottom));
@@ -460,9 +415,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 @keyframes mp{50%{transform:scale(1.18)}}
 @media (max-width:640px){.to-top,.mbtn{width:46px;height:46px;border-radius:14px;font-size:.95rem;}}
 
-/* ══════════════════════════════════════════════════════════
-   FOOTER
-   ══════════════════════════════════════════════════════════ */
+/* ══════ FOOTER ══════ */
 footer{
   padding:2rem clamp(1rem,3.5vw,3rem) 1.3rem;
   border-top:1px solid var(--stroke);background:rgba(0,13,24,.65);
@@ -472,9 +425,7 @@ footer{
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;}
 footer a{color:var(--gold);font-weight:700;}
 
-/* ══════════════════════════════════════════════════════════
-   RESPONSIVE
-   ══════════════════════════════════════════════════════════ */
+/* ══════ RESPONSIVE ══════ */
 @media (max-width:640px){
   header{padding:.65rem .9rem;}
   .logo{font-size:.88rem;}
@@ -492,32 +443,22 @@ footer a{color:var(--gold);font-weight:700;}
 </head>
 <body>
 
-<!-- ===== BACKGROUND ===== -->
-<div class="bg">
-  <div class="au a"></div>
-  <div class="au b"></div>
-</div>
+<div class="bg"><div class="au a"></div><div class="au b"></div></div>
 <canvas id="stars"></canvas>
 
-<!-- ===== AUDIO ===== -->
 <audio id="bgMusic" loop preload="auto" playsinline>
   <source src="audio/f4b6ed86-c45b-4c96-aa29-50a0ae687ab1.mp3" type="audio/mpeg">
 </audio>
 
-<!-- ===== HEADER ===== -->
 <header>
   <a href="index.html" class="logo">
-    <span class="logo-mark">
-      <img src="img/20261011_025918.ico" alt="مهدی مجاهد">
-    </span>
+    <span class="logo-mark"><img src="img/20261011_025918.ico" alt="مهدی مجاهد"></span>
     <span>مهدی مجاهد</span>
   </a>
   <a href="index.html" class="back"><i class="fa-solid fa-arrow-right"></i> بازگشت</a>
 </header>
 
 <main>
-
-  <!-- ═══════ HERO ═══════ -->
   <section>
     <div class="wrap">
       <span class="eyebrow">گالری مناسبتی</span>
@@ -535,25 +476,19 @@ footer a{color:var(--gold);font-weight:700;}
     </div>
   </section>
 
-  <!-- ═══════ LOADER ═══════ -->
   <section class="gallery-section" id="loaderSection">
     <div class="wrap">
       <div class="loader on" id="loader">
         <i class="fa-solid fa-circle-notch"></i>
-        <div class="loader-text">در حال جستجوی تصاویر مناسبتی… <b id="loaderProgress">۰</b> مورد یافت شد</div>
-        <div class="loader-bar"><i id="loaderBar"></i></div>
+        <div class="loader-text">در حال بارگذاری تصاویر…</div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════ GALLERY ═══════ -->
   <section class="gallery-section" id="gallerySection" style="display:none">
-    <div class="wrap">
-      <div class="gallery" id="gallery"></div>
-    </div>
+    <div class="wrap"><div class="gallery" id="gallery"></div></div>
   </section>
 
-  <!-- ═══════ EMPTY ═══════ -->
   <section class="gallery-section" id="emptySection" style="display:none">
     <div class="wrap">
       <div class="empty">
@@ -561,11 +496,9 @@ footer a{color:var(--gold);font-weight:700;}
         <b>هنوز تصویری اضافه نشده</b>
         تصاویر خود را در پوشهٔ <code>img/monasebati/</code> با نام‌گذاری عددی قرار دهید
         (مثل <code>1.png</code> یا <code>100.jpg</code>).
-        <br>صفحه به‌طور خودکار آن‌ها را پیدا می‌کند.
       </div>
     </div>
   </section>
-
 </main>
 
 <!-- ===== LIGHTBOX ===== -->
@@ -576,9 +509,7 @@ footer a{color:var(--gold);font-weight:700;}
   <button class="lb-btn lb-next" id="lbNext" aria-label="بعدی">›</button>
 
   <div class="lb-stage" id="lbStage">
-    <div class="lb-img-wrap">
-      <img id="lbImg" alt="">
-    </div>
+    <div class="lb-img-wrap"><img id="lbImg" alt=""></div>
     <div class="lb-info">
       <div class="lb-code" id="lbCode">#۱</div>
       <div class="lb-size" id="lbSize">—</div>
@@ -590,10 +521,8 @@ footer a{color:var(--gold);font-weight:700;}
   </div>
 </div>
 
-<!-- ===== TOAST ===== -->
 <div class="toast" id="toast"></div>
 
-<!-- ===== BACK TO TOP / MUSIC ===== -->
 <button class="to-top" id="toTop" aria-label="بازگشت به بالا">
   <i class="fa-solid fa-arrow-up"></i>
 </button>
@@ -601,7 +530,6 @@ footer a{color:var(--gold);font-weight:700;}
   <i class="fa-solid fa-volume-xmark" id="musicIcon"></i>
 </button>
 
-<!-- ===== FOOTER ===== -->
 <footer>
   <div class="wrap">
     <span>© <span id="year"></span> مهدی مجاهد</span>
@@ -616,8 +544,6 @@ footer a{color:var(--gold);font-weight:700;}
 const $ = (s, ctx = document) => ctx.querySelector(s);
 const $$ = (s, ctx = document) => Array.from(ctx.querySelectorAll(s));
 const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
-const esc = s => String(s).replace(/[&<>"']/g, c =>
-  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 let toastT = null;
 function showToast(msg){
@@ -629,19 +555,126 @@ function showToast(msg){
 }
 
 /* ══════════════════════════════════════════════════════════
-   CONFIG — فقط این بخش را برای هر گالری تغییر بده
+   CONFIG
    ══════════════════════════════════════════════════════════ */
 const CONFIG = {
   folder: 'img/monasebati/',
-  maxNumber: 200,
-  extensions: ['png', 'jpg', 'jpeg', 'webp', 'gif', 'avif', 'PNG', 'JPG', 'JPEG', 'WEBP'],
-  concurrency: 20,
-  stopAfterMisses: 60,
-  downloadPrefix: 'monasebati'
+
+  /* ─── روش ۱ (سریع‌ترین): فایل list.json ────────────────────
+     اگر این فایل توی پوشه باشه، همون خونده می‌شه و هیچ جستجویی لازم نیست.
+     محتوا: آرایه‌ای از نام فایل‌ها:
+       ["1.png", "2.jpg", "poster-muharram.webp", ...]
+  */
+  manifestFile: 'img/monasebati/list.json',
+
+  /* ─── روش ۲ (خودکار): GitHub API ──────────────────────────
+     روی github.io خودکار تشخیص داده می‌شه.
+     اگر روی دامنهٔ اختصاصی هستی، اینجا ست کن:
+       githubRepo: 'username/repo-name'
+  */
+  githubRepo: null,
+
+  /* ─── روش ۳ (آخرین راه‌حل): جستجوی مستقیم ────────────────
+     فقط اگر هر دو روش بالا شکست بخورن استفاده می‌شه.
+  */
+  extensions: ['png', 'jpg', 'jpeg', 'webp'],
+  maxProbeNumber: 100,
+  stopAfterMisses: 15,
+  probeConcurrency: 30,
+
+  downloadPrefix: ''
 };
 
 /* ══════════════════════════════════════════════════════════
-   IMAGE PROBING
+   FETCH WITH TIMEOUT
+   ══════════════════════════════════════════════════════════ */
+function fetchTimeout(url, opts, ms){
+  return Promise.race([
+    fetch(url, opts),
+    new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms))
+  ]);
+}
+
+/* ══════════════════════════════════════════════════════════
+   DETECT GITHUB REPO
+   ══════════════════════════════════════════════════════════ */
+function detectGitHubRepo(){
+  const host = location.hostname;
+  const path = location.pathname;
+  const m = host.match(/^([^.]+)\.github\.io$/);
+  if (!m) return null;
+  const owner = m[1];
+  const segs = path.split('/').filter(Boolean);
+  if (segs.length > 0 && !segs[0].includes('.')){
+    return { owner, repo: segs[0] };
+  }
+  return { owner, repo: owner + '.github.io' };
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOURCE 1: MANIFEST
+   ══════════════════════════════════════════════════════════ */
+async function fetchManifest(){
+  try {
+    const res = await fetchTimeout(CONFIG.manifestFile + '?v=' + Date.now(), { cache: 'no-store' }, 3000);
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!Array.isArray(data)) return null;
+    const images = data.map((item, i) => {
+      const name = typeof item === 'string' ? item : (item && (item.name || item.file));
+      if (!name) return null;
+      const numM = name.match(/(\d+)/);
+      return {
+        num: numM ? parseInt(numM[1]) : (i + 1),
+        name: name,
+        src: CONFIG.folder + name
+      };
+    }).filter(Boolean);
+    return images;
+  } catch(e){
+    return null;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOURCE 2: GITHUB API
+   ══════════════════════════════════════════════════════════ */
+async function fetchGitHubAPI(){
+  const repo = CONFIG.githubRepo
+    ? { owner: CONFIG.githubRepo.split('/')[0], repo: CONFIG.githubRepo.split('/')[1] }
+    : detectGitHubRepo();
+  if (!repo) return null;
+
+  try {
+    const url = `https://api.github.com/repos/${repo.owner}/${repo.repo}/contents/${CONFIG.folder.replace(/\/+$/, '')}`;
+    const res = await fetchTimeout(url, {
+      headers: { 'Accept': 'application/vnd.github.v3+json' }
+    }, 4000);
+
+    if (res.status === 404) return []; /* پوشه وجود نداره */
+    if (!res.ok) return null;
+
+    const files = await res.json();
+    if (!Array.isArray(files)) return null;
+
+    return files
+      .filter(f => f.type === 'file' && /\.(png|jpe?g|webp|gif|avif)$/i.test(f.name))
+      .map((f, i) => {
+        const numM = f.name.match(/(\d+)/);
+        return {
+          num: numM ? parseInt(numM[1]) : (i + 1),
+          name: f.name,
+          src: CONFIG.folder + f.name,
+          downloadUrl: f.download_url
+        };
+      });
+  } catch(e){
+    return null;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOURCE 3: PROBING (fallback)
    ══════════════════════════════════════════════════════════ */
 function probeImage(num){
   return new Promise(resolve => {
@@ -651,7 +684,7 @@ function probeImage(num){
       const ext = CONFIG.extensions[i++];
       const src = CONFIG.folder + num + '.' + ext;
       const img = new Image();
-      img.onload = () => resolve({ num, src, w: img.naturalWidth, h: img.naturalHeight });
+      img.onload = () => resolve({ num, name: num + '.' + ext, src, w: img.naturalWidth, h: img.naturalHeight });
       img.onerror = tryNext;
       img.src = src;
     }
@@ -659,46 +692,40 @@ function probeImage(num){
   });
 }
 
-/* ══════════════════════════════════════════════════════════
-   DETECT ALL
-   ══════════════════════════════════════════════════════════ */
-async function detectAll(){
+async function probeAll(){
   const found = [];
-  let currentNum = 1;
-  let emptyStreak = 0;
-  const total = CONFIG.maxNumber;
-  const loaderBar = $('#loaderBar');
-  const loaderProg = $('#loaderProgress');
+  let missStreak = 0;
+  const step = CONFIG.probeConcurrency;
 
-  while (currentNum <= CONFIG.maxNumber){
+  for (let n = 1; n <= CONFIG.maxProbeNumber; n += step){
     const batch = [];
-    for (let k = 0; k < CONFIG.concurrency && currentNum <= CONFIG.maxNumber; k++, currentNum++){
-      batch.push(probeImage(currentNum));
+    for (let k = 0; k < step && n + k <= CONFIG.maxProbeNumber; k++){
+      batch.push(probeImage(n + k));
     }
     const results = await Promise.all(batch);
     results.forEach(r => {
-      if (r){ found.push(r); emptyStreak = 0; }
-      else { emptyStreak++; }
+      if (r){ found.push(r); missStreak = 0; }
+      else { missStreak++; }
     });
-    loaderProg.textContent = toFa(found.length);
-    if (loaderBar) loaderBar.style.width = Math.min(100, (currentNum / total) * 100) + '%';
-    if (found.length > 0 && emptyStreak >= CONFIG.stopAfterMisses) break;
+    if (found.length > 0 && missStreak >= CONFIG.stopAfterMisses) break;
   }
-
-  if (found.length === 0){
-    while (currentNum <= CONFIG.maxNumber){
-      const batch = [];
-      for (let k = 0; k < CONFIG.concurrency && currentNum <= CONFIG.maxNumber; k++, currentNum++){
-        batch.push(probeImage(currentNum));
-      }
-      const results = await Promise.all(batch);
-      results.forEach(r => { if (r) found.push(r); });
-      loaderProg.textContent = toFa(found.length);
-      if (loaderBar) loaderBar.style.width = Math.min(100, (currentNum / total) * 100) + '%';
-    }
-  }
-
   return found;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MAIN LOADER
+   ══════════════════════════════════════════════════════════ */
+async function loadGallery(){
+  /* 1. Manifest */
+  const manifest = await fetchManifest();
+  if (manifest !== null) return manifest;
+
+  /* 2. GitHub API */
+  const api = await fetchGitHubAPI();
+  if (api !== null) return api;
+
+  /* 3. Probing */
+  return await probeAll();
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -728,7 +755,7 @@ function renderGallery(images){
          tabindex="0"
          role="button"
          aria-label="تصویر مناسبتی ${img.num}"
-         style="animation-delay:${Math.min(i * 0.03, 0.8)}s">
+         style="animation-delay:${Math.min(i * 0.025, 0.7)}s">
       <img src="${img.src}" alt="تصویر مناسبتی ${img.num}" loading="lazy" decoding="async">
       <span class="code-mini">#${toFa(img.num)}</span>
       <div class="glass-overlay" aria-hidden="true">
@@ -741,10 +768,7 @@ function renderGallery(images){
     const idx = +el.dataset.idx;
     el.addEventListener('click', () => openLightbox(idx));
     el.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' '){
-        e.preventDefault();
-        openLightbox(idx);
-      }
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openLightbox(idx); }
     });
   });
 
@@ -778,12 +802,13 @@ function updateLightbox(){
   imgEl.classList.add('loading');
   imgEl.src = img.src;
   imgEl.alt = 'تصویر مناسبتی ' + img.num;
-  imgEl.onload = () => imgEl.classList.remove('loading');
+  imgEl.onload = () => {
+    imgEl.classList.remove('loading');
+    $('#lbSize').textContent = imgEl.naturalWidth + ' × ' + imgEl.naturalHeight;
+  };
 
   $('#lbCode').textContent = '#' + toFa(img.num);
-  $('#lbSize').textContent = img.w + ' × ' + img.h;
 
-  /* ریست دکمه دانلود */
   const dl = $('#lbDownload');
   dl.classList.remove('dl-success', 'dl-error');
   dl.querySelector('span').textContent = 'دانلود';
@@ -797,7 +822,6 @@ function closeLightbox(){
   $('#lightbox').classList.remove('open');
   document.body.classList.remove('lock');
   lbIndex = -1;
-  /* پاک کردن منبع برای آزادسازی حافظه */
   setTimeout(() => { $('#lbImg').src = ''; }, 400);
 }
 
@@ -816,12 +840,9 @@ async function downloadCurrentImage(){
   dl.disabled = true;
   span.textContent = 'در حال دانلود…';
 
-  /* استخراج پسوند اصلی */
-  const ext = img.src.split('.').pop().split('?')[0];
-  const filename = `${CONFIG.downloadPrefix}-${img.num}.${ext}`;
+  const filename = (CONFIG.downloadPrefix || '') + img.name;
 
   try {
-    /* تلاش برای گرفتن blob (مطمئن‌ترین راه) */
     const res = await fetch(img.src, { cache: 'force-cache' });
     if (!res.ok) throw new Error('fetch failed');
     const blob = await res.blob();
@@ -846,7 +867,7 @@ async function downloadCurrentImage(){
     }, 2500);
 
   } catch (e){
-    /* فالبک: دانلود مستقیم از طریق <a download> */
+    /* fallback: تگ a با download */
     try {
       const a = document.createElement('a');
       a.href = img.src;
@@ -855,23 +876,19 @@ async function downloadCurrentImage(){
       document.body.appendChild(a);
       a.click();
       a.remove();
-
       dl.classList.add('dl-success');
       span.textContent = '✓ دانلود شد';
       showToast('دانلود شروع شد ✦');
-
       setTimeout(() => {
         dl.classList.remove('dl-success');
         span.textContent = 'دانلود';
         dl.disabled = false;
       }, 2500);
-
     } catch (err){
       console.error('Download failed:', err);
       dl.classList.add('dl-error');
       span.textContent = '✗ خطا';
-      showToast('خطا در دانلود — لطفاً دوباره امتحان کنید');
-
+      showToast('خطا در دانلود — دوباره امتحان کن');
       setTimeout(() => {
         dl.classList.remove('dl-error');
         span.textContent = 'دانلود';
@@ -890,11 +907,10 @@ $('#lbPrev').addEventListener('click', lbPrev);
 $('#lbNext').addEventListener('click', lbNext);
 $('#lbDownload').addEventListener('click', downloadCurrentImage);
 
-/* کیبورد */
 document.addEventListener('keydown', e => {
   if (!$('#lightbox').classList.contains('open')) return;
   if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowRight') lbPrev(); /* RTL: راست = قبلی */
+  if (e.key === 'ArrowRight') lbPrev();
   if (e.key === 'ArrowLeft') lbNext();
   if ((e.key === 'd' || e.key === 'D') && (e.ctrlKey || e.metaKey)){
     e.preventDefault();
@@ -903,7 +919,7 @@ document.addEventListener('keydown', e => {
 });
 
 /* سوایپ لمسی */
-(function lightboxSwipe(){
+(function(){
   let sx = 0, sy = 0;
   const lb = $('#lightbox');
   lb.addEventListener('touchstart', e => {
@@ -940,7 +956,7 @@ document.addEventListener('keydown', e => {
 })();
 
 /* ══════════════════════════════════════════════════════════
-   MUSIC PLAYER
+   MUSIC
    ══════════════════════════════════════════════════════════ */
 (function music(){
   const audio = $('#bgMusic');
@@ -1115,11 +1131,11 @@ document.addEventListener('dragstart', e => e.preventDefault());
    ══════════════════════════════════════════════════════════ */
 (async function boot(){
   try {
-    const found = await detectAll();
+    const found = await loadGallery();
     $('#loaderSection').style.display = 'none';
     renderGallery(found);
-  } catch (e){
-    console.error('Gallery detection failed:', e);
+  } catch(e){
+    console.error('Gallery load failed:', e);
     $('#loaderSection').style.display = 'none';
     $('#emptySection').style.display = 'block';
   }
