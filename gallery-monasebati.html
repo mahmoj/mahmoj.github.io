@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>گالری تصاویر مناسبتی | مهدی مجاهد</title>
-<meta name="description" content="تولیدات مناسبتی — پروفایل، پوستر و طرح‌های ساخته‌شده برای معاونت متنا و ژرفا">
+<title>گالری تولید و نشر انقلاب اسلامی | مهدی مجاهد</title>
+<meta name="description" content="گالری تولید و نشر انقلاب اسلامی — پروفایل، پوستر و طرح‌های گرافیکی ساخته‌شده برای معاونت متنا و ژرفا">
 
 <link rel="icon" href="img/20261011_025918.ico" type="image/x-icon">
 <link rel="shortcut icon" href="img/20261011_025918.ico" type="image/x-icon">
@@ -82,7 +82,7 @@ section{padding:clamp(1.5rem,5vh,3rem) clamp(1rem,3.5vw,3rem);overflow-x:clip}
 .wrap{max-width:1200px;margin:0 auto;width:100%}
 .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.68rem;font-weight:700;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.7rem}
 .eyebrow::before{content:"";width:22px;height:2px;background:var(--gold)}
-h1{font-size:clamp(1.5rem,5vw,2.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.2;margin-bottom:.8rem}
+h1{font-size:clamp(1.5rem,5vw,2.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.3;margin-bottom:.8rem}
 h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,var(--gold));background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 5s linear infinite}
 @keyframes sh{to{background-position:220% center}}
 .lead{color:var(--muted);font-size:clamp(.85rem,1.2vw,.95rem);max-width:62ch}
@@ -99,14 +99,14 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 .stat-pill b{color:var(--gold);font-weight:800;font-family:"Space Grotesk",ui-monospace,monospace;direction:ltr}
 
 /* ══════════════════════════════════════════════════════════
-   GALLERY — CSS GRID (ردیفی، نه ستونی)
+   GALLERY — CSS GRID (ردیفی)
    ══════════════════════════════════════════════════════════ */
 .gallery-section{padding-top:.5rem}
 .gallery{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-auto-flow: row;      /* ← پر کردن ردیف به ردیف */
-  align-items: start;       /* کارت‌ها به بالای سلول خود می‌چسبند */
+  grid-auto-flow: row;
+  align-items: start;
   gap: .6rem;
   width: 100%;
 }
@@ -126,16 +126,12 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   background:var(--panel);
   border:1px solid var(--stroke);
   cursor:zoom-in;
-
-  /* نسبت تصویر رزرو شده — flash ندارد */
   aspect-ratio: var(--ratio, 4/5);
-
   transition:
     aspect-ratio .5s var(--ease),
     transform .45s var(--ease),
     box-shadow .45s var(--ease),
     border-color .45s var(--ease);
-
   will-change:transform;
   opacity:0;
   animation:tileIn .55s var(--ease) forwards;
@@ -143,7 +139,6 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 @media (min-width:640px){.gallery-item{border-radius:16px;}}
 @keyframes tileIn{from{opacity:0;transform:translateY(24px) scale(.94);}to{opacity:1;transform:none;}}
 
-/* ── تصویر — پرکنندهٔ کارت با contain (بدون برش) ── */
 .gallery-item img{
   position:absolute;
   inset:0;
@@ -161,7 +156,6 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 }
 .gallery-item.loaded img{opacity:1;}
 
-/* ── Skeleton Shimmer ── */
 .skeleton{
   position:absolute;
   inset:0;
@@ -205,7 +199,6 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   animation:none;
 }
 
-/* ── هاور ── */
 .gallery-item:hover,
 .gallery-item:focus-visible{
   transform:translateY(-6px) scale(1.015);
@@ -221,7 +214,6 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   filter:brightness(.92) saturate(1.15) contrast(1.05);
 }
 
-/* ── بج کد ── */
 .code-mini{
   position:absolute;bottom:8px;left:8px;z-index:3;
   font-family:"Space Grotesk",ui-monospace,monospace;
@@ -235,7 +227,6 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 }
 .gallery-item:hover .code-mini{opacity:0;transform:translateY(6px);}
 
-/* ── گلس مات ── */
 .glass-overlay{
   position:absolute;inset:0;z-index:2;
   display:flex;align-items:center;justify-content:center;
@@ -307,12 +298,8 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   border:1px solid rgba(217,194,0,.15);
 }
 .empty-hint b{color:var(--gold);font-size:.78rem;margin-bottom:.3rem}
-.empty-hint ul{
-  list-style:none;padding:0;margin:0;
-}
-.empty-hint li{
-  padding:.3rem 0;padding-right:1.3rem;position:relative;
-}
+.empty-hint ul{list-style:none;padding:0;margin:0;}
+.empty-hint li{padding:.3rem 0;padding-right:1.3rem;position:relative;}
 .empty-hint li::before{
   content:"•";position:absolute;right:.4rem;
   color:var(--gold);font-weight:900;
@@ -494,7 +481,7 @@ footer a{color:var(--gold);font-weight:700;}
   .back{padding:.45rem .85rem;font-size:.72rem;}
   main{padding-top:70px;}
   section{padding:1.4rem 1rem;}
-  h1{font-size:clamp(1.35rem,6.5vw,2rem);}
+  h1{font-size:clamp(1.35rem,6vw,2rem);}
   .lead{font-size:.82rem;}
   .code-mini{font-size:.56rem;padding:.14rem .45rem;bottom:6px;left:6px;}
   .code-badge{font-size:.82rem;padding:.32rem .8rem;}
@@ -523,17 +510,16 @@ footer a{color:var(--gold);font-weight:700;}
 <main>
   <section>
     <div class="wrap">
-      <span class="eyebrow">گالری مناسبتی</span>
-      <h1>گالری تصاویر <em>مناسبتی</em></h1>
+      <span class="eyebrow">تولید و نشر انقلاب اسلامی</span>
+      <h1>گالری <em>تولید و نشر انقلاب اسلامی</em></h1>
       <p class="lead">
-        مجموعه‌ای از تولیدات مناسبتی — پروفایل، پوستر، بنر و طرح‌های گرافیکی که
-        برای <strong>معاونت متنا</strong> و <strong>ژرفا</strong> ساخته شده‌اند.
+        مجموعه‌ای از تولیدات گرافیکی — پروفایل، پوستر، بنر و طرح‌های مناسبتی که
+        در حوزهٔ <strong>تولید و نشر انقلاب اسلامی</strong> و برای
+        <strong>معاونت متنا</strong> و <strong>ژرفا</strong> ساخته شده‌اند.
         روی هر تصویر کلیک کنید تا در ابعاد کامل باز شود و در صورت نیاز دانلود کنید.
       </p>
       <div class="stats-row" id="statsRow" style="display:none">
-        <span class="stat-pill"><i class="fa-solid fa-images"></i> <b id="statCount">۰</b> طرح</span>
-        <span class="stat-pill"><i class="fa-solid fa-clock-rotate-left"></i> جدیدترین: <b id="statNewest">—</b></span>
-        <span class="stat-pill"><i class="fa-solid fa-cube"></i> قدیمی‌ترین: <b id="statOldest">—</b></span>
+        <span class="stat-pill"><i class="fa-solid fa-images"></i> <b id="statCount">۰</b> اثر</span>
       </div>
     </div>
   </section>
@@ -658,9 +644,7 @@ function detectGitHubRepo(){
   return { owner, repo: owner + '.github.io' };
 }
 
-/* ══════════════════════════════════════════════════════════
-   SOURCE 1: MANIFEST
-   ══════════════════════════════════════════════════════════ */
+/* ══════ SOURCE 1: MANIFEST ══════ */
 async function fetchManifest(){
   try {
     const res = await fetchTimeout(CONFIG.manifestFile + '?v=' + Date.now(), { cache: 'no-store' }, 3000);
@@ -681,15 +665,12 @@ async function fetchManifest(){
   } catch(e){ return null; }
 }
 
-/* ══════════════════════════════════════════════════════════
-   SOURCE 2: GITHUB API
-   هر خطایی (404, 403, rate limit, شبکه) → null → fall to probing
-   ══════════════════════════════════════════════════════════ */
+/* ══════ SOURCE 2: GITHUB API ══════ */
 async function fetchGitHubAPI(){
   const repo = CONFIG.githubRepo
     ? { owner: CONFIG.githubRepo.split('/')[0], repo: CONFIG.githubRepo.split('/')[1] }
     : detectGitHubRepo();
-  if (!repo) { console.log('[Gallery] GitHub repo not detected'); return null; }
+  if (!repo) return null;
 
   try {
     const url = `https://api.github.com/repos/${repo.owner}/${repo.repo}/contents/${CONFIG.folder.replace(/\/+$/, '')}?t=${Date.now()}`;
@@ -699,8 +680,6 @@ async function fetchGitHubAPI(){
     }, 4000);
 
     console.log('[Gallery] GitHub API status:', res.status);
-
-    /* هر پاسخ غیر-200 = شکست → fall to probing */
     if (!res.ok) return null;
 
     const files = await res.json();
@@ -719,7 +698,6 @@ async function fetchGitHubAPI(){
       });
 
     console.log('[Gallery] GitHub API found:', images.length, 'images');
-    /* اگر API موفق شد ولی خالی بود → fall to probing (شاید فیلتر اشتباه) */
     return images.length > 0 ? images : null;
   } catch(e){
     console.log('[Gallery] GitHub API failed:', e.message);
@@ -727,9 +705,7 @@ async function fetchGitHubAPI(){
   }
 }
 
-/* ══════════════════════════════════════════════════════════
-   SOURCE 3: JSDELIVR API (CDN جایگزین — معمولاً بلاک نمی‌شود)
-   ══════════════════════════════════════════════════════════ */
+/* ══════ SOURCE 3: JSDELIVR ══════ */
 async function fetchJsDelivr(){
   const repo = CONFIG.githubRepo
     ? { owner: CONFIG.githubRepo.split('/')[0], repo: CONFIG.githubRepo.split('/')[1] }
@@ -769,9 +745,7 @@ async function fetchJsDelivr(){
   return null;
 }
 
-/* ══════════════════════════════════════════════════════════
-   SOURCE 4: PROBING (fallback — کند اما تضمینی)
-   ══════════════════════════════════════════════════════════ */
+/* ══════ SOURCE 4: PROBING ══════ */
 function probeImage(num){
   return new Promise(resolve => {
     let i = 0;
@@ -812,9 +786,7 @@ async function probeAll(){
   return found;
 }
 
-/* ══════════════════════════════════════════════════════════
-   MAIN LOADER — زنجیرهٔ منابع
-   ══════════════════════════════════════════════════════════ */
+/* ══════ MAIN LOADER ══════ */
 async function loadGallery(){
   setStage('تلاش ۱ از ۴: manifest محلی…');
   const manifest = await fetchManifest();
@@ -832,20 +804,17 @@ async function loadGallery(){
   return await probeAll();
 }
 
-/* ══════════════════════════════════════════════════════════
-   RENDER — مرتب‌سازی و ساخت کارت‌ها
-   ══════════════════════════════════════════════════════════ */
+/* ══════ RENDER ══════ */
 let GALLERY_IMAGES = [];
 
 function sortImages(images){
-  /* اولویت: زمان (اگر موجود) → شماره */
   return images.slice().sort((a, b) => {
     if (a.time && b.time){
       const ta = new Date(a.time).getTime();
       const tb = new Date(b.time).getTime();
       if (ta !== tb) return tb - ta;
     }
-    return b.num - a.num; /* جدیدترین (شمارهٔ بزرگ‌تر) اول */
+    return b.num - a.num;
   });
 }
 
@@ -865,7 +834,6 @@ function renderGallery(images){
   }
 
   gallery.innerHTML = GALLERY_IMAGES.map((img, i) => {
-    /* اگر ابعاد را می‌دانیم (probe)، از همان نسبت استفاده کن */
     const ratio = (img.w && img.h) ? (img.w + ' / ' + img.h) : '4 / 5';
     const loadAttr = i < 6 ? 'eager' : 'lazy';
     return `
@@ -874,11 +842,11 @@ function renderGallery(images){
            data-code="${img.num}"
            tabindex="0"
            role="button"
-           aria-label="تصویر مناسبتی ${img.num}"
+           aria-label="اثر شمارهٔ ${img.num}"
            style="--ratio: ${ratio}; animation-delay: ${Math.min(i * 0.025, 0.7)}s;">
         <div class="skeleton" aria-hidden="true"></div>
         <img src="${img.src}"
-             alt="تصویر مناسبتی ${img.num}"
+             alt="اثر شمارهٔ ${img.num}"
              loading="${loadAttr}"
              decoding="async">
         <span class="code-mini">#${toFa(img.num)}</span>
@@ -915,10 +883,9 @@ function renderGallery(images){
     });
   });
 
+  /* فقط تعداد کل نمایش داده می‌شود */
   statsRow.style.display = 'flex';
   $('#statCount').textContent = toFa(GALLERY_IMAGES.length);
-  $('#statNewest').textContent = '#' + toFa(GALLERY_IMAGES[0].num);
-  $('#statOldest').textContent = '#' + toFa(GALLERY_IMAGES[GALLERY_IMAGES.length - 1].num);
 
   section.style.display = 'block';
   emptySec.style.display = 'none';
@@ -942,7 +909,7 @@ function updateLightbox(){
   const imgEl = $('#lbImg');
   imgEl.classList.add('loading');
   imgEl.src = img.src;
-  imgEl.alt = 'تصویر مناسبتی ' + img.num;
+  imgEl.alt = 'اثر شمارهٔ ' + img.num;
   imgEl.onload = () => {
     imgEl.classList.remove('loading');
     $('#lbSize').textContent = imgEl.naturalWidth + ' × ' + imgEl.naturalHeight;
