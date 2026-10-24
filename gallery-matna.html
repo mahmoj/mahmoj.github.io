@@ -110,9 +110,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 .refresh-btn.refreshing i{animation:spin 1s linear infinite}
 .refresh-btn i{font-size:.7rem;color:var(--gold)}
 
-/* ══════════════════════════════════════════════════════════
-   GALLERY — MASONRY
-   ══════════════════════════════════════════════════════════ */
+/* ══════ GALLERY ══════ */
 .gallery-section{padding-top:.5rem}
 .gallery{
   display: grid;
@@ -137,7 +135,6 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 @media (min-width:640px){.gallery-col{gap:.8rem;}}
 @media (min-width:1024px){.gallery-col{gap:.9rem;}}
 
-/* ── کارت — انیمیشن ورود بسیار سریع، بدون stagger ── */
 .gallery-item{
   position:relative;
   display:block;
@@ -156,138 +153,78 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   opacity:0;
   animation: tileIn .35s var(--ease) forwards;
 }
-/* کارت‌های offscreen بدون انیمیشن — مستقیم ظاهر می‌شوند */
-.gallery-item.no-anim{
-  opacity:1;
-  animation:none;
-}
+.gallery-item.no-anim{opacity:1;animation:none;}
 @media (min-width:640px){.gallery-item{border-radius:16px;}}
 @keyframes tileIn{from{opacity:0;}to{opacity:1;}}
 
 .gallery-item img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  opacity:0;
-  z-index:1;
-  transition:
-    opacity .4s var(--ease),
-    transform .5s var(--ease),
-    filter .45s var(--ease);
-  user-select:none;
-  pointer-events:none;
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;opacity:0;z-index:1;
+  transition:opacity .4s var(--ease),transform .5s var(--ease),filter .45s var(--ease);
+  user-select:none;pointer-events:none;
 }
 .gallery-item.loaded img{opacity:1;}
 
-/* ── Skeleton ── */
 .skeleton{
-  position:absolute;
-  inset:0;
-  z-index:0;
-  border-radius:inherit;
-  overflow:hidden;
-  display:grid;
-  place-items:center;
-  background:
-    linear-gradient(
-      100deg,
-      rgba(255,255,255,.025) 15%,
-      rgba(217,194,0,.08) 45%,
-      rgba(255,255,255,.025) 75%
-    ),
-    rgba(255,255,255,.02);
+  position:absolute;inset:0;z-index:0;border-radius:inherit;
+  overflow:hidden;display:grid;place-items:center;
+  background:linear-gradient(100deg,rgba(255,255,255,.025) 15%,rgba(217,194,0,.08) 45%,rgba(255,255,255,.025) 75%),rgba(255,255,255,.02);
   background-size:250% 100%;
   animation:shimmer 1.8s ease-in-out infinite;
   transition:opacity .4s var(--ease);
 }
 .skeleton::after{
-  content:"\f03e";
-  font-family:"Font Awesome 6 Free";
-  font-weight:400;
-  font-size:1.6rem;
-  color:rgba(217,194,0,.22);
+  content:"\f03e";font-family:"Font Awesome 6 Free";font-weight:400;
+  font-size:1.6rem;color:rgba(217,194,0,.22);
   animation:iconPulse 2s ease-in-out infinite;
 }
-/* Offscreen: skeleton استاتیک (بدون انیمیشن) — صرفه‌جویی باتری/CPU */
-.gallery-item.no-anim .skeleton{
-  animation:none;
-  background:rgba(255,255,255,.03);
-}
-.gallery-item.no-anim .skeleton::after{
-  animation:none;
-  opacity:.15;
-}
+.gallery-item.no-anim .skeleton{animation:none;background:rgba(255,255,255,.03);}
+.gallery-item.no-anim .skeleton::after{animation:none;opacity:.15;}
 .gallery-item.loaded .skeleton{opacity:0;pointer-events:none;}
-@keyframes shimmer{
-  0%   {background-position:200% 0;}
-  100% {background-position:-100% 0;}
-}
-@keyframes iconPulse{
-  0%,100%{opacity:.18;transform:scale(1);}
-  50%    {opacity:.35;transform:scale(1.08);}
-}
-.gallery-item.error .skeleton::after{
-  content:"\f071";
-  color:rgba(229,115,115,.5);
-  animation:none;
-}
+@keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-100% 0;}}
+@keyframes iconPulse{0%,100%{opacity:.18;transform:scale(1);}50%{opacity:.35;transform:scale(1.08);}}
+.gallery-item.error .skeleton::after{content:"\f071";color:rgba(229,115,115,.5);animation:none;}
 
-/* ── Hover ── */
-.gallery-item:hover,
-.gallery-item:focus-visible{
-  transform:translateY(-6px) scale(1.015);
-  border-color:var(--gold);
-  box-shadow:
-    0 24px 60px rgba(0,0,0,.65),
-    0 0 44px rgba(217,194,0,.3);
+.gallery-item:hover,.gallery-item:focus-visible{
+  transform:translateY(-6px) scale(1.015);border-color:var(--gold);
+  box-shadow:0 24px 60px rgba(0,0,0,.65),0 0 44px rgba(217,194,0,.3);
   z-index:2;outline:none;
 }
-.gallery-item:hover img,
-.gallery-item:focus-visible img{
-  transform:scale(1.07);
-  filter:brightness(.92) saturate(1.15) contrast(1.05);
+.gallery-item:hover img,.gallery-item:focus-visible img{
+  transform:scale(1.07);filter:brightness(.92) saturate(1.15) contrast(1.05);
 }
 
-/* ── بج کد ── */
 .code-mini{
   position:absolute;bottom:8px;left:8px;z-index:3;
   font-family:"Space Grotesk",ui-monospace,monospace;
-  font-size:.62rem;font-weight:800;
-  color:#001830;
+  font-size:.62rem;font-weight:800;color:#001830;
   background:linear-gradient(140deg,var(--gold),#fff2a0);
-  padding:.18rem .55rem;border-radius:99px;
-  direction:ltr;box-shadow:0 4px 12px rgba(0,0,0,.4);
+  padding:.18rem .55rem;border-radius:99px;direction:ltr;
+  box-shadow:0 4px 12px rgba(0,0,0,.4);
   transition:opacity .3s var(--ease),transform .3s var(--ease);
   pointer-events:none;
 }
 .gallery-item:hover .code-mini{opacity:0;transform:translateY(6px);}
 
-/* ── گلس مات ── */
 .glass-overlay{
   position:absolute;inset:0;z-index:2;
   display:flex;align-items:center;justify-content:center;
   background:rgba(0,13,24,.35);
   backdrop-filter:blur(14px) saturate(160%);
   -webkit-backdrop-filter:blur(14px) saturate(160%);
-  opacity:0;transition:opacity .4s var(--ease);
-  pointer-events:none;
+  opacity:0;transition:opacity .4s var(--ease);pointer-events:none;
 }
-.gallery-item:hover .glass-overlay,
-.gallery-item:focus-visible .glass-overlay{opacity:1;}
+.gallery-item:hover .glass-overlay,.gallery-item:focus-visible .glass-overlay{opacity:1;}
 .code-badge{
   font-family:"Space Grotesk",ui-monospace,monospace;
-  font-size:.95rem;font-weight:800;
-  color:#001830;
+  font-size:.95rem;font-weight:800;color:#001830;
   background:linear-gradient(140deg,var(--gold),#fff2a0);
   padding:.4rem 1rem;border-radius:99px;direction:ltr;
   transform:scale(.65);opacity:0;
   transition:transform .45s cubic-bezier(.34,1.56,.64,1),opacity .3s var(--ease);
   box-shadow:0 10px 30px rgba(217,194,0,.5);
 }
-.gallery-item:hover .code-badge,
-.gallery-item:focus-visible .code-badge{transform:scale(1);opacity:1;}
+.gallery-item:hover .code-badge,.gallery-item:focus-visible .code-badge{transform:scale(1);opacity:1;}
 
 /* ══════ LOADER / EMPTY ══════ */
 .loader{
@@ -302,27 +239,13 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 .loader-text{max-width:280px;font-weight:700}
-.loader-bar{
-  width:min(240px,60vw);
-  height:4px;
-  border-radius:99px;
-  background:var(--stroke);
-  overflow:hidden;
-  position:relative;
-}
+.loader-bar{width:min(240px,60vw);height:4px;border-radius:99px;background:var(--stroke);overflow:hidden;position:relative;}
 .loader-bar i{
-  display:block;
-  height:100%;
-  width:45%;
-  border-radius:99px;
-  background:linear-gradient(90deg, transparent, var(--gold), transparent);
-  position:absolute;
-  animation:indeterminate 1.4s ease-in-out infinite;
+  display:block;height:100%;width:45%;border-radius:99px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  position:absolute;animation:indeterminate 1.4s ease-in-out infinite;
 }
-@keyframes indeterminate{
-  0% {transform:translateX(-120%);}
-  100%{transform:translateX(320%);}
-}
+@keyframes indeterminate{0%{transform:translateX(-120%);}100%{transform:translateX(320%);}}
 .loader-stage{font-size:.72rem;color:var(--muted);opacity:.7;direction:rtl;min-height:1em}
 
 .empty{
@@ -330,85 +253,62 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   background:var(--panel);border:1px dashed rgba(217,194,0,.35);
   color:var(--muted);font-size:.88rem;
 }
-.empty i{
-  font-size:2.5rem;color:var(--gold);display:block;
-  margin-bottom:1rem;opacity:.8;
-  animation:floatUp 4s ease-in-out infinite;
-}
+.empty i{font-size:2.5rem;color:var(--gold);display:block;margin-bottom:1rem;opacity:.8;animation:floatUp 4s ease-in-out infinite;}
 @keyframes floatUp{50%{transform:translateY(-8px)}}
 .empty b{color:var(--text);display:block;margin-bottom:.4rem;font-size:.95rem}
 .empty code{
-  background:rgba(217,194,0,.1);
-  border:1px solid rgba(217,194,0,.3);
+  background:rgba(217,194,0,.1);border:1px solid rgba(217,194,0,.3);
   padding:.15rem .5rem;border-radius:6px;color:var(--gold);
   font-family:"Space Grotesk",monospace;direction:ltr;
   display:inline-block;font-size:.8rem;margin:.2rem 0;
 }
 .empty-hint{
-  margin-top:1rem;font-size:.76rem;color:var(--muted);
-  line-height:2;text-align:right;
+  margin-top:1rem;font-size:.76rem;color:var(--muted);line-height:2;text-align:right;
   max-width:440px;margin-inline:auto;padding:.9rem 1rem;
-  background:rgba(217,194,0,.04);
-  border-radius:12px;
+  background:rgba(217,194,0,.04);border-radius:12px;
   border:1px solid rgba(217,194,0,.15);
 }
 .empty-hint b{color:var(--gold);font-size:.78rem;margin-bottom:.3rem}
 .empty-hint ul{list-style:none;padding:0;margin:0;}
 .empty-hint li{padding:.3rem 0;padding-right:1.3rem;position:relative;}
-.empty-hint li::before{
-  content:"•";position:absolute;right:.4rem;
-  color:var(--gold);font-weight:900;
-}
+.empty-hint li::before{content:"•";position:absolute;right:.4rem;color:var(--gold);font-weight:900;}
 
 /* ══════ LIGHTBOX ══════ */
 .lightbox{
-  position:fixed;inset:0;z-index:1000;
-  display:grid;place-items:center;
+  position:fixed;inset:0;z-index:1000;display:grid;place-items:center;
   opacity:0;visibility:hidden;
   transition:opacity .4s var(--ease),visibility .4s;
   padding:clamp(.5rem,2vw,1.5rem);
 }
 .lightbox.open{opacity:1;visibility:visible}
 .lb-back{
-  position:absolute;inset:0;
-  background:rgba(0,6,12,.9);
+  position:absolute;inset:0;background:rgba(0,6,12,.9);
   backdrop-filter:blur(24px) saturate(140%);
   -webkit-backdrop-filter:blur(24px) saturate(140%);
   cursor:zoom-out;
 }
 .lb-stage{
-  position:relative;width:100%;
-  max-width:min(95vw,1400px);max-height:calc(100vh - 2rem);
+  position:relative;width:100%;max-width:min(95vw,1400px);max-height:calc(100vh - 2rem);
   display:flex;flex-direction:column;align-items:center;gap:1rem;
   transform:scale(.94);opacity:0;
   transition:transform .5s cubic-bezier(.34,1.56,.64,1),opacity .4s var(--ease);
   pointer-events:none;
 }
 .lightbox.open .lb-stage{transform:scale(1);opacity:1;pointer-events:auto;}
-.lb-img-wrap{
-  position:relative;width:100%;
-  display:grid;place-items:center;
-  flex:1 1 auto;min-height:0;
-}
+.lb-img-wrap{position:relative;width:100%;display:grid;place-items:center;flex:1 1 auto;min-height:0;}
 #lbImg{
-  max-width:100%;max-height:calc(100vh - 8rem);
-  width:auto;height:auto;object-fit:contain;
-  border-radius:14px;
-  box-shadow:0 40px 90px rgba(0,0,0,.8),0 0 60px rgba(217,194,0,.15);
-  border:1px solid rgba(217,194,0,.25);
-  background:var(--panel2);
+  max-width:100%;max-height:calc(100vh - 8rem);width:auto;height:auto;object-fit:contain;
+  border-radius:14px;box-shadow:0 40px 90px rgba(0,0,0,.8),0 0 60px rgba(217,194,0,.15);
+  border:1px solid rgba(217,194,0,.25);background:var(--panel2);
   transition:opacity .3s var(--ease);
 }
 #lbImg.loading{opacity:.3}
 .lb-info{
-  display:flex;align-items:center;justify-content:center;
-  flex-wrap:wrap;gap:.55rem;padding:.5rem 1rem;border-radius:99px;
-  background:rgba(0,24,48,.72);
-  border:1px solid rgba(217,194,0,.25);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  box-shadow:0 12px 40px rgba(0,0,0,.5);
-  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.55rem;
+  padding:.5rem 1rem;border-radius:99px;
+  background:rgba(0,24,48,.72);border:1px solid rgba(217,194,0,.25);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  box-shadow:0 12px 40px rgba(0,0,0,.5);flex-shrink:0;
 }
 .lb-code{
   font-family:"Space Grotesk",ui-monospace,monospace;
@@ -420,8 +320,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 .lb-size{
   font-family:"Space Grotesk",ui-monospace,monospace;
   font-size:.72rem;font-weight:700;color:var(--muted);direction:ltr;
-  padding:.35rem .8rem;border-radius:99px;
-  border:1px solid var(--stroke);
+  padding:.35rem .8rem;border-radius:99px;border:1px solid var(--stroke);
   background:rgba(255,255,255,.03);
 }
 .lb-dl{
@@ -429,8 +328,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   padding:.45rem 1.1rem;border-radius:99px;
   background:linear-gradient(140deg,var(--gold),#fff2a0);
   color:#001830;font-weight:800;font-size:.8rem;border:none;cursor:pointer;
-  transition:.3s var(--ease);
-  box-shadow:0 8px 24px rgba(217,194,0,.4);
+  transition:.3s var(--ease);box-shadow:0 8px 24px rgba(217,194,0,.4);
 }
 .lb-dl:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(217,194,0,.6);}
 .lb-dl:active{transform:scale(.96);}
@@ -442,11 +340,9 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 .lb-btn{
   position:absolute;width:46px;height:46px;border-radius:14px;
   display:grid;place-items:center;
-  background:rgba(0,24,48,.78);
-  border:1px solid var(--stroke);color:var(--gold);font-size:1rem;
-  cursor:pointer;
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
+  background:rgba(0,24,48,.78);border:1px solid var(--stroke);
+  color:var(--gold);font-size:1rem;cursor:pointer;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   transition:.3s var(--ease);z-index:5;pointer-events:auto;
 }
 .lb-btn:hover{background:var(--soft);border-color:var(--gold);transform:scale(1.08);}
@@ -470,42 +366,30 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 
 /* ══════ TOAST ══════ */
 .toast{
-  position:fixed;bottom:2rem;left:50%;
-  transform:translateX(-50%) translateY(40px);
+  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(40px);
   padding:.65rem 1.2rem;border-radius:99px;
-  background:rgba(0,24,48,.95);
-  border:1px solid var(--gold);color:var(--gold);
-  font-size:.78rem;font-weight:700;
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  z-index:2000;opacity:0;pointer-events:none;
-  transition:.5s;max-width:90vw;text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,.6);
+  background:rgba(0,24,48,.95);border:1px solid var(--gold);color:var(--gold);
+  font-size:.78rem;font-weight:700;backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);z-index:2000;opacity:0;pointer-events:none;
+  transition:.5s;max-width:90vw;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.6);
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
 /* ══════ BACK TO TOP + MUSIC ══════ */
 .to-top{
-  position:fixed;
-  bottom:max(1.2rem,env(safe-area-inset-bottom));
-  left:max(1.2rem,env(safe-area-inset-left));
-  z-index:94;width:52px;height:52px;border-radius:16px;
-  display:grid;place-items:center;
+  position:fixed;bottom:max(1.2rem,env(safe-area-inset-bottom));left:max(1.2rem,env(safe-area-inset-left));
+  z-index:94;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
   background:var(--panel2);border:1px solid var(--stroke);
-  backdrop-filter:blur(18px) saturate(180%);
-  -webkit-backdrop-filter:blur(18px) saturate(180%);
-  color:var(--gold);cursor:pointer;font-size:1.05rem;
-  transition:.4s var(--ease);
+  backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%);
+  color:var(--gold);cursor:pointer;font-size:1.05rem;transition:.4s var(--ease);
   box-shadow:0 8px 26px rgba(0,0,0,.5);
   opacity:0;transform:translateY(20px) scale(.9);pointer-events:none;
 }
 .to-top.show{opacity:1;transform:none;pointer-events:auto;}
 .to-top:hover{background:var(--soft);border-color:var(--gold);transform:translateY(-3px);box-shadow:0 0 24px rgba(217,194,0,.4);}
 .mbtn{
-  position:fixed;bottom:max(1.2rem,env(safe-area-inset-bottom));
-  right:max(1.2rem,env(safe-area-inset-right));
-  z-index:94;width:52px;height:52px;border-radius:16px;
-  display:grid;place-items:center;
+  position:fixed;bottom:max(1.2rem,env(safe-area-inset-bottom));right:max(1.2rem,env(safe-area-inset-right));
+  z-index:94;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
   background:rgba(0,24,48,.65);border:1px solid var(--stroke);
   backdrop-filter:blur(18px);color:var(--gold);cursor:pointer;
   transition:.3s;box-shadow:0 8px 26px rgba(0,0,0,.5);
@@ -519,10 +403,8 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 /* ══════ FOOTER ══════ */
 footer{
   padding:2rem clamp(1rem,3.5vw,3rem) 1.3rem;
-  border-top:1px solid var(--stroke);
-  background:rgba(0,13,24,.65);
-  backdrop-filter:blur(20px);
-  font-size:.7rem;color:var(--muted);
+  border-top:1px solid var(--stroke);background:rgba(0,13,24,.65);
+  backdrop-filter:blur(20px);font-size:.7rem;color:var(--muted);
   padding-bottom:calc(1.3rem + 60px);
 }
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;}
@@ -576,7 +458,7 @@ footer a{color:var(--gold);font-weight:700;}
       </p>
       <div class="stats-row" id="statsRow" style="display:none">
         <span class="stat-pill"><i class="fa-solid fa-images"></i> <b id="statCount">۰</b> اثر</span>
-        <button class="refresh-btn" id="refreshBtn" type="button" title="به‌روزرسانی فهرست تصاویر">
+        <button class="refresh-btn" id="refreshBtn" type="button" title="جستجوی مجدد تصاویر">
           <i class="fa-solid fa-rotate"></i>
           <span>به‌روزرسانی</span>
         </button>
@@ -610,7 +492,7 @@ footer a{color:var(--gold);font-weight:700;}
             <li>پوشهٔ <code>img/monasebati/</code> وجود دارد؟</li>
             <li>فایل‌ها با پسوند <code>.png</code> هستند؟</li>
             <li><b>Ad blocker</b> (uBlock, Brave Shields) را برای این سایت غیرفعال کن</li>
-            <li>یک بار <b>Ctrl+Shift+R</b> بزن (hard refresh)</li>
+            <li>یک بار <b>Ctrl+Shift+R</b> بزن</li>
           </ul>
         </div>
       </div>
@@ -673,43 +555,41 @@ function setStage(text){
 }
 
 /* ══════════════════════════════════════════════════════════
-   CONFIG
+   CONFIG — تنظیمات بهینه
    ══════════════════════════════════════════════════════════ */
 const CONFIG = {
   folder: 'img/monasebati/',
   manifestFile: 'img/monasebati/list.json',
   githubRepo: null,
 
-  /* ── فقط png — همه تصاویر png شدند ── */
+  /* ─── فقط PNG ─── */
   extension: 'png',
-  maxProbeNumber: 2000,
-  stopAfterMisses: 30,
-  probeConcurrency: 100,
-  probeTimeout: 1500,
 
-  /* ── کش localStorage ── */
-  cacheKey: 'gallery_matna_v3',
+  /* ─── جستجو: HEAD-based، سریع و قابل اعتماد ─── */
+  maxProbeNumber: 2000,
+  stopAfterMisses: 200,     /* تحمل ۲۰۰ شکست پشت‌سرهم (۴ بچ ۵۰تایی) */
+  probeConcurrency: 50,     /* برای HEAD این مقدار عالی است */
+  probeTimeout: 2500,       /* برای HEAD کافی است */
+
+  /* ─── کش ─── */
+  cacheKey: 'gallery_matna_v4',  /* ← نسخه جدید، کش خراب قبلی نادیده گرفته می‌شود */
   cacheTTL: 6 * 60 * 60 * 1000,
 
-  /* ── eager برای N تای اول، بقیه lazy ── */
   eagerLimit: 12,
-
-  /* ── کارت‌های بالاتر از این ایندکس، بدون انیمیشن نمایش داده می‌شوند ── */
   noAnimThreshold: 30,
-
   downloadPrefix: ''
 };
 
 /* ══════ FETCH WITH TIMEOUT ══════ */
 async function fetchWithTimeout(url, ms, opts = {}){
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), ms);
+  const timer = setTimeout(() => controller.abort(), ms);
   try {
     const res = await fetch(url, { ...opts, signal: controller.signal });
-    clearTimeout(timeoutId);
+    clearTimeout(timer);
     return res;
   } catch(e){
-    clearTimeout(timeoutId);
+    clearTimeout(timer);
     throw e;
   }
 }
@@ -739,12 +619,20 @@ function loadCache(){
     const data = JSON.parse(raw);
     if (!data || !data.ts || !Array.isArray(data.images)) return null;
     if (Date.now() - data.ts > CONFIG.cacheTTL) return null;
-    console.log('[Gallery] ✓ Cache (' + data.images.length + ' items, ' + Math.round((Date.now()-data.ts)/60000) + 'min old)');
+    console.log('[Gallery] ✓ Cache:', data.images.length, 'items');
     return data.images;
   } catch(e){ return null; }
 }
 function clearCache(){
   try { localStorage.removeItem(CONFIG.cacheKey); } catch(e){}
+}
+
+/* ══════ MERGE — ادغام دو لیست بدون تکرار ══════ */
+function mergeImages(listA, listB){
+  const map = new Map();
+  (listA || []).forEach(img => { if (img && img.num) map.set(img.num, img); });
+  (listB || []).forEach(img => { if (img && img.num) map.set(img.num, img); });
+  return Array.from(map.values());
 }
 
 /* ══════ SOURCE 1: MANIFEST ══════ */
@@ -758,12 +646,7 @@ async function fetchManifest(){
       const name = typeof item === 'string' ? item : (item && (item.name || item.file));
       if (!name) return null;
       const numM = name.match(/(\d+)/);
-      return {
-        num: numM ? parseInt(numM[1]) : (i + 1),
-        name,
-        src: CONFIG.folder + name,
-        time: (item && item.time) || null
-      };
+      return { num: numM ? parseInt(numM[1]) : (i + 1), name, src: CONFIG.folder + name, time: (item && item.time) || null };
     }).filter(Boolean);
   } catch(e){ return null; }
 }
@@ -777,8 +660,7 @@ async function fetchGitHubAPI(){
   try {
     const url = `https://api.github.com/repos/${repo.owner}/${repo.repo}/contents/${CONFIG.folder.replace(/\/+$/, '')}?t=${Date.now()}`;
     const res = await fetchWithTimeout(url, 4000, {
-      headers: { 'Accept': 'application/vnd.github+json' },
-      cache: 'no-store'
+      headers: { 'Accept': 'application/vnd.github+json' }, cache: 'no-store'
     });
     console.log('[Gallery] GitHub API:', res.status);
     if (!res.ok) return null;
@@ -788,12 +670,7 @@ async function fetchGitHubAPI(){
       .filter(f => f.type === 'file' && /\.png$/i.test(f.name))
       .map((f, i) => {
         const numM = f.name.match(/(\d+)/);
-        return {
-          num: numM ? parseInt(numM[1]) : (i + 1),
-          name: f.name,
-          src: CONFIG.folder + f.name,
-          time: null
-        };
+        return { num: numM ? parseInt(numM[1]) : (i + 1), name: f.name, src: CONFIG.folder + f.name, time: null };
       });
     console.log('[Gallery] GitHub API found:', images.length);
     return images.length > 0 ? images : null;
@@ -811,7 +688,7 @@ async function fetchJsDelivr(){
   if (!repo) return null;
   for (const branch of ['main', 'master']){
     try {
-      const url = `https://data.jsdelivr.com/v1/packages/gh/${repo.owner}/${repo.repo}@${branch}?structure=flat`;
+      const url = `https://data.jsdelivr.com/v1/packages/gh/${repo.owner}/${repo.repo}@${branch}?structure=flat&t=${Date.now()}`;
       const res = await fetchWithTimeout(url, 3500);
       console.log('[Gallery] jsDelivr (' + branch + '):', res.status);
       if (!res.ok) continue;
@@ -823,12 +700,7 @@ async function fetchJsDelivr(){
         .map((f, i) => {
           const name = f.name.substring(prefix.length);
           const numM = name.match(/(\d+)/);
-          return {
-            num: numM ? parseInt(numM[1]) : (i + 1),
-            name,
-            src: CONFIG.folder + name,
-            time: f.time || null
-          };
+          return { num: numM ? parseInt(numM[1]) : (i + 1), name, src: CONFIG.folder + name, time: f.time || null };
         });
       console.log('[Gallery] jsDelivr found:', images.length);
       if (images.length > 0) return images;
@@ -840,35 +712,19 @@ async function fetchJsDelivr(){
 }
 
 /* ══════════════════════════════════════════════════════════
-   SOURCE 4: PROBING — بهینه برای png
+   SOURCE 4: HEAD PROBE — سریع و قابل اعتماد
    ══════════════════════════════════════════════════════════ */
-function probeImage(num){
-  return new Promise(resolve => {
-    let resolved = false;
-    const timer = setTimeout(() => {
-      if (!resolved){ resolved = true; resolve(null); }
-    }, CONFIG.probeTimeout);
-
-    const img = new Image();
-    const src = CONFIG.folder + num + '.' + CONFIG.extension;
-
-    img.onload = () => {
-      if (resolved) return;
-      resolved = true;
-      clearTimeout(timer);
-      resolve({
-        num, name: num + '.' + CONFIG.extension, src,
-        w: img.naturalWidth, h: img.naturalHeight, time: null
-      });
-    };
-    img.onerror = () => {
-      if (resolved) return;
-      resolved = true;
-      clearTimeout(timer);
-      resolve(null);
-    };
-    img.src = src;
-  });
+async function headCheck(url){
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), CONFIG.probeTimeout);
+  try {
+    const res = await fetch(url, { method: 'HEAD', cache: 'no-store', signal: controller.signal });
+    clearTimeout(timer);
+    return res.ok;
+  } catch(e){
+    clearTimeout(timer);
+    return false;
+  }
 }
 
 async function probeAll(){
@@ -879,26 +735,37 @@ async function probeAll(){
   for (let n = 1; n <= CONFIG.maxProbeNumber; n += step){
     const batch = [];
     for (let k = 0; k < step && n + k <= CONFIG.maxProbeNumber; k++){
-      batch.push(probeImage(n + k));
+      const num = n + k;
+      const url = CONFIG.folder + num + '.' + CONFIG.extension;
+      batch.push(headCheck(url).then(ok => ok ? num : null));
     }
+
     const results = await Promise.all(batch);
 
-    results.forEach(r => {
-      if (r){ found.push(r); missStreak = 0; }
-      else missStreak++;
+    results.forEach(num => {
+      if (num){
+        found.push({
+          num,
+          name: num + '.' + CONFIG.extension,
+          src: CONFIG.folder + num + '.' + CONFIG.extension,
+          w: null, h: null, time: null
+        });
+        missStreak = 0;
+      } else {
+        missStreak++;
+      }
     });
 
-    /* فقط پیام کلی — بدون شمارش تدریجی */
     const last = Math.min(n + step - 1, CONFIG.maxProbeNumber);
-    setStage(`بررسی تا شمارهٔ ${toFa(last)}…`);
+    setStage(`بررسی تا ${toFa(last)} — یافت: ${toFa(found.length)}`);
 
     if (missStreak >= CONFIG.stopAfterMisses){
-      console.log('[Gallery] Stop at ' + last + ' (missStreak: ' + missStreak + ')');
+      console.log(`[Gallery] Stop at ${last} (missStreak: ${missStreak}, found: ${found.length})`);
       break;
     }
   }
 
-  console.log('[Gallery] Probing done:', found.length, 'images');
+  console.log('[Gallery] Probe done:', found.length);
   return found;
 }
 
@@ -910,10 +777,7 @@ async function loadGallery(forceRefresh = false){
 
   if (!forceRefresh){
     const cached = loadCache();
-    if (cached){
-      setStage('بارگذاری از حافظه…');
-      return cached;
-    }
+    if (cached){ setStage('بارگذاری از حافظه…'); return cached; }
   }
 
   setStage('تلاش ۲: GitHub API…');
@@ -957,7 +821,6 @@ function getColumnCount(){
 function buildCard(img, idx){
   const card = document.createElement('div');
   card.className = 'gallery-item';
-  /* بدون stagger — همه یکجا ظاهر می‌شوند */
   if (idx >= CONFIG.noAnimThreshold) card.classList.add('no-anim');
 
   card.dataset.idx = idx;
@@ -1030,14 +893,10 @@ function renderGallery(){
     colEls.push(col);
   }
 
-  /* ساخت fragment برای هر ستون و append یک‌جا — بسیار سریع‌تر از append تک‌تک */
   const frags = Array.from({length: cols}, () => document.createDocumentFragment());
-
   GALLERY_IMAGES.forEach((img, i) => {
-    const colIdx = i % cols;
-    frags[colIdx].appendChild(buildCard(img, i));
+    frags[i % cols].appendChild(buildCard(img, i));
   });
-
   frags.forEach((frag, c) => colEls[c].appendChild(frag));
 
   statsRow.style.display = 'flex';
@@ -1047,7 +906,6 @@ function renderGallery(){
   emptySec.style.display = 'none';
 }
 
-/* resize با debounce */
 let resizeTimer = null;
 window.addEventListener('resize', () => {
   if (!GALLERY_IMAGES.length) return;
@@ -1057,25 +915,46 @@ window.addEventListener('resize', () => {
   }, 300);
 });
 
-/* ══════ REFRESH ══════ */
+/* ══════ REFRESH — با ادغام هوشمند ══════ */
 $('#refreshBtn').addEventListener('click', async () => {
   const btn = $('#refreshBtn');
   if (btn.classList.contains('refreshing')) return;
   btn.classList.add('refreshing');
-  clearCache();
+
+  /* نگه‌داشتن کش قبلی برای ادغام */
+  const oldImages = loadCache() || [];
+
   $('#gallerySection').style.display = 'none';
   $('#loaderSection').style.display = 'block';
   $('#loader').classList.add('on');
+
   try {
-    const found = await loadGallery(true);
+    /* پاک کردن کش و جستجوی کاملاً تازه */
+    clearCache();
+    const fresh = await loadGallery(true);
+
+    /* ادغام با کش قبلی — هیچ‌وقت تصویری گم نمی‌شود */
+    const merged = mergeImages(oldImages, fresh);
+
     $('#loaderSection').style.display = 'none';
-    GALLERY_IMAGES = sortImages(found);
+    GALLERY_IMAGES = sortImages(merged);
     renderGallery();
-    showToast(`✓ ${toFa(found.length)} اثر به‌روز شد`);
+    saveCache(merged);
+
+    const added = merged.length - oldImages.length;
+    showToast(added > 0
+      ? `✓ ${toFa(merged.length)} اثر (${toFa(added)} جدید)`
+      : `✓ ${toFa(merged.length)} اثر — بدون تغییر`
+    );
   } catch(e){
+    console.error('[Refresh] Failed:', e);
     showToast('خطا در به‌روزرسانی');
     $('#loaderSection').style.display = 'none';
-    $('#emptySection').style.display = 'block';
+    if (GALLERY_IMAGES.length) {
+      $('#gallerySection').style.display = 'block';
+    } else {
+      $('#emptySection').style.display = 'block';
+    }
   } finally {
     btn.classList.remove('refreshing');
   }
@@ -1168,7 +1047,7 @@ async function downloadCurrentImage(){
     } catch (err){
       dl.classList.add('dl-error');
       span.textContent = '✗ خطا';
-      showToast('خطا در دانلود — دوباره امتحان کن');
+      showToast('خطا در دانلود');
       setTimeout(() => {
         dl.classList.remove('dl-error');
         span.textContent = 'دانلود';
@@ -1196,7 +1075,6 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* سوایپ لمسی */
 (function(){
   let sx = 0, sy = 0;
   const lb = $('#lightbox');
@@ -1265,8 +1143,7 @@ document.addEventListener('keydown', e => {
     if (started) return;
     const p = audio.play();
     if (p && typeof p.then === 'function'){
-      p.then(() => { started = true; audio.volume = 0; fadeTo(VOL, FADE); updateUI(); removeL(); })
-       .catch(() => updateUI());
+      p.then(() => { started = true; audio.volume = 0; fadeTo(VOL, FADE); updateUI(); removeL(); }).catch(() => updateUI());
     } else {
       audio.volume = VOL; started = true; updateUI(); removeL();
     }
