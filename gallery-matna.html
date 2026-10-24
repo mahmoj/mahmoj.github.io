@@ -88,7 +88,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 .lead{color:var(--muted);font-size:clamp(.85rem,1.2vw,.95rem);max-width:62ch}
 
 /* ══════ STATS ══════ */
-.stats-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem}
+.stats-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem;align-items:center}
 .stat-pill{
   display:inline-flex;align-items:center;gap:.4rem;
   padding:.4rem .9rem;border-radius:99px;
@@ -98,17 +98,27 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 .stat-pill i{color:var(--gold);font-size:.7rem}
 .stat-pill b{color:var(--gold);font-weight:800;font-family:"Space Grotesk",ui-monospace,monospace;direction:ltr}
 
+.refresh-btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.4rem .9rem;border-radius:99px;
+  background:var(--panel);border:1px solid var(--stroke);
+  font-size:.72rem;font-weight:700;color:var(--muted);
+  cursor:pointer;transition:.3s var(--ease);
+}
+.refresh-btn:hover{background:var(--soft);border-color:var(--gold);color:var(--gold)}
+.refresh-btn.refreshing{pointer-events:none;opacity:.7}
+.refresh-btn.refreshing i{animation:spin 1s linear infinite}
+.refresh-btn i{font-size:.7rem;color:var(--gold)}
+
 /* ══════════════════════════════════════════════════════════
    GALLERY — MASONRY با ستون‌های مستقل
    ══════════════════════════════════════════════════════════ */
 .gallery-section{padding-top:.5rem}
-
-/* کانتینر بیرونی: گرید چند ستونه */
 .gallery{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: .6rem;
-  align-items: start;   /* ستون‌ها از بالا شروع می‌شوند */
+  align-items: start;
   width: 100%;
 }
 @media (min-width:640px){
@@ -118,21 +128,15 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   .gallery{grid-template-columns:repeat(4, minmax(0, 1fr));gap:.9rem;}
 }
 
-/* هر ستون: flex عمودی با gap — چیدمان فشرده بدون فاصله */
 .gallery-col{
   display: flex;
   flex-direction: column;
   gap: .6rem;
   min-width: 0;
 }
-@media (min-width:640px){
-  .gallery-col{gap:.8rem;}
-}
-@media (min-width:1024px){
-  .gallery-col{gap:.9rem;}
-}
+@media (min-width:640px){.gallery-col{gap:.8rem;}}
+@media (min-width:1024px){.gallery-col{gap:.9rem;}}
 
-/* کارت — بدون margin (gap کار را می‌کند) */
 .gallery-item{
   position:relative;
   display:block;
@@ -142,16 +146,12 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   background:var(--panel);
   border:1px solid var(--stroke);
   cursor:zoom-in;
-
-  /* نسبت تصویر — قبل از لود رزرو شده */
   aspect-ratio: var(--ratio, 4/5);
-
   transition:
     aspect-ratio .5s var(--ease),
     transform .45s var(--ease),
     box-shadow .45s var(--ease),
     border-color .45s var(--ease);
-
   will-change:transform;
   opacity:0;
   animation:tileIn .55s var(--ease) forwards;
@@ -176,7 +176,6 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 }
 .gallery-item.loaded img{opacity:1;}
 
-/* Skeleton */
 .skeleton{
   position:absolute;
   inset:0;
@@ -220,7 +219,6 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
   animation:none;
 }
 
-/* Hover */
 .gallery-item:hover,
 .gallery-item:focus-visible{
   transform:translateY(-6px) scale(1.015);
@@ -508,6 +506,7 @@ footer a{color:var(--gold);font-weight:700;}
   .code-mini{font-size:.56rem;padding:.14rem .45rem;bottom:6px;left:6px;}
   .code-badge{font-size:.82rem;padding:.32rem .8rem;}
   .skeleton::after{font-size:1.2rem;}
+  .refresh-btn span{display:none;}
   footer .wrap{flex-direction:column;align-items:flex-start;}
 }
 </style>
@@ -542,6 +541,10 @@ footer a{color:var(--gold);font-weight:700;}
       </p>
       <div class="stats-row" id="statsRow" style="display:none">
         <span class="stat-pill"><i class="fa-solid fa-images"></i> <b id="statCount">۰</b> اثر</span>
+        <button class="refresh-btn" id="refreshBtn" type="button" title="به‌روزرسانی فهرست تصاویر">
+          <i class="fa-solid fa-rotate"></i>
+          <span>به‌روزرسانی</span>
+        </button>
       </div>
     </div>
   </section>
@@ -572,6 +575,7 @@ footer a{color:var(--gold);font-weight:700;}
             <li>فایل‌ها با پسوند <code>png/jpg/jpeg/webp</code> هستند؟</li>
             <li><b>Ad blocker</b> (uBlock, Brave Shields) را برای این سایت غیرفعال کن</li>
             <li>یک بار <b>Ctrl+Shift+R</b> بزن (hard refresh)</li>
+            <li>اگر باز هم نشد، یک بار <code>list.json</code> بساز</li>
           </ul>
         </div>
       </div>
@@ -634,24 +638,42 @@ function setStage(text){
   if (stageEl) stageEl.textContent = text;
 }
 
-/* ══════ CONFIG ══════ */
+/* ══════════════════════════════════════════════════════════
+   CONFIG — تنظیمات اصلی
+   ══════════════════════════════════════════════════════════ */
 const CONFIG = {
   folder: 'img/monasebati/',
   manifestFile: 'img/monasebati/list.json',
   githubRepo: null,
+
+  /* ── تنظیمات جستجوی مستقیم ── */
   extensions: ['png', 'jpg', 'jpeg', 'webp'],
-  maxProbeNumber: 100,
-  stopAfterMisses: 15,
-  probeConcurrency: 30,
+  maxProbeNumber: 1000,      /* ← افزایش از ۱۰۰ به ۱۰۰۰ (رفع باگ «فقط ۱۰۰ تصویر») */
+  stopAfterMisses: 50,       /* ← تحمل ۵۰ شکست پشت‌سرهم (رفع توقف زودهنگام) */
+  probeConcurrency: 60,      /* ← افزایش موازی‌سازی */
+  probeTimeout: 3000,        /* ← تایم‌اوت ۳ ثانیه برای هر تصویر */
+
+  /* ── کش ── */
+  cacheKey: 'gallery_monasebati_v2',
+  cacheTTL: 6 * 60 * 60 * 1000, /* ۶ ساعت */
+
   downloadPrefix: ''
 };
 
-/* ══════ FETCH WITH TIMEOUT ══════ */
-function fetchTimeout(url, opts, ms){
-  return Promise.race([
-    fetch(url, opts),
-    new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms))
-  ]);
+/* ══════════════════════════════════════════════════════════
+   FETCH WITH TIMEOUT
+   ══════════════════════════════════════════════════════════ */
+async function fetchWithTimeout(url, ms, opts = {}){
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), ms);
+  try {
+    const res = await fetch(url, { ...opts, signal: controller.signal });
+    clearTimeout(timeoutId);
+    return res;
+  } catch(e){
+    clearTimeout(timeoutId);
+    throw e;
+  }
 }
 
 /* ══════ DETECT REPO ══════ */
@@ -666,10 +688,38 @@ function detectGitHubRepo(){
   return { owner, repo: owner + '.github.io' };
 }
 
+/* ══════════════════════════════════════════════════════════
+   CACHE (localStorage)
+   ══════════════════════════════════════════════════════════ */
+function saveCache(images){
+  try {
+    localStorage.setItem(CONFIG.cacheKey, JSON.stringify({
+      ts: Date.now(),
+      images: images
+    }));
+  } catch(e){ console.warn('[Cache] save failed:', e.message); }
+}
+
+function loadCache(){
+  try {
+    const raw = localStorage.getItem(CONFIG.cacheKey);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    if (!data || !data.ts || !Array.isArray(data.images)) return null;
+    if (Date.now() - data.ts > CONFIG.cacheTTL) return null;
+    console.log('[Gallery] ✓ Cache hit (' + data.images.length + ' images, age: ' + Math.round((Date.now()-data.ts)/60000) + 'min)');
+    return data.images;
+  } catch(e){ return null; }
+}
+
+function clearCache(){
+  try { localStorage.removeItem(CONFIG.cacheKey); } catch(e){}
+}
+
 /* ══════ SOURCE 1: MANIFEST ══════ */
 async function fetchManifest(){
   try {
-    const res = await fetchTimeout(CONFIG.manifestFile + '?v=' + Date.now(), { cache: 'no-store' }, 3000);
+    const res = await fetchWithTimeout(CONFIG.manifestFile + '?v=' + Date.now(), 3000, { cache: 'no-store' });
     if (!res.ok) return null;
     const data = await res.json();
     if (!Array.isArray(data) || !data.length) return null;
@@ -695,10 +745,10 @@ async function fetchGitHubAPI(){
   if (!repo) return null;
   try {
     const url = `https://api.github.com/repos/${repo.owner}/${repo.repo}/contents/${CONFIG.folder.replace(/\/+$/, '')}?t=${Date.now()}`;
-    const res = await fetchTimeout(url, {
+    const res = await fetchWithTimeout(url, 4000, {
       headers: { 'Accept': 'application/vnd.github+json' },
       cache: 'no-store'
-    }, 4000);
+    });
     console.log('[Gallery] GitHub API status:', res.status);
     if (!res.ok) return null;
     const files = await res.json();
@@ -714,7 +764,7 @@ async function fetchGitHubAPI(){
           time: null
         };
       });
-    console.log('[Gallery] GitHub API found:', images.length, 'images');
+    console.log('[Gallery] GitHub API found:', images.length);
     return images.length > 0 ? images : null;
   } catch(e){
     console.log('[Gallery] GitHub API failed:', e.message);
@@ -731,7 +781,7 @@ async function fetchJsDelivr(){
   for (const branch of ['main', 'master']){
     try {
       const url = `https://data.jsdelivr.com/v1/packages/gh/${repo.owner}/${repo.repo}@${branch}?structure=flat`;
-      const res = await fetchTimeout(url, {}, 3500);
+      const res = await fetchWithTimeout(url, 3500);
       console.log('[Gallery] jsDelivr (' + branch + ') status:', res.status);
       if (!res.ok) continue;
       const data = await res.json();
@@ -749,7 +799,7 @@ async function fetchJsDelivr(){
             time: f.time || null
           };
         });
-      console.log('[Gallery] jsDelivr found:', images.length, 'images');
+      console.log('[Gallery] jsDelivr found:', images.length);
       if (images.length > 0) return images;
     } catch(e){
       console.log('[Gallery] jsDelivr (' + branch + ') failed:', e.message);
@@ -758,16 +808,36 @@ async function fetchJsDelivr(){
   return null;
 }
 
-/* ══════ SOURCE 4: PROBING ══════ */
-function probeImage(num){
+/* ══════════════════════════════════════════════════════════
+   SOURCE 4: PROBING (بهینه‌شده)
+   ══════════════════════════════════════════════════════════ */
+function probeImage(num, primaryExt){
   return new Promise(resolve => {
+    let resolved = false;
+    const timer = setTimeout(() => {
+      if (!resolved){ resolved = true; resolve(null); }
+    }, CONFIG.probeTimeout);
+
+    const done = (result) => {
+      if (resolved) return;
+      resolved = true;
+      clearTimeout(timer);
+      resolve(result);
+    };
+
+    /* اگر primaryExt داده شده، اول همان را امتحان کن */
+    const exts = primaryExt
+      ? [primaryExt, ...CONFIG.extensions.filter(e => e !== primaryExt)]
+      : CONFIG.extensions;
+
     let i = 0;
     function tryNext(){
-      if (i >= CONFIG.extensions.length){ resolve(null); return; }
-      const ext = CONFIG.extensions[i++];
+      if (resolved) return;
+      if (i >= exts.length){ done(null); return; }
+      const ext = exts[i++];
       const src = CONFIG.folder + num + '.' + ext;
       const img = new Image();
-      img.onload = () => resolve({
+      img.onload = () => done({
         num, name: num + '.' + ext, src,
         w: img.naturalWidth, h: img.naturalHeight, time: null
       });
@@ -777,47 +847,97 @@ function probeImage(num){
     tryNext();
   });
 }
+
 async function probeAll(){
   const found = [];
+
+  /* ── فاز ۱: تشخیص پسوند غالب با ۳۰ تصویر اول ── */
+  setStage('جستجو: تشخیص پسوند غالب…');
+  const phase1 = [];
+  for (let n = 1; n <= 30; n++) phase1.push(probeImage(n));
+  const phase1Results = await Promise.all(phase1);
+  const found1 = phase1Results.filter(Boolean);
+  found1.forEach(r => found.push(r));
+
+  if (found1.length === 0){
+    console.log('[Gallery] Nothing in 1-30, stopping');
+    setStage('هیچ تصویری پیدا نشد');
+    return [];
+  }
+
+  /* تشخیص پسوند غالب */
+  const extCounts = {};
+  found1.forEach(img => {
+    const ext = img.name.split('.').pop().toLowerCase();
+    extCounts[ext] = (extCounts[ext] || 0) + 1;
+  });
+  const dominantExt = Object.keys(extCounts).sort((a,b) => extCounts[b] - extCounts[a])[0];
+  console.log('[Gallery] Dominant extension:', dominantExt, extCounts);
+
+  /* ── فاز ۲: جستجوی بقیه با پسوند غالب ── */
   let missStreak = 0;
   const step = CONFIG.probeConcurrency;
-  for (let n = 1; n <= CONFIG.maxProbeNumber; n += step){
+
+  for (let n = 31; n <= CONFIG.maxProbeNumber; n += step){
     const batch = [];
     for (let k = 0; k < step && n + k <= CONFIG.maxProbeNumber; k++){
-      batch.push(probeImage(n + k));
+      batch.push(probeImage(n + k, dominantExt));
     }
     const results = await Promise.all(batch);
     results.forEach(r => {
       if (r){ found.push(r); missStreak = 0; }
-      else { missStreak++; }
+      else missStreak++;
     });
-    setStage(`جستجوی مستقیم — ${toFa(found.length)} مورد پیدا شد (تا شمارهٔ ${toFa(Math.min(n + step - 1, CONFIG.maxProbeNumber))})`);
-    if (found.length > 0 && missStreak >= CONFIG.stopAfterMisses) break;
+
+    setStage(`جستجو — ${toFa(found.length)} مورد پیدا شد (تا شمارهٔ ${toFa(Math.min(n + step - 1, CONFIG.maxProbeNumber))})`);
+
+    if (missStreak >= CONFIG.stopAfterMisses) {
+      console.log('[Gallery] Stopped at num ' + (n + step - 1) + ' (missStreak: ' + missStreak + ')');
+      break;
+    }
   }
-  console.log('[Gallery] Probing found:', found.length, 'images');
+
+  console.log('[Gallery] Probing done:', found.length, 'images');
   return found;
 }
 
-/* ══════ MAIN LOADER ══════ */
-async function loadGallery(){
-  setStage('تلاش ۱ از ۴: manifest محلی…');
+/* ══════════════════════════════════════════════════════════
+   MAIN LOADER — زنجیره
+   ══════════════════════════════════════════════════════════ */
+async function loadGallery(forceRefresh = false){
+  /* 1. Manifest */
+  setStage('تلاش ۱ از ۵: manifest محلی…');
   const manifest = await fetchManifest();
-  if (manifest) { console.log('[Gallery] ✓ Source: manifest'); return manifest; }
+  if (manifest){ console.log('[Gallery] ✓ manifest'); return manifest; }
 
-  setStage('تلاش ۲ از ۴: GitHub API…');
+  /* 2. Cache (اگر معتبر) */
+  if (!forceRefresh){
+    const cached = loadCache();
+    if (cached){
+      setStage('بارگذاری از حافظه…');
+      return cached;
+    }
+  }
+
+  /* 3. GitHub API */
+  setStage('تلاش ۲ از ۵: GitHub API…');
   const api = await fetchGitHubAPI();
-  if (api) { console.log('[Gallery] ✓ Source: GitHub API'); return api; }
+  if (api){ saveCache(api); return api; }
 
-  setStage('تلاش ۳ از ۴: jsDelivr CDN…');
+  /* 4. jsDelivr */
+  setStage('تلاش ۳ از ۵: jsDelivr CDN…');
   const jsd = await fetchJsDelivr();
-  if (jsd) { console.log('[Gallery] ✓ Source: jsDelivr'); return jsd; }
+  if (jsd){ saveCache(jsd); return jsd; }
 
-  setStage('تلاش ۴ از ۴: جستجوی مستقیم (کمی طول می‌کشد)…');
-  return await probeAll();
+  /* 5. Probe */
+  setStage('تلاش ۴ از ۵: جستجوی مستقیم (اولین بار کمی طول می‌کشد)…');
+  const probed = await probeAll();
+  if (probed.length > 0) saveCache(probed);
+  return probed;
 }
 
 /* ══════════════════════════════════════════════════════════
-   RENDER — ستون‌های مستقل (MASONRY)
+   RENDER
    ══════════════════════════════════════════════════════════ */
 let GALLERY_IMAGES = [];
 let currentColCount = 0;
@@ -850,7 +970,7 @@ function buildCard(img, idx){
   card.setAttribute('aria-label', 'اثر شمارهٔ ' + img.num);
   const ratio = (img.w && img.h) ? (img.w + ' / ' + img.h) : '4 / 5';
   card.style.setProperty('--ratio', ratio);
-  card.style.animationDelay = Math.min(idx * 0.025, 0.7) + 's';
+  card.style.animationDelay = Math.min(idx * 0.02, 0.6) + 's';
 
   const loadAttr = idx < 6 ? 'eager' : 'lazy';
   card.innerHTML = `
@@ -904,27 +1024,21 @@ function renderGallery(){
   const cols = getColumnCount();
   currentColCount = cols;
 
-  /* ساخت ستون‌ها */
   gallery.innerHTML = '';
   const colEls = [];
   for (let c = 0; c < cols; c++){
     const col = document.createElement('div');
     col.className = 'gallery-col';
-    col.dataset.col = c;
     gallery.appendChild(col);
     colEls.push(col);
   }
 
-  /* توزیع آیتم‌ها: i % cols
-     RTL → ستون اول (DOM) = راست تصویری
-     نتیجه: راست = 9,7,5,3,1 | چپ = 8,6,4,2 */
   GALLERY_IMAGES.forEach((img, i) => {
     const colIdx = i % cols;
     const card = buildCard(img, i);
     colEls[colIdx].appendChild(card);
   });
 
-  /* آمار */
   statsRow.style.display = 'flex';
   $('#statCount').textContent = toFa(GALLERY_IMAGES.length);
 
@@ -932,17 +1046,38 @@ function renderGallery(){
   emptySec.style.display = 'none';
 }
 
-/* رندر مجدد هنگام تغییر تعداد ستون (resize) */
+/* رندر مجدد هنگام resize */
 let resizeTimer = null;
 window.addEventListener('resize', () => {
   if (!GALLERY_IMAGES.length) return;
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
-    const newCols = getColumnCount();
-    if (newCols !== currentColCount){
-      renderGallery();
-    }
+    if (getColumnCount() !== currentColCount) renderGallery();
   }, 250);
+});
+
+/* ══════ REFRESH ══════ */
+$('#refreshBtn').addEventListener('click', async () => {
+  const btn = $('#refreshBtn');
+  if (btn.classList.contains('refreshing')) return;
+  btn.classList.add('refreshing');
+  clearCache();
+  $('#gallerySection').style.display = 'none';
+  $('#loaderSection').style.display = 'block';
+  $('#loader').classList.add('on');
+  try {
+    const found = await loadGallery(true);
+    $('#loaderSection').style.display = 'none';
+    GALLERY_IMAGES = sortImages(found);
+    renderGallery();
+    showToast(`✓ ${toFa(found.length)} اثر به‌روز شد`);
+  } catch(e){
+    showToast('خطا در به‌روزرسانی');
+    $('#loaderSection').style.display = 'none';
+    $('#emptySection').style.display = 'block';
+  } finally {
+    btn.classList.remove('refreshing');
+  }
 });
 
 /* ══════ LIGHTBOX ══════ */
@@ -959,7 +1094,6 @@ function openLightbox(idx){
 function updateLightbox(){
   const img = GALLERY_IMAGES[lbIndex];
   if (!img) return;
-
   const imgEl = $('#lbImg');
   imgEl.classList.add('loading');
   imgEl.src = img.src;
@@ -968,14 +1102,11 @@ function updateLightbox(){
     imgEl.classList.remove('loading');
     $('#lbSize').textContent = imgEl.naturalWidth + ' × ' + imgEl.naturalHeight;
   };
-
   $('#lbCode').textContent = '#' + toFa(img.num);
-
   const dl = $('#lbDownload');
   dl.classList.remove('dl-success', 'dl-error');
   dl.querySelector('span').textContent = 'دانلود';
   dl.disabled = false;
-
   $('#lbPrev').disabled = lbIndex >= GALLERY_IMAGES.length - 1;
   $('#lbNext').disabled = lbIndex <= 0;
 }
@@ -1235,7 +1366,7 @@ document.addEventListener('dragstart', e => e.preventDefault());
 /* ══════ BOOT ══════ */
 (async function boot(){
   try {
-    const found = await loadGallery();
+    const found = await loadGallery(false);
     $('#loaderSection').style.display = 'none';
     GALLERY_IMAGES = sortImages(found);
     renderGallery();
