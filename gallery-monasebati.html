@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>گالری تصاویر مناسبتی | مهدی مجاهد</title>
+<meta name="description" content="تولیدات مناسبتی — پروفایل، پوستر و طرح‌های ساخته‌شده برای معاونت متنا و ژرفا">
+
+<link rel="icon" href="img/20261011_025918.ico" type="image/x-icon">
+<link rel="shortcut icon" href="img/20261011_025918.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="img/20261011_025918.ico">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+/* ══════════════════════════════════════════════════════════
+   TOKENS
+   ══════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#D9C200;--navy:#001830;--bg:#000d18;
+  --panel:rgba(255,255,255,.045);--panel2:rgba(0,24,48,.55);
+  --stroke:rgba(255,255,255,.09);--text:#f1f5f7;--muted:#8b9ba6;
+  --soft:rgba(217,194,0,.13);--ease:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth;overflow-x:clip;max-width:100%;-webkit-text-size-adjust:100%}
+@supports not (overflow:clip){html{overflow-x:hidden}}
+body{
+  font-family:"Vazirmatn",sans-serif;background:var(--bg);color:var(--text);
+  min-height:100vh;line-height:1.85;overflow-x:clip;max-width:100%;
+  -webkit-font-smoothing:antialiased;
+  -webkit-user-select:none;-moz-user-select:none;user-select:none;
+}
+@supports not (overflow:clip){body{overflow-x:hidden}}
+body.lock{overflow:hidden}
+input,textarea,[contenteditable]{-webkit-user-select:text;user-select:text}
+img,canvas,svg{max-width:100%;display:block}
+img{-webkit-user-drag:none;user-drag:none}
+button{font:inherit;cursor:pointer;background:none;border:0;color:inherit}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:#001830}
+::-webkit-scrollbar{width:9px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--gold),var(--navy));border-radius:99px}
+
+/* ══════════════════════════════════════════════════════════
+   BACKGROUND
+   ══════════════════════════════════════════════════════════ */
+.bg{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.au{position:absolute;border-radius:50%;filter:blur(110px);opacity:.5}
+.au.a{width:min(58vw,520px);height:min(58vw,520px);background:#D9C200;top:-14vw;right:-14vw;animation:f1 22s ease-in-out infinite}
+.au.b{width:min(52vw,480px);height:min(52vw,480px);background:#003a63;bottom:-16vw;left:-16vw;animation:f2 27s ease-in-out infinite}
+@keyframes f1{50%{transform:translateY(8vh) scale(1.12)}}
+@keyframes f2{50%{transform:translateY(-7vh) scale(1.15)}}
+#stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5}
+
+/* ══════════════════════════════════════════════════════════
+   HEADER
+   ══════════════════════════════════════════════════════════ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem clamp(1rem,4vw,3rem);
+  background:rgba(0,13,24,.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--stroke);
+}
+.logo{display:flex;align-items:center;gap:.55rem;font-weight:800;font-size:.95rem;min-width:0}
+.logo-mark{
+  width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+  background:linear-gradient(140deg,var(--gold),#8a7a00);
+  box-shadow:0 0 22px rgba(217,194,0,.4);overflow:hidden;flex:none;
+}
+.logo-mark img{width:68%;height:68%;object-fit:contain;filter:invert(1) brightness(.1)}
+.back{
+  padding:.5rem 1rem;border-radius:99px;background:var(--panel);
+  border:1px solid var(--stroke);font-size:.78rem;font-weight:700;
+  display:inline-flex;gap:.4rem;align-items:center;transition:.4s var(--ease);
+}
+.back i{color:var(--gold)}
+.back:hover{background:var(--soft);border-color:var(--gold);color:var(--gold)}
+
+/* ══════════════════════════════════════════════════════════
+   LAYOUT
+   ══════════════════════════════════════════════════════════ */
+main{padding-top:80px;overflow-x:clip}
+section{padding:clamp(1.5rem,5vh,3rem) clamp(1rem,3.5vw,3rem);overflow-x:clip}
+.wrap{max-width:1200px;margin:0 auto;width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.68rem;font-weight:700;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.7rem}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--gold)}
+h1{font-size:clamp(1.5rem,5vw,2.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.2;margin-bottom:.8rem}
+h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,var(--gold));background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 5s linear infinite}
+@keyframes sh{to{background-position:220% center}}
+.lead{color:var(--muted);font-size:clamp(.85rem,1.2vw,.95rem);max-width:62ch}
+
+/* ══════════════════════════════════════════════════════════
+   STATS
+   ══════════════════════════════════════════════════════════ */
+.stats-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem}
+.stat-pill{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.4rem .9rem;border-radius:99px;
+  background:var(--panel);border:1px solid var(--stroke);
+  font-size:.72rem;font-weight:700;color:var(--muted);
+}
+.stat-pill i{color:var(--gold);font-size:.7rem}
+.stat-pill b{color:var(--gold);font-weight:800;font-family:"Space Grotesk",ui-monospace,monospace;direction:ltr}
+
+/* ══════════════════════════════════════════════════════════
+   GALLERY — Masonry
+   ══════════════════════════════════════════════════════════ */
+.gallery-section{padding-top:.5rem}
+.gallery{column-count:2;column-gap:.6rem;width:100%}
+@media (min-width:640px){.gallery{column-count:3;column-gap:.8rem;}}
+@media (min-width:1024px){.gallery{column-count:4;column-gap:.9rem;}}
+
+.gallery-item{
+  break-inside:avoid;
+  -webkit-column-break-inside:avoid;
+  page-break-inside:avoid;
+  position:relative;
+  display:block;
+  width:100%;
+  margin:0 0 .6rem;
+  border-radius:14px;
+  overflow:hidden;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+  cursor:zoom-in;
+  transition:
+    transform .45s var(--ease),
+    box-shadow .45s var(--ease),
+    border-color .45s var(--ease);
+  will-change:transform;
+  opacity:0;
+  animation:tileIn .55s var(--ease) forwards;
+}
+@media (min-width:640px){.gallery-item{margin-bottom:.8rem;border-radius:16px;}}
+@media (min-width:1024px){.gallery-item{margin-bottom:.9rem;}}
+@keyframes tileIn{
+  from{opacity:0;transform:translateY(24px) scale(.94);}
+  to{opacity:1;transform:none;}
+}
+.gallery-item img{
+  display:block;width:100%;height:auto;
+  transition:transform .6s var(--ease),filter .45s var(--ease);
+  user-select:none;pointer-events:none;
+}
+.gallery-item:hover,
+.gallery-item:focus-visible{
+  transform:translateY(-6px) scale(1.015);
+  border-color:var(--gold);
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.65),
+    0 0 44px rgba(217,194,0,.3);
+  z-index:2;outline:none;
+}
+.gallery-item:hover img,
+.gallery-item:focus-visible img{
+  transform:scale(1.07);
+  filter:brightness(.92) saturate(1.15) contrast(1.05);
+}
+.code-mini{
+  position:absolute;bottom:8px;left:8px;
+  font-family:"Space Grotesk",ui-monospace,monospace;
+  font-size:.62rem;font-weight:800;
+  color:#001830;
+  background:linear-gradient(140deg,var(--gold),#fff2a0);
+  padding:.18rem .55rem;border-radius:99px;
+  direction:ltr;box-shadow:0 4px 12px rgba(0,0,0,.4);
+  transition:opacity .3s var(--ease),transform .3s var(--ease);
+  pointer-events:none;z-index:2;
+}
+.gallery-item:hover .code-mini{opacity:0;transform:translateY(6px);}
+.glass-overlay{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,13,24,.35);
+  backdrop-filter:blur(14px) saturate(160%);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);
+  opacity:0;transition:opacity .4s var(--ease);
+  pointer-events:none;z-index:1;
+}
+.gallery-item:hover .glass-overlay,
+.gallery-item:focus-visible .glass-overlay{opacity:1;}
+.code-badge{
+  font-family:"Space Grotesk",ui-monospace,monospace;
+  font-size:.95rem;font-weight:800;
+  color:#001830;
+  background:linear-gradient(140deg,var(--gold),#fff2a0);
+  padding:.4rem 1rem;border-radius:99px;direction:ltr;
+  transform:scale(.65);opacity:0;
+  transition:
+    transform .45s cubic-bezier(.34,1.56,.64,1),
+    opacity .3s var(--ease);
+  box-shadow:0 10px 30px rgba(217,194,0,.5);
+}
+.gallery-item:hover .code-badge,
+.gallery-item:focus-visible .code-badge{transform:scale(1);opacity:1;}
+
+/* ══════════════════════════════════════════════════════════
+   LOADER / EMPTY
+   ══════════════════════════════════════════════════════════ */
+.loader{
+  display:none;flex-direction:column;align-items:center;gap:.9rem;
+  padding:3rem 1rem;text-align:center;color:var(--muted);font-size:.84rem;
+}
+.loader.on{display:flex}
+.loader i{
+  font-size:2.2rem;color:var(--gold);
+  animation:spin 1.5s linear infinite;
+  filter:drop-shadow(0 0 20px rgba(217,194,0,.6));
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-text b{color:var(--gold);font-weight:800;font-family:"Space Grotesk",monospace;direction:ltr}
+.loader-bar{
+  width:min(280px,70vw);height:4px;border-radius:99px;
+  background:var(--stroke);overflow:hidden;margin-top:.3rem;
+}
+.loader-bar i{
+  display:block;height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,var(--gold),#fff2a0,var(--gold));
+  background-size:200% auto;animation:sh 2s linear infinite;
+  transition:width .3s var(--ease);
+}
+.empty{
+  text-align:center;padding:3.5rem 1.5rem;border-radius:20px;
+  background:var(--panel);border:1px dashed rgba(217,194,0,.35);
+  color:var(--muted);font-size:.88rem;
+}
+.empty i{
+  font-size:2.5rem;color:var(--gold);display:block;
+  margin-bottom:1rem;opacity:.8;
+  animation:floatUp 4s ease-in-out infinite;
+}
+@keyframes floatUp{50%{transform:translateY(-8px)}}
+.empty b{color:var(--text);display:block;margin-bottom:.4rem;font-size:.95rem}
+.empty code{
+  background:rgba(217,194,0,.1);
+  border:1px solid rgba(217,194,0,.3);
+  padding:.15rem .5rem;border-radius:6px;color:var(--gold);
+  font-family:"Space Grotesk",monospace;direction:ltr;
+  display:inline-block;font-size:.8rem;margin:.2rem 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   LIGHTBOX — تمام صفحه با دانلود
+   ══════════════════════════════════════════════════════════ */
+.lightbox{
+  position:fixed;inset:0;z-index:1000;
+  display:grid;place-items:center;
+  opacity:0;visibility:hidden;
+  transition:opacity .4s var(--ease),visibility .4s;
+  padding:clamp(.5rem,2vw,1.5rem);
+}
+.lightbox.open{opacity:1;visibility:visible}
+
+.lb-back{
+  position:absolute;inset:0;
+  background:rgba(0,6,12,.9);
+  backdrop-filter:blur(24px) saturate(140%);
+  -webkit-backdrop-filter:blur(24px) saturate(140%);
+  cursor:zoom-out;
+}
+.lb-stage{
+  position:relative;
+  width:100%;
+  max-width:min(95vw,1400px);
+  max-height:calc(100vh - 2rem);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1rem;
+  transform:scale(.94);
+  opacity:0;
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1),opacity .4s var(--ease);
+  pointer-events:none;
+}
+.lightbox.open .lb-stage{transform:scale(1);opacity:1;pointer-events:auto;}
+
+.lb-img-wrap{
+  position:relative;
+  width:100%;
+  display:grid;
+  place-items:center;
+  flex:1 1 auto;
+  min-height:0;
+}
+#lbImg{
+  max-width:100%;
+  max-height:calc(100vh - 8rem);
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  border-radius:14px;
+  box-shadow:0 40px 90px rgba(0,0,0,.8),0 0 60px rgba(217,194,0,.15);
+  border:1px solid rgba(217,194,0,.25);
+  background:var(--panel2);
+  transition:opacity .3s var(--ease);
+}
+#lbImg.loading{opacity:.3}
+
+.lb-info{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:.55rem;
+  padding:.5rem 1rem;
+  border-radius:99px;
+  background:rgba(0,24,48,.72);
+  border:1px solid rgba(217,194,0,.25);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  box-shadow:0 12px 40px rgba(0,0,0,.5);
+  flex-shrink:0;
+}
+.lb-code{
+  font-family:"Space Grotesk",ui-monospace,monospace;
+  font-size:.9rem;font-weight:800;
+  color:#001830;
+  background:linear-gradient(140deg,var(--gold),#fff2a0);
+  padding:.35rem 1rem;border-radius:99px;
+  direction:ltr;box-shadow:0 6px 18px rgba(217,194,0,.4);
+}
+.lb-size{
+  font-family:"Space Grotesk",ui-monospace,monospace;
+  font-size:.72rem;font-weight:700;
+  color:var(--muted);
+  direction:ltr;
+  padding:.35rem .8rem;
+  border-radius:99px;
+  border:1px solid var(--stroke);
+  background:rgba(255,255,255,.03);
+}
+
+.lb-dl{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  padding:.45rem 1.1rem;
+  border-radius:99px;
+  background:linear-gradient(140deg,var(--gold),#fff2a0);
+  color:#001830;
+  font-weight:800;
+  font-size:.8rem;
+  border:none;
+  cursor:pointer;
+  transition:.3s var(--ease);
+  box-shadow:0 8px 24px rgba(217,194,0,.4);
+  position:relative;
+  overflow:hidden;
+}
+.lb-dl:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 32px rgba(217,194,0,.6);
+}
+.lb-dl:active{transform:scale(.96);}
+.lb-dl i{font-size:.78rem;}
+.lb-dl.dl-success{
+  background:linear-gradient(140deg,#4CAF50,#7ddba0);
+  color:#fff;
+}
+.lb-dl.dl-error{
+  background:linear-gradient(140deg,#E57373,#ff9a9a);
+  color:#fff;
+}
+
+.lb-btn{
+  position:absolute;
+  width:46px;height:46px;
+  border-radius:14px;
+  display:grid;place-items:center;
+  background:rgba(0,24,48,.78);
+  border:1px solid var(--stroke);
+  color:var(--gold);
+  font-size:1rem;
+  cursor:pointer;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  transition:.3s var(--ease);
+  z-index:5;
+  pointer-events:auto;
+}
+.lb-btn:hover{
+  background:var(--soft);
+  border-color:var(--gold);
+  transform:scale(1.08);
+}
+.lb-close{top:1rem;left:1rem;font-size:1.1rem;}
+.lb-close:hover{transform:rotate(90deg) scale(1.08);}
+.lb-prev{top:50%;right:1rem;transform:translateY(-50%);}
+.lb-next{top:50%;left:1rem;transform:translateY(-50%);}
+.lb-prev:hover{transform:translateY(-50%) translateX(-4px) scale(1.05);}
+.lb-next:hover{transform:translateY(-50%) translateX(4px) scale(1.05);}
+.lb-prev[disabled],.lb-next[disabled]{opacity:.3;cursor:not-allowed;pointer-events:none;}
+
+@media (max-width:640px){
+  .lb-btn{width:40px;height:40px;border-radius:11px;font-size:.85rem;}
+  .lb-close{top:.6rem;left:.6rem;}
+  .lb-prev{right:.4rem;}
+  .lb-next{left:.4rem;}
+  .lb-info{gap:.35rem;padding:.4rem .6rem;}
+  .lb-code,.lb-size{font-size:.65rem;padding:.28rem .55rem;}
+  .lb-dl{font-size:.72rem;padding:.4rem .85rem;}
+}
+
+/* ══════════════════════════════════════════════════════════
+   TOAST
+   ══════════════════════════════════════════════════════════ */
+.toast{
+  position:fixed;bottom:2rem;left:50%;
+  transform:translateX(-50%) translateY(40px);
+  padding:.65rem 1.2rem;border-radius:99px;
+  background:rgba(0,24,48,.95);
+  border:1px solid var(--gold);
+  color:var(--gold);
+  font-size:.78rem;font-weight:700;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  z-index:2000;opacity:0;pointer-events:none;
+  transition:.5s;max-width:90vw;text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.6);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ══════════════════════════════════════════════════════════
+   BACK TO TOP + MUSIC
+   ══════════════════════════════════════════════════════════ */
+.to-top{
+  position:fixed;
+  bottom:max(1.2rem,env(safe-area-inset-bottom));
+  left:max(1.2rem,env(safe-area-inset-left));
+  z-index:94;width:52px;height:52px;border-radius:16px;
+  display:grid;place-items:center;
+  background:var(--panel2);border:1px solid var(--stroke);
+  backdrop-filter:blur(18px) saturate(180%);
+  -webkit-backdrop-filter:blur(18px) saturate(180%);
+  color:var(--gold);cursor:pointer;font-size:1.05rem;
+  transition:.4s var(--ease);
+  box-shadow:0 8px 26px rgba(0,0,0,.5);
+  opacity:0;transform:translateY(20px) scale(.9);pointer-events:none;
+}
+.to-top.show{opacity:1;transform:none;pointer-events:auto;}
+.to-top:hover{background:var(--soft);border-color:var(--gold);transform:translateY(-3px);box-shadow:0 0 24px rgba(217,194,0,.4);}
+.mbtn{
+  position:fixed;bottom:max(1.2rem,env(safe-area-inset-bottom));
+  right:max(1.2rem,env(safe-area-inset-right));
+  z-index:94;width:52px;height:52px;border-radius:16px;
+  display:grid;place-items:center;
+  background:rgba(0,24,48,.65);border:1px solid var(--stroke);
+  backdrop-filter:blur(18px);color:var(--gold);cursor:pointer;
+  transition:.3s;box-shadow:0 8px 26px rgba(0,0,0,.5);
+}
+.mbtn:hover{background:var(--soft);border-color:var(--gold);transform:translateY(-3px);}
+.mbtn i{font-size:1rem;}
+.mbtn.playing i{animation:mp 2s ease-in-out infinite;}
+@keyframes mp{50%{transform:scale(1.18)}}
+@media (max-width:640px){.to-top,.mbtn{width:46px;height:46px;border-radius:14px;font-size:.95rem;}}
+
+/* ══════════════════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════════════════ */
+footer{
+  padding:2rem clamp(1rem,3.5vw,3rem) 1.3rem;
+  border-top:1px solid var(--stroke);background:rgba(0,13,24,.65);
+  backdrop-filter:blur(20px);font-size:.7rem;color:var(--muted);
+  padding-bottom:calc(1.3rem + 60px);
+}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;}
+footer a{color:var(--gold);font-weight:700;}
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════════ */
+@media (max-width:640px){
+  header{padding:.65rem .9rem;}
+  .logo{font-size:.88rem;}
+  .logo-mark{width:34px;height:34px;}
+  .back{padding:.45rem .85rem;font-size:.72rem;}
+  main{padding-top:70px;}
+  section{padding:1.4rem 1rem;}
+  h1{font-size:clamp(1.35rem,6.5vw,2rem);}
+  .lead{font-size:.82rem;}
+  .code-mini{font-size:.56rem;padding:.14rem .45rem;bottom:6px;left:6px;}
+  .code-badge{font-size:.82rem;padding:.32rem .8rem;}
+  footer .wrap{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== BACKGROUND ===== -->
+<div class="bg">
+  <div class="au a"></div>
+  <div class="au b"></div>
+</div>
+<canvas id="stars"></canvas>
+
+<!-- ===== AUDIO ===== -->
+<audio id="bgMusic" loop preload="auto" playsinline>
+  <source src="audio/f4b6ed86-c45b-4c96-aa29-50a0ae687ab1.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <a href="index.html" class="logo">
+    <span class="logo-mark">
+      <img src="img/20261011_025918.ico" alt="مهدی مجاهد">
+    </span>
+    <span>مهدی مجاهد</span>
+  </a>
+  <a href="index.html" class="back"><i class="fa-solid fa-arrow-right"></i> بازگشت</a>
+</header>
+
+<main>
+
+  <!-- ═══════ HERO ═══════ -->
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">گالری مناسبتی</span>
+      <h1>گالری تصاویر <em>مناسبتی</em></h1>
+      <p class="lead">
+        مجموعه‌ای از تولیدات مناسبتی — پروفایل، پوستر، بنر و طرح‌های گرافیکی که
+        برای <strong>معاونت متنا</strong> و <strong>ژرفا</strong> ساخته شده‌اند.
+        روی هر تصویر کلیک کنید تا در ابعاد کامل باز شود و در صورت نیاز دانلود کنید.
+      </p>
+      <div class="stats-row" id="statsRow" style="display:none">
+        <span class="stat-pill"><i class="fa-solid fa-images"></i> <b id="statCount">۰</b> طرح</span>
+        <span class="stat-pill"><i class="fa-solid fa-clock-rotate-left"></i> جدیدترین: <b id="statNewest">—</b></span>
+        <span class="stat-pill"><i class="fa-solid fa-cube"></i> قدیمی‌ترین: <b id="statOldest">—</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ LOADER ═══════ -->
+  <section class="gallery-section" id="loaderSection">
+    <div class="wrap">
+      <div class="loader on" id="loader">
+        <i class="fa-solid fa-circle-notch"></i>
+        <div class="loader-text">در حال جستجوی تصاویر مناسبتی… <b id="loaderProgress">۰</b> مورد یافت شد</div>
+        <div class="loader-bar"><i id="loaderBar"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ GALLERY ═══════ -->
+  <section class="gallery-section" id="gallerySection" style="display:none">
+    <div class="wrap">
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <!-- ═══════ EMPTY ═══════ -->
+  <section class="gallery-section" id="emptySection" style="display:none">
+    <div class="wrap">
+      <div class="empty">
+        <i class="fa-solid fa-images"></i>
+        <b>هنوز تصویری اضافه نشده</b>
+        تصاویر خود را در پوشهٔ <code>img/monasebati/</code> با نام‌گذاری عددی قرار دهید
+        (مثل <code>1.png</code> یا <code>100.jpg</code>).
+        <br>صفحه به‌طور خودکار آن‌ها را پیدا می‌کند.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="نمایش تصویر">
+  <div class="lb-back" id="lbBack"></div>
+  <button class="lb-btn lb-close" id="lbClose" aria-label="بستن">✕</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="قبلی">‹</button>
+  <button class="lb-btn lb-next" id="lbNext" aria-label="بعدی">›</button>
+
+  <div class="lb-stage" id="lbStage">
+    <div class="lb-img-wrap">
+      <img id="lbImg" alt="">
+    </div>
+    <div class="lb-info">
+      <div class="lb-code" id="lbCode">#۱</div>
+      <div class="lb-size" id="lbSize">—</div>
+      <button class="lb-dl" id="lbDownload">
+        <i class="fa-solid fa-download"></i>
+        <span>دانلود</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<!-- ===== BACK TO TOP / MUSIC ===== -->
+<button class="to-top" id="toTop" aria-label="بازگشت به بالا">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+<button class="mbtn" id="musicBtn" aria-label="پخش موسیقی">
+  <i class="fa-solid fa-volume-xmark" id="musicIcon"></i>
+</button>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> مهدی مجاهد</span>
+    <a href="index.html">بازگشت به صفحه‌ی اصلی</a>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   HELPERS
+   ══════════════════════════════════════════════════════════ */
+const $ = (s, ctx = document) => ctx.querySelector(s);
+const $$ = (s, ctx = document) => Array.from(ctx.querySelectorAll(s));
+const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+const esc = s => String(s).replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+let toastT = null;
+function showToast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+/* ══════════════════════════════════════════════════════════
+   CONFIG — فقط این بخش را برای هر گالری تغییر بده
+   ══════════════════════════════════════════════════════════ */
+const CONFIG = {
+  folder: 'img/monasebati/',
+  maxNumber: 200,
+  extensions: ['png', 'jpg', 'jpeg', 'webp', 'gif', 'avif', 'PNG', 'JPG', 'JPEG', 'WEBP'],
+  concurrency: 20,
+  stopAfterMisses: 60,
+  downloadPrefix: 'monasebati'
+};
+
+/* ══════════════════════════════════════════════════════════
+   IMAGE PROBING
+   ══════════════════════════════════════════════════════════ */
+function probeImage(num){
+  return new Promise(resolve => {
+    let i = 0;
+    function tryNext(){
+      if (i >= CONFIG.extensions.length){ resolve(null); return; }
+      const ext = CONFIG.extensions[i++];
+      const src = CONFIG.folder + num + '.' + ext;
+      const img = new Image();
+      img.onload = () => resolve({ num, src, w: img.naturalWidth, h: img.naturalHeight });
+      img.onerror = tryNext;
+      img.src = src;
+    }
+    tryNext();
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   DETECT ALL
+   ══════════════════════════════════════════════════════════ */
+async function detectAll(){
+  const found = [];
+  let currentNum = 1;
+  let emptyStreak = 0;
+  const total = CONFIG.maxNumber;
+  const loaderBar = $('#loaderBar');
+  const loaderProg = $('#loaderProgress');
+
+  while (currentNum <= CONFIG.maxNumber){
+    const batch = [];
+    for (let k = 0; k < CONFIG.concurrency && currentNum <= CONFIG.maxNumber; k++, currentNum++){
+      batch.push(probeImage(currentNum));
+    }
+    const results = await Promise.all(batch);
+    results.forEach(r => {
+      if (r){ found.push(r); emptyStreak = 0; }
+      else { emptyStreak++; }
+    });
+    loaderProg.textContent = toFa(found.length);
+    if (loaderBar) loaderBar.style.width = Math.min(100, (currentNum / total) * 100) + '%';
+    if (found.length > 0 && emptyStreak >= CONFIG.stopAfterMisses) break;
+  }
+
+  if (found.length === 0){
+    while (currentNum <= CONFIG.maxNumber){
+      const batch = [];
+      for (let k = 0; k < CONFIG.concurrency && currentNum <= CONFIG.maxNumber; k++, currentNum++){
+        batch.push(probeImage(currentNum));
+      }
+      const results = await Promise.all(batch);
+      results.forEach(r => { if (r) found.push(r); });
+      loaderProg.textContent = toFa(found.length);
+      if (loaderBar) loaderBar.style.width = Math.min(100, (currentNum / total) * 100) + '%';
+    }
+  }
+
+  return found;
+}
+
+/* ══════════════════════════════════════════════════════════
+   RENDER
+   ══════════════════════════════════════════════════════════ */
+let GALLERY_IMAGES = [];
+
+function renderGallery(images){
+  GALLERY_IMAGES = images.slice().sort((a, b) => b.num - a.num);
+
+  const gallery = $('#gallery');
+  const section = $('#gallerySection');
+  const emptySec = $('#emptySection');
+  const statsRow = $('#statsRow');
+
+  if (!GALLERY_IMAGES.length){
+    emptySec.style.display = 'block';
+    section.style.display = 'none';
+    statsRow.style.display = 'none';
+    return;
+  }
+
+  gallery.innerHTML = GALLERY_IMAGES.map((img, i) => `
+    <div class="gallery-item"
+         data-idx="${i}"
+         data-code="${img.num}"
+         tabindex="0"
+         role="button"
+         aria-label="تصویر مناسبتی ${img.num}"
+         style="animation-delay:${Math.min(i * 0.03, 0.8)}s">
+      <img src="${img.src}" alt="تصویر مناسبتی ${img.num}" loading="lazy" decoding="async">
+      <span class="code-mini">#${toFa(img.num)}</span>
+      <div class="glass-overlay" aria-hidden="true">
+        <div class="code-badge">#${toFa(img.num)}</div>
+      </div>
+    </div>
+  `).join('');
+
+  $$('.gallery-item', gallery).forEach(el => {
+    const idx = +el.dataset.idx;
+    el.addEventListener('click', () => openLightbox(idx));
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        openLightbox(idx);
+      }
+    });
+  });
+
+  statsRow.style.display = 'flex';
+  $('#statCount').textContent = toFa(GALLERY_IMAGES.length);
+  $('#statNewest').textContent = '#' + toFa(GALLERY_IMAGES[0].num);
+  $('#statOldest').textContent = '#' + toFa(GALLERY_IMAGES[GALLERY_IMAGES.length - 1].num);
+
+  section.style.display = 'block';
+  emptySec.style.display = 'none';
+}
+
+/* ══════════════════════════════════════════════════════════
+   LIGHTBOX
+   ══════════════════════════════════════════════════════════ */
+let lbIndex = -1;
+
+function openLightbox(idx){
+  if (idx < 0 || idx >= GALLERY_IMAGES.length) return;
+  lbIndex = idx;
+  updateLightbox();
+  $('#lightbox').classList.add('open');
+  document.body.classList.add('lock');
+}
+
+function updateLightbox(){
+  const img = GALLERY_IMAGES[lbIndex];
+  if (!img) return;
+
+  const imgEl = $('#lbImg');
+  imgEl.classList.add('loading');
+  imgEl.src = img.src;
+  imgEl.alt = 'تصویر مناسبتی ' + img.num;
+  imgEl.onload = () => imgEl.classList.remove('loading');
+
+  $('#lbCode').textContent = '#' + toFa(img.num);
+  $('#lbSize').textContent = img.w + ' × ' + img.h;
+
+  /* ریست دکمه دانلود */
+  const dl = $('#lbDownload');
+  dl.classList.remove('dl-success', 'dl-error');
+  dl.querySelector('span').textContent = 'دانلود';
+  dl.disabled = false;
+
+  $('#lbPrev').disabled = lbIndex >= GALLERY_IMAGES.length - 1;
+  $('#lbNext').disabled = lbIndex <= 0;
+}
+
+function closeLightbox(){
+  $('#lightbox').classList.remove('open');
+  document.body.classList.remove('lock');
+  lbIndex = -1;
+  /* پاک کردن منبع برای آزادسازی حافظه */
+  setTimeout(() => { $('#lbImg').src = ''; }, 400);
+}
+
+function lbPrev(){ if (lbIndex < GALLERY_IMAGES.length - 1){ lbIndex++; updateLightbox(); } }
+function lbNext(){ if (lbIndex > 0){ lbIndex--; updateLightbox(); } }
+
+/* ══════════════════════════════════════════════════════════
+   DOWNLOAD
+   ══════════════════════════════════════════════════════════ */
+async function downloadCurrentImage(){
+  const img = GALLERY_IMAGES[lbIndex];
+  if (!img) return;
+
+  const dl = $('#lbDownload');
+  const span = dl.querySelector('span');
+  dl.disabled = true;
+  span.textContent = 'در حال دانلود…';
+
+  /* استخراج پسوند اصلی */
+  const ext = img.src.split('.').pop().split('?')[0];
+  const filename = `${CONFIG.downloadPrefix}-${img.num}.${ext}`;
+
+  try {
+    /* تلاش برای گرفتن blob (مطمئن‌ترین راه) */
+    const res = await fetch(img.src, { cache: 'force-cache' });
+    if (!res.ok) throw new Error('fetch failed');
+    const blob = await res.blob();
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+
+    dl.classList.add('dl-success');
+    span.textContent = '✓ دانلود شد';
+    showToast('دانلود شروع شد ✦ ' + filename);
+
+    setTimeout(() => {
+      dl.classList.remove('dl-success');
+      span.textContent = 'دانلود';
+      dl.disabled = false;
+    }, 2500);
+
+  } catch (e){
+    /* فالبک: دانلود مستقیم از طریق <a download> */
+    try {
+      const a = document.createElement('a');
+      a.href = img.src;
+      a.download = filename;
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      dl.classList.add('dl-success');
+      span.textContent = '✓ دانلود شد';
+      showToast('دانلود شروع شد ✦');
+
+      setTimeout(() => {
+        dl.classList.remove('dl-success');
+        span.textContent = 'دانلود';
+        dl.disabled = false;
+      }, 2500);
+
+    } catch (err){
+      console.error('Download failed:', err);
+      dl.classList.add('dl-error');
+      span.textContent = '✗ خطا';
+      showToast('خطا در دانلود — لطفاً دوباره امتحان کنید');
+
+      setTimeout(() => {
+        dl.classList.remove('dl-error');
+        span.textContent = 'دانلود';
+        dl.disabled = false;
+      }, 2500);
+    }
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   EVENTS
+   ══════════════════════════════════════════════════════════ */
+$('#lbBack').addEventListener('click', closeLightbox);
+$('#lbClose').addEventListener('click', closeLightbox);
+$('#lbPrev').addEventListener('click', lbPrev);
+$('#lbNext').addEventListener('click', lbNext);
+$('#lbDownload').addEventListener('click', downloadCurrentImage);
+
+/* کیبورد */
+document.addEventListener('keydown', e => {
+  if (!$('#lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') lbPrev(); /* RTL: راست = قبلی */
+  if (e.key === 'ArrowLeft') lbNext();
+  if ((e.key === 'd' || e.key === 'D') && (e.ctrlKey || e.metaKey)){
+    e.preventDefault();
+    downloadCurrentImage();
+  }
+});
+
+/* سوایپ لمسی */
+(function lightboxSwipe(){
+  let sx = 0, sy = 0;
+  const lb = $('#lightbox');
+  lb.addEventListener('touchstart', e => {
+    if (!e.touches[0]) return;
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
+  }, { passive: true });
+  lb.addEventListener('touchmove', e => {
+    if (!e.touches[0]) return;
+    const dx = e.touches[0].clientX - sx;
+    const dy = e.touches[0].clientY - sy;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)){
+      if (dx > 0) lbPrev(); else lbNext();
+      sx = e.touches[0].clientX;
+    }
+  }, { passive: true });
+})();
+
+/* ══════════════════════════════════════════════════════════
+   BACK TO TOP
+   ══════════════════════════════════════════════════════════ */
+(function(){
+  const btn = $('#toTop');
+  let ticking = false;
+  function onScroll(){
+    btn.classList.toggle('show', window.scrollY > 400);
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking){ requestAnimationFrame(onScroll); ticking = true; }
+  }, { passive: true });
+  onScroll();
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+
+/* ══════════════════════════════════════════════════════════
+   MUSIC PLAYER
+   ══════════════════════════════════════════════════════════ */
+(function music(){
+  const audio = $('#bgMusic');
+  const btn = $('#musicBtn');
+  const icon = $('#musicIcon');
+  if (!audio || !btn || !icon) return;
+
+  const VOL = 0.15, FADE = 2000, KEY = 'portfolio_music_on';
+  let started = false, wantOn = true, raf = null;
+
+  try {
+    const s = localStorage.getItem(KEY);
+    if (s === 'off') wantOn = false;
+  } catch(e){}
+
+  function updateUI(){
+    const playing = !audio.paused && !audio.ended && started;
+    btn.classList.toggle('playing', playing);
+    icon.className = playing ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+  }
+  updateUI();
+
+  function fadeTo(target, dur, done){
+    if (raf) cancelAnimationFrame(raf);
+    const start = audio.volume, t0 = performance.now();
+    function step(now){
+      const p = Math.min((now - t0) / dur, 1);
+      const e = p < 0.5 ? 2*p*p : 1 - Math.pow(-2*p + 2, 2) / 2;
+      audio.volume = Math.max(0, Math.min(1, start + (target - start) * e));
+      if (p < 1) raf = requestAnimationFrame(step);
+      else { raf = null; if (typeof done === 'function') done(); }
+    }
+    raf = requestAnimationFrame(step);
+  }
+
+  function start(){
+    if (started) return;
+    const p = audio.play();
+    if (p && typeof p.then === 'function'){
+      p.then(() => {
+        started = true;
+        audio.volume = 0;
+        fadeTo(VOL, FADE);
+        updateUI();
+        removeL();
+      }).catch(() => updateUI());
+    } else {
+      audio.volume = VOL;
+      started = true;
+      updateUI();
+      removeL();
+    }
+  }
+
+  function stop(fade){
+    if (!fade){ audio.pause(); audio.volume = 0; updateUI(); return; }
+    fadeTo(0, 700, () => { audio.pause(); updateUI(); });
+  }
+
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    if (!started){
+      wantOn = true;
+      try { localStorage.setItem(KEY, 'on'); } catch(err){}
+      start(); return;
+    }
+    if (audio.paused){
+      wantOn = true;
+      try { localStorage.setItem(KEY, 'on'); } catch(err){}
+      audio.play().then(() => { fadeTo(VOL, 900); updateUI(); }).catch(() => {});
+    } else {
+      wantOn = false;
+      try { localStorage.setItem(KEY, 'off'); } catch(err){}
+      stop(true);
+    }
+  });
+
+  const events = ['click', 'scroll', 'touchstart', 'keydown', 'pointerdown'];
+  function onFirst(){ if (started || !wantOn) return; start(); }
+  function addL(){ events.forEach(e => window.addEventListener(e, onFirst, { passive: true })); }
+  function removeL(){ events.forEach(e => window.removeEventListener(e, onFirst)); }
+  if (wantOn) addL();
+
+  let wasPlaying = false;
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden){
+      wasPlaying = !audio.paused && started;
+      if (wasPlaying){ audio.pause(); updateUI(); }
+    } else if (wasPlaying && wantOn && started){
+      audio.play().then(() => { fadeTo(VOL, 700); updateUI(); }).catch(() => {});
+    }
+  });
+
+  audio.addEventListener('error', () => {
+    btn.style.opacity = '.4';
+    btn.style.cursor = 'not-allowed';
+  });
+})();
+
+/* ══════════════════════════════════════════════════════════
+   STARFIELD
+   ══════════════════════════════════════════════════════════ */
+(function starfield(){
+  const canvas = $('#stars');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr, list = [], rafId = null, isVisible = true;
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.width = innerWidth * dpr;
+    h = canvas.height = innerHeight * dpr;
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    const n = Math.min(50, Math.floor(innerWidth / 25));
+    list = new Array(n);
+    for (let i = 0; i < n; i++){
+      list[i] = {
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: (Math.random() * 1.2 + 0.3) * dpr,
+        vx: (Math.random() - 0.5) * 0.15 * dpr,
+        vy: (Math.random() - 0.5) * 0.15 * dpr,
+        a: Math.random() * 0.5 + 0.2
+      };
+    }
+  }
+
+  function draw(){
+    if (!isVisible){ rafId = null; return; }
+    ctx.clearRect(0, 0, w, h);
+    for (let i = 0; i < list.length; i++){
+      const s = list[i];
+      s.x += s.vx; s.y += s.vy;
+      if (s.x < 0) s.x = w; else if (s.x > w) s.x = 0;
+      if (s.y < 0) s.y = h; else if (s.y > h) s.y = 0;
+      ctx.globalAlpha = s.a;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = '#D9C200';
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    rafId = requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  document.addEventListener('visibilitychange', () => {
+    isVisible = !document.hidden;
+    if (isVisible && rafId === null) draw();
+  });
+  draw();
+})();
+
+/* ══════════════════════════════════════════════════════════
+   PROTECTION + YEAR
+   ══════════════════════════════════════════════════════════ */
+document.addEventListener('contextmenu', e => {
+  if (e.target.closest('input, textarea, [contenteditable]')) return;
+  e.preventDefault();
+});
+document.addEventListener('dragstart', e => e.preventDefault());
+
+(function year(){
+  const el = document.getElementById('year');
+  if (el) el.textContent = toFa(new Date().getFullYear());
+})();
+
+/* ══════════════════════════════════════════════════════════
+   BOOT
+   ══════════════════════════════════════════════════════════ */
+(async function boot(){
+  try {
+    const found = await detectAll();
+    $('#loaderSection').style.display = 'none';
+    renderGallery(found);
+  } catch (e){
+    console.error('Gallery detection failed:', e);
+    $('#loaderSection').style.display = 'none';
+    $('#emptySection').style.display = 'block';
+  }
+})();
+</script>
+
+</body>
+</html>
